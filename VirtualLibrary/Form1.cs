@@ -11,7 +11,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
-    public partial class Form1 : Form, IUser
+    public partial class Form1 : Form
     {
         public Form1()
         {
@@ -26,6 +26,12 @@ namespace VirtualLibrary
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form photoForm = new Form2();
+            photoForm.Show();
         }
     }
 }
