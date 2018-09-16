@@ -11,6 +11,6 @@ namespace VirtualLibrary.View
             string NameText { get; set; }
             string SurnameText { get; set; }
             string EmailText { get; set; }
-            string PhoneNumber { get; set; }
+            string DateOfBirthText { get; set; }
     }
 }

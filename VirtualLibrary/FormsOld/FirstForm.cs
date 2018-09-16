@@ -7,31 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
-    public partial class Form1 : Form
+    public partial class FirstForm : Form
     {
-        public Form1()
+        public FirstForm()
         {
             InitializeComponent();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 registerForm = new Form1();
+            registerForm.ShowDialog();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void nameTextBox_TextChanged(object sender, EventArgs e)
+        private void SignInButton_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Form photoForm = new Form2();
-            photoForm.Show();
         }
     }
 }
