@@ -27,6 +27,7 @@ namespace VirtualLibrary.Forms
             this.Hide();
             Form1 registerForm = new Form1();
             registerForm.ShowDialog();
+
         }
     }
 }
