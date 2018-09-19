@@ -53,9 +53,21 @@
     <Reference Include="ZedGraph">
       <HintPath>codeLibraries\ZedGraph.dll</HintPath>
     </Reference>
+    <Reference Include="zxing, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.4.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.4\lib\net461\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FaceDetection.cs" />
+    <Compile Include="Forms\BarcodeScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BarcodeScanner.designer.cs">
+      <DependentUpon>BarcodeScanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FirstForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +88,15 @@
     </Compile>
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Presenters\ScannerPresenter.cs" />
     <Compile Include="Presenters\UserPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UData\UserData.cs" />
     <Compile Include="View\IUser.cs" />
+    <EmbeddedResource Include="Forms\BarcodeScanner.resx">
+      <DependentUpon>BarcodeScanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstForm.resx">
       <DependentUpon>FirstForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,6 +115,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
