@@ -12,7 +12,7 @@ namespace VirtualLibrary.Presenters
     {
         IBarcodeReader reader = new ZXing.BarcodeReader();
 
-        public Result decodedBarcode (string imageLocation)
+        public Result DecodedBarcode (string imageLocation)
         {
             Bitmap barcodeBitmap = (Bitmap)Image.FromFile(imageLocation);
             return reader.Decode(barcodeBitmap);

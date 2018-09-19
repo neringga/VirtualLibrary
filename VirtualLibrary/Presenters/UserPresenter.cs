@@ -28,7 +28,7 @@ namespace VirtualLibrary.Presenters
             UserData.users.Add(newUser);                 //SLYKSTYNE nes padariau static
         }
 
-        public List<User> getUserList()
+        public List<User> GetUserList()
         {
             return UserData.users;
         }
