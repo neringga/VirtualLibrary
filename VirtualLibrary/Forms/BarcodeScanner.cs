@@ -26,7 +26,7 @@ namespace VirtualLibrary.Forms
                     imageLocation = dialog.FileName;
                     barcodePictureBox.ImageLocation = imageLocation;
 
-                    var result = scannerPresenter.decodedBarcode(imageLocation);
+                    var result = scannerPresenter.DecodedBarcode(imageLocation);
 
                     if (result != null)
                     {
