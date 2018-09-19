@@ -51,7 +51,7 @@
             this.pictureUploadButton.TabIndex = 1;
             this.pictureUploadButton.Text = "Upload";
             this.pictureUploadButton.UseVisualStyleBackColor = true;
-            this.pictureUploadButton.Click += new System.EventHandler(this.pictureUploadButton_Click);
+            this.pictureUploadButton.Click += new System.EventHandler(this.PictureUploadButton_Click);
             // 
             // BarcodeScanner
             // 

@@ -47,7 +47,7 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 1;
-            this.timer1.Tick += new System.EventHandler(this.startCamera);
+            this.timer1.Tick += new System.EventHandler(this.StartCamera);
             // 
             // button
             // 
@@ -58,7 +58,7 @@
             this.button.TabIndex = 3;
             this.button.Text = "Take photo";
             this.button.UseVisualStyleBackColor = false;
-            this.button.Click += new System.EventHandler(this.stopCamera);
+            this.button.Click += new System.EventHandler(this.StopCamera);
             // 
             // Form2
             // 

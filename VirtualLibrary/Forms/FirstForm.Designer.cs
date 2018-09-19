@@ -51,7 +51,7 @@
             this.label2.Size = new System.Drawing.Size(148, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Welcome to the Virtual Library";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // button1
             // 

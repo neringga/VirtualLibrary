@@ -11,7 +11,7 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
         }
 
-        private void pictureUploadButton_Click(object sender, EventArgs e)
+        private void PictureUploadButton_Click(object sender, EventArgs e)
         {
             String imageLocation = "";
             try
