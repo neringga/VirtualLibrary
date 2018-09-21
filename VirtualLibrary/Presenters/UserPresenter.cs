@@ -26,7 +26,9 @@ namespace VirtualLibrary.Presenters
             newUser.Surname = userView.SurnameText;
             newUser.Email = userView.EmailText;
             newUser.Password = userView.PasswordText;
-            UserDataList.users.Add(newUser);                 //SLYKSTYNE nes padariau static
+
+            UserDataList.users.Add(newUser);                
+
         }
 
         public List<User> GetUserList()
