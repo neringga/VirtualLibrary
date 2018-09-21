@@ -11,7 +11,7 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
         }
 
-        private void pictureUploadButton_Click(object sender, EventArgs e)
+        private void PictureUploadButton_Click(object sender, EventArgs e)
         {
             String imageLocation = "";
             try
@@ -26,7 +26,7 @@ namespace VirtualLibrary.Forms
                     imageLocation = dialog.FileName;
                     barcodePictureBox.ImageLocation = imageLocation;
 
-                    var result = scannerPresenter.decodedBarcode(imageLocation);
+                    var result = scannerPresenter.DecodedBarcode(imageLocation);
 
                     if (result != null)
                     {

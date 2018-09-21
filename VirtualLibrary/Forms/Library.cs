@@ -10,23 +10,17 @@ using System.Windows.Forms;
 
 namespace VirtualLibrary.Forms
 {
-    public partial class FirstForm : Form
+    public partial class Library : Form
     {
-        public FirstForm()
+        public Library()
         {
             InitializeComponent();
         }
 
-        private void Label2_Click(object sender, EventArgs e)
+        private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void RegistrationButton_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form1 registerForm = new Form1();
-            registerForm.ShowDialog();
+            BarcodeScanner barcodeScanner = new BarcodeScanner();
+            barcodeScanner.ShowDialog();
         }
     }
 }

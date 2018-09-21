@@ -31,7 +31,7 @@ namespace VirtualLibrary
 
 
 
-        private void stopCamera(object sender, EventArgs e)
+        private void StopCamera(object sender, EventArgs e)
         {
             Mat img1 = capture.QueryFrame();
             Image<Bgr, Byte> nextFrame = img1.ToImage<Bgr, Byte>();
@@ -44,7 +44,7 @@ namespace VirtualLibrary
             timer1.Stop();
         }
 
-        private void startCamera(object sender, EventArgs e)
+        private void StartCamera(object sender, EventArgs e)
         {
             Mat img1 = capture.QueryFrame();
             Image<Bgr, Byte> nextFrame = img1.ToImage<Bgr, Byte>();
