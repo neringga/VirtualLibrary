@@ -16,8 +16,10 @@ namespace VirtualLibrary.Forms
             String imageLocation = "";
             try
             {
-                OpenFileDialog dialog = new OpenFileDialog();
-                dialog.Filter = "jpg files(*.jpg)|*.jpg| All Files(*.*)|*.*";
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    Filter = "jpg files(*.jpg)|*.jpg| All Files(*.*)|*.*"
+                };
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {

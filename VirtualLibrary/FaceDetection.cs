@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
-
 using Emgu.CV;
 using Emgu.CV.Structure;
-using Emgu.Util;
 
 public class FaceDetection
 {
@@ -12,7 +10,7 @@ public class FaceDetection
 
     }
 
-    public static Image<Bgr, Byte> Detect(Image<Bgr, Byte> nextFrame, CascadeClassifier cascade)
+    public static Image<Bgr, byte> Detect(Image<Bgr, Byte> nextFrame, CascadeClassifier cascade)
     {
         Image<Gray, byte> grayframe = nextFrame.Convert<Gray, byte>();
         var faces = cascade.DetectMultiScale(grayframe, 1.2, 3);
