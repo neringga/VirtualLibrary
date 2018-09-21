@@ -7,7 +7,7 @@ using VirtualLibrary.Model;
 
 namespace VirtualLibrary.UData
 {
-    class UserData
+    class UserDataList
     {
         public static List<User> users = new List<User>();
     }
