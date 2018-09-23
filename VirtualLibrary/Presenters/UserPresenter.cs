@@ -48,6 +48,7 @@ namespace VirtualLibrary.Presenters
                 MessageBox.Show(e.Message);
                 return;
             }
+
             UserData.users.Add(newUser);                 //SLYKSTYNE nes padariau static
             MessageBox.Show("Registered successfully");
         }
