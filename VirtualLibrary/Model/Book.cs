@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Model
 {
-    class Book
+    class Book : IBook
     {
         public string Title { get; set; }
         public string Author { get; set; }
