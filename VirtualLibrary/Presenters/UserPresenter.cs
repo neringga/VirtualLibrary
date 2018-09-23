@@ -1,61 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualLibrary.View;
 using VirtualLibrary.Model;
-using VirtualLibrary.UData;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.DataSources;
 
 namespace VirtualLibrary.Presenters
 {
     class UserPresenter
     {
         IUser userView;
-        public UserDataList userData = new UserDataList();
-        User newUser = new User();
+        private IRepository<IUser> userRepository;
 
         public UserPresenter(IUser view)
         {
             userView = view;
+
+            var _dataSource = new LocalDataSource();
+            userRepository = new UserRepository(_dataSource);
         }
 
         public void UserDataInsertUser()
         {
+
+            IUser newUser = new User();
             try
             {
-                if (userView.NameText== string.Empty)
+                if (userView.Name == string.Empty)
                     throw new ArgumentNullException("Name");
-                newUser.Name = userView.NameText;
-                if (userView.SurnameText == string.Empty)
+                newUser.Name = userView.Name;
+                if (userView.Surname == string.Empty)
                     throw new ArgumentNullException("Surname");
-                newUser.Surname = userView.SurnameText;
-                if (userView.EmailText == string.Empty)
+                newUser.Surname = userView.Surname;
+                if (userView.Email == string.Empty)
                     throw new ArgumentNullException("Email");
                 Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");        //Regex for email *@*.*
-                Match match = regex.Match(userView.EmailText);
+                Match match = regex.Match(userView.Email);
                 if (match.Success)
-                    newUser.Email = userView.EmailText;
+                    newUser.Email = userView.Email;
                 else
                 {
-                    MessageBox.Show(userView.EmailText + " is not a correct email format.");
+                    MessageBox.Show(userView.Email + " is not a correct email format.");
                     return;
                 }
             }
-            catch (ArgumentNullException e) {
+            catch (ArgumentNullException e)
+            {
                 MessageBox.Show(e.Message);
                 return;
             }
 
-           UserDataList.users.Add(newUser);
+            userRepository.Add(newUser);
             MessageBox.Show("Registered successfully");
         }
 
-        public List<User> GetUserList()
+        public IList<IUser> GetUserList()
         {
-            return UserDataList.users;
+            return userRepository.GetList();
         }
     }
 }

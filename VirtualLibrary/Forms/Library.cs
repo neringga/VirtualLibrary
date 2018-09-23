@@ -19,9 +19,10 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
 
             BookListFromFile bookListFromFile = new BookListFromFile();
-            List<Book> bookList = bookListFromFile.GetBookList();
+            IList<View.IBook> bookList = bookListFromFile.GetBookList();
 
-            bookList.ForEach(x => bookListBox.Items.Add(x.Author + " " + x.Title));
+            foreach (var book in bookList)
+                bookListBox.Items.Add(book.Author + " " + book.Title);
         }
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
@@ -32,7 +33,7 @@ namespace VirtualLibrary.Forms
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

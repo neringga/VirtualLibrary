@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VirtualLibrary.Model;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Data
 {
@@ -14,14 +15,14 @@ namespace VirtualLibrary.Data
             Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "BookList.txt"));
         private string line;
         private readonly string[] words;
-        private Book book = new Book();
-        private List<Book> bookList = new List<Book>();
+
+        private List<IBook> bookList = new List<IBook>();
 
         public BookListFromFile ()
         {
             while ((line = file.ReadLine()) != null)
             {
-                book = new Book();
+                var book = new Book();
                 words = line.Split(',');
                 book.Title = words[0];
                 book.Author = words[1];
@@ -30,7 +31,7 @@ namespace VirtualLibrary.Data
             }
         }
 
-        public List<Book> GetBookList ()
+        public IList<IBook> GetBookList ()
         {
             return bookList;
         }

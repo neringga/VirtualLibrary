@@ -8,10 +8,10 @@ namespace VirtualLibrary.View
 {
     interface IUser
     {
-            string NameText { get; set; }
-            string SurnameText { get; set; }
-            string EmailText { get; set; }
-            string DateOfBirthText { get; set; }
-            string PasswordText { get; set; }
+        string Name { get; set; }
+        string Surname { get; set; }
+        string Email { get; set; }
+        string DateOfBirth{ get; set; }
+        string Password { get; set; }
     }
 }

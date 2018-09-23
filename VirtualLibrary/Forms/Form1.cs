@@ -10,32 +10,33 @@ namespace VirtualLibrary
         private ErrorProvider passwordErrorProvider;
         private ErrorProvider repPasswordErrorProvider;
 
-        public string NameText
+        public string Name
         {
             get => nameTextBox.Text;
             set => nameTextBox.Text = value;
         }
-        public string SurnameText
+        public string Surname
         {
             get => surnameTextBox.Text;
             set => surnameTextBox.Text = value;
         }
-        public string EmailText
+        public string Email
         {
             get => emailTextBox.Text;
             set => emailTextBox.Text = value;
         }
 
-        public string DateOfBirthText
+        public string DateOfBirth
         {
             get => dateTimeBox.Text;
             set => dateTimeBox.Text = value;
         }
-        public string PasswordText
+        public string Password
         {
             get => passwordTextBox.Text;
             set => passwordTextBox.Text = value;
         }
+
 
         public Form1()
         {
