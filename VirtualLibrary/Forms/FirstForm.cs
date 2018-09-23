@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,12 @@ namespace VirtualLibrary.Forms
             this.Hide();
             Form1 registerForm = new Form1();
             registerForm.ShowDialog();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Library library = new Library();
+            library.ShowDialog();
         }
     }
 }
