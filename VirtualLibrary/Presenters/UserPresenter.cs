@@ -40,7 +40,7 @@ namespace VirtualLibrary.Presenters
                     newUser.Email = userView.EmailText;
                 else
                 {
-                    MessageBox.Show(userView.EmailText + " is not a correct email.");
+                    MessageBox.Show(userView.EmailText + " is not a correct email format.");
                     return;
                 }
             }
