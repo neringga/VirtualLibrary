@@ -80,7 +80,6 @@ namespace VirtualLibrary
             {
                 UserPresenter userPresenter = new UserPresenter(this);
                 userPresenter.UserDataInsertUser();
-                MessageBox.Show("Registered successfully");
             }
             else
             {
