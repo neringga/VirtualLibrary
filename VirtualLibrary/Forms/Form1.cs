@@ -80,7 +80,6 @@ namespace VirtualLibrary
             {
                 UserPresenter userPresenter = new UserPresenter(this);
                 userPresenter.UserDataInsertUser();
-                MessageBox.Show("Registered successfully");
             }
             else
             {
@@ -93,6 +92,7 @@ namespace VirtualLibrary
         {
 
         }
+
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
