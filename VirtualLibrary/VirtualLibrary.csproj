@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\BookListFromFile.cs" />
     <Compile Include="FaceDetection.cs" />
     <Compile Include="Forms\BarcodeScanner.cs">
       <SubType>Form</SubType>
@@ -98,7 +99,7 @@
     <Compile Include="Presenters\UserPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UData\UserData.cs" />
+    <Compile Include="Data\UserDataList.cs" />
     <Compile Include="View\IUser.cs" />
     <EmbeddedResource Include="Forms\BarcodeScanner.resx">
       <DependentUpon>BarcodeScanner.cs</DependentUpon>

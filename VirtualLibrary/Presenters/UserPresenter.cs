@@ -14,7 +14,7 @@ namespace VirtualLibrary.Presenters
     class UserPresenter
     {
         IUser userView;
-        public UserData userData = new UserData();
+        public UserDataList userData = new UserDataList();
         User newUser = new User();
 
         public UserPresenter(IUser view)
@@ -49,13 +49,13 @@ namespace VirtualLibrary.Presenters
                 return;
             }
 
-            UserData.users.Add(newUser);                 //SLYKSTYNE nes padariau static
+           UserDataList.users.Add(newUser);
             MessageBox.Show("Registered successfully");
         }
 
         public List<User> GetUserList()
         {
-            return UserData.users;
+            return UserDataList.users;
         }
     }
 }
