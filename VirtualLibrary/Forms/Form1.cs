@@ -61,7 +61,21 @@ namespace VirtualLibrary
         {
             UserPresenter userPresenter = new UserPresenter(this);
             userPresenter.UserDataInsertUser();
-            MessageBox.Show("Registered successfully");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NameLabel_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
