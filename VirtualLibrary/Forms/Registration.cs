@@ -73,11 +73,11 @@ namespace VirtualLibrary
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            if (!(String.IsNullOrEmpty(nameTextBox.Text)) &&
-                !(String.IsNullOrEmpty(surnameTextBox.Text)) &&
-                !(String.IsNullOrEmpty(emailTextBox.Text)) &&
-                !(String.IsNullOrEmpty(repeatPasswTextBox.Text)) &&
-                !(String.IsNullOrEmpty(dateTimeBox.Text)))
+            if (!string.IsNullOrEmpty(nameTextBox.Text) &&
+                !string.IsNullOrEmpty(surnameTextBox.Text) &&
+                !string.IsNullOrEmpty(emailTextBox.Text) &&
+                !string.IsNullOrEmpty(repeatPasswTextBox.Text) &&
+                !string.IsNullOrEmpty(dateTimeBox.Text))
             {
                 UserPresenter userPresenter = new UserPresenter(this);
                 userPresenter.UserDataInsertUser();
@@ -120,6 +120,11 @@ namespace VirtualLibrary
                 repPasswordErrorProvider.SetError(this.repeatPasswTextBox, "Passwords do not match");
                 registerButton.Enabled = false;
             }
+        }
+
+        private void Registration_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
