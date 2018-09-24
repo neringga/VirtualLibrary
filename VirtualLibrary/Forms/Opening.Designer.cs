@@ -1,6 +1,6 @@
 ﻿namespace VirtualLibrary.Forms
 {
-    partial class FirstForm
+    partial class Opening
     {
         /// <summary>
         /// Required designer variable.

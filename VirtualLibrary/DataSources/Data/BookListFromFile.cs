@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirtualLibrary.Model;
 using VirtualLibrary.View;
 
@@ -13,27 +9,26 @@ namespace VirtualLibrary.Data
     {
         readonly System.IO.StreamReader file = new StreamReader(
             Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "BookList.txt"));
-        private string line;
-        private readonly string[] words;
-
-        private List<IBook> bookList = new List<IBook>();
+        private string _line;
+        private readonly string[] _words;
+        private List<IBook> _bookList = new List<IBook>();
 
         public BookListFromFile ()
         {
-            while ((line = file.ReadLine()) != null)
+            while ((_line = file.ReadLine()) != null)
             {
                 var book = new Book();
-                words = line.Split(',');
-                book.Title = words[0];
-                book.Author = words[1];
-                book.Code = words[2];
-                bookList.Add(book);
+                _words = _line.Split(',');
+                book.Title = _words[0];
+                book.Author = _words[1];
+                book.Code = _words[2];
+                _bookList.Add(book);
             }
         }
 
         public IList<IBook> GetBookList ()
         {
-            return bookList;
+            return _bookList;
         }
     }
 }

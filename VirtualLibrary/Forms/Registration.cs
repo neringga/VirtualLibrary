@@ -5,12 +5,12 @@ using VirtualLibrary.Presenters;
 
 namespace VirtualLibrary
 {
-    public partial class Form1 : Form, IUser
+    public partial class Registration : Form, IUser
     {
         private ErrorProvider passwordErrorProvider;
         private ErrorProvider repPasswordErrorProvider;
 
-        public string Name
+        public new string Name
         {
             get => nameTextBox.Text;
             set => nameTextBox.Text = value;
@@ -38,7 +38,7 @@ namespace VirtualLibrary
         }
 
 
-        public Form1()
+        public Registration()
         {
             InitializeComponent();
 
@@ -67,7 +67,7 @@ namespace VirtualLibrary
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Form photoForm = new Form2();
+            Form photoForm = new LiveCamera();
             photoForm.Show();
         }
 

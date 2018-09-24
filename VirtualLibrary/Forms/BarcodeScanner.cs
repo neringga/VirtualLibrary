@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using VirtualLibrary.Presenters;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
@@ -32,7 +33,8 @@ namespace VirtualLibrary.Forms
 
                     if (result != null)
                     {
-                        MessageBox.Show(result.Text);
+                        IBook book = scannerPresenter.ScannedBook(result.Text);
+                        MessageBox.Show(book.Author + " " + book.Title);
                     }
                     else
                     {

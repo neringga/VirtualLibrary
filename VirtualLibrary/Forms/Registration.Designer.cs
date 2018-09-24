@@ -1,6 +1,6 @@
 ﻿namespace VirtualLibrary
 {
-    partial class Form1
+    partial class Registration
     {
         /// <summary>
         /// Required designer variable.
@@ -177,7 +177,7 @@
             this.repeatPasswTextBox.TabIndex = 14;
             this.repeatPasswTextBox.TextChanged += new System.EventHandler(this.RepeatPasswTextBox_TextChanged);
             // 
-            // Form1
+            // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,7 +197,7 @@
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
-            this.Name = "Form1";
+            this.Name = "Registration";
             this.Text = "Registration";
             this.ResumeLayout(false);
             this.PerformLayout();

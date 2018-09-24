@@ -71,23 +71,23 @@
     <Compile Include="Forms\BarcodeScanner.designer.cs">
       <DependentUpon>BarcodeScanner.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FirstForm.cs">
+    <Compile Include="Forms\Opening.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FirstForm.Designer.cs">
-      <DependentUpon>FirstForm.cs</DependentUpon>
+    <Compile Include="Forms\Opening.Designer.cs">
+      <DependentUpon>Opening.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\Registration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\Registration.Designer.cs">
+      <DependentUpon>Registration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form2.cs">
+    <Compile Include="Forms\LiveCamera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="Forms\LiveCamera.Designer.cs">
+      <DependentUpon>LiveCamera.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Library.cs">
       <SubType>Form</SubType>
@@ -109,14 +109,14 @@
     <EmbeddedResource Include="Forms\BarcodeScanner.resx">
       <DependentUpon>BarcodeScanner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FirstForm.resx">
-      <DependentUpon>FirstForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Opening.resx">
+      <DependentUpon>Opening.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Registration.resx">
+      <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LiveCamera.resx">
+      <DependentUpon>LiveCamera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Library.resx">
       <DependentUpon>Library.cs</DependentUpon>

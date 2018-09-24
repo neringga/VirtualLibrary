@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace VirtualLibrary.Forms
 {
-    public partial class FirstForm : Form
+    public partial class Opening : Form
     {
-        public FirstForm()
+        public Opening()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace VirtualLibrary.Forms
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form1 registerForm = new Form1();
+            Registration registerForm = new Registration();
             registerForm.ShowDialog();
         }
 

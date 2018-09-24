@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources
@@ -11,7 +7,7 @@ namespace VirtualLibrary.DataSources
     {
         IList<IBook> GetBookList();
         IList<IUser> GetUserList();
-        void AddUser (IUser user);
-        void AddBook (IBook book);
+        void AddUser(IUser user);
+        void AddBook(IBook book);
     }
 }
