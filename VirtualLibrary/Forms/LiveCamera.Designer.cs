@@ -1,6 +1,6 @@
 ﻿namespace VirtualLibrary
 {
-    partial class Form2
+    partial class LiveCamera
     {
         /// <summary>
         /// Required designer variable.
@@ -54,7 +54,7 @@
             this.button.BackColor = System.Drawing.SystemColors.ControlDark;
             this.button.Location = new System.Drawing.Point(887, 172);
             this.button.Name = "button";
-            this.button.Size = new System.Drawing.Size(196, 124);
+            this.button.Size = new System.Drawing.Size(140, 83);
             this.button.TabIndex = 3;
             this.button.Text = "Take photo";
             this.button.UseVisualStyleBackColor = false;
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1140, 600);
+            this.ClientSize = new System.Drawing.Size(1094, 481);
             this.Controls.Add(this.button);
             this.Controls.Add(this.imageBox1);
             this.Name = "Form2";

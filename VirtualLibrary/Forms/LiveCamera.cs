@@ -15,12 +15,12 @@ using Emgu.CV.Structure;
 
 namespace VirtualLibrary
 {
-    public partial class Form2 : Form
+    public partial class LiveCamera : Form
     {
         private VideoCapture capture;
         private CascadeClassifier cascade;
 
-        public Form2()
+        public LiveCamera()
         {
             capture = new VideoCapture();
             cascade = new CascadeClassifier("haarcascade_frontalface_alt2.xml");
@@ -52,6 +52,7 @@ namespace VirtualLibrary
                 if (nextFrame != null)
                 {
                     imageBox1.Image = FaceDetection.Detect(nextFrame, cascade);
+                    MessageBox.Show(imageBox1.Image.ToString());
                 }
             }
         }

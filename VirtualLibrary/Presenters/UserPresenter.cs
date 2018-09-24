@@ -36,7 +36,7 @@ namespace VirtualLibrary.Presenters
                 newUser.Surname = userView.Surname;
                 if (userView.Email == string.Empty)
                     throw new ArgumentNullException("Email");
-                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");        //Regex for email *@*.*
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
                 Match match = regex.Match(userView.Email);
                 if (match.Success)
                     newUser.Email = userView.Email;
