@@ -4,7 +4,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Repositories
 {
-    class UserRepository : IRepository<IUser>
+    public class UserRepository : IRepository<IUser>
     {
         private IDataSource _dataSource;
 

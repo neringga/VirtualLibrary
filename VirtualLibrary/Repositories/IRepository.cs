@@ -2,7 +2,7 @@
 
 namespace VirtualLibrary.Repositories
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
         IList<T> GetList();
         void Add(T item);

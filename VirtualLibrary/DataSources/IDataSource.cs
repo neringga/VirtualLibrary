@@ -3,7 +3,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources
 {
-    interface IDataSource
+    public interface IDataSource
     {
         IList<IBook> GetBookList();
         IList<IUser> GetUserList();
