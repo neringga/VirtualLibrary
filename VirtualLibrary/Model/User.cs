@@ -7,7 +7,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Model
 {
-    class User : IUser
+    public class User : IUser
     {
         public string Name { get; set; }
         public string Surname { get; set; }
