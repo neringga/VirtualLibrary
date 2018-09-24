@@ -95,6 +95,7 @@
     <Compile Include="Forms\Library.Designer.cs">
       <DependentUpon>Library.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Presenters\ScannerPresenter.cs" />

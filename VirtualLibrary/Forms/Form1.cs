@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using VirtualLibrary.View;
 using VirtualLibrary.Presenters;
+using VirtualLibrary.DataSources;
+using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary
 {
@@ -79,7 +81,11 @@ namespace VirtualLibrary
                 !(String.IsNullOrEmpty(repeatPasswTextBox.Text)) &&
                 !(String.IsNullOrEmpty(dateTimeBox.Text)))
             {
-                UserPresenter userPresenter = new UserPresenter(this);
+
+                var _dataSource = new LocalDataSource();
+                var userRepository = new UserRepository(_dataSource);
+
+                UserPresenter userPresenter = new UserPresenter(this, userRepository);
                 userPresenter.UserDataInsertUser();
             }
             else

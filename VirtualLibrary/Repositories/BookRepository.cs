@@ -8,7 +8,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Repositories
 {
-    class BookRepository : IRepository<IBook>
+    public class BookRepository : IRepository<IBook>
     {
         private IDataSource _dataSource;
 
