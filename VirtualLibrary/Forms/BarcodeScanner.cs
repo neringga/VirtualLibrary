@@ -68,7 +68,7 @@ namespace VirtualLibrary.Forms
             var takenBookRepository = new TakenBookRepository(DataSources.Data.StaticDataSource._dataSource);
             TakenBookPresenter takenBookPresenter = new TakenBookPresenter(book, 
                 DataSources.Data.StaticDataSource.currUser, takenBookRepository);
-            MessageBox.Show("You have to return this book on" + takenBookPresenter.AddTakenBook().ToString());
+            MessageBox.Show("You have to return this book on " + takenBookPresenter.AddTakenBook().ToString());
         }
     }
 }

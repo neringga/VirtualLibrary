@@ -94,7 +94,6 @@ namespace VirtualLibrary
                 !string.IsNullOrEmpty(repeatPasswTextBox.Text) &&
                 !string.IsNullOrEmpty(dateTimeBox.Text))
             {
-
                 var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
                 UserPresenter userPresenter = new UserPresenter(this, userRepository);
                 userPresenter.AddUser();
