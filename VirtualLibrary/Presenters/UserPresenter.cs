@@ -18,7 +18,7 @@ namespace VirtualLibrary.Presenters
             m_userRepository = userRepository;
         }
 
-        public void UserDataInsertUser()
+        public bool AddUser()
         {
             var validator = new InputValidator();
             IUser newUser = validator.ValidateUserInput(userView);
@@ -26,11 +26,11 @@ namespace VirtualLibrary.Presenters
             if (newUser != null)
             {
                 m_userRepository.Add(newUser);
-                MessageBox.Show("Registered successfully");
+                return true;
             }
             else
             {
-                MessageBox.Show("Something went wrong");
+                return false;
             }
         }
 
@@ -38,5 +38,7 @@ namespace VirtualLibrary.Presenters
         {
             return m_userRepository.GetList();
         }
+
+       
     }
 }

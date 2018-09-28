@@ -8,6 +8,7 @@ namespace VirtualLibrary.DataSources
     {
         private IList<IBook> _books;
         private IList<IUser> _users;
+        private IList<ITakenBook> _takenBooks;
 
         public LocalDataSource()
         {
@@ -26,6 +27,11 @@ namespace VirtualLibrary.DataSources
             _books.Add(book);
         }
 
+        public void AddTakenBook(ITakenBook takenBook)
+        {
+            _takenBooks.Add(takenBook);
+        }
+
         public void AddUser(IUser user)
         {
             _users.Add(user);
@@ -34,6 +40,11 @@ namespace VirtualLibrary.DataSources
         public IList<IBook> GetBookList()
         {
             return _books;
+        }
+
+        public IList<ITakenBook> GetTakenBookList()
+        {
+            return _takenBooks;
         }
 
         public IList<IUser> GetUserList()

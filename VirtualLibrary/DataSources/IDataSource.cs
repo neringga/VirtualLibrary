@@ -7,7 +7,9 @@ namespace VirtualLibrary.DataSources
     {
         IList<IBook> GetBookList();
         IList<IUser> GetUserList();
+        IList<ITakenBook> GetTakenBookList();
         void AddUser(IUser user);
         void AddBook(IBook book);
+        void AddTakenBook(ITakenBook takenBook);
     }
 }

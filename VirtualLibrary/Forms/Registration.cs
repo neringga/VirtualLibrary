@@ -4,6 +4,7 @@ using VirtualLibrary.View;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.Repositories;
+using VirtualLibrary.Helpers;
 
 namespace VirtualLibrary
 {
@@ -11,6 +12,7 @@ namespace VirtualLibrary
     {
         private ErrorProvider passwordErrorProvider;
         private ErrorProvider repPasswordErrorProvider;
+        private ErrorProvider usernameErrorProvider;
 
         public new string Name
         {
@@ -38,6 +40,12 @@ namespace VirtualLibrary
             get => passwordTextBox.Text;
             set => passwordTextBox.Text = value;
         }
+        public string Nickname
+        {
+            get => UserNameTextBox.Text;
+            set => UserNameTextBox.Text = value;
+        }
+
 
 
         public Registration()
@@ -46,15 +54,20 @@ namespace VirtualLibrary
 
             registerButton.Enabled = false;
 
-            passwordErrorProvider = new System.Windows.Forms.ErrorProvider();
+            usernameErrorProvider = new ErrorProvider();
+            usernameErrorProvider.SetIconAlignment(this.UserNameTextBox, ErrorIconAlignment.MiddleRight);
+            usernameErrorProvider.SetIconPadding(this.UserNameTextBox, 2);
+            usernameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            passwordErrorProvider = new ErrorProvider();
             passwordErrorProvider.SetIconAlignment(this.passwordTextBox, ErrorIconAlignment.MiddleRight);
             passwordErrorProvider.SetIconPadding(this.passwordTextBox, 2);
-            passwordErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
+            passwordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
 
-            repPasswordErrorProvider = new System.Windows.Forms.ErrorProvider();
+            repPasswordErrorProvider = new ErrorProvider();
             repPasswordErrorProvider.SetIconAlignment(this.repeatPasswTextBox, ErrorIconAlignment.MiddleRight);
             repPasswordErrorProvider.SetIconPadding(this.repeatPasswTextBox, 2);
-            repPasswordErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
+            repPasswordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
         }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
@@ -82,17 +95,15 @@ namespace VirtualLibrary
                 !string.IsNullOrEmpty(dateTimeBox.Text))
             {
 
-                var _dataSource = new LocalDataSource();
-                var userRepository = new UserRepository(_dataSource);
-
+                var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
                 UserPresenter userPresenter = new UserPresenter(this, userRepository);
-                userPresenter.UserDataInsertUser();
+                userPresenter.AddUser();
             }
             else
             {
                 MessageBox.Show("All fields have to be filled");
             }
-
+            this.Close();
         }
 
         private void Label2_Click(object sender, EventArgs e)
@@ -131,6 +142,24 @@ namespace VirtualLibrary
         private void Registration_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            InputValidator inputValidator = new InputValidator();
+            if (inputValidator.validUsername(UserNameTextBox.Text))
+            {
+                 usernameErrorProvider.SetError(this.UserNameTextBox, "This username already exist");
+            }
+            else
+            {
+                usernameErrorProvider.SetError(this.UserNameTextBox, String.Empty);
+            }
         }
     }
 }

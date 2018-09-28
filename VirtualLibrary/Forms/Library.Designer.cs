@@ -31,6 +31,7 @@
             this.ScannerOpenButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.bookListBox = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ScannerOpenButton
@@ -61,11 +62,21 @@
             this.bookListBox.TabIndex = 2;
             this.bookListBox.SelectedIndexChanged += new System.EventHandler(this.BookListBox_SelectedIndexChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(423, 234);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "For taking or returning book:";
+            // 
             // Library
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 307);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.bookListBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ScannerOpenButton);
@@ -81,5 +92,6 @@
         private System.Windows.Forms.Button ScannerOpenButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox bookListBox;
+        private System.Windows.Forms.Label label2;
     }
 }
