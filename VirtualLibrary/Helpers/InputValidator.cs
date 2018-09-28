@@ -32,7 +32,7 @@ namespace VirtualLibrary.Helpers
 
                 if (userView.Email == string.Empty || userView.Email == null)
                     throw new ArgumentNullException("Email");
-                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");        //Regex for email *@*.*
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
                 Match match = regex.Match(userView.Email);
                 if (match.Success)
                     newUser.Email = userView.Email;
@@ -54,7 +54,7 @@ namespace VirtualLibrary.Helpers
 
         }
 
-        public bool validUsername (string username)
+        public bool ValidUsername (string username)
         {
             var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
             var users = userRepository.GetList();

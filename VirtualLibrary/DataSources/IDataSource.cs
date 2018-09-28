@@ -11,5 +11,8 @@ namespace VirtualLibrary.DataSources
         void AddUser(IUser user);
         void AddBook(IBook book);
         void AddTakenBook(ITakenBook takenBook);
+        void RemoveUser(IUser user);
+        void RemoveBook(IBook book);
+        void RemoveTakenBook(ITakenBook takenBook);
     }
 }

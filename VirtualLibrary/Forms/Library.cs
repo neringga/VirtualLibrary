@@ -28,7 +28,7 @@ namespace VirtualLibrary.Forms
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show( System.Security.Principal.WindowsIdentity.GetCurrent().Name);
-            BarcodeScanner barcodeScanner = new BarcodeScanner();
+            BookActions barcodeScanner = new BookActions();
             barcodeScanner.ShowDialog();
         }
 

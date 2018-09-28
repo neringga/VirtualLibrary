@@ -143,7 +143,7 @@ namespace VirtualLibrary
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void Label4_Click(object sender, EventArgs e)
         {
 
         }
@@ -151,7 +151,7 @@ namespace VirtualLibrary
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
             InputValidator inputValidator = new InputValidator();
-            if (inputValidator.validUsername(UserNameTextBox.Text))
+            if (inputValidator.ValidUsername(UserNameTextBox.Text))
             {
                  usernameErrorProvider.SetError(this.UserNameTextBox, "This username already exist");
             }

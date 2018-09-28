@@ -1,6 +1,6 @@
 ﻿namespace VirtualLibrary.Forms
 {
-    partial class BarcodeScanner
+    partial class BookActions
     {
         /// <summary>
         /// Required designer variable.
@@ -95,6 +95,7 @@
             this.ReturnBookButton.TabIndex = 5;
             this.ReturnBookButton.Text = "Return this book";
             this.ReturnBookButton.UseVisualStyleBackColor = true;
+            this.ReturnBookButton.Click += new System.EventHandler(this.ReturnBookButton_Click);
             // 
             // Info
             // 
@@ -106,7 +107,7 @@
             this.Info.TabIndex = 6;
             this.Info.Text = "Scanned book:";
             // 
-            // BarcodeScanner
+            // BookActions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -118,7 +119,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureUploadButton);
             this.Controls.Add(this.barcodePictureBox);
-            this.Name = "BarcodeScanner";
+            this.Name = "BookActions";
             this.Text = "BarcodeScanner";
             ((System.ComponentModel.ISupportInitialize)(this.barcodePictureBox)).EndInit();
             this.ResumeLayout(false);

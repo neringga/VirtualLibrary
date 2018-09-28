@@ -53,5 +53,20 @@ namespace VirtualLibrary.DataSources
         {
             return _users;
         }
+
+        public void RemoveUser(IUser user)
+        {
+            _users.Remove(user);
+        }
+
+        public void RemoveBook(IBook book)
+        {
+            _books.Remove(book);
+        }
+
+        public void RemoveTakenBook(ITakenBook takenBook)
+        {
+            _takenBooks.Remove(takenBook);
+        }
     }
 }

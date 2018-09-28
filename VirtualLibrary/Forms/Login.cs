@@ -10,7 +10,7 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
         }
 
-        private void usernameTextBox_TextChanged(object sender, EventArgs e)
+        private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
             DataSources.Data.StaticDataSource.currUser = usernameTextBox.Text;
         }

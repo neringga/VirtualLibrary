@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
+using ZXing;
 
 namespace VirtualLibrary.Forms
 {
-    public partial class BarcodeScanner : Form
+    public partial class BookActions : Form
     {
         private IBook book;
-        private ITakenBook takenBook;
+        private Result result;
+       
 
-        public BarcodeScanner()
+        public BookActions()
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
@@ -37,7 +40,7 @@ namespace VirtualLibrary.Forms
                     barcodePictureBox.ImageLocation = imageLocation;
                     ScannedBookInfo.Visible = false;
                     Info.Visible = false;
-                    var result = scannerPresenter.DecodedBarcode(imageLocation);
+                    result = scannerPresenter.DecodedBarcode(imageLocation);
 
                     if (result != null)
                     {
@@ -65,10 +68,26 @@ namespace VirtualLibrary.Forms
 
         private void TakeBookButton_Click(object sender, EventArgs e)
         {
+            var takenBookPresenter = new TakenBookPresenter(new TakenBookRepository
+                (DataSources.Data.StaticDataSource._dataSource));
+            MessageBox.Show("You have to return this book on " + takenBookPresenter.AddTakenBook(book,
+                DataSources.Data.StaticDataSource.currUser).ToString());
+        }
+
+        private void ReturnBookButton_Click(object sender, EventArgs e)
+        {
+            BookReturnValidator bookReturnValidator = new BookReturnValidator();
             var takenBookRepository = new TakenBookRepository(DataSources.Data.StaticDataSource._dataSource);
-            TakenBookPresenter takenBookPresenter = new TakenBookPresenter(book, 
-                DataSources.Data.StaticDataSource.currUser, takenBookRepository);
-            MessageBox.Show("You have to return this book on " + takenBookPresenter.AddTakenBook().ToString());
+            TakenBookPresenter takenBookPresenter = new TakenBookPresenter(takenBookRepository);
+            var book = bookReturnValidator.TakenBookListCheckForBook(result.Text);
+            if (book != null)
+            {
+                takenBookPresenter.RemoveTakenBook(book);
+                MessageBox.Show("Book returned successfully");
+            }
+            else {
+                MessageBox.Show("You can not return this book");
+            }
         }
     }
 }

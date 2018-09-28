@@ -66,11 +66,11 @@
     <Compile Include="DataSources\LocalDataSource.cs" />
     <Compile Include="DataSources\Data\BookListFromFile.cs" />
     <Compile Include="FaceDetection.cs" />
-    <Compile Include="Forms\BarcodeScanner.cs">
+    <Compile Include="Forms\BookActions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BarcodeScanner.designer.cs">
-      <DependentUpon>BarcodeScanner.cs</DependentUpon>
+    <Compile Include="Forms\BookActions.designer.cs">
+      <DependentUpon>BookActions.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
@@ -102,7 +102,7 @@
     <Compile Include="Forms\Library.Designer.cs">
       <DependentUpon>Library.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BookTakingValidator.cs" />
+    <Compile Include="Helpers\BookReturnValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\TakenBook.cs" />
@@ -119,8 +119,8 @@
     <Compile Include="View\IBook.cs" />
     <Compile Include="View\ITakenBook.cs" />
     <Compile Include="View\IUser.cs" />
-    <EmbeddedResource Include="Forms\BarcodeScanner.resx">
-      <DependentUpon>BarcodeScanner.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BookActions.resx">
+      <DependentUpon>BookActions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
