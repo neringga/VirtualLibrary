@@ -137,10 +137,10 @@ namespace VirtualLibrary
 
         private void RepeatPasswTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (repeatPasswTextBox.Text.Equals(passwordTextBox.Text) && !string.IsNullOrEmpty(usernameTextBox.Text)
+            if (repeatPasswTextBox.Text.Equals(passwordTextBox.Text))
             {
                 repPasswordErrorProvider.SetError(this.repeatPasswTextBox, String.Empty);
-                registerButton.Enabled = true;
+                InputCorrect();
             }
             else
             {
@@ -162,7 +162,8 @@ namespace VirtualLibrary
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
             InputValidator inputValidator = new InputValidator();
-            if (string.IsNullOrEmpty(usernameTextBox.Text)) {
+            if (string.IsNullOrEmpty(usernameTextBox.Text))
+            {
                 surnameErrorProvider.SetError(this.usernameTextBox, "empty");
             }
             if (inputValidator.ValidUsername(usernameTextBox.Text))
@@ -174,7 +175,8 @@ namespace VirtualLibrary
                 usernameErrorProvider.SetError(this.usernameTextBox, String.Empty);
             }
         }
-        private void SurnameTextBox_TextChanged(object sender, EventArgs e) {
+        private void SurnameTextBox_TextChanged(object sender, EventArgs e)
+        {
             InputValidator inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(surnameTextBox.Text))
             {
@@ -193,7 +195,23 @@ namespace VirtualLibrary
             {
                 emailErrorProvider.SetError(this.emailTextBox, "Incorrect format");
             }
-           
         }
+
+        private void InputCorrect()
+        {
+            if (!string.IsNullOrEmpty(usernameTextBox.Text) &&
+                !string.IsNullOrEmpty(surnameTextBox.Text) &&
+                !string.IsNullOrEmpty(nameTextBox.Text) &&
+                !string.IsNullOrEmpty(emailTextBox.Text)
+                )
+            {
+                registerButton.Enabled = true;
+            }
+            else
+            {
+                registerButton.Enabled = false;
+            }
+        }
+
     }
 }
