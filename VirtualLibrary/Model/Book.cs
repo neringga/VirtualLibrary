@@ -12,5 +12,6 @@ namespace VirtualLibrary.Model
         public string Title { get; set; }
         public string Author { get; set; }
         public string Code { get; set; }
+        public int DaysForBorrowing { get; set; }
     }
 }

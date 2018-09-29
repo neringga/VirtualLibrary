@@ -18,6 +18,11 @@ namespace VirtualLibrary.Repositories
             _dataSource.AddBook(item);
         }
 
+        public void Remove(IBook item)
+        {
+            _dataSource.RemoveBook(item);
+        }
+
         public IList<IBook> GetList()
         {
             return _dataSource.GetBookList();

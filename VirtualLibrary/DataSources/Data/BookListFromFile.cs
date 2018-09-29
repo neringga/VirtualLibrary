@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using VirtualLibrary.Model;
 using VirtualLibrary.View;
@@ -22,6 +23,7 @@ namespace VirtualLibrary.Data
                 book.Title = _words[0];
                 book.Author = _words[1];
                 book.Code = _words[2];
+                book.DaysForBorrowing = Int32.Parse(_words[3]);
                 _bookList.Add(book);
             }
         }

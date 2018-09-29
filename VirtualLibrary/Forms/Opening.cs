@@ -25,15 +25,15 @@ namespace VirtualLibrary.Forms
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            //this.Hide();
             Registration registerForm = new Registration();
             registerForm.ShowDialog();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Library library = new Library();
-            library.ShowDialog();
+            Login login = new Login();
+            login.ShowDialog();
         }
     }
 }

@@ -43,12 +43,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.repeatPasswTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.UserNameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(52, 63);
+            this.NameLabel.Location = new System.Drawing.Point(66, 101);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(38, 13);
             this.NameLabel.TabIndex = 0;
@@ -57,7 +59,7 @@
             // SurnameLabel
             // 
             this.SurnameLabel.AutoSize = true;
-            this.SurnameLabel.Location = new System.Drawing.Point(38, 101);
+            this.SurnameLabel.Location = new System.Drawing.Point(53, 140);
             this.SurnameLabel.Name = "SurnameLabel";
             this.SurnameLabel.Size = new System.Drawing.Size(52, 13);
             this.SurnameLabel.TabIndex = 1;
@@ -66,7 +68,7 @@
             // EmailLabel
             // 
             this.EmailLabel.AutoSize = true;
-            this.EmailLabel.Location = new System.Drawing.Point(55, 137);
+            this.EmailLabel.Location = new System.Drawing.Point(66, 181);
             this.EmailLabel.Name = "EmailLabel";
             this.EmailLabel.Size = new System.Drawing.Size(35, 13);
             this.EmailLabel.TabIndex = 2;
@@ -75,7 +77,7 @@
             // BirthLabel
             // 
             this.BirthLabel.AutoSize = true;
-            this.BirthLabel.Location = new System.Drawing.Point(19, 178);
+            this.BirthLabel.Location = new System.Drawing.Point(33, 221);
             this.BirthLabel.Name = "BirthLabel";
             this.BirthLabel.Size = new System.Drawing.Size(71, 13);
             this.BirthLabel.TabIndex = 3;
@@ -83,7 +85,7 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Location = new System.Drawing.Point(113, 60);
+            this.nameTextBox.Location = new System.Drawing.Point(113, 98);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(100, 20);
             this.nameTextBox.TabIndex = 4;
@@ -91,7 +93,7 @@
             // 
             // surnameTextBox
             // 
-            this.surnameTextBox.Location = new System.Drawing.Point(113, 94);
+            this.surnameTextBox.Location = new System.Drawing.Point(113, 137);
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(100, 20);
             this.surnameTextBox.TabIndex = 5;
@@ -99,7 +101,7 @@
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(113, 134);
+            this.emailTextBox.Location = new System.Drawing.Point(113, 178);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(100, 20);
             this.emailTextBox.TabIndex = 6;
@@ -116,7 +118,7 @@
             // 
             // dateTimeBox
             // 
-            this.dateTimeBox.Location = new System.Drawing.Point(113, 178);
+            this.dateTimeBox.Location = new System.Drawing.Point(113, 215);
             this.dateTimeBox.Name = "dateTimeBox";
             this.dateTimeBox.Size = new System.Drawing.Size(196, 20);
             this.dateTimeBox.TabIndex = 8;
@@ -132,7 +134,7 @@
             // 
             // registerButton
             // 
-            this.registerButton.Location = new System.Drawing.Point(244, 298);
+            this.registerButton.Location = new System.Drawing.Point(234, 324);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(75, 23);
             this.registerButton.TabIndex = 10;
@@ -143,7 +145,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 222);
+            this.label2.Location = new System.Drawing.Point(49, 256);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 11;
@@ -153,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 258);
+            this.label3.Location = new System.Drawing.Point(12, 292);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 12;
@@ -161,7 +163,7 @@
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(113, 219);
+            this.passwordTextBox.Location = new System.Drawing.Point(113, 249);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(100, 20);
@@ -170,18 +172,38 @@
             // 
             // repeatPasswTextBox
             // 
-            this.repeatPasswTextBox.Location = new System.Drawing.Point(113, 255);
+            this.repeatPasswTextBox.Location = new System.Drawing.Point(113, 289);
             this.repeatPasswTextBox.Name = "repeatPasswTextBox";
             this.repeatPasswTextBox.PasswordChar = '*';
             this.repeatPasswTextBox.Size = new System.Drawing.Size(100, 20);
             this.repeatPasswTextBox.TabIndex = 14;
             this.repeatPasswTextBox.TextChanged += new System.EventHandler(this.RepeatPasswTextBox_TextChanged);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(46, 60);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Username:";
+            this.label4.Click += new System.EventHandler(this.Label4_Click);
+            // 
+            // UserNameTextBox
+            // 
+            this.UserNameTextBox.Location = new System.Drawing.Point(113, 57);
+            this.UserNameTextBox.Name = "UserNameTextBox";
+            this.UserNameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.UserNameTextBox.TabIndex = 16;
+            this.UserNameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 333);
+            this.ClientSize = new System.Drawing.Size(525, 372);
+            this.Controls.Add(this.UserNameTextBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.repeatPasswTextBox);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.label3);
@@ -197,8 +219,7 @@
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
-            //this.Name = "Registration";
-            //this.Text = "Registration";
+            this.Name = "Registration";
             this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -222,6 +243,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox repeatPasswTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox UserNameTextBox;
     }
 }
 

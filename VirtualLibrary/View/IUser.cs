@@ -7,5 +7,6 @@
         string Email { get; set; }
         string DateOfBirth{ get; set; }
         string Password { get; set; }
+        string Nickname { get; set; }
     }
 }

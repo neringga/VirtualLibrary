@@ -6,5 +6,6 @@ namespace VirtualLibrary.Repositories
     {
         IList<T> GetList();
         void Add(T item);
+        void Remove(T item);
     }
 }

@@ -22,5 +22,10 @@ namespace VirtualLibrary.Repositories
         {
             return _dataSource.GetUserList();
         }
+
+        public void Remove(IUser item)
+        {
+            _dataSource.RemoveUser(item);
+        }
     }
 }
