@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualLibrary.Data;
 using VirtualLibrary.Model;
+using VirtualLibrary.Presenters;
+using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
 {
@@ -23,6 +25,7 @@ namespace VirtualLibrary.Forms
 
             foreach (var book in bookList)
                 bookListBox.Items.Add(book.Author + " " + book.Title);
+
         }
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
@@ -33,6 +36,21 @@ namespace VirtualLibrary.Forms
         }
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Library_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
