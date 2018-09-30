@@ -23,7 +23,7 @@ namespace VirtualLibrary.Forms
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
         {
-            String imageLocation = ""; //Standart Property;
+            String imageLocation = "";
             try
             {
                 OpenFileDialog dialog = new OpenFileDialog
@@ -71,7 +71,7 @@ namespace VirtualLibrary.Forms
             var takenBookPresenter = new TakenBookPresenter(new TakenBookRepository
                 (DataSources.Data.StaticDataSource._dataSource));
             MessageBox.Show("You have to return this book on " + takenBookPresenter.AddTakenBook(view: book, 
-                username: DataSources.Data.StaticDataSource.currUser).ToString()); // named arguments
+                username: DataSources.Data.StaticDataSource.currUser).ToString()); 
         }
 
         private void ReturnBookButton_Click(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace VirtualLibrary.Forms
             BookReturnValidator bookReturnValidator = new BookReturnValidator();
             var takenBookRepository = new TakenBookRepository(DataSources.Data.StaticDataSource._dataSource);
             TakenBookPresenter takenBookPresenter = new TakenBookPresenter(takenBookRepository);
-            var book = bookReturnValidator.TakenBookListCheckForBook(code : result.Text); // named argument
+            var book = bookReturnValidator.TakenBookListCheckForBook(code : result.Text); 
             if (book != null)
             {
                 takenBookPresenter.RemoveTakenBook(book);

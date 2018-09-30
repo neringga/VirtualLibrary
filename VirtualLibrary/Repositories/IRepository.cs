@@ -4,7 +4,7 @@ namespace VirtualLibrary.Repositories
 {
     public interface IRepository<T>
     {
-        IList<T> GetList();  //Generic type List 
+        IList<T> GetList();  
         void Add(T item);
         void Remove(T item);
     }

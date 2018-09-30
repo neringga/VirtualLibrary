@@ -26,7 +26,7 @@ namespace VirtualLibrary.Helpers
 
         }
 
-        public bool ValidUsername (string username, string defaultUsername = "default") // optional argument defaultUsername
+        public bool ValidUsername (string username, string defaultUsername = "default") 
         {
             if (username == null) username = defaultUsername;
             var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
