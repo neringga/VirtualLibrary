@@ -6,7 +6,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Data
 {
-    class BookListFromFile
+    class BookListFromFile //Reading from file
     {
         readonly System.IO.StreamReader file = new StreamReader(
             Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "BookList.txt"));
@@ -20,7 +20,7 @@ namespace VirtualLibrary.Data
             {
                 var book = new Book();
                 _words = _line.Split(',');
-                book.Title = _words[0];
+                book.Title = _words[0];    //Indexers?
                 book.Author = _words[1];
                 book.Code = _words[2];
                 book.DaysForBorrowing = Int32.Parse(_words[3]);

@@ -20,10 +20,10 @@ namespace VirtualLibrary.Forms
         {
             InitializeComponent();
 
-            BookListFromFile bookListFromFile = new BookListFromFile();
+            BookListFromFile bookListFromFile = new BookListFromFile(); //Putting data to collection
             IList<View.IBook> bookList = bookListFromFile.GetBookList();
 
-            foreach (var book in bookList)
+            foreach (var book in bookList)                              //iterating through it the right way.
                 bookListBox.Items.Add(book.Author + " " + book.Title);
 
         }

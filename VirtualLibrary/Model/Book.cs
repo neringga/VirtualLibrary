@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualLibrary.Enums;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Model
@@ -13,5 +14,6 @@ namespace VirtualLibrary.Model
         public string Author { get; set; }
         public string Code { get; set; }
         public int DaysForBorrowing { get; set; }
+        //public BookGenre Genre { get; set}
     }
 }
