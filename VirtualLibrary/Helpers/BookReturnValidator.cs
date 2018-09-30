@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
@@ -6,14 +7,14 @@ namespace VirtualLibrary.Helpers
 {
     class BookReturnValidator
     {
-        private TakenBookRepository takenBookRepository = new TakenBookRepository(DataSources.Data.StaticDataSource._dataSource);
+        private BookRepository _bookRepository = new BookRepository(DataSources.Data.StaticDataSource._dataSource);
 
-        public ITakenBook TakenBookListCheckForBook (string code)
+        public IBook TakenBookListCheckForBook (string code)
         {
-            var takenBooks = takenBookRepository.GetList();
+            var takenBooks = _bookRepository.getTakenBooks();
             foreach (var book in takenBooks)
             {
-                if (book.BookCode == code && book.User == DataSources.Data.StaticDataSource.currUser &&
+                if (book.Code == code && book.TakenByUser == DataSources.Data.StaticDataSource.currUser &&
                     book.HasToBeReturned >= DateTime.Now)
                 {
                     return book;
