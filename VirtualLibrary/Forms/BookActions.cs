@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
@@ -69,23 +70,34 @@ namespace VirtualLibrary.Forms
 
         private void TakeBookButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("You have to return this book on " + m_takenBookPresenter.AddTakenBook(view: book,
-                username: DataSources.Data.StaticDataSource.currUser).ToString());
+            if (result.Text != null)
+            {
+                m_takenBookPresenter.AddTakenBook(view: book, username: DataSources.Data.StaticDataSource.currUser);
+                var takenBooks = m_takenBookPresenter.GetTakenBooks();
+                var addedBook = takenBooks.First(item => item.Code == book.Code && item.TakenByUser ==
+                DataSources.Data.StaticDataSource.currUser);
+                MessageBox.Show("You have to return this book on " + addedBook.HasToBeReturned);
+            }
+            else MessageBox.Show("Please add picture of the barcode");
         }
 
         private void ReturnBookButton_Click(object sender, EventArgs e)
         {
-            BookReturnValidator bookReturnValidator = new BookReturnValidator();
-            var book = bookReturnValidator.TakenBookListCheckForBook(code: result.Text);
-            if (book != null)
+            if (result.Text != null)
             {
-                m_takenBookPresenter.RemoveTakenBook(book);
-                MessageBox.Show("Book returned successfully");
+                BookReturnValidator bookReturnValidator = new BookReturnValidator();
+                var book = bookReturnValidator.TakenBookListCheckForBook(code: result.Text);
+                if (book != null)
+                {
+                    m_takenBookPresenter.RemoveTakenBook(book);
+                    MessageBox.Show("Book returned successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("You can not return this book.");
+                }
             }
-            else
-            {
-                MessageBox.Show("You can not return this book");
-            }
+            else MessageBox.Show("Please add picture of the barcode");
         }
     }
 }

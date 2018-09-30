@@ -17,7 +17,7 @@ namespace VirtualLibrary.Presenters
             m_bookRepository = bookRepository;
         }
 
-        public DateTime AddTakenBook(IBook view, string username)
+        public void AddTakenBook(IBook view, string username)
         {
             takenBook.IsTaken = true;
             takenBook.TakenByUser = username;
@@ -31,8 +31,8 @@ namespace VirtualLibrary.Presenters
             takenBook.HasToBeReturned = takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
             m_bookRepository.Add(takenBook);
 
-            return takenBook.HasToBeReturned;
         }
+
 
         public void RemoveTakenBook(IBook takenBook)
         {
