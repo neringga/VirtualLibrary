@@ -44,7 +44,7 @@
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.repeatPasswTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.UserNameTextBox = new System.Windows.Forms.TextBox();
+            this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NameLabel
@@ -97,7 +97,7 @@
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(100, 20);
             this.surnameTextBox.TabIndex = 5;
-            this.surnameTextBox.TextChanged += new System.EventHandler(this.TextBox2_TextChanged);
+            this.surnameTextBox.TextChanged += new System.EventHandler(this.SurnameTextBox_TextChanged);
             // 
             // emailTextBox
             // 
@@ -105,6 +105,7 @@
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(100, 20);
             this.emailTextBox.TabIndex = 6;
+            this.emailTextBox.TextChanged += new System.EventHandler(this.EmailTextBox_TextChanged);
             // 
             // button1
             // 
@@ -191,18 +192,18 @@
             // 
             // UserNameTextBox
             // 
-            this.UserNameTextBox.Location = new System.Drawing.Point(113, 57);
-            this.UserNameTextBox.Name = "UserNameTextBox";
-            this.UserNameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.UserNameTextBox.TabIndex = 16;
-            this.UserNameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
+            this.usernameTextBox.Location = new System.Drawing.Point(113, 57);
+            this.usernameTextBox.Name = "UserNameTextBox";
+            this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.usernameTextBox.TabIndex = 16;
+            this.usernameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
             // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(525, 372);
-            this.Controls.Add(this.UserNameTextBox);
+            this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.repeatPasswTextBox);
             this.Controls.Add(this.passwordTextBox);
@@ -244,7 +245,7 @@
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox repeatPasswTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox UserNameTextBox;
+        private System.Windows.Forms.TextBox usernameTextBox;
     }
 }
 
