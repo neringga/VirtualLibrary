@@ -9,37 +9,39 @@ namespace VirtualLibrary.Presenters
 {
     class TakenBookPresenter
     {
-        private IRepository<ITakenBook> m_takenBookRepository;
-        private TakenBook takenBook = new TakenBook();
+        private IBookRepository m_bookRepository;
+        private IBook takenBook = new Book();
 
-        public TakenBookPresenter(IRepository<ITakenBook> takenBookRepository)
+        public TakenBookPresenter(IBookRepository bookRepository)
         {
-            m_takenBookRepository = takenBookRepository;
+            m_bookRepository = bookRepository;
         }
 
         public DateTime AddTakenBook(IBook view, string username)
         {
-            takenBook.User = username;
-            takenBook.BookCode = view.Code;
-            takenBook.Taken = DateTime.Now;
+            takenBook.IsTaken = true;
+            takenBook.TakenByUser = username;
+            takenBook.Code = view.Code;
+            takenBook.TakenWhen = DateTime.Now;
+
             var bookRepository = new BookRepository(DataSources.Data.StaticDataSource._dataSource);
             var books = bookRepository.GetList();
-            var book = books.First(item => item.Code == takenBook.BookCode);
-            takenBook.HasToBeReturned = takenBook.Taken.AddDays(book.DaysForBorrowing);
-            m_takenBookRepository.Add(takenBook);
+            var book = books.First(item => item.Code == takenBook.Code);
+
+            takenBook.HasToBeReturned = takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
+            m_bookRepository.Add(takenBook);
 
             return takenBook.HasToBeReturned;
         }
 
-        public void RemoveTakenBook(ITakenBook takenBook)
+        public void RemoveTakenBook(IBook takenBook)
         {
-            m_takenBookRepository.Remove(takenBook);
+            m_bookRepository.Remove(takenBook);
         }
 
-
-        public IList<ITakenBook> GetTakenBooks ()
+        public IList<IBook> GetTakenBooks ()
         {
-            return m_takenBookRepository.GetList();
+            return m_bookRepository.getTakenBooks();
         }
     }
 }

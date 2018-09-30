@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VirtualLibrary.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.View;
@@ -9,7 +10,7 @@ namespace VirtualLibrary.DataSources
     {
         private IList<IBook> _books;
         private IList<IUser> _users;
-        private IList<ITakenBook> _takenBooks;
+        // private IList<ITakenBook> _takenBooks;
 
         public LocalDataSource()
         {
@@ -21,7 +22,7 @@ namespace VirtualLibrary.DataSources
                 _books.Add(book);
 
             _users = new List<IUser>();
-            _takenBooks = new List<ITakenBook>();
+            //_takenBooks = new List<ITakenBook>();
         }
 
         public void AddBook(IBook book)
@@ -29,9 +30,9 @@ namespace VirtualLibrary.DataSources
             _books.Add(book);
         }
 
-        public void AddTakenBook(ITakenBook takenBook)
+        public void AddTakenBook(IBook takenBook)
         {
-            _takenBooks.Add(takenBook);
+            _books.Add(takenBook);
         }
 
         public void AddUser(IUser user)
@@ -44,9 +45,9 @@ namespace VirtualLibrary.DataSources
             return _books;
         }
 
-        public IList<ITakenBook> GetTakenBookList()
+        public IList<IBook> GetTakenBookList()
         {
-            return _takenBooks;
+            return _books.Where(book => book.IsTaken).ToList();
         }
 
         public IList<IUser> GetUserList()
@@ -64,9 +65,11 @@ namespace VirtualLibrary.DataSources
             _books.Remove(book);
         }
 
-        public void RemoveTakenBook(ITakenBook takenBook)
+        public void RemoveTakenBook(IBook takenBook)
         {
-            _takenBooks.Remove(takenBook);
+            _books.Remove(takenBook);
         }
+
+      
     }
 }
