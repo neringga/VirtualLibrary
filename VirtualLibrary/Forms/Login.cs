@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Login : Form
     {
-        public Login()
+        private IRepository<IUser> m_userRepository;
+
+        public Login(IRepository<IUser> userRepository)
         {
+            m_userRepository = userRepository;
             InitializeComponent();
         }
 

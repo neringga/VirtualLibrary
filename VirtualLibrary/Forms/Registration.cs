@@ -17,6 +17,9 @@ namespace VirtualLibrary
         private ErrorProvider nameErrorProvider;
         private ErrorProvider emailErrorProvider;
         private ErrorProvider surnameErrorProvider;
+
+        private UserPresenter m_userPresenter;
+
         public new string Name
         {
             get => nameTextBox.Text;
@@ -51,7 +54,7 @@ namespace VirtualLibrary
 
 
 
-        public Registration()
+        public Registration(IRepository<IUser> userRepository)
         {
             InitializeComponent();
 
@@ -86,6 +89,9 @@ namespace VirtualLibrary
             repPasswordErrorProvider.SetIconAlignment(this.repeatPasswTextBox, ErrorIconAlignment.MiddleRight);
             repPasswordErrorProvider.SetIconPadding(this.repeatPasswTextBox, 2);
             repPasswordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            m_userPresenter = new UserPresenter(this, userRepository);
+
         }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
@@ -110,9 +116,7 @@ namespace VirtualLibrary
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
-            UserPresenter userPresenter = new UserPresenter(this, userRepository);
-            userPresenter.AddUser();
+            m_userPresenter.AddUser();
             this.Close();
         }
 

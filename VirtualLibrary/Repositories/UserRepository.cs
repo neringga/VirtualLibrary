@@ -4,7 +4,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Repositories
 {
-    public class UserRepository : IRepository<IUser>
+    public class UserRepository : IUserRepository
     {
         private IDataSource _dataSource;
 
@@ -21,6 +21,11 @@ namespace VirtualLibrary.Repositories
         public IList<IUser> GetList()
         {
             return _dataSource.GetUserList();
+        }
+
+        public bool Login(IUser user)
+        {
+            return _dataSource.GetUserList().Contains(user);
         }
 
         public void Remove(IUser item)

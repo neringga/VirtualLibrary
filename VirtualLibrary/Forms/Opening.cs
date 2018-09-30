@@ -8,13 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        public Opening()
+        private IRepository<IUser> m_userRepository;
+
+        public Opening(IRepository<IUser> userRepository)
         {
+            m_userRepository = userRepository;
             InitializeComponent();
         }
 
@@ -26,13 +31,13 @@ namespace VirtualLibrary.Forms
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
             //this.Hide();
-            Registration registerForm = new Registration();
+            Registration registerForm = new Registration(m_userRepository);
             registerForm.ShowDialog();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Login login = new Login();
+            Login login = new Login(m_userRepository);
             login.ShowDialog();
         }
     }

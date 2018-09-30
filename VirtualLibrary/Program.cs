@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualLibrary.Forms;
+using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary
 {
@@ -17,7 +18,14 @@ namespace VirtualLibrary
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Opening());
+            var opening = GetInitializedOpening();
+            Application.Run(opening);
+        }
+
+        static Opening GetInitializedOpening()
+        {
+            var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
+            return new Opening(userRepository);
         }
     }
 }
