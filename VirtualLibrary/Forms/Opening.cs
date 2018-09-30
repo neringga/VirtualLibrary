@@ -15,9 +15,9 @@ namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private IRepository<IUser> m_userRepository;
+        private IUserRepository m_userRepository;
 
-        public Opening(IRepository<IUser> userRepository)
+        public Opening(IUserRepository userRepository)
         {
             m_userRepository = userRepository;
             InitializeComponent();
