@@ -69,6 +69,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\BookTest.cs" />
     <Compile Include="Helpers\InputValidatorTests.cs" />
     <Compile Include="Helpers\UserPresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
