@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualLibrary.Enums;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Model
 {
-    class Book : IBook
+    public class Book : IBook, IEquatable<IBook>
     {
         public string Title { get; set; }
         public string Author { get; set; }
@@ -19,6 +14,11 @@ namespace VirtualLibrary.Model
         public string TakenByUser { get; set; }
         public DateTime TakenWhen { get; set; }
         public DateTime HasToBeReturned { get; set; }
+
+        public bool Equals(IBook other)
+        {
+            return Code == other.Code; //  || (Code == string.Empty && other.Code == string.Empty) || (Code == null && other.Code == null);
+        }
 
         //TODO: 
         //public BookGenre Genre { get; set}
