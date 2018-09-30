@@ -106,7 +106,6 @@
     <Compile Include="Helpers\BookReturnValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\TakenBook.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Presenters\ScannerPresenter.cs" />
     <Compile Include="Presenters\TakenBookPresenter.cs" />
@@ -114,12 +113,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
+    <Compile Include="Repositories\IBookRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Repositories\TakenBookRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="View\IBook.cs" />
-    <Compile Include="View\ITakenBook.cs" />
     <Compile Include="View\IUser.cs" />
     <EmbeddedResource Include="Forms\BookActions.resx">
       <DependentUpon>BookActions.cs</DependentUpon>
