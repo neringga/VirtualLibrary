@@ -1,12 +1,28 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Login : Form
     {
-        public Login()
+        private IUserRepository m_userRepository;
+
+        public string username
         {
+            get => usernameTextBox.Text;
+            set => usernameTextBox.Text = value;
+        }
+        public string password
+        {
+            get => passwordTextBox.Text;
+            set => passwordTextBox.Text = value;
+        }
+
+        public Login(IUserRepository userRepository)
+        {
+            m_userRepository = userRepository;
             InitializeComponent();
         }
 
@@ -18,8 +34,15 @@ namespace VirtualLibrary.Forms
         private void LoginButton_Click(object sender, EventArgs e)
         {
             this.Close();
-            Library library = new Library();
-            library.ShowDialog();
+            if(m_userRepository.Login(username, password))
+            {
+                Library library = new Library();
+                library.ShowDialog();
+            } else
+            {
+                MessageBox.Show("User not found. Please register before trying to log in.");
+            }
+           
         }
     }
 }

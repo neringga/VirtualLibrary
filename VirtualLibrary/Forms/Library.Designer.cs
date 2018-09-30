@@ -78,24 +78,24 @@ namespace VirtualLibrary.Forms
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(406, 28);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 17);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "List of taken books:";
-            // 
-            // takenBookListBox
-            // 
-            this.takenBookListBox.FormattingEnabled = true;
-            this.takenBookListBox.ItemHeight = 16;
-            this.takenBookListBox.Items.AddRange(new object[] {
-            "as"});
-            this.takenBookListBox.Location = new System.Drawing.Point(409, 66);
-            this.takenBookListBox.Name = "takenBookListBox";
-            this.takenBookListBox.Size = new System.Drawing.Size(344, 228);
-            this.takenBookListBox.TabIndex = 5;
-            this.takenBookListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            //this.label3.AutoSize = true;
+            //this.label3.Location = new System.Drawing.Point(406, 28);
+            //this.label3.Name = "label3";
+            //this.label3.Size = new System.Drawing.Size(131, 17);
+            //this.label3.TabIndex = 4;
+            //this.label3.Text = "List of taken books:";
+            //// 
+            //// takenBookListBox
+            //// 
+            //this.takenBookListBox.FormattingEnabled = true;
+            //this.takenBookListBox.ItemHeight = 16;
+            //this.takenBookListBox.Items.AddRange(new object[] {
+            //"as"});
+            //this.takenBookListBox.Location = new System.Drawing.Point(409, 66);
+            //this.takenBookListBox.Name = "takenBookListBox";
+            //this.takenBookListBox.Size = new System.Drawing.Size(344, 228);
+            //this.takenBookListBox.TabIndex = 5;
+            //this.takenBookListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // Library
             // 
