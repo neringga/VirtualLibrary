@@ -11,6 +11,7 @@ Virtual Library is a Windows Form application created in order to let users take
 
 ## Installation
 You can download the application here - https://github.com/neringga/VirtualLibrary.git
+
 We recommend running application on MS Visual Studio.
 
 ## Current maintainers
@@ -18,4 +19,5 @@ We recommend running application on MS Visual Studio.
 * Austėja Kalpakovaitė
 * Gytis Čepkauskas
 * Viktorija Kondratjevaitė 
+
 You can follow team's work and progress here - https://trello.com/b/GDwQk0sy/library
