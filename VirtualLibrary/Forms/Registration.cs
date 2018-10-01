@@ -199,6 +199,10 @@ namespace VirtualLibrary
             {
                 emailErrorProvider.SetError(this.emailTextBox, "Incorrect format");
             }
+            else
+            {
+                emailErrorProvider.SetError(this.emailTextBox, String.Empty);
+            }
         }
 
         private void InputCorrect()

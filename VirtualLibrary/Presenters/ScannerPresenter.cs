@@ -1,10 +1,7 @@
 ﻿using System.Drawing;
-using System.Linq;
-using ZXing;
-using VirtualLibrary.Repositories;
-using VirtualLibrary.Model;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.View;
+using ZXing;
 
 namespace VirtualLibrary.Presenters
 {
