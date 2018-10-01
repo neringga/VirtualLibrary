@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 using Emgu.CV;
-using Emgu.CV.VideoStab;
-using Emgu.CV.UI;
 using Emgu.CV.Structure;
 
 namespace VirtualLibrary
@@ -20,41 +12,73 @@ namespace VirtualLibrary
         private VideoCapture capture;
         private CascadeClassifier cascade;
 
+        public Image<Gray, byte>[] grayPictures;
+        public byte[][] pictures;
+
         public LiveCamera()
         {
-            capture = new VideoCapture();
-            cascade = new CascadeClassifier("haarcascade_frontalface_alt2.xml");
+            cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
+            grayPictures = new Image<Gray, byte>[5];
+            pictures = new byte[5][];
 
             InitializeComponent();
         }
 
+        
 
 
-        private void StopCamera(object sender, EventArgs e)
+        private void StartTakingPictures(object sender, EventArgs e)
         {
-            Mat img1 = capture.QueryFrame();
-            Image<Bgr, Byte> nextFrame = img1.ToImage<Bgr, Byte>();
+            Mat img1;
+            Image<Bgr, Byte> nextFrame;
+
+            capture = new VideoCapture();
+
+            for (int i = 0; i < 5; i++)
             {
-                if (nextFrame != null)
+                img1 = capture.QueryFrame();
+                nextFrame = img1.ToImage<Bgr, Byte>();
                 {
-                    imageBox1.Image = FaceDetection.Detect(nextFrame, cascade);
+                    if (nextFrame != null)
+                    {
+                        imageBox1.Image = nextFrame;
+
+                        Image<Gray, byte> grayframe = nextFrame.Convert<Gray, byte>();
+                        var faces = cascade.DetectMultiScale(grayframe, 1.2, 1);
+
+                        if (faces[0] != null)
+                        {
+                            grayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                    System.Threading.Thread.Sleep(500);
                 }
             }
-            timer1.Stop();
+
+            capture.Dispose();
+
+            imageBox1.Image = grayPictures[0];
+            imageBox2.Image = grayPictures[1];
+            imageBox3.Image = grayPictures[2];
+            imageBox4.Image = grayPictures[3];
+            imageBox5.Image = grayPictures[4];
         }
 
-        private void StartCamera(object sender, EventArgs e)
+
+        private void ContinueButton_Click(object sender, EventArgs e)
         {
-            Mat img1 = capture.QueryFrame();
-            Image<Bgr, Byte> nextFrame = img1.ToImage<Bgr, Byte>();
+            for (int i = 0; i < 5; i++)
             {
-                if (nextFrame != null)
-                {
-                    imageBox1.Image = FaceDetection.Detect(nextFrame, cascade);
-                    MessageBox.Show(imageBox1.Image.ToString());
-                }
+                pictures[i] = grayPictures[i].Bytes;
             }
+
+            Close();
         }
     }
 }
