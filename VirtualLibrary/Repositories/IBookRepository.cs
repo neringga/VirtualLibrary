@@ -9,7 +9,7 @@ namespace VirtualLibrary.Repositories
 {
     public interface IBookRepository : IRepository<IBook>
     {
-        IList<IBook> getTakenBooks();
+        IList<IBook> GetTakenBooks();
         bool TakeBook(IBook book);
         bool ReturnBook(IBook book);
     }
