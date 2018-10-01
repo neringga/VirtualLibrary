@@ -2,10 +2,13 @@
 using System.Windows.Forms;
 using VirtualLibrary.View;
 using VirtualLibrary.Presenters;
-using VirtualLibrary.DataSources;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.Helpers;
 using System.Text.RegularExpressions;
+using VirtualLibrary.DataSources.Data;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using System.IO;
 
 namespace VirtualLibrary
 {
@@ -19,6 +22,8 @@ namespace VirtualLibrary
         private ErrorProvider surnameErrorProvider;
 
         private UserPresenter m_userPresenter;
+
+        private Image<Gray, byte>[] faceImages = null;
 
         public new string Name
         {
@@ -110,13 +115,22 @@ namespace VirtualLibrary
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Form photoForm = new LiveCamera();
-            photoForm.Show();
+            using (LiveCamera photoForm = new LiveCamera())
+            {
+                MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                photoForm.ShowDialog();
+                this.faceImages = photoForm.grayPictures;
+                InputCorrect();
+            }
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             m_userPresenter.AddUser();
+
+            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
+            xml.AddUser(faceImages, this);
+
             this.Close();
         }
 
@@ -210,7 +224,8 @@ namespace VirtualLibrary
             if (!string.IsNullOrEmpty(usernameTextBox.Text) &&
                 !string.IsNullOrEmpty(surnameTextBox.Text) &&
                 !string.IsNullOrEmpty(nameTextBox.Text) &&
-                !string.IsNullOrEmpty(emailTextBox.Text)
+                !string.IsNullOrEmpty(emailTextBox.Text) &&
+                faceImages != null
                 )
             {
                 registerButton.Enabled = true;

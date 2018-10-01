@@ -40,5 +40,15 @@ namespace VirtualLibrary.Forms
             Login login = new Login(m_userRepository);
             login.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (FaceRecognitionLogin form = new FaceRecognitionLogin())
+            {
+                this.Hide();
+                form.ShowDialog();
+                this.Show();
+            }
+        }
     }
 }
