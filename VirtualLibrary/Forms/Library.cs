@@ -34,7 +34,6 @@ namespace VirtualLibrary.Forms
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show( System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             BookActions barcodeScanner = new BookActions();
             barcodeScanner.ShowDialog();
         }
@@ -54,12 +53,12 @@ namespace VirtualLibrary.Forms
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

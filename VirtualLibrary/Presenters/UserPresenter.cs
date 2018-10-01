@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using VirtualLibrary.View;
-using System.Windows.Forms;
-using VirtualLibrary.Repositories;
-using VirtualLibrary.DataSources;
 using VirtualLibrary.Helpers;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Presenters
 {

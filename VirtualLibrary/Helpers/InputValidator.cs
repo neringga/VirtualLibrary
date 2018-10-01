@@ -13,15 +13,16 @@ namespace VirtualLibrary.Helpers
     {
         public IUser ValidateUserInput(IUser userView)
         {
-            IUser newUser = new User();
-
-                newUser.Password = userView.Password;
-                newUser.DateOfBirth = userView.DateOfBirth;
-                newUser.Nickname = userView.Nickname;
-                newUser.Name = userView.Name;
-                newUser.Surname = userView.Surname;
-                newUser.Email = userView.Email;
-                return newUser;
+            IUser newUser = new User
+            {
+                Password = userView.Password,
+                DateOfBirth = userView.DateOfBirth,
+                Nickname = userView.Nickname,
+                Name = userView.Name,
+                Surname = userView.Surname,
+                Email = userView.Email
+            };
+            return newUser;
             
 
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
@@ -11,7 +10,7 @@ namespace VirtualLibrary.Helpers
 
         public IBook TakenBookListCheckForBook (string code)
         {
-            var takenBooks = _bookRepository.getTakenBooks();
+            var takenBooks = _bookRepository.GetTakenBooks();
             foreach (var book in takenBooks)
             {
                 if (book.Code == code && book.TakenByUser == DataSources.Data.StaticDataSource.currUser &&

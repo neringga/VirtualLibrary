@@ -41,7 +41,7 @@ namespace VirtualLibrary.Presenters
 
         public IList<IBook> GetTakenBooks ()
         {
-            return m_bookRepository.getTakenBooks();
+            return m_bookRepository.GetTakenBooks();
         }
     }
 }

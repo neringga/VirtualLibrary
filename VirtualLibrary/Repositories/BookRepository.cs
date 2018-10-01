@@ -29,7 +29,7 @@ namespace VirtualLibrary.Repositories
             return _dataSource.GetBookList();
         }
 
-        public IList<IBook> getTakenBooks()
+        public IList<IBook> GetTakenBooks()
         {
             return _dataSource.GetBookList().Where(book => book.IsTaken).ToList();
         }
