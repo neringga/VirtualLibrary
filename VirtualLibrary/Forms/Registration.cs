@@ -109,7 +109,7 @@ namespace VirtualLibrary
             InputValidator inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(nameTextBox.Text))
             {
-                nameErrorProvider.SetError(this.nameTextBox, "empty");
+                nameErrorProvider.SetError(this.nameTextBox, "Can't be empty");
             }
         }
 
@@ -182,7 +182,7 @@ namespace VirtualLibrary
             InputValidator inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(usernameTextBox.Text))
             {
-                surnameErrorProvider.SetError(this.usernameTextBox, "empty");
+                surnameErrorProvider.SetError(this.usernameTextBox, "Can't be empty");
             }
             if (inputValidator.ValidUsername(usernameTextBox.Text))
             {
@@ -198,7 +198,7 @@ namespace VirtualLibrary
             InputValidator inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(surnameTextBox.Text))
             {
-                surnameErrorProvider.SetError(this.surnameTextBox, "empty");
+                surnameErrorProvider.SetError(this.surnameTextBox, "Can't be empty");
             }
             else
             {
