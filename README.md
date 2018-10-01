@@ -3,7 +3,7 @@
 ## Description
 Virtual Library is a Windows Form application created in order to let users take or return books by themselves. 
 
-## Functionality
+## Features
 * User can make himself an account in which he gives information such as "username", "surname", "name", "email", creates passwords and takes a portrait picture. 
 * User can log in using his "username" or by showing his face (application detects and recognizes the user). 
 * User can scan a book and choose to either take it or return it (once he is logged in). 
