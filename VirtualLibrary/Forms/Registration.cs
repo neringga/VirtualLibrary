@@ -127,7 +127,7 @@ namespace VirtualLibrary
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             m_userPresenter.AddUser();
-
+      
             UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
             xml.AddUser(faceImages, this);
 

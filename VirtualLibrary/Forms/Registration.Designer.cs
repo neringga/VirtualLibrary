@@ -220,7 +220,7 @@
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
-            this.Name = "Registration";
+           
             this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

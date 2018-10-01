@@ -81,9 +81,15 @@ namespace VirtualLibrary.Forms
                 UserPresenter userPresenter = new UserPresenter(null, userRepository);
                 var users = userPresenter.GetUserList();
                 BookReturnWarning bookReturnWarning = new BookReturnWarning();
+
+                var userToSendEmailTo =
+                    users.First(user => user.Nickname == DataSources.Data.StaticDataSource.currUser);
+
                 if (!bookReturnWarning.SendWarningEmail(
-                    users.First(user => user.Nickname == DataSources.Data.StaticDataSource.currUser).Email
-                    , addedBook.HasToBeReturned, book.Author, book.Title))
+                        userToSendEmailTo.Email,
+                        addedBook.HasToBeReturned,
+                        book.Author,
+                        book.Title))
                 {
                     MessageBox.Show("Failed");
                 }
