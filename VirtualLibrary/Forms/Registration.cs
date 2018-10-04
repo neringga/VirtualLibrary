@@ -128,8 +128,8 @@ namespace VirtualLibrary
         {
             m_userPresenter.AddUser();
       
-            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            xml.AddUser(faceImages, this);
+            //UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
+            //xml.AddUser(faceImages, this);
 
             this.Close();
         }
@@ -224,8 +224,8 @@ namespace VirtualLibrary
             if (!string.IsNullOrEmpty(usernameTextBox.Text) &&
                 !string.IsNullOrEmpty(surnameTextBox.Text) &&
                 !string.IsNullOrEmpty(nameTextBox.Text) &&
-                !string.IsNullOrEmpty(emailTextBox.Text) &&
-                faceImages != null
+                !string.IsNullOrEmpty(emailTextBox.Text) //&&
+                //faceImages != null
                 )
             {
                 registerButton.Enabled = true;
