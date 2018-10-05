@@ -7,36 +7,32 @@ namespace VirtualLibrary.Presenters
 {
     public class UserPresenter
     {
-        IUser userView;
-        private IRepository<IUser> m_userRepository;
+        private readonly IRepository<IUser> _mUserRepository;
+        private readonly IUser _userView;
 
         public UserPresenter(IUser view, IRepository<IUser> userRepository)
         {
-            userView = view;
-            m_userRepository = userRepository;
+            _userView = view;
+            _mUserRepository = userRepository;
         }
 
         public bool AddUser()
         {
             var validator = new InputValidator();
-            IUser newUser = validator.ValidateUserInput(userView);
+            var newUser = validator.ValidateUserInput(_userView);
 
             if (newUser != null)
             {
-                m_userRepository.Add(newUser);
+                _mUserRepository.Add(newUser);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public IList<IUser> GetUserList()
         {
-            return m_userRepository.GetList();
+            return _mUserRepository.GetList();
         }
-
-       
     }
 }

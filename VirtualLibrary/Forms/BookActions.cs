@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -11,9 +12,9 @@ namespace VirtualLibrary.Forms
 {
     public partial class BookActions : Form
     {
-        private IBook book;
-        private TakenBookPresenter m_takenBookPresenter;
-        private Result result;
+        private IBook _book;
+        private readonly TakenBookPresenter _mTakenBookPresenter;
+        private Result _result;
 
 
         public BookActions()
@@ -21,34 +22,33 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
-            m_takenBookPresenter = new TakenBookPresenter(new BookRepository(DataSources.Data.StaticDataSource._dataSource));
+            _mTakenBookPresenter = new TakenBookPresenter(new BookRepository(StaticDataSource.DataSource));
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
         {
-            String imageLocation = "";
+            var imageLocation = "";
             try
             {
-                OpenFileDialog dialog = new OpenFileDialog
+                var dialog = new OpenFileDialog
                 {
                     Filter = "jpg files(*.jpg)|*.jpg| All Files(*.*)|*.*"
                 };
 
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-
-                    ScannerPresenter scannerPresenter = new ScannerPresenter();
+                    var scannerPresenter = new ScannerPresenter();
 
                     imageLocation = dialog.FileName;
                     barcodePictureBox.ImageLocation = imageLocation;
                     ScannedBookInfo.Visible = false;
                     Info.Visible = false;
-                    result = scannerPresenter.DecodedBarcode(imageLocation);
+                    _result = scannerPresenter.DecodedBarcode(imageLocation);
 
-                    if (result != null)
+                    if (_result != null)
                     {
-                        book = scannerPresenter.ScannedBook(result.Text);
-                        ScannedBookInfo.Text = book.Author + " " + book.Title;
+                        _book = scannerPresenter.ScannedBook(_result.Text);
+                        ScannedBookInfo.Text = _book.Author + " " + _book.Title;
                         ScannedBookInfo.Visible = true;
                         Info.Visible = true;
                     }
@@ -70,41 +70,43 @@ namespace VirtualLibrary.Forms
 
         private void TakeBookButton_Click(object sender, EventArgs e)
         {
-            if (result.Text != null)
+            if (_result.Text != null)
             {
-                m_takenBookPresenter.AddTakenBook(view: book, username: DataSources.Data.StaticDataSource.currUser);
-                var takenBooks = m_takenBookPresenter.GetTakenBooks();
-                var addedBook = takenBooks.First(item => item.Code == book.Code && item.TakenByUser ==
-                DataSources.Data.StaticDataSource.currUser);
+                _mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
+                var takenBooks = _mTakenBookPresenter.GetTakenBooks();
+                var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
+                                                         StaticDataSource.CurrUser);
                 MessageBox.Show("You have to return this book on " + addedBook.HasToBeReturned);
-                UserRepository userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
-                UserPresenter userPresenter = new UserPresenter(null, userRepository);
+                var userRepository = new UserRepository(StaticDataSource.DataSource);
+                var userPresenter = new UserPresenter(null, userRepository);
                 var users = userPresenter.GetUserList();
-                
+
 
                 var userToSendEmailTo =
-                    users.First(user => user.Nickname == DataSources.Data.StaticDataSource.currUser);
+                    users.First(user => user.Nickname == StaticDataSource.CurrUser);
 
-                BookReturnWarning bookReturnWarning = new BookReturnWarning(
+                var bookReturnWarning = new BookReturnWarning(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
-                    book.Author,
-                    book.Title);
+                    _book.Author,
+                    _book.Title);
                 bookReturnWarning.SendWarningEmail();
-
             }
-            else MessageBox.Show("Please add picture of the barcode");
+            else
+            {
+                MessageBox.Show("Please add picture of the barcode");
+            }
         }
 
         private void ReturnBookButton_Click(object sender, EventArgs e)
         {
-            if (result.Text != null)
+            if (_result.Text != null)
             {
-                BookReturnValidator bookReturnValidator = new BookReturnValidator();
-                var book = bookReturnValidator.TakenBookListCheckForBook(code: result.Text);
+                var bookReturnValidator = new BookReturnValidator();
+                var book = bookReturnValidator.TakenBookListCheckForBook(_result.Text);
                 if (book != null)
                 {
-                    m_takenBookPresenter.RemoveTakenBook(book);
+                    _mTakenBookPresenter.RemoveTakenBook(book);
                     MessageBox.Show("Book returned successfully.");
                 }
                 else
@@ -112,7 +114,10 @@ namespace VirtualLibrary.Forms
                     MessageBox.Show("You can not return this book.");
                 }
             }
-            else MessageBox.Show("Please add picture of the barcode");
+            else
+            {
+                MessageBox.Show("Please add picture of the barcode");
+            }
         }
     }
 }

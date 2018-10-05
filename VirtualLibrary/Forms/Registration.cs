@@ -1,40 +1,80 @@
 ﻿using System;
-using System.Windows.Forms;
-using VirtualLibrary.View;
-using VirtualLibrary.Presenters;
-using VirtualLibrary.Repositories;
-using VirtualLibrary.Helpers;
 using System.Text.RegularExpressions;
-using VirtualLibrary.DataSources.Data;
+using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using System.IO;
+using VirtualLibrary.Helpers;
+using VirtualLibrary.Presenters;
+using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
     public partial class Registration : Form, IUser
     {
-        private ErrorProvider passwordErrorProvider;
-        private ErrorProvider repPasswordErrorProvider;
-        private ErrorProvider usernameErrorProvider;
-        private ErrorProvider nameErrorProvider;
-        private ErrorProvider emailErrorProvider;
-        private ErrorProvider surnameErrorProvider;
+        private readonly ErrorProvider _emailErrorProvider;
 
-        private UserPresenter m_userPresenter;
+        private Image<Gray, byte>[] _faceImages;
 
-        private Image<Gray, byte>[] faceImages = null;
+        private readonly UserPresenter _mUserPresenter;
+        private readonly ErrorProvider _nameErrorProvider;
+        private readonly ErrorProvider _passwordErrorProvider;
+        private readonly ErrorProvider _repPasswordErrorProvider;
+        private readonly ErrorProvider _surnameErrorProvider;
+        private readonly ErrorProvider _usernameErrorProvider;
+
+
+        public Registration(IRepository<IUser> userRepository)
+        {
+            InitializeComponent();
+
+            registerButton.Enabled = false;
+
+            _usernameErrorProvider = new ErrorProvider();
+            _usernameErrorProvider.SetIconAlignment(usernameTextBox, ErrorIconAlignment.MiddleRight);
+            _usernameErrorProvider.SetIconPadding(usernameTextBox, 2);
+            _usernameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _nameErrorProvider = new ErrorProvider();
+            _nameErrorProvider.SetIconAlignment(usernameTextBox, ErrorIconAlignment.MiddleRight);
+            _nameErrorProvider.SetIconPadding(usernameTextBox, 2);
+            _nameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _surnameErrorProvider = new ErrorProvider();
+            _surnameErrorProvider.SetIconAlignment(usernameTextBox, ErrorIconAlignment.MiddleRight);
+            _surnameErrorProvider.SetIconPadding(usernameTextBox, 2);
+            _surnameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _emailErrorProvider = new ErrorProvider();
+            _emailErrorProvider.SetIconAlignment(usernameTextBox, ErrorIconAlignment.MiddleRight);
+            _emailErrorProvider.SetIconPadding(usernameTextBox, 2);
+            _emailErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _passwordErrorProvider = new ErrorProvider();
+            _passwordErrorProvider.SetIconAlignment(passwordTextBox, ErrorIconAlignment.MiddleRight);
+            _passwordErrorProvider.SetIconPadding(passwordTextBox, 2);
+            _passwordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _repPasswordErrorProvider = new ErrorProvider();
+            _repPasswordErrorProvider.SetIconAlignment(repeatPasswTextBox, ErrorIconAlignment.MiddleRight);
+            _repPasswordErrorProvider.SetIconPadding(repeatPasswTextBox, 2);
+            _repPasswordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+
+            _mUserPresenter = new UserPresenter(this, userRepository);
+        }
 
         public new string Name
         {
             get => nameTextBox.Text;
             set => nameTextBox.Text = value;
         }
+
         public string Surname
         {
             get => surnameTextBox.Text;
             set => surnameTextBox.Text = value;
         }
+
         public string Email
         {
             get => emailTextBox.Text;
@@ -46,177 +86,114 @@ namespace VirtualLibrary
             get => dateTimeBox.Text;
             set => dateTimeBox.Text = value;
         }
+
         public string Password
         {
             get => passwordTextBox.Text;
             set => passwordTextBox.Text = value;
         }
+
         public string Nickname
         {
             get => usernameTextBox.Text;
             set => usernameTextBox.Text = value;
         }
 
-
-
-        public Registration(IRepository<IUser> userRepository)
-        {
-            InitializeComponent();
-
-            registerButton.Enabled = false;
-
-            usernameErrorProvider = new ErrorProvider();
-            usernameErrorProvider.SetIconAlignment(this.usernameTextBox, ErrorIconAlignment.MiddleRight);
-            usernameErrorProvider.SetIconPadding(this.usernameTextBox, 2);
-            usernameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            nameErrorProvider = new ErrorProvider();
-            nameErrorProvider.SetIconAlignment(this.usernameTextBox, ErrorIconAlignment.MiddleRight);
-            nameErrorProvider.SetIconPadding(this.usernameTextBox, 2);
-            nameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            surnameErrorProvider = new ErrorProvider();
-            surnameErrorProvider.SetIconAlignment(this.usernameTextBox, ErrorIconAlignment.MiddleRight);
-            surnameErrorProvider.SetIconPadding(this.usernameTextBox, 2);
-            surnameErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            emailErrorProvider = new ErrorProvider();
-            emailErrorProvider.SetIconAlignment(this.usernameTextBox, ErrorIconAlignment.MiddleRight);
-            emailErrorProvider.SetIconPadding(this.usernameTextBox, 2);
-            emailErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            passwordErrorProvider = new ErrorProvider();
-            passwordErrorProvider.SetIconAlignment(this.passwordTextBox, ErrorIconAlignment.MiddleRight);
-            passwordErrorProvider.SetIconPadding(this.passwordTextBox, 2);
-            passwordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            repPasswordErrorProvider = new ErrorProvider();
-            repPasswordErrorProvider.SetIconAlignment(this.repeatPasswTextBox, ErrorIconAlignment.MiddleRight);
-            repPasswordErrorProvider.SetIconPadding(this.repeatPasswTextBox, 2);
-            repPasswordErrorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
-
-            m_userPresenter = new UserPresenter(this, userRepository);
-
-        }
-
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            InputValidator inputValidator = new InputValidator();
-            if (string.IsNullOrEmpty(nameTextBox.Text))
-            {
-                nameErrorProvider.SetError(this.nameTextBox, "Can't be empty");
-            }
+            var inputValidator = new InputValidator();
+            if (string.IsNullOrEmpty(nameTextBox.Text)) _nameErrorProvider.SetError(nameTextBox, "Can't be empty");
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            using (LiveCamera photoForm = new LiveCamera())
+            using (var photoForm = new LiveCamera())
             {
-                MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 photoForm.ShowDialog();
-                this.faceImages = photoForm.grayPictures;
+                _faceImages = photoForm.GrayPictures;
                 InputCorrect();
             }
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            m_userPresenter.AddUser();
-      
+            _mUserPresenter.AddUser();
+
             //UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
             //xml.AddUser(faceImages, this);
 
-            this.Close();
+            Close();
         }
 
         private void Label2_Click(object sender, EventArgs e)
         {
-
         }
 
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (passwordTextBox.Text.Length < 6)
-            {
-                passwordErrorProvider.SetError(this.passwordTextBox, "Password needs to be longer than 6 letters");
-            }
+                _passwordErrorProvider.SetError(passwordTextBox, "Password needs to be longer than 6 letters");
             else
-            {
-                passwordErrorProvider.SetError(this.passwordTextBox, String.Empty);
-
-            }
+                _passwordErrorProvider.SetError(passwordTextBox, string.Empty);
         }
 
         private void RepeatPasswTextBox_TextChanged(object sender, EventArgs e)
         {
             if (repeatPasswTextBox.Text.Equals(passwordTextBox.Text))
             {
-                repPasswordErrorProvider.SetError(this.repeatPasswTextBox, String.Empty);
+                _repPasswordErrorProvider.SetError(repeatPasswTextBox, string.Empty);
                 InputCorrect();
             }
             else
             {
-                repPasswordErrorProvider.SetError(this.repeatPasswTextBox, "Passwords do not match");
+                _repPasswordErrorProvider.SetError(repeatPasswTextBox, "Passwords do not match");
                 registerButton.Enabled = false;
             }
         }
 
         private void Registration_Load(object sender, EventArgs e)
         {
-
         }
 
         private void Label4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            InputValidator inputValidator = new InputValidator();
+            var inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(usernameTextBox.Text))
-            {
-                surnameErrorProvider.SetError(this.usernameTextBox, "Can't be empty");
-            }
+                _surnameErrorProvider.SetError(usernameTextBox, "Can't be empty");
             if (inputValidator.ValidUsername(usernameTextBox.Text))
-            {
-                usernameErrorProvider.SetError(this.usernameTextBox, "This username already exist");
-            }
+                _usernameErrorProvider.SetError(usernameTextBox, "This username already exist");
             else
-            {
-                usernameErrorProvider.SetError(this.usernameTextBox, String.Empty);
-            }
+                _usernameErrorProvider.SetError(usernameTextBox, string.Empty);
         }
+
         private void SurnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            InputValidator inputValidator = new InputValidator();
+            var inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(surnameTextBox.Text))
-            {
-                surnameErrorProvider.SetError(this.surnameTextBox, "Can't be empty");
-            }
+                _surnameErrorProvider.SetError(surnameTextBox, "Can't be empty");
             else
-            {
-                surnameErrorProvider.SetError(this.surnameTextBox, String.Empty);
-            }
+                _surnameErrorProvider.SetError(surnameTextBox, string.Empty);
         }
+
         private void EmailTextBox_TextChanged(object sender, EventArgs e)
         {
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(emailTextBox.Text);
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var match = regex.Match(emailTextBox.Text);
             if (!match.Success)
-            {
-                emailErrorProvider.SetError(this.emailTextBox, "Incorrect format");
-            }
+                _emailErrorProvider.SetError(emailTextBox, "Incorrect format");
             else
-            {
-                emailErrorProvider.SetError(this.emailTextBox, String.Empty);
-            }
+                _emailErrorProvider.SetError(emailTextBox, string.Empty);
         }
 
         private void InputCorrect()
@@ -226,15 +203,10 @@ namespace VirtualLibrary
                 !string.IsNullOrEmpty(nameTextBox.Text) &&
                 !string.IsNullOrEmpty(emailTextBox.Text) //&&
                 //faceImages != null
-                )
-            {
+            )
                 registerButton.Enabled = true;
-            }
             else
-            {
                 registerButton.Enabled = false;
-            }
         }
-
     }
 }
