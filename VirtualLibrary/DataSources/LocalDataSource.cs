@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VirtualLibrary.Data;
-using VirtualLibrary.Model;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources
@@ -10,11 +9,10 @@ namespace VirtualLibrary.DataSources
     {
         private IList<IBook> _books;
         private IList<IUser> _users;
-        // private IList<ITakenBook> _takenBooks;
 
         public LocalDataSource()
         {
-            var booksSource = new BookListFromFile();
+            var booksSource = new BookList();
             var existingBooks = booksSource.GetBookList();
             _books = new List<IBook>();
 
@@ -22,7 +20,6 @@ namespace VirtualLibrary.DataSources
                 _books.Add(book);
 
             _users = new List<IUser>();
-            //_takenBooks = new List<ITakenBook>();
         }
 
         public void AddBook(IBook book)

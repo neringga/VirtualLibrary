@@ -53,6 +53,7 @@ namespace VirtualLibrary.Forms
                         nameLabel.Text = nicknames.ElementAt(result.Label/5);
                         currentNickname = nicknames.ElementAt(result.Label / 5);
                         loginButton.Text = "Log in as "+ currentNickname;
+                        StaticDataSource.currUser = currentNickname;
                     }
                     else
                     {
@@ -94,16 +95,9 @@ namespace VirtualLibrary.Forms
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            if (/*m_userRepository.Login(currentNickname)*/1==1)
-            {
-                Library library = new Library();
-                library.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Face not recognized. Try different log in method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Library library = new Library();
+            library.Show();
+            Dispose();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace VirtualLibrary.Forms
         {
             InitializeComponent();
 
-            BookListFromFile bookListFromFile = new BookListFromFile(); 
+            BookList bookListFromFile = new BookList(); 
             var m_takenBookPresenter = new TakenBookPresenter
                 (new BookRepository(DataSources.Data.StaticDataSource._dataSource));
             var books = bookListFromFile.GetBookList();

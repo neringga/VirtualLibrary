@@ -10,9 +10,13 @@ namespace VirtualLibrary.DataSources.Data
     {
         public const string senderEmail = "nergei87@gmail.com";
         public const string subjectEmail = "Warning to return book";
-        public const string warningText = "You have to return book listed below till the return time:";
-        public const string smtpGmail = "smtp.gmail.com";
+        public const string warningText = "You must return the book listed below:";
+        public const string warningText2 = "until";
+        public const string smtpServer = "smtp.gmail.com";
+        public const int smtpPort = 587;
         public const string username = "nergei87@gmail.com";
         public const string password = "Vienas111";
+        public const string bookFile = "BookList.txt";
+        public const string emailCredentialsFile = "email-details.txt";
     }
 }
