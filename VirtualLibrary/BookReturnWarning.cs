@@ -6,29 +6,45 @@ namespace VirtualLibrary
 {
     class BookReturnWarning
     {
-        public bool SendWarningEmail(string userEmail, DateTime returnTime, string title, string author)
+        EmailCredentials emailCredentials = new EmailCredentials();
+        private string _userEmail;
+        private string _title;
+        private string _author;
+        private DateTime _returnTime;
+
+        public BookReturnWarning(string userEmail, DateTime returnTime, string title, string author)
+        {
+            _userEmail = userEmail;
+            _title = title;
+            _returnTime = returnTime;
+            _author = author;
+        }
+
+        private MailMessage Mail()
+        {
+            MailMessage mail = new MailMessage
+            {
+                From = new MailAddress(Constants.senderEmail),
+                Body = Constants.warningText +
+                       Environment.NewLine + _author + " " + _title + " " + Constants.warningText2 + " " +
+                       _returnTime.ToString(),
+                Subject = emailCredentials.GetUsername()
+            };
+            mail.To.Add(_userEmail);
+            return mail;
+        }
+
+        public bool SendWarningEmail()
         {
             try
             {
-                EmailCredentials emailCredentials = new EmailCredentials();
                 SmtpClient SmtpServer = new SmtpClient(Constants.smtpServer);
-                MailMessage mail = new MailMessage
-                {
-                    From = new MailAddress(Constants.senderEmail),
-                    Body = Constants.warningText +
-                    Environment.NewLine + author + " " + title + " " + Constants.warningText2 + " " +
-                    returnTime.ToString(),
-                    Subject = Constants.subjectEmail,
-                };
-                mail.To.Add(userEmail);
-
-
-                SmtpServer.Port = Constants.smtpPort;
+                SmtpServer.Port = emailCredentials.GetPort();
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(
                     emailCredentials.GetUsername(), emailCredentials.GetPassword());
                 SmtpServer.EnableSsl = true;
-                SmtpServer.Send(mail);
+                SmtpServer.Send(Mail());
 
                 return true;
             }

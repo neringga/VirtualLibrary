@@ -66,13 +66,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookReturnWarning.cs" />
+    <Compile Include="DataSources\Data\BookList.cs" />
     <Compile Include="DataSources\Data\Constants.cs" />
+    <Compile Include="DataSources\Data\EmailCredentials.cs" />
     <Compile Include="DataSources\Data\StaticDataSource.cs" />
     <Compile Include="DataSources\Data\TextFile.cs" />
     <Compile Include="DataSources\Data\UserInformationInXMLFiles.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
-    <Compile Include="DataSources\Data\BookListFromFile.cs" />
     <Compile Include="Enums\BookGenre.cs" />
     <Compile Include="FaceDetection.cs" />
     <Compile Include="Forms\BookActions.cs">

@@ -80,19 +80,17 @@ namespace VirtualLibrary.Forms
                 UserRepository userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
                 UserPresenter userPresenter = new UserPresenter(null, userRepository);
                 var users = userPresenter.GetUserList();
-                BookReturnWarning bookReturnWarning = new BookReturnWarning();
+                
 
                 var userToSendEmailTo =
                     users.First(user => user.Nickname == DataSources.Data.StaticDataSource.currUser);
 
-                if (!bookReturnWarning.SendWarningEmail(
-                        userToSendEmailTo.Email,
-                        addedBook.HasToBeReturned,
-                        book.Author,
-                        book.Title))
-                {
-                    MessageBox.Show("Failed");
-                }
+                BookReturnWarning bookReturnWarning = new BookReturnWarning(
+                    userToSendEmailTo.Email,
+                    addedBook.HasToBeReturned,
+                    book.Author,
+                    book.Title);
+                bookReturnWarning.SendWarningEmail();
 
             }
             else MessageBox.Show("Please add picture of the barcode");
