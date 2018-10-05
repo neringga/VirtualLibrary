@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VirtualLibrary.Data;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources
 {
-    class LocalDataSource : IDataSource
+    public class LocalDataSource : IDataSource
     {
-        private IList<IBook> _books;
-        private IList<IUser> _users;
+        private readonly IList<IBook> _books;
+        private readonly IList<IUser> _users;
 
         public LocalDataSource()
         {
@@ -66,7 +66,5 @@ namespace VirtualLibrary.DataSources
         {
             _books.Remove(takenBook);
         }
-
-      
     }
 }

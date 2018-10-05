@@ -17,12 +17,12 @@ namespace VirtualLibrary.Model
 
         public bool Equals(IBook other)
         {
-            return Code == other.Code; //  || (Code == string.Empty && other.Code == string.Empty) || (Code == null && other.Code == null);
+            return
+                Code == other
+                    .Code; //  || (Code == string.Empty && other.Code == string.Empty) || (Code == null && other.Code == null);
         }
 
         //TODO: 
         //public BookGenre Genre { get; set}
     }
-
-    
 }

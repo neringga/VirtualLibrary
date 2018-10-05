@@ -1,8 +1,5 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Linq;
-using VirtualLibrary.DataSources;
+﻿using System.Linq;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -23,14 +20,12 @@ namespace VirtualLibrary.Helpers
                 Email = userView.Email
             };
             return newUser;
-            
-
         }
 
-        public bool ValidUsername (string username, string defaultUsername = "default") 
+        public bool ValidUsername(string username, string defaultUsername = "default")
         {
             if (username == null) username = defaultUsername;
-            var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
+            var userRepository = new UserRepository(StaticDataSource.DataSource);
             var users = userRepository.GetList();
 
             return users.Select(user => user.Nickname).Contains(username);

@@ -1,32 +1,26 @@
 ﻿using System.Drawing;
+using System.Linq;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.View;
 using ZXing;
 
 namespace VirtualLibrary.Presenters
 {
-    class ScannerPresenter
+    public class ScannerPresenter
     {
-        IBarcodeReader reader = new BarcodeReader();
+        private readonly IBarcodeReader _reader = new BarcodeReader();
 
-        public Result DecodedBarcode (string imageLocation)
+        public Result DecodedBarcode(string imageLocation)
         {
-            Bitmap barcodeBitmap = (Bitmap)Image.FromFile(imageLocation);
-            return reader.Decode(barcodeBitmap);
+            var barcodeBitmap = (Bitmap) Image.FromFile(imageLocation);
+            return _reader.Decode(barcodeBitmap);
         }
 
-        public IBook ScannedBook (string barcode)
+        public IBook ScannedBook(string barcode)
         {
-            LocalDataSource localDataSource = new LocalDataSource();
+            var localDataSource = new LocalDataSource();
             var books = localDataSource.GetBookList();
-            foreach ( var book in books)
-            {
-                if (book.Code.Equals(barcode))
-                {
-                    return book;
-                }
-            }
-            return null;
+            return books.FirstOrDefault(book => book.Code.Equals(barcode));
         }
     }
 }
