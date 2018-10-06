@@ -30,8 +30,9 @@ namespace VirtualLibrary.Forms
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-            var barcodeScanner = new BookActions();
-            barcodeScanner.ShowDialog();
+            Close();
+            new BookActions().ShowDialog();
+       
         }
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,6 +53,11 @@ namespace VirtualLibrary.Forms
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void LogoutButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

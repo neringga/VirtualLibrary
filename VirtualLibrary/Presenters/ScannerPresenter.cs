@@ -19,9 +19,14 @@ namespace VirtualLibrary.Presenters
         {
             var localDataSource = new LocalDataSource();
             var books = localDataSource.GetBookList();
-            foreach (var book in books)
-                if (book.Code.Equals(barcode))
-                    return book;
+            if (books != null)
+            {
+                foreach (var book in books)
+                {
+                    if (book.Code.Equals(barcode))
+                        return book;
+                }
+            }
             return null;
         }
     }

@@ -45,5 +45,10 @@ namespace VirtualLibrary.Forms
                 MessageBox.Show("User not found. Please register before trying to log in.");
             }
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

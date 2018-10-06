@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using VirtualLibrary.Helpers;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources.Data
@@ -39,54 +40,61 @@ namespace VirtualLibrary.DataSources.Data
 
             using (var xmlreader = XmlReader.Create(xmlStream))
             {
-                while (xmlreader.Read())
-                    if (xmlreader.IsStartElement())
-                        switch (xmlreader.Name)
-                        {
-                            case "NICKNAME":
-                                if (xmlreader.Read()) nicknames.Add(xmlreader.Value.Trim());
-                                break;
-                            case "IMAGE_0":
-                                if (xmlreader.Read())
-                                {
-                                    faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                    labelsList.Add(label++);
-                                }
+                try
+                {
+                    while (xmlreader.Read())
+                        if (xmlreader.IsStartElement())
+                            switch (xmlreader.Name)
+                            {
+                                case "NICKNAME":
+                                    if (xmlreader.Read()) nicknames.Add(xmlreader.Value.Trim());
+                                    break;
+                                case "IMAGE_0":
+                                    if (xmlreader.Read())
+                                    {
+                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
+                                        labelsList.Add(label++);
+                                    }
 
-                                break;
-                            case "IMAGE_1":
-                                if (xmlreader.Read())
-                                {
-                                    faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                    labelsList.Add(label++);
-                                }
+                                    break;
+                                case "IMAGE_1":
+                                    if (xmlreader.Read())
+                                    {
+                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
+                                        labelsList.Add(label++);
+                                    }
 
-                                break;
-                            case "IMAGE_2":
-                                if (xmlreader.Read())
-                                {
-                                    faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                    labelsList.Add(label++);
-                                }
+                                    break;
+                                case "IMAGE_2":
+                                    if (xmlreader.Read())
+                                    {
+                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
+                                        labelsList.Add(label++);
+                                    }
 
-                                break;
-                            case "IMAGE_3":
-                                if (xmlreader.Read())
-                                {
-                                    faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                    labelsList.Add(label++);
-                                }
+                                    break;
+                                case "IMAGE_3":
+                                    if (xmlreader.Read())
+                                    {
+                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
+                                        labelsList.Add(label++);
+                                    }
 
-                                break;
-                            case "IMAGE_4":
-                                if (xmlreader.Read())
-                                {
-                                    faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                    labelsList.Add(label++);
-                                }
+                                    break;
+                                case "IMAGE_4":
+                                    if (xmlreader.Read())
+                                    {
+                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
+                                        labelsList.Add(label++);
+                                    }
 
-                                break;
-                        }
+                                    break;
+                            }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
 
             labels = labelsList.ToArray();

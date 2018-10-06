@@ -35,11 +35,11 @@ namespace VirtualLibrary
             return mail;
         }
 
-        public bool SendWarningEmail()
+        public void SendWarningEmail()
         {
             try
             {
-                var smtpServer = new SmtpClient(Constants.SmtpServer)
+                var smtpServer = new SmtpClient(_emailCredentials.GetServer())
                 {
                     Port = _emailCredentials.GetPort(),
                     UseDefaultCredentials = false,
@@ -49,11 +49,10 @@ namespace VirtualLibrary
                 };
                 smtpServer.Send(Mail());
 
-                return true;
             }
             catch (Exception ex)
             {
-                return false;
+                Console.WriteLine(ex.ToString());
             }
         }
     }

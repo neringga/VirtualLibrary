@@ -9,9 +9,14 @@ namespace VirtualLibrary.DataSources.Data
         {
             string line;
             var textList = new List<string>();
-            var file = new StreamReader(Path.Combine(Directory.GetParent(
-                Directory.GetCurrentDirectory()).Parent.FullName, fileName));
-            while ((line = file.ReadLine()) != null) textList.Add(line);
+            var directoryInfo = Directory.GetParent(
+                Directory.GetCurrentDirectory()).Parent;
+            if (directoryInfo != null)
+            {
+                var file = new StreamReader(Path.Combine(directoryInfo.FullName, fileName));
+                while ((line = file.ReadLine()) != null) textList.Add(line);
+            }
+
             return textList;
         }
     }

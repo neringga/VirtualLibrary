@@ -13,6 +13,7 @@ namespace VirtualLibrary.Data
         {
             var textFile = new TextFile();
             var list = textFile.ReadTextFile(Constants.BookFile);
+         
             string[] words;
 
             foreach (var line in list)

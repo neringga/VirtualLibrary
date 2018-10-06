@@ -97,6 +97,7 @@ namespace VirtualLibrary.Forms
             var library = new Library();
             library.Show();
             Dispose();
+            Close();
         }
     }
 }
