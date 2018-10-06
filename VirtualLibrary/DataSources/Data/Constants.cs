@@ -18,5 +18,7 @@ namespace VirtualLibrary.DataSources.Data
         public const string password = "Vienas111";
         public const string bookFile = "BookList.txt";
         public const string emailCredentialsFile = "email-details.txt";
+
+        public const int FaceImagesPerUser = 5;
     }
 }

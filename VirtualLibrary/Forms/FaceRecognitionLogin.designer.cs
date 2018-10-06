@@ -93,7 +93,6 @@
             this.Controls.Add(this.cameraBox);
             this.Name = "FaceRecognitionLogin";
             this.Text = "FaceRecognitionLogin";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FaceRecognitionLogin_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

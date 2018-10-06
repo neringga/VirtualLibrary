@@ -117,7 +117,6 @@ namespace VirtualLibrary
         {
             using (LiveCamera photoForm = new LiveCamera())
             {
-                MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 photoForm.ShowDialog();
                 this.faceImages = photoForm.grayPictures;
                 InputCorrect();
@@ -128,8 +127,16 @@ namespace VirtualLibrary
         {
             m_userPresenter.AddUser();
       
-            //UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            //xml.AddUser(faceImages, this);
+            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\",
+                                                                                Constants.FaceImagesPerUser);
+            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\faceLabels.xml"))
+            {
+                xml.AddUser(faceImages, this);
+            }
+            else
+            {
+                xml.CreateNewUserList(faceImages, this);
+            }
 
             this.Close();
         }
