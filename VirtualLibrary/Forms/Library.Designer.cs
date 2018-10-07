@@ -43,7 +43,7 @@ namespace VirtualLibrary.Forms
             this.ScannerOpenButton.Name = "ScannerOpenButton";
             this.ScannerOpenButton.Size = new System.Drawing.Size(172, 27);
             this.ScannerOpenButton.TabIndex = 0;
-            this.ScannerOpenButton.Text = "Scan book";
+            this.ScannerOpenButton.Text = Translations.GetTranslatedString("scannerOpenButton");
             this.ScannerOpenButton.UseVisualStyleBackColor = true;
             this.ScannerOpenButton.Click += new System.EventHandler(this.ScannerOpenButton_Click);
             // 
@@ -55,7 +55,7 @@ namespace VirtualLibrary.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Books that have to be returned: ";
+            this.label1.Text = Translations.GetTranslatedString("listOfBooks");
             // 
             // label2
             // 
@@ -65,7 +65,7 @@ namespace VirtualLibrary.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(192, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "For taking or returning book: ";
+            this.label2.Text = Translations.GetTranslatedString("forBooks");
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // bookListBox
@@ -90,7 +90,7 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.ScannerOpenButton);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Library";
-            this.Text = "Library";
+            this.Text = Translations.GetTranslatedString("library");
             this.Load += new System.EventHandler(this.Library_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

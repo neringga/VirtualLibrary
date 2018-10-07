@@ -53,7 +53,7 @@ namespace VirtualLibrary.Forms
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(100, 28);
             this.LoginButton.TabIndex = 1;
-            this.LoginButton.Text = "Login";
+            this.LoginButton.Text = Translations.GetTranslatedString("logInButton");
             this.LoginButton.UseVisualStyleBackColor = true;
             this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
@@ -74,7 +74,7 @@ namespace VirtualLibrary.Forms
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 17);
             this.label4.TabIndex = 16;
-            this.label4.Text = "Username";
+            this.label4.Text = Translations.GetTranslatedString("username");
             // 
             // label2
             // 
@@ -84,7 +84,7 @@ namespace VirtualLibrary.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 17;
-            this.label2.Text = "Password";
+            this.label2.Text = Translations.GetTranslatedString("password");
             // 
             // Login
             // 
@@ -98,7 +98,7 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.usernameTextBox);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Login";
-            this.Text = "Login";
+            this.Text = Translations.GetTranslatedString("logInButton");
             this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

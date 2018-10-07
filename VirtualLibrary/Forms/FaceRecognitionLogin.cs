@@ -6,6 +6,7 @@ using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 
 namespace VirtualLibrary.Forms
 {
@@ -41,13 +42,13 @@ namespace VirtualLibrary.Forms
 
             if (currentNickname != null)
             {
-                loginButton.Text = "Log in as " + currentNickname;
+                loginButton.Text = Translations.GetTranslatedString("logInButton") + currentNickname;
                 nameLabel.Text = currentNickname;
                 StaticDataSource.CurrUser = currentNickname;
             }
             else
             {
-                nameLabel.Text = "Unknown";
+                nameLabel.Text = Translations.GetTranslatedString("unknown");
             }
 
             cameraBox.Image = display;
