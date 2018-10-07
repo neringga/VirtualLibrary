@@ -34,5 +34,11 @@ namespace VirtualLibrary.Presenters
         {
             return _mUserRepository.GetList();
         }
+
+        public static string GetUserLanguage()
+        {
+            return _userView.Language;
+        }
+
     }
 }
