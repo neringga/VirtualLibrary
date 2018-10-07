@@ -20,7 +20,6 @@ namespace VirtualLibrary.Presenters
         {
             var validator = new InputValidator();
             var newUser = validator.ValidateUserInput(_userView);
-
             if (newUser != null)
             {
                 _mUserRepository.Add(newUser);

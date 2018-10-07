@@ -26,10 +26,10 @@ namespace VirtualLibrary
             var mail = new MailMessage
             {
                 From = new MailAddress(_emailCredentials.GetUsername()),
-                Body = Constants.WarningText +
-                       Environment.NewLine + _author + " " + _title + " " + Constants.WarningText2 + " " +
+                Body = StaticStrings.WarningText +
+                       Environment.NewLine + _author + " " + _title + " " + StaticStrings.WarningText2 + " " +
                        _returnTime,
-                Subject = Constants.SubjectEmail
+                Subject = StaticStrings.SubjectEmail
             };
             mail.To.Add(_userEmail);
             return mail;
