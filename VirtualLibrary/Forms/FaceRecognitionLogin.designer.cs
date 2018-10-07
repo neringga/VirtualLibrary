@@ -1,6 +1,4 @@
-﻿using VirtualLibrary.Localization;
-
-namespace VirtualLibrary.Forms
+﻿namespace VirtualLibrary.Forms
 {
     partial class FaceRecognitionLogin
     {
@@ -42,9 +40,8 @@ namespace VirtualLibrary.Forms
             // cameraBox
             // 
             this.cameraBox.Location = new System.Drawing.Point(0, 0);
-            this.cameraBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cameraBox.Name = "cameraBox";
-            this.cameraBox.Size = new System.Drawing.Size(1067, 591);
+            this.cameraBox.Size = new System.Drawing.Size(800, 480);
             this.cameraBox.TabIndex = 2;
             this.cameraBox.TabStop = false;
             // 
@@ -52,23 +49,21 @@ namespace VirtualLibrary.Forms
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1156, 105);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(867, 85);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 29);
+            this.label1.Size = new System.Drawing.Size(70, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = Translations.GetTranslatedString("nameBox");
+            this.label1.Text = "Name:";
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(1257, 105);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.nameLabel.Location = new System.Drawing.Point(943, 85);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(166, 39);
+            this.nameLabel.Size = new System.Drawing.Size(134, 31);
             this.nameLabel.TabIndex = 4;
-            this.nameLabel.Text = Translations.GetTranslatedString("loading");
+            this.nameLabel.Text = "Loading...";
             // 
             // startRecognitionTimer
             // 
@@ -79,28 +74,25 @@ namespace VirtualLibrary.Forms
             // loginButton
             // 
             this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginButton.Location = new System.Drawing.Point(1265, 506);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginButton.Location = new System.Drawing.Point(949, 411);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(395, 62);
+            this.loginButton.Size = new System.Drawing.Size(296, 50);
             this.loginButton.TabIndex = 5;
-            this.loginButton.Text = Translations.GetTranslatedString("logInButton");
+            this.loginButton.Text = "Log in as ";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // FaceRecognitionLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1697, 601);
+            this.ClientSize = new System.Drawing.Size(1273, 488);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cameraBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FaceRecognitionLogin";
-            this.Text = Translations.GetTranslatedString("faceRecognisionLogin");
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FaceRecognitionLogin_FormClosed);
+            this.Text = "FaceRecognitionLogin";
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
