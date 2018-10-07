@@ -1,4 +1,6 @@
-﻿namespace VirtualLibrary.Forms
+﻿using VirtualLibrary.Localization;
+
+namespace VirtualLibrary.Forms
 {
     partial class Login
     {
@@ -68,7 +70,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 16;
-            this.label4.Text = "Username:";
+            this.label4.Text = Translations.GetTranslatedString("Username");
             // 
             // label2
             // 

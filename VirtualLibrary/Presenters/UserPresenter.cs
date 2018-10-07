@@ -20,7 +20,6 @@ namespace VirtualLibrary.Presenters
         {
             var validator = new InputValidator();
             var newUser = validator.ValidateUserInput(_userView);
-
             if (newUser != null)
             {
                 _mUserRepository.Add(newUser);
@@ -34,11 +33,5 @@ namespace VirtualLibrary.Presenters
         {
             return _mUserRepository.GetList();
         }
-
-        public static string GetUserLanguage()
-        {
-            return _userView.Language;
-        }
-
     }
 }

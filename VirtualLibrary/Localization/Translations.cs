@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VirtualLibrary.Presenters;
 namespace VirtualLibrary.Localization
 {
@@ -8,29 +9,52 @@ namespace VirtualLibrary.Localization
         {
             new Translation()
             {
-            id = "",
+            id = "Sign In",
             translatedStrings = new List<LanguageValuePair>()
                 {
                     new LanguageValuePair()
                     {
                         language = "EN",
-                        value = ""
+                        value = "Sign In"
                     },
                     new LanguageValuePair()
                     {
                          language = "LT",
-                         value = ""
+                         value = "Prisijungti"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "Username",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Username"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Vartotojo vardas"
                     }
                 }
             }
 
-            
+
         };
         public static string GetTranslatedString(string id)
         {
-            string lang = UserPresenter.GetUserLanguage();
-
-            return null;
+            Console.Out.WriteLine("GET TRANS STRING METODAS");
+            string lang = Registration.GetUserLanguageSetting();
+            Console.Out.WriteLine("KALBA PO SET : " +lang);
+            if (lang == null) lang= "EN";
+            string translatedString;
+            Translation foundTranslation = translations.Find(Translation => Translation.id == id);
+            LanguageValuePair pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
+            translatedString = pair.value;
+            return translatedString;
         }
 
     }

@@ -22,7 +22,7 @@ namespace VirtualLibrary
         private readonly ErrorProvider _repPasswordErrorProvider;
         private readonly ErrorProvider _surnameErrorProvider;
         private readonly ErrorProvider _usernameErrorProvider;
-        private string _language;
+        private static string _language;
 
         public Registration(IRepository<IUser> userRepository)
         {
@@ -223,6 +223,10 @@ namespace VirtualLibrary
         private void button3_Click(object sender, EventArgs e)
         {
             _language = "LT";
+        }
+
+        public static  string GetUserLanguageSetting() {
+            return _language;
         }
     }
 }
