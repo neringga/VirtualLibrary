@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
+using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -32,7 +33,7 @@ namespace VirtualLibrary.Forms
             {
                 var dialog = new OpenFileDialog
                 {
-                    Filter = Constants.PictureFilter
+                    Filter = StaticStrings.PictureFilter
                 };
 
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -55,7 +56,7 @@ namespace VirtualLibrary.Forms
             }
             catch (Exception)
             {
-                MessageBox.Show("Try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Translations.GetTranslatedString("tryAgain"), Translations.GetTranslatedString("error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _result = null;
             }
         }
@@ -88,17 +89,17 @@ namespace VirtualLibrary.Forms
                     _book.Author,
                     _book.Title);
                     bookReturnWarning.SendWarningEmail();
-                    MessageBox.Show("You have to return this book on " + addedBook.HasToBeReturned);
+                    MessageBox.Show(Translations.GetTranslatedString("returnUntil ") + addedBook.HasToBeReturned);
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("You can not return this book");
+                    MessageBox.Show(Translations.GetTranslatedString("cannotTake"));
                 }
 
             }
             else
             {
-                MessageBox.Show("Please add picture of the barcode");
+                MessageBox.Show(Translations.GetTranslatedString("addPicture"));
             }
         }
 
@@ -111,16 +112,16 @@ namespace VirtualLibrary.Forms
                 if (book != null)
                 {
                     _mTakenBookPresenter.RemoveTakenBook(book);
-                    MessageBox.Show("Book returned successfully.");
+                    MessageBox.Show(Translations.GetTranslatedString("returnSucessfully"));
                 }
                 else
                 {
-                    MessageBox.Show("You can not return this book.");
+                    MessageBox.Show(Translations.GetTranslatedString("cannotReturn"));
                 }
             }
             else
             {
-                MessageBox.Show("Please add picture of the barcode");
+                MessageBox.Show(Translations.GetTranslatedString("addPicture"));
             }
         }
 

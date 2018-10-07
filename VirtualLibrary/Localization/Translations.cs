@@ -772,26 +772,205 @@ namespace VirtualLibrary.Localization
                     }
                 }
             },
+            new Translation()
+            {
+            id = "warning",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Warning to return book"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Įspėjimas grąžinti knygą"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "returnThisBook",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "You must return the book listed below:"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Jūs turite grąžinti šią knygą:"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "until",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "until"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "iki"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "tryAgain",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Try again"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Bandykite dar kartą"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "error",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Error"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Įvyko klaida"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "returnUntil",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "You have to return this book on "
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Turite grąžinti šią knygą iki "
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "cannotTake",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "You can not take this book"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Negalite paimti šios knygos"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "addPicture",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Please add picture of the barcode"
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Prašome pridėti barkodo nuotrauką"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "returnSucessfully",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Book returned successfully."
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Knyga grąžinta sėkmingai."
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "cannotReturn",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "You can not return this book."
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Negalite grąžinti šios knygos"
+                    }
+                }
+            },
+            new Translation()
+            {
+            id = "returnOn",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = " return on "
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = " grąžinti "
+                    }
+                }
+            },
         };
 
         public static string GetTranslatedString (string id)
         {
-            Console.Out.WriteLine("GET TRANS STRING METODAS");
             string lang = Registration.GetUserLanguageSetting();
-            Console.Out.WriteLine("KALBA PO SET : " +lang);
             if (lang == null)
                 lang = "EN";
             string translatedString;
             Translation foundTranslation = translations.Find(Translation => Translation.id == id);
-            if (foundTranslation != null)
-            {
-                LanguageValuePair pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
-                translatedString = pair.value;
-                return translatedString;
-            }
-            return "bad string";
-        }
-
-  
+            LanguageValuePair pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
+            translatedString = pair.value;
+            return translatedString;
+        }  
     }
 }
