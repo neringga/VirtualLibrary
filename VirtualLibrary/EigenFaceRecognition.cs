@@ -41,8 +41,17 @@ namespace VirtualLibrary
         public string Recognize(Image<Bgr, Byte> display)
         {
             Rectangle[] faces = cascade.DetectMultiScale(display.Convert<Gray, Byte>(), 1.2, 0);
+            Image<Gray, Byte> faceImage;
 
-            Image<Gray, Byte> faceImage = display.Convert<Gray, Byte>().Copy(faces[0]).Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+            try
+            {
+                faceImage = display.Convert<Gray, Byte>().Copy(faces[0]).Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
 
             FaceRecognizer.PredictionResult result = recognizer.Predict(faceImage);
 
