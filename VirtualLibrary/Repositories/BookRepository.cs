@@ -7,7 +7,7 @@ namespace VirtualLibrary.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private IDataSource _dataSource;
+        private readonly IDataSource _dataSource;
 
         public BookRepository(IDataSource dataSource)
         {
@@ -45,7 +45,7 @@ namespace VirtualLibrary.Repositories
 
         public bool ReturnBook(IBook book) // NOT USED, TODO: implement
         {
-            return false; 
+            return false;
         }
     }
 }

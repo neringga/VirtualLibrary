@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -11,9 +12,9 @@ namespace VirtualLibrary.Forms
 {
     public partial class BookActions : Form
     {
-        private IBook book;
-        private TakenBookPresenter m_takenBookPresenter;
-        private Result result;
+        private IBook _book;
+        private readonly TakenBookPresenter _mTakenBookPresenter;
+        private Result _result;
 
 
         public BookActions()
@@ -21,46 +22,41 @@ namespace VirtualLibrary.Forms
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
-            m_takenBookPresenter = new TakenBookPresenter(new BookRepository(DataSources.Data.StaticDataSource._dataSource));
+            _mTakenBookPresenter = new TakenBookPresenter(new BookRepository(StaticDataSource.DataSource));
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
         {
-            String imageLocation = "";
+            //var imageLocation = "";
             try
             {
-                OpenFileDialog dialog = new OpenFileDialog
+                var dialog = new OpenFileDialog
                 {
-                    Filter = "jpg files(*.jpg)|*.jpg| All Files(*.*)|*.*"
+                    Filter = Constants.PictureFilter
                 };
 
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
+                    var scannerPresenter = new ScannerPresenter();
 
-                    ScannerPresenter scannerPresenter = new ScannerPresenter();
-
-                    imageLocation = dialog.FileName;
+                    var imageLocation = dialog.FileName;
                     barcodePictureBox.ImageLocation = imageLocation;
                     ScannedBookInfo.Visible = false;
                     Info.Visible = false;
-                    result = scannerPresenter.DecodedBarcode(imageLocation);
+                    _result = scannerPresenter.DecodedBarcode(imageLocation);
 
-                    if (result != null)
-                    {
-                        book = scannerPresenter.ScannedBook(result.Text);
-                        ScannedBookInfo.Text = book.Author + " " + book.Title;
-                        ScannedBookInfo.Visible = true;
-                        Info.Visible = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Picture is too big");
-                    }
+
+                    _book = scannerPresenter.ScannedBook(_result.Text);
+                    ScannedBookInfo.Text = _book.Author + " " + _book.Title;
+                    ScannedBookInfo.Visible = true;
+                    Info.Visible = true;
+
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _result = null;
             }
         }
 
@@ -70,41 +66,51 @@ namespace VirtualLibrary.Forms
 
         private void TakeBookButton_Click(object sender, EventArgs e)
         {
-            if (result.Text != null)
+            if (_result != null)
             {
-                m_takenBookPresenter.AddTakenBook(view: book, username: DataSources.Data.StaticDataSource.currUser);
-                var takenBooks = m_takenBookPresenter.GetTakenBooks();
-                var addedBook = takenBooks.First(item => item.Code == book.Code && item.TakenByUser ==
-                DataSources.Data.StaticDataSource.currUser);
-                MessageBox.Show("You have to return this book on " + addedBook.HasToBeReturned);
-                UserRepository userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
-                UserPresenter userPresenter = new UserPresenter(null, userRepository);
-                var users = userPresenter.GetUserList();
-                
+                try
+                {
+                    _mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
+                    var takenBooks = _mTakenBookPresenter.GetTakenBooks();
+                    var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
+                                                             StaticDataSource.CurrUser);
 
-                var userToSendEmailTo =
-                    users.First(user => user.Nickname == DataSources.Data.StaticDataSource.currUser);
+                    var userRepository = new UserRepository(StaticDataSource.DataSource);
+                    var userPresenter = new UserPresenter(null, userRepository);
+                    var users = userPresenter.GetUserList();
 
-                BookReturnWarning bookReturnWarning = new BookReturnWarning(
+
+                    var userToSendEmailTo =
+                        users.First(user => user.Nickname == StaticDataSource.CurrUser);
+                    var bookReturnWarning = new BookReturnWarning(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
-                    book.Author,
-                    book.Title);
-                bookReturnWarning.SendWarningEmail();
+                    _book.Author,
+                    _book.Title);
+                    bookReturnWarning.SendWarningEmail();
+                    MessageBox.Show("You have to return this book on " + addedBook.HasToBeReturned);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("You can not return this book");
+                }
 
             }
-            else MessageBox.Show("Please add picture of the barcode");
+            else
+            {
+                MessageBox.Show("Please add picture of the barcode");
+            }
         }
 
         private void ReturnBookButton_Click(object sender, EventArgs e)
         {
-            if (result.Text != null)
+            if (_result != null)
             {
-                BookReturnValidator bookReturnValidator = new BookReturnValidator();
-                var book = bookReturnValidator.TakenBookListCheckForBook(code: result.Text);
+                var bookReturnValidator = new BookReturnValidator();
+                var book = bookReturnValidator.TakenBookListCheckForBook(_result.Text);
                 if (book != null)
                 {
-                    m_takenBookPresenter.RemoveTakenBook(book);
+                    _mTakenBookPresenter.RemoveTakenBook(book);
                     MessageBox.Show("Book returned successfully.");
                 }
                 else
@@ -112,7 +118,16 @@ namespace VirtualLibrary.Forms
                     MessageBox.Show("You can not return this book.");
                 }
             }
-            else MessageBox.Show("Please add picture of the barcode");
+            else
+            {
+                MessageBox.Show("Please add picture of the barcode");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+            new Library().ShowDialog();
         }
     }
 }

@@ -1,47 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Presenters
 {
-    class TakenBookPresenter
+    internal class TakenBookPresenter
     {
-        private IBookRepository m_bookRepository;
-        private IBook takenBook = new Book();
+        private readonly IBookRepository _mBookRepository;
+        private readonly IBook _takenBook = new Book();
 
         public TakenBookPresenter(IBookRepository bookRepository)
         {
-            m_bookRepository = bookRepository;
+            _mBookRepository = bookRepository;
         }
 
         public void AddTakenBook(IBook view, string username)
         {
-            takenBook.IsTaken = true;
-            takenBook.TakenByUser = username;
-            takenBook.Code = view.Code;
-            takenBook.TakenWhen = DateTime.Now;
+            _takenBook.IsTaken = true;
+            _takenBook.TakenByUser = username;
+            _takenBook.Code = view.Code;
+            _takenBook.TakenWhen = DateTime.Now;
 
-            var bookRepository = new BookRepository(DataSources.Data.StaticDataSource._dataSource);
+            var bookRepository = new BookRepository(StaticDataSource.DataSource);
             var books = bookRepository.GetList();
-            var book = books.First(item => item.Code == takenBook.Code);
+            var book = books.First(item => item.Code == _takenBook.Code);
 
-            takenBook.HasToBeReturned = takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
-            m_bookRepository.Add(takenBook);
-
+            _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
+            _mBookRepository.Add(_takenBook);
         }
 
 
         public void RemoveTakenBook(IBook takenBook)
         {
-            m_bookRepository.Remove(takenBook);
+            _mBookRepository.Remove(takenBook);
         }
 
-        public IList<IBook> GetTakenBooks ()
+        public IList<IBook> GetTakenBooks()
         {
-            return m_bookRepository.GetTakenBooks();
+            return _mBookRepository.GetTakenBooks();
         }
     }
 }

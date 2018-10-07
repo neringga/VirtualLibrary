@@ -120,6 +120,7 @@
       <DependentUpon>Library.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BookReturnValidator.cs" />
+    <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />

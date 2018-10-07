@@ -7,7 +7,7 @@ namespace VirtualLibrary.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private IDataSource _dataSource;
+        private readonly IDataSource _dataSource;
 
         public UserRepository(IDataSource dataSource)
         {
@@ -26,7 +26,8 @@ namespace VirtualLibrary.Repositories
 
         public bool Login(string username, string password)
         {
-            return _dataSource.GetUserList().Where(user => user.Nickname == username && user.Password == password).ToList().Count == 1;
+            return _dataSource.GetUserList().Where(user => user.Nickname == username && user.Password == password)
+                       .ToList().Count == 1;
         }
 
         public void Remove(IUser item)

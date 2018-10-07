@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
-
 using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 using VirtualLibrary.DataSources.Data;
@@ -11,15 +12,16 @@ namespace VirtualLibrary
 {
     public partial class LiveCamera : Form
     {
-        private VideoCapture capture;
-        private CascadeClassifier cascade;
+        private VideoCapture _capture;
+        private readonly CascadeClassifier _cascade;
 
-        public Image<Gray, byte>[] grayPictures;
-        public byte[][] pictures;
+        public Image<Gray, byte>[] GrayPictures;
+        public byte[][] Pictures;
 
         public LiveCamera()
         {
-            cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\haarcascade_frontalface_alt2.xml");
+            _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                                            "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
             grayPictures = new Image<Gray, byte>[Constants.FaceImagesPerUser];
             pictures = new byte[Constants.FaceImagesPerUser][];
@@ -27,40 +29,36 @@ namespace VirtualLibrary
             InitializeComponent();
         }
 
-
-
         private void StartTakingPictures(object sender, EventArgs e)
         {
             MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Mat img1;
-            Image<Bgr, Byte> nextFrame;
+            Image<Bgr, byte> nextFrame;
 
-            capture = new VideoCapture();
+            _capture = new VideoCapture();
+
 
             for (int i = 0; i < Constants.FaceImagesPerUser; i++)
             {
-                img1 = capture.QueryFrame();
-                nextFrame = img1.ToImage<Bgr, Byte>();
+                img1 = _capture.QueryFrame();
+                nextFrame = img1.ToImage<Bgr, byte>();
                 {
                     if (nextFrame != null)
                     {
                         imageBox1.Image = nextFrame;
 
-                        Image<Gray, byte> grayframe = nextFrame.Convert<Gray, byte>();
-                        var faces = cascade.DetectMultiScale(grayframe, 1.2, 1);
+                        var grayframe = nextFrame.Convert<Gray, byte>();
+                        var faces = _cascade.DetectMultiScale(grayframe, 1.2, 1);
 
                         if (faces[0] != null)
-                        {
-                            grayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                        }
+                            GrayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Inter.Cubic);
                         else
-                        {
-                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
+                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                     }
-                    System.Threading.Thread.Sleep(500);
+
+                    Thread.Sleep(500);
                 }
 
                 //change imageBox variables to array
@@ -87,7 +85,6 @@ namespace VirtualLibrary
             }
 
             capture.Dispose();
-            
         }
 
         

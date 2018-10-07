@@ -1,8 +1,8 @@
 ﻿namespace VirtualLibrary.DataSources.Data
 {
-    class StaticDataSource
+    internal class StaticDataSource
     {
-        public static LocalDataSource _dataSource = new LocalDataSource();
-        public static string currUser;
+        public static LocalDataSource DataSource = new LocalDataSource();
+        public static string CurrUser;
     }
 }

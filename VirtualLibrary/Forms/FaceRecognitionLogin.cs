@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-
 using Emgu.CV;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
@@ -11,31 +10,30 @@ namespace VirtualLibrary.Forms
 {
     public partial class FaceRecognitionLogin : Form
     {
-        VideoCapture capture;
-        EigenFaceRecognition faceRecognition;
-        
+        private readonly VideoCapture _capture;
+        private readonly CascadeClassifier _cascade;
+        private string _currentNickname;
+
+        private List<string> _nicknames;
+
+        private readonly FaceRecognizer _recognizer;
+        private FaceRecognizer.PredictionResult _result;
 
         public FaceRecognitionLogin()
         {
-            capture = new VideoCapture();
+            _capture = new VideoCapture();
+            _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                                            "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
-            List<string> nicknames;
-            List<Image<Gray, byte>> trainingSet;
-            int[] labels;
-
-            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
-
-            faceRecognition = new EigenFaceRecognition(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + 
-                                                                                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                                                                               trainingSet, nicknames, Constants.FaceImagesPerUser);
-            
+            _recognizer = new EigenFaceRecognizer(80, 3000);
+            TrainRecognizer();
 
             InitializeComponent();
         }
 
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
         {
+
             Image<Bgr, Byte> display = capture.QueryFrame().ToImage<Bgr, Byte>();
             string currentNickname = faceRecognition.Recognize(display);
 
@@ -44,6 +42,7 @@ namespace VirtualLibrary.Forms
                 loginButton.Text = "Log in as " + currentNickname;
                 nameLabel.Text = currentNickname;
                 StaticDataSource.currUser = currentNickname;
+
             }
             else
             {
@@ -53,15 +52,14 @@ namespace VirtualLibrary.Forms
             cameraBox.Image = display;
         }
 
-  
-
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            Library library = new Library();
+            var library = new Library();
             library.Show();
             capture.Dispose();
             Dispose();
+            Close();
         }
     }
 }
