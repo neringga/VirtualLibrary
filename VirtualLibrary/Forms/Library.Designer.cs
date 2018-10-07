@@ -37,7 +37,7 @@ namespace VirtualLibrary.Forms
             // ScannerOpenButton
             // 
             this.ScannerOpenButton.Location = new System.Drawing.Point(446, 261);
-            this.ScannerOpenButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ScannerOpenButton.Margin = new System.Windows.Forms.Padding(2);
             this.ScannerOpenButton.Name = "ScannerOpenButton";
             this.ScannerOpenButton.Size = new System.Drawing.Size(104, 19);
             this.ScannerOpenButton.TabIndex = 0;

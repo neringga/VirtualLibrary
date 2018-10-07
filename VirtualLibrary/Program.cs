@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -19,9 +20,9 @@ namespace VirtualLibrary
             Application.Run(opening);
         }
 
-        static Opening GetInitializedOpening()
+        private static Opening GetInitializedOpening()
         {
-            var userRepository = new UserRepository(DataSources.Data.StaticDataSource._dataSource);
+            var userRepository = new UserRepository(StaticDataSource.DataSource);
             return new Opening(userRepository);
         }
     }

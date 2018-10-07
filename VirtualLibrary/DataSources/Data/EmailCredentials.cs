@@ -1,19 +1,17 @@
-﻿using System;
-
-namespace VirtualLibrary.DataSources.Data
+﻿namespace VirtualLibrary.DataSources.Data
 {
     public class EmailCredentials
     {
-        private readonly string _username;
         private readonly string _password;
-        private readonly string _smtpServer;
         private readonly int _smtpPort;
+        private readonly string _smtpServer;
+        private readonly string _username;
 
         public EmailCredentials()
         {
-            TextFile textFile = new TextFile();
-            var credentials = textFile.ReadTextFile(Constants.emailCredentialsFile);
-            foreach (string line in credentials)
+            var textFile = new TextFile();
+            var credentials = textFile.ReadTextFile(Constants.EmailCredentialsFile);
+            foreach (var line in credentials)
             {
                 var spLine = line.Split(' ');
                 _username = spLine[0];
@@ -23,12 +21,12 @@ namespace VirtualLibrary.DataSources.Data
             }
         }
 
-        public string GetUsername ()
+        public string GetUsername()
         {
             return _username;
         }
 
-        public string GetPassword ()
+        public string GetPassword()
         {
             return _password;
         }

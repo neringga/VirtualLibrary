@@ -5,10 +5,10 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources
 {
-    class LocalDataSource : IDataSource
+    internal class LocalDataSource : IDataSource
     {
-        private IList<IBook> _books;
-        private IList<IUser> _users;
+        private readonly IList<IBook> _books;
+        private readonly IList<IUser> _users;
 
         public LocalDataSource()
         {
@@ -66,7 +66,5 @@ namespace VirtualLibrary.DataSources
         {
             _books.Remove(takenBook);
         }
-
-      
     }
 }

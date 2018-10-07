@@ -1,34 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Data
 {
-    class BookList 
+    public class BookList
     {
-        private List<IBook> _bookList = new List<IBook>();
+        private readonly List<IBook> _bookList = new List<IBook>();
 
-        public BookList ()
+        public BookList()
         {
-            TextFile textFile = new TextFile();
-            var list = textFile.ReadTextFile(Constants.bookFile);
+            var textFile = new TextFile();
+            var list = textFile.ReadTextFile(Constants.BookFile);
+         
             string[] words;
 
-            foreach (string line in list)
+            foreach (var line in list)
             {
                 var book = new Book();
                 words = line.Split(',');
                 book.Title = words[0];
                 book.Author = words[1];
                 book.Code = words[2];
-                book.DaysForBorrowing = Int32.Parse(words[3]);
+                book.DaysForBorrowing = int.Parse(words[3]);
                 _bookList.Add(book);
             }
         }
 
-        public IList<IBook> GetBookList ()
+        public IList<IBook> GetBookList()
         {
             return _bookList;
         }

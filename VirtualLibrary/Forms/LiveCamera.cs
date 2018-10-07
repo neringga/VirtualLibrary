@@ -1,82 +1,76 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
-
 using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 namespace VirtualLibrary
 {
     public partial class LiveCamera : Form
     {
-        private VideoCapture capture;
-        private CascadeClassifier cascade;
+        private VideoCapture _capture;
+        private readonly CascadeClassifier _cascade;
 
-        public Image<Gray, byte>[] grayPictures;
-        public byte[][] pictures;
+        public Image<Gray, byte>[] GrayPictures;
+        public byte[][] Pictures;
 
         public LiveCamera()
         {
-            cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\haarcascade_frontalface_alt2.xml");
+            _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                                            "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
-            grayPictures = new Image<Gray, byte>[5];
-            pictures = new byte[5][];
+            GrayPictures = new Image<Gray, byte>[5];
+            Pictures = new byte[5][];
 
             InitializeComponent();
         }
-
-        
 
 
         private void StartTakingPictures(object sender, EventArgs e)
         {
             Mat img1;
-            Image<Bgr, Byte> nextFrame;
+            Image<Bgr, byte> nextFrame;
 
-            capture = new VideoCapture();
+            _capture = new VideoCapture();
 
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
-                img1 = capture.QueryFrame();
-                nextFrame = img1.ToImage<Bgr, Byte>();
+                img1 = _capture.QueryFrame();
+                nextFrame = img1.ToImage<Bgr, byte>();
                 {
                     if (nextFrame != null)
                     {
                         imageBox1.Image = nextFrame;
 
-                        Image<Gray, byte> grayframe = nextFrame.Convert<Gray, byte>();
-                        var faces = cascade.DetectMultiScale(grayframe, 1.2, 1);
+                        var grayframe = nextFrame.Convert<Gray, byte>();
+                        var faces = _cascade.DetectMultiScale(grayframe, 1.2, 1);
 
                         if (faces[0] != null)
-                        {
-                            grayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Emgu.CV.CvEnum.Inter.Cubic);
-                        }
+                            GrayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Inter.Cubic);
                         else
-                        {
-                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
+                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                     }
-                    System.Threading.Thread.Sleep(500);
+
+                    Thread.Sleep(500);
                 }
             }
 
-            capture.Dispose();
+            _capture.Dispose();
 
-            imageBox1.Image = grayPictures[0];
-            imageBox2.Image = grayPictures[1];
-            imageBox3.Image = grayPictures[2];
-            imageBox4.Image = grayPictures[3];
-            imageBox5.Image = grayPictures[4];
+            imageBox1.Image = GrayPictures[0];
+            imageBox2.Image = GrayPictures[1];
+            imageBox3.Image = GrayPictures[2];
+            imageBox4.Image = GrayPictures[3];
+            imageBox5.Image = GrayPictures[4];
         }
 
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                pictures[i] = grayPictures[i].Bytes;
-            }
+            for (var i = 0; i < 5; i++) Pictures[i] = GrayPictures[i].Bytes;
 
             Close();
         }

@@ -3,18 +3,20 @@ using System.IO;
 
 namespace VirtualLibrary.DataSources.Data
 {
-    class TextFile
+    public class TextFile
     {
         public List<string> ReadTextFile(string fileName)
         {
             string line;
-            List<string> textList = new List<string>();
-            StreamReader file = new StreamReader( Path.Combine(Directory.GetParent(
-                Directory.GetCurrentDirectory()).Parent.FullName, fileName));
-            while ((line = file.ReadLine()) != null)
+            var textList = new List<string>();
+            var directoryInfo = Directory.GetParent(
+                Directory.GetCurrentDirectory()).Parent;
+            if (directoryInfo != null)
             {
-                textList.Add(line);
+                var file = new StreamReader(Path.Combine(directoryInfo.FullName, fileName));
+                while ((line = file.ReadLine()) != null) textList.Add(line);
             }
+
             return textList;
         }
     }

@@ -35,6 +35,7 @@
             this.TakeBookButton = new System.Windows.Forms.Button();
             this.ReturnBookButton = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.barcodePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,11 +108,22 @@
             this.Info.TabIndex = 6;
             this.Info.Text = "Scanned book:";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(323, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Back";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // BookActions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 315);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Info);
             this.Controls.Add(this.ReturnBookButton);
             this.Controls.Add(this.TakeBookButton);
@@ -136,5 +148,6 @@
         private System.Windows.Forms.Button TakeBookButton;
         private System.Windows.Forms.Button ReturnBookButton;
         private System.Windows.Forms.Label Info;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -1,53 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualLibrary.Repositories;
-using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private IUserRepository m_userRepository;
+        private readonly IUserRepository _mUserRepository;
 
         public Opening(IUserRepository userRepository)
         {
-            m_userRepository = userRepository;
+            _mUserRepository = userRepository;
             InitializeComponent();
         }
 
         private void Label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
             //this.Hide();
-            Registration registerForm = new Registration(m_userRepository);
+            var registerForm = new Registration(_mUserRepository);
             registerForm.ShowDialog();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            Login login = new Login(m_userRepository);
+            var login = new Login(_mUserRepository);
             login.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (FaceRecognitionLogin form = new FaceRecognitionLogin())
+            using (var form = new FaceRecognitionLogin())
             {
-                this.Hide();
+                Hide();
                 form.ShowDialog();
-                this.Show();
+                Show();
             }
         }
     }

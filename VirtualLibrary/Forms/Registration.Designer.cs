@@ -120,9 +120,11 @@
             // dateTimeBox
             // 
             this.dateTimeBox.Location = new System.Drawing.Point(113, 215);
+            this.dateTimeBox.MaxDate = new System.DateTime(2018, 10, 5, 22, 41, 43, 0);
             this.dateTimeBox.Name = "dateTimeBox";
             this.dateTimeBox.Size = new System.Drawing.Size(196, 20);
             this.dateTimeBox.TabIndex = 8;
+            this.dateTimeBox.Value = new System.DateTime(2018, 10, 5, 0, 0, 0, 0);
             // 
             // label1
             // 
@@ -190,10 +192,10 @@
             this.label4.Text = "Username:";
             this.label4.Click += new System.EventHandler(this.Label4_Click);
             // 
-            // UserNameTextBox
+            // usernameTextBox
             // 
             this.usernameTextBox.Location = new System.Drawing.Point(113, 57);
-            this.usernameTextBox.Name = "UserNameTextBox";
+            this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
             this.usernameTextBox.TabIndex = 16;
             this.usernameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
@@ -220,7 +222,7 @@
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
-           
+            this.Name = "Registration";
             this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
