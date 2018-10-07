@@ -6,12 +6,15 @@ namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private readonly IUserRepository _mUserRepository;
+        private Registration _registrationForm;
+        private Login _loginForm;
 
-        public Opening(IUserRepository userRepository)
+        public Opening(Registration registrationForm, Login loginForm)
         {
-            _mUserRepository = userRepository;
             InitializeComponent();
+
+            _registrationForm = registrationForm;
+            _loginForm = loginForm;
         }
 
         private void Label2_Click(object sender, EventArgs e)
@@ -20,15 +23,12 @@ namespace VirtualLibrary.Forms
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
-            //this.Hide();
-            var registerForm = new Registration(_mUserRepository);
-            registerForm.ShowDialog();
+            _registrationForm.ShowDialog();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            var login = new Login(_mUserRepository);
-            login.ShowDialog();
+            _loginForm.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)

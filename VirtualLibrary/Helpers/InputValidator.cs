@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
@@ -6,29 +8,42 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Helpers
 {
-    public class InputValidator
+    public class InputValidator : IInputValidator
     {
-        public IUser ValidateUserInput(IUser userView)
+        private IUserRepository _userRepository;
+
+        public InputValidator(IUserRepository userRepository)
         {
-            IUser newUser = new User
-            {
-                Password = userView.Password,
-                DateOfBirth = userView.DateOfBirth,
-                Nickname = userView.Nickname,
-                Name = userView.Name,
-                Surname = userView.Surname,
-                Email = userView.Email
-            };
-            return newUser;
+            _userRepository = userRepository;
+        }
+     
+        public bool UsernameTaken(string username, string defaultUsername = "default")
+        {
+            if (username == null)
+                username = defaultUsername;
+
+            return _userRepository.GetList().Select(user => user.Nickname).Contains(username);
         }
 
-        public bool ValidUsername(string username, string defaultUsername = "default")
+        public bool ValidPassword(string password)
         {
-            if (username == null) username = defaultUsername;
-            var userRepository = new UserRepository(StaticDataSource.DataSource);
-            var users = userRepository.GetList();
+            return password.Length < 6;
+        }
 
-            return users.Select(user => user.Nickname).Contains(username);
+        public bool ValidEmail(string email)
+        {
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            return regex.Match(email).Success;
+        }
+
+        public bool ValidString(string value)
+        {
+            return value != null && !string.IsNullOrEmpty(value);
+        }
+
+        public bool ValidateStrings(IList<string> strings)
+        {
+            return strings.All(s => ValidString(s));
         }
     }
 }

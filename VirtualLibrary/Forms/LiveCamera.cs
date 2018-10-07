@@ -85,10 +85,7 @@ namespace VirtualLibrary
                         imageBox5.Image = GrayPictures[i];
                         break;
                 }
-                
-                    
             }
-
             _capture.Dispose();
         }
 
