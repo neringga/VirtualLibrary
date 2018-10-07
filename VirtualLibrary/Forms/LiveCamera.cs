@@ -23,8 +23,8 @@ namespace VirtualLibrary
             _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
                                             "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
-            grayPictures = new Image<Gray, byte>[Constants.FaceImagesPerUser];
-            pictures = new byte[Constants.FaceImagesPerUser][];
+            GrayPictures = new Image<Gray, byte>[Constants.FaceImagesPerUser];
+            Pictures = new byte[Constants.FaceImagesPerUser][];
 
             InitializeComponent();
         }
@@ -51,11 +51,16 @@ namespace VirtualLibrary
                         var grayframe = nextFrame.Convert<Gray, byte>();
                         var faces = _cascade.DetectMultiScale(grayframe, 1.2, 1);
 
-                        if (faces[0] != null)
+                        try
+                        {
                             GrayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Inter.Cubic);
-                        else
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            //Console.WriteLine(e.Message);
                             MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
+                        }
                     }
 
                     Thread.Sleep(500);
@@ -65,26 +70,26 @@ namespace VirtualLibrary
                 switch (i)
                 {
                     case 0:
-                        imageBox1.Image = grayPictures[i];
+                        imageBox1.Image = GrayPictures[i];
                         break;
                     case 1:
-                        imageBox2.Image = grayPictures[i];
+                        imageBox2.Image = GrayPictures[i];
                         break;
                     case 2:
-                        imageBox3.Image = grayPictures[i];
+                        imageBox3.Image = GrayPictures[i];
                         break;
                     case 3:
-                        imageBox4.Image = grayPictures[i];
+                        imageBox4.Image = GrayPictures[i];
                         break;
                     case 4:
-                        imageBox5.Image = grayPictures[i];
+                        imageBox5.Image = GrayPictures[i];
                         break;
                 }
                 
                     
             }
 
-            capture.Dispose();
+            _capture.Dispose();
         }
 
         
@@ -94,7 +99,7 @@ namespace VirtualLibrary
         {
             for (int i = 0; i < Constants.FaceImagesPerUser; i++)
             {
-                pictures[i] = grayPictures[i].Bytes;
+                Pictures[i] = GrayPictures[i].Bytes;
             }
 
             Close();

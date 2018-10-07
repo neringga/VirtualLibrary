@@ -1,8 +1,10 @@
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -122,17 +124,17 @@ namespace VirtualLibrary
         private void RegisterButton_Click(object sender, EventArgs e)
         {
 
-            m_userPresenter.AddUser();
+            _mUserPresenter.AddUser();
       
-            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\",
+            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\",
                                                                                 Constants.FaceImagesPerUser);
             if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\faceLabels.xml"))
             {
-                xml.AddUser(faceImages, this);
+                xml.AddUser(_faceImages, this);
             }
             else
             {
-                xml.CreateNewUserList(faceImages, this);
+                xml.CreateNewUserList(_faceImages, this);
             }
 
             Close();
