@@ -22,7 +22,7 @@ namespace VirtualLibrary
         private readonly ErrorProvider _repPasswordErrorProvider;
         private readonly ErrorProvider _surnameErrorProvider;
         private readonly ErrorProvider _usernameErrorProvider;
-
+        private string _language;
 
         public Registration(IRepository<IUser> userRepository)
         {
@@ -98,6 +98,12 @@ namespace VirtualLibrary
             get => usernameTextBox.Text;
             set => usernameTextBox.Text = value;
         }
+        public string Language
+        {
+            get => null;
+            set => string.Copy(_language);
+        }
+
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -207,6 +213,16 @@ namespace VirtualLibrary
                 registerButton.Enabled = true;
             else
                 registerButton.Enabled = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _language = "EN";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _language = "LT";
         }
     }
 }

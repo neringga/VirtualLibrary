@@ -17,7 +17,8 @@ namespace VirtualLibrary.Helpers
                 Nickname = userView.Nickname,
                 Name = userView.Name,
                 Surname = userView.Surname,
-                Email = userView.Email
+                Email = userView.Email,
+                Language = userView.Language
             };
             return newUser;
         }
