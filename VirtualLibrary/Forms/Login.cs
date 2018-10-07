@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
@@ -42,7 +43,7 @@ namespace VirtualLibrary.Forms
             }
             else
             {
-                MessageBox.Show("User not found. Please register before trying to log in.");
+                MessageBox.Show(Translations.GetTranslatedString("userNotFound"));
             }
         }
 

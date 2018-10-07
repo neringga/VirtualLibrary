@@ -9,6 +9,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 
 namespace VirtualLibrary.Forms
 {
@@ -53,13 +54,13 @@ namespace VirtualLibrary.Forms
                         display.Draw(face, new Bgr(Color.Green), 3);
                         nameLabel.Text = _nicknames.ElementAt(_result.Label / 5);
                         _currentNickname = _nicknames.ElementAt(_result.Label / 5);
-                        loginButton.Text = "Log in as " + _currentNickname;
+                        loginButton.Text = Translations.GetTranslatedString("logInButton") + _currentNickname;
                         StaticDataSource.CurrUser = _currentNickname;
                     }
                     else
                     {
                         display.Draw(face, new Bgr(Color.Red), 3);
-                        nameLabel.Text = "Unknown";
+                        nameLabel.Text = Translations.GetTranslatedString("unknown");
                     }
 
                     Console.WriteLine(_result.Distance);

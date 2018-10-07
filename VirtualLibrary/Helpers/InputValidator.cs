@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -23,9 +24,10 @@ namespace VirtualLibrary.Helpers
             return newUser;
         }
 
-        public bool ValidUsername(string username, string defaultUsername = "default")
+        public bool ValidUsername(string username)
         {
-            if (username == null) username = defaultUsername;
+            if (username == null)
+                username = Translations.GetTranslatedString("default");
             var userRepository = new UserRepository(StaticDataSource.DataSource);
             var users = userRepository.GetList();
 
