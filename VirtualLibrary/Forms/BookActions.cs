@@ -14,15 +14,17 @@ namespace VirtualLibrary.Forms
     {
         private IBook _book;
         private readonly TakenBookPresenter _mTakenBookPresenter;
+        private Library _libraryForm;
         private Result _result;
 
 
-        public BookActions()
+        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
-            _mTakenBookPresenter = new TakenBookPresenter(new BookRepository(StaticDataSource.DataSource));
+            _mTakenBookPresenter = takenBookPresenter;
+            _libraryForm = libraryForm;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -127,7 +129,7 @@ namespace VirtualLibrary.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-            new Library().ShowDialog();
+            _libraryForm.ShowDialog();
         }
     }
 }

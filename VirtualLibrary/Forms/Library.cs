@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using VirtualLibrary.Data;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -10,18 +11,18 @@ namespace VirtualLibrary.Forms
 {
     public partial class Library : Form
     {
-        public Library()
+        private TakenBookPresenter _takenBookPresenter;
+        public Library(TakenBookPresenter takenBookPresenter, IDataSource dataSource)
         {
+            _takenBookPresenter = takenBookPresenter;
             InitializeComponent();
 
             var bookListFromFile = new BookList();
-            var mTakenBookPresenter = new TakenBookPresenter
-                (new BookRepository(StaticDataSource.DataSource));
             var books = bookListFromFile.GetBookList();
-            var takenBooks = mTakenBookPresenter.GetTakenBooks();
+            var takenBooks = _takenBookPresenter.GetTakenBooks();
 
             foreach (var book in takenBooks)
-                if (book.TakenByUser == StaticDataSource.CurrUser)
+                if (book.TakenByUser == dataSource.CurrUser)
                 {
                     var book1 = books.First(item => item.Code == book.Code);
                     bookListBox.Items.Add(book1.Author + book1.Title + " RETURN ON " + book.HasToBeReturned);
@@ -31,8 +32,9 @@ namespace VirtualLibrary.Forms
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
             Close();
-            new BookActions().ShowDialog();
-       
+            var bookActionsForm = new BookActions(_takenBookPresenter, this);
+            bookActionsForm.ShowDialog();
+
         }
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,7 +59,7 @@ namespace VirtualLibrary.Forms
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

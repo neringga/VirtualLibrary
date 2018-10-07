@@ -6,13 +6,15 @@ namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
+        private FaceRecognitionLogin _faceRecognitionLoginForm;
         private Registration _registrationForm;
         private Login _loginForm;
 
-        public Opening(Registration registrationForm, Login loginForm)
+        public Opening(Registration registrationForm, Login loginForm, FaceRecognitionLogin faceRecognitionLoginForm)
         {
             InitializeComponent();
 
+            _faceRecognitionLoginForm = faceRecognitionLoginForm;
             _registrationForm = registrationForm;
             _loginForm = loginForm;
         }
@@ -33,12 +35,10 @@ namespace VirtualLibrary.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (var form = new FaceRecognitionLogin())
-            {
-                Hide();
-                form.ShowDialog();
-                Show();
-            }
+            Hide();
+            _faceRecognitionLoginForm.Init();
+            _faceRecognitionLoginForm.ShowDialog();
+            Show();
         }
     }
 }

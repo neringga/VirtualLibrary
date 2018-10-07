@@ -5,17 +5,23 @@ using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 
 namespace VirtualLibrary.Forms
 {
     public partial class FaceRecognitionLogin : Form
     {
+        private IDataSource _dataSource;
+        private Library _libraryForm;
+
         private readonly VideoCapture _capture;
         EigenFaceRecognition faceRecognition;
 
-        public FaceRecognitionLogin()
+        public FaceRecognitionLogin(IDataSource dataSource, Library libraryForm)
         {
+            _dataSource = dataSource;
+            _libraryForm = libraryForm;
             _capture = new VideoCapture();
 
             List<string> nicknames;
@@ -30,6 +36,11 @@ namespace VirtualLibrary.Forms
                                                                                trainingSet, nicknames, Constants.FaceImagesPerUser);
 
 
+
+        }
+
+        public void Init()
+        {
             InitializeComponent();
         }
 
@@ -43,7 +54,7 @@ namespace VirtualLibrary.Forms
             {
                 loginButton.Text = "Log in as " + currentNickname;
                 nameLabel.Text = currentNickname;
-                StaticDataSource.CurrUser = currentNickname;
+                _dataSource.CurrUser = currentNickname;
             }
             else
             {
@@ -56,8 +67,7 @@ namespace VirtualLibrary.Forms
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            var library = new Library();
-            library.Show();
+            _libraryForm.Show();
             _capture.Dispose();
             Dispose();
             Close();

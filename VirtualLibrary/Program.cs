@@ -6,6 +6,7 @@ using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 using VirtualLibrary.Helpers;
+using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary
@@ -31,6 +32,7 @@ namespace VirtualLibrary
         {
             var currentContainer = new UnityContainer();
 
+            // Data storage
             currentContainer.RegisterSingleton<IDataSource>(new InjectionFactory(o =>
             {
                 return new LocalDataSource();
@@ -42,12 +44,20 @@ namespace VirtualLibrary
                 return new UserRepository(dataSource);
             }));
 
+            currentContainer.RegisterSingleton<IBookRepository>(new InjectionFactory(o =>
+            {
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                return new BookRepository(dataSource);
+            }));
+
+            // Helpers
             currentContainer.RegisterType<IInputValidator>(new InjectionFactory(o =>
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
                 return new InputValidator(userRepository);
             }));
 
+            // Forms
             currentContainer.RegisterType<Registration>(new InjectionFactory(o =>
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
@@ -58,15 +68,45 @@ namespace VirtualLibrary
             currentContainer.RegisterType<Login>(new InjectionFactory(o =>
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
-                return new Login(userRepository);
+                var libraryForm = currentContainer.Resolve<Library>();
+                return new Login(userRepository, libraryForm);
+            }));
+
+            currentContainer.RegisterType<BookActions>(new InjectionFactory(o =>
+            {
+                var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
+                var libraryForm = currentContainer.Resolve<Library>();
+                return new BookActions(takenBookPresenter, libraryForm);
+            }));
+
+            currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>
+            {
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                var libraryForm = currentContainer.Resolve<Library>();
+                return new FaceRecognitionLogin(dataSource, libraryForm);
+            }));
+
+            currentContainer.RegisterType<Library>(new InjectionFactory(o =>
+            {
+                var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                return new Library(takenBookPresenter, dataSource);
             }));
 
             currentContainer.RegisterType<Opening>(new InjectionFactory(o =>
             {
                 var registrationForm = currentContainer.Resolve<Registration>();
                 var loginForm = currentContainer.Resolve<Login>();
+                var faceRecognitionForm = currentContainer.Resolve<FaceRecognitionLogin>();
 
-                return new Opening(registrationForm, loginForm);
+                return new Opening(registrationForm, loginForm, faceRecognitionForm);
+            }));
+
+            // Presenters
+            currentContainer.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>
+            {
+                var bookRepository = currentContainer.Resolve<IBookRepository>();
+                return new TakenBookPresenter(bookRepository);
             }));
 
             return currentContainer;

@@ -8,10 +8,11 @@ namespace VirtualLibrary.Forms
     public partial class Login : Form
     {
         private readonly IUserRepository _mUserRepository;
-
-        public Login(IUserRepository userRepository)
+        private Library _libraryForm;
+        public Login(IUserRepository userRepository, Library libraryForm)
         {
             _mUserRepository = userRepository;
+            _libraryForm = libraryForm;
             InitializeComponent();
         }
 
@@ -37,8 +38,7 @@ namespace VirtualLibrary.Forms
             Close();
             if (_mUserRepository.Login(Username, Password))
             {
-                var library = new Library();
-                library.ShowDialog();
+                _libraryForm.ShowDialog();
             }
             else
             {
