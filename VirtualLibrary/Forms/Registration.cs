@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Emgu.CV;
@@ -113,8 +113,6 @@ namespace VirtualLibrary
         {
             using (var photoForm = new LiveCamera())
             {
-                MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
                 photoForm.ShowDialog();
                 _faceImages = photoForm.GrayPictures;
                 InputCorrect();
@@ -123,10 +121,19 @@ namespace VirtualLibrary
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            _mUserPresenter.AddUser();
 
-            //UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            //xml.AddUser(faceImages, this);
+            m_userPresenter.AddUser();
+      
+            UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\",
+                                                                                Constants.FaceImagesPerUser);
+            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\faceLabels.xml"))
+            {
+                xml.AddUser(faceImages, this);
+            }
+            else
+            {
+                xml.CreateNewUserList(faceImages, this);
+            }
 
             Close();
         }
