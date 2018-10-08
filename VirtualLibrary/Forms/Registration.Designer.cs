@@ -59,7 +59,7 @@ namespace VirtualLibrary
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(41, 13);
             this.NameLabel.TabIndex = 0;
-            this.NameLabel.Text = "Name: ";
+            this.NameLabel.Text = Translations.GetTranslatedString("nameLabel");
             // 
             // SurnameLabel
             // 
@@ -68,7 +68,7 @@ namespace VirtualLibrary
             this.SurnameLabel.Name = "SurnameLabel";
             this.SurnameLabel.Size = new System.Drawing.Size(55, 13);
             this.SurnameLabel.TabIndex = 1;
-            this.SurnameLabel.Text = "Surname: ";
+            this.SurnameLabel.Text = Translations.GetTranslatedString("surnameLabel");
             // 
             // EmailLabel
             // 
@@ -77,7 +77,7 @@ namespace VirtualLibrary
             this.EmailLabel.Name = "EmailLabel";
             this.EmailLabel.Size = new System.Drawing.Size(38, 13);
             this.EmailLabel.TabIndex = 2;
-            this.EmailLabel.Text = "Email: ";
+            this.EmailLabel.Text = Translations.GetTranslatedString("emailLabel");
             // 
             // BirthLabel
             // 
@@ -86,7 +86,7 @@ namespace VirtualLibrary
             this.BirthLabel.Name = "BirthLabel";
             this.BirthLabel.Size = new System.Drawing.Size(71, 13);
             this.BirthLabel.TabIndex = 3;
-            this.BirthLabel.Text = "Date of birth: ";
+            this.BirthLabel.Text = Translations.GetTranslatedString("birthLabel");
             // 
             // nameTextBox
             // 
@@ -118,7 +118,7 @@ namespace VirtualLibrary
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(123, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "Take a picture";
+            this.button1.Text = Translations.GetTranslatedString("takePhoto");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
@@ -138,7 +138,7 @@ namespace VirtualLibrary
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 9;
-            this.label1.Text = "New user registration";
+            this.label1.Text = Translations.GetTranslatedString("newUser");
             // 
             // registerButton
             // 
@@ -146,7 +146,7 @@ namespace VirtualLibrary
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(75, 23);
             this.registerButton.TabIndex = 10;
-            this.registerButton.Text = "Register";
+            this.registerButton.Text = Translations.GetTranslatedString("registerButton");
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
             // 
@@ -157,7 +157,7 @@ namespace VirtualLibrary
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Password";
+            this.label2.Text = Translations.GetTranslatedString("password");
             this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // label3
@@ -167,7 +167,7 @@ namespace VirtualLibrary
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 13);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Repeat password: ";
+            this.label3.Text = Translations.GetTranslatedString("repeatPassword");
             // 
             // passwordTextBox
             // 
@@ -194,7 +194,7 @@ namespace VirtualLibrary
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Username";
+            this.label4.Text = Translations.GetTranslatedString("username");
             this.label4.Click += new System.EventHandler(this.Label4_Click);
             // 
             // usernameTextBox
@@ -235,7 +235,7 @@ namespace VirtualLibrary
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 13);
             this.label5.TabIndex = 19;
-            this.label5.Text = "Choose a language: ";
+            this.label5.Text = Translations.GetTranslatedString("chooseLanguage");
             // 
             // Registration
             // 

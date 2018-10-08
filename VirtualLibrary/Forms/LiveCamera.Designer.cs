@@ -59,7 +59,7 @@ namespace VirtualLibrary
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(170, 43);
             this.continueButton.TabIndex = 3;
-            this.continueButton.Text = "Continue";
+            this.continueButton.Text = Translations.GetTranslatedString("continueButton");
             this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.ContinueButton_Click);
             // 
@@ -107,7 +107,7 @@ namespace VirtualLibrary
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.imageBox1);
             this.Name = "LiveCamera";
-            this.Text = "Form 2";
+            this.Text = Translations.GetTranslatedString("form2");
             this.Shown += new System.EventHandler(this.StartTakingPictures);
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox2)).EndInit();
