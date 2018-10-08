@@ -7,13 +7,15 @@ using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
 
+using VirtualLibrary.View;
+
 namespace VirtualLibrary
 {
-    class EigenFaceRecognition
+    class EigenFaceRecognition : IEmguCvFaceRecognition
     {
-        private const int THRESHOLD = 3000;
-        private const int DISTANCE = 3000;
-        private const int COMPONENTS_NUMBER = 80;
+        private const int Threshold = 3000;
+        private const int Distance = 3000;
+        private const int ComponentsNumber = 80;
 
         private List<Image<Gray, byte>> trainingSet;
         private List<string> namesList;
@@ -30,7 +32,7 @@ namespace VirtualLibrary
             this.namesList = namesList;
             this.faceImagesPerUser = faceImagesPerUser;
 
-            recognizer = new EigenFaceRecognizer(COMPONENTS_NUMBER, THRESHOLD);
+            recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
             cascade = new CascadeClassifier(faceDetectionTrainingFilePath);
 
             Train();
@@ -58,7 +60,7 @@ namespace VirtualLibrary
             //For testing purpose
             Console.WriteLine(result.Distance);
 
-            if (result.Distance <= 3000)
+            if (result.Distance <= Distance)
             {
                 return namesList.ElementAt(result.Label / 5);
             }
