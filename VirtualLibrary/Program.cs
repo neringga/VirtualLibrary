@@ -76,7 +76,9 @@ namespace VirtualLibrary
             {
                 var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
                 var libraryForm = currentContainer.Resolve<Library>();
-                return new BookActions(takenBookPresenter, libraryForm);
+                var userRepository = currentContainer.Resolve<IUserRepository>();
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource);
             }));
 
             currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>
@@ -108,6 +110,7 @@ namespace VirtualLibrary
                 var bookRepository = currentContainer.Resolve<IBookRepository>();
                 return new TakenBookPresenter(bookRepository);
             }));
+
 
             return currentContainer;
         }

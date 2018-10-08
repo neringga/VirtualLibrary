@@ -12,9 +12,12 @@ namespace VirtualLibrary.Forms
     public partial class Library : Form
     {
         private TakenBookPresenter _takenBookPresenter;
+        private IDataSource _dataSource;
+
         public Library(TakenBookPresenter takenBookPresenter, IDataSource dataSource)
         {
             _takenBookPresenter = takenBookPresenter;
+            _dataSource = dataSource;
             InitializeComponent();
 
             var bookListFromFile = new BookList();
@@ -32,7 +35,7 @@ namespace VirtualLibrary.Forms
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
             Close();
-            var bookActionsForm = new BookActions(_takenBookPresenter, this);
+            var bookActionsForm = new BookActions(_takenBookPresenter, this, new UserRepository(_dataSource), _dataSource); // TODO 
             bookActionsForm.ShowDialog();
 
         }

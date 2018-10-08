@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
@@ -16,15 +17,19 @@ namespace VirtualLibrary.Forms
         private readonly TakenBookPresenter _mTakenBookPresenter;
         private Library _libraryForm;
         private Result _result;
+        private IUserRepository _userRepository;
+        private IDataSource _dataSource;
 
 
-        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm)
+        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, IUserRepository userRepository, IDataSource dataSource)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
             _mTakenBookPresenter = takenBookPresenter;
             _libraryForm = libraryForm;
+            _userRepository = userRepository;
+            _dataSource = dataSource;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -72,18 +77,17 @@ namespace VirtualLibrary.Forms
             {
                 try
                 {
-                    _mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
+                    //_mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
                     var takenBooks = _mTakenBookPresenter.GetTakenBooks();
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
-                                                             StaticDataSource.CurrUser);
+                                                             _dataSource.CurrUser);
 
-                    var userRepository = new UserRepository(StaticDataSource.DataSource);
-                    var userPresenter = new UserPresenter(null, userRepository);
+                    var userPresenter = new UserPresenter(null, _userRepository);
                     var users = userPresenter.GetUserList();
 
 
                     var userToSendEmailTo =
-                        users.First(user => user.Nickname == StaticDataSource.CurrUser);
+                        users.First(user => user.Nickname == _dataSource.CurrUser);
                     var bookReturnWarning = new BookReturnWarning(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
