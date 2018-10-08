@@ -24,8 +24,8 @@ namespace VirtualLibrary
             _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
                                             "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
-            GrayPictures = new Image<Gray, byte>[Constants.FaceImagesPerUser];
-            Pictures = new byte[Constants.FaceImagesPerUser][];
+            GrayPictures = new Image<Gray, byte>[StaticStrings.FaceImagesPerUser];
+            Pictures = new byte[StaticStrings.FaceImagesPerUser][];
 
             InitializeComponent();
         }
@@ -37,7 +37,7 @@ namespace VirtualLibrary
 
             _capture = new VideoCapture();
 
-            for (int i = 0; i < Constants.FaceImagesPerUser; i++)
+            for (int i = 0; i < StaticStrings.FaceImagesPerUser; i++)
             {
                 img1 = _capture.QueryFrame();
                 nextFrame = img1.ToImage<Bgr, byte>();
@@ -93,7 +93,7 @@ namespace VirtualLibrary
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Constants.FaceImagesPerUser; i++)
+            for (int i = 0; i < StaticStrings.FaceImagesPerUser; i++)
             {
                 Pictures[i] = GrayPictures[i].Bytes;
             }
