@@ -20,10 +20,10 @@ namespace VirtualLibrary.Forms
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
-            
-           new Registration(_mUserRepository).ShowDialog();
-            this.Close();
 
+            this.Hide();
+            new Registration(_mUserRepository).ShowDialog();
+            this.Show();
         }
 
         private void Button1_Click(object sender, EventArgs e)

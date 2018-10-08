@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using VirtualLibrary.Helpers;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources.Data
@@ -17,85 +18,37 @@ namespace VirtualLibrary.DataSources.Data
         public UserInformationInXmlFiles(string xmlFileLocation, int imagesPerPerson)
         {
             _location = xmlFileLocation;
-            this._imagesPerPerson = imagesPerPerson;
+            _imagesPerPerson = imagesPerPerson;
         }
 
 
-        //Metodas kvieciamas, kai reikia apmokyti FaceRecognizer objekta
+
         public void GetTrainingSet(out List<Image<Gray, byte>> faceTrainingSet, out int[] labels,
             out List<string> nicknames)
         {
+            XDocument xml = XDocument.Load(_location + "faceImages.xml");
+
+            List<string>[] imageNamesLists = new List<string>[_imagesPerPerson];
+            List<int> labelsList = new List<int>();
+
             faceTrainingSet = new List<Image<Gray, byte>>();
-            nicknames = new List<string>();
-            var labelsList = new List<int>();
-            var label = 0;
 
-            var filestream = File.OpenRead(_location + "faceImages.xml");
-            var filelength = filestream.Length;
-            var xmlBytes = new byte[filelength];
-            filestream.Read(xmlBytes, 0, (int) filelength);
-            filestream.Close();
 
-            var xmlStream = new MemoryStream(xmlBytes);
-
-            using (var xmlreader = XmlReader.Create(xmlStream))
+            for (int i = 0; i < _imagesPerPerson; i++)
             {
-                try
+                imageNamesLists[i] = xml.Descendants("IMAGE_" + i).Select(element => element.Value).ToList();
+            }
+
+            for (int i = 0; i < imageNamesLists[0].Count; i++)
+            {
+                for (int x = 0; x < _imagesPerPerson; x++)
                 {
-                    while (xmlreader.Read())
-                        if (xmlreader.IsStartElement())
-                            switch (xmlreader.Name)
-                            {
-                                case "NICKNAME":
-                                    if (xmlreader.Read()) nicknames.Add(xmlreader.Value.Trim());
-                                    break;
-                                case "IMAGE_0":
-                                    if (xmlreader.Read())
-                                    {
-                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                        labelsList.Add(label++);
-                                    }
-
-                                    break;
-                                case "IMAGE_1":
-                                    if (xmlreader.Read())
-                                    {
-                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                        labelsList.Add(label++);
-                                    }
-
-                                    break;
-                                case "IMAGE_2":
-                                    if (xmlreader.Read())
-                                    {
-                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                        labelsList.Add(label++);
-                                    }
-
-                                    break;
-                                case "IMAGE_3":
-                                    if (xmlreader.Read())
-                                    {
-                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                        labelsList.Add(label++);
-                                    }
-
-                                    break;
-                                case "IMAGE_4":
-                                    if (xmlreader.Read())
-                                    {
-                                        faceTrainingSet.Add(new Image<Gray, byte>(_location + xmlreader.Value.Trim()));
-                                        labelsList.Add(label++);
-                                    }
-
-                                    break;
-                            }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
+                    faceTrainingSet.Add(new Image<Gray, byte>(_location + imageNamesLists[x].ElementAt(i)));
+                    labelsList.Add(i * _imagesPerPerson + x);
                 }
             }
+
+            nicknames = xml.Descendants("NICKNAME").Select(element => element.Value).ToList();
 
             labels = labelsList.ToArray();
         }
@@ -112,50 +65,44 @@ namespace VirtualLibrary.DataSources.Data
 
         }*/
 
-        //Issaugomas registracija ivykdes vartotojas
+
         public void AddUser(Image<Gray, byte>[] faceImages, IUser iuser)
         {
-            var document = new XmlDocument();
+            XmlDocument document = new XmlDocument();
             document.Load(_location + "faceImages.xml");
 
-            var root = document.DocumentElement;
+            XmlElement root = document.DocumentElement;
 
-            var userD = document.CreateElement("USER");
+            XmlElement userD = document.CreateElement("USER");
 
-            var nameD = document.CreateElement("NAME");
-            var surnameD = document.CreateElement("SURNAME");
-            var nicknameD = document.CreateElement("NICKNAME");
-            var passwordD = document.CreateElement("PASSWORD");
-            var birthD = document.CreateElement("DATE_OF_BIRTH");
-            var image0D = document.CreateElement("IMAGE_0");
-            var image1D = document.CreateElement("IMAGE_1");
-            var image2D = document.CreateElement("IMAGE_2");
-            var image3D = document.CreateElement("IMAGE_3");
-            var image4D = document.CreateElement("IMAGE_4");
+            XmlElement nameD = document.CreateElement("NAME");
+            XmlElement surnameD = document.CreateElement("SURNAME");
+            XmlElement nicknameD = document.CreateElement("NICKNAME");
+            XmlElement passwordD = document.CreateElement("PASSWORD");
+            XmlElement birthD = document.CreateElement("DATE_OF_BIRTH");
+            XmlElement[] images = new XmlElement[_imagesPerPerson];
 
-            var fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
+
+            string[] fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
 
             nameD.InnerText = iuser.Name;
             surnameD.InnerText = iuser.Surname;
             nicknameD.InnerText = iuser.Nickname;
             passwordD.InnerText = iuser.Password;
             birthD.InnerText = iuser.DateOfBirth;
-            image0D.InnerText = fileNames[0];
-            image1D.InnerText = fileNames[1];
-            image2D.InnerText = fileNames[2];
-            image3D.InnerText = fileNames[3];
-            image4D.InnerText = fileNames[4];
 
             userD.AppendChild(nameD);
             userD.AppendChild(surnameD);
             userD.AppendChild(nicknameD);
             userD.AppendChild(passwordD);
             userD.AppendChild(birthD);
-            userD.AppendChild(image0D);
-            userD.AppendChild(image1D);
-            userD.AppendChild(image2D);
-            userD.AppendChild(image3D);
-            userD.AppendChild(image4D);
+
+            for (int i = 0; i < _imagesPerPerson; i++)
+            {
+                images[i] = document.CreateElement("IMAGE_" + i);
+                images[i].InnerText = fileNames[i];
+                userD.AppendChild(images[i]);
+            }
 
             root.AppendChild(userD);
 
@@ -163,7 +110,7 @@ namespace VirtualLibrary.DataSources.Data
         }
 
 
-        //Pradedami kaupti nauji duomenys (pries naudojant si metoda istryti visus senus)
+
         public void CreateNewUserList(Image<Gray, byte>[] faceImages, IUser iuser)
         {
             var fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
@@ -191,7 +138,7 @@ namespace VirtualLibrary.DataSources.Data
             stream.Close();
         }
 
-        //Metodas issaugantis nuotraukas
+
         private string[] SaveImages(Image<Gray, byte>[] images, string name, string surname)
         {
             var fileNames = new string[_imagesPerPerson];

@@ -32,8 +32,6 @@ namespace VirtualLibrary
 
         private void StartTakingPictures(object sender, EventArgs e)
         {
-            MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             Mat img1;
             Image<Bgr, byte> nextFrame;
 
