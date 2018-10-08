@@ -36,9 +36,9 @@ namespace VirtualLibrary.Forms
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
             Close();
-            var bookActionsForm = new BookActions(_takenBookPresenter, this, new UserRepository(_dataSource), _dataSource); // TODO 
+            var usrRepo = new UserRepository(_dataSource);
+            var bookActionsForm = new BookActions(_takenBookPresenter, this, usrRepo, _dataSource, new Helpers.BookReturnValidator(new BookRepository(_dataSource), _dataSource)); // TODO 
             bookActionsForm.ShowDialog();
-
         }
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -48,6 +48,7 @@ namespace VirtualLibrary.Forms
         private void Library_Load(object sender, EventArgs e)
         {
         }
+
 
         private void label2_Click(object sender, EventArgs e)
         {

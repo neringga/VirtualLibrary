@@ -58,6 +58,15 @@ namespace VirtualLibrary
                 return new InputValidator(userRepository);
             }));
 
+            currentContainer.RegisterType<BookReturnValidator>(new InjectionFactory(o =>
+            {
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                var bookRepository = currentContainer.Resolve<IBookRepository>();
+
+                return new BookReturnValidator(bookRepository, dataSource);
+            }));
+
+
             // Forms
             currentContainer.RegisterType<Registration>(new InjectionFactory(o =>
             {
@@ -70,7 +79,8 @@ namespace VirtualLibrary
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
                 var libraryForm = currentContainer.Resolve<Library>();
-                return new Login(userRepository, libraryForm);
+                var dataSource = currentContainer.Resolve<IDataSource>();
+                return new Login(userRepository, libraryForm, dataSource);
             }));
 
             currentContainer.RegisterType<BookActions>(new InjectionFactory(o =>
@@ -79,7 +89,8 @@ namespace VirtualLibrary
                 var libraryForm = currentContainer.Resolve<Library>();
                 var userRepository = currentContainer.Resolve<IUserRepository>();
                 var dataSource = currentContainer.Resolve<IDataSource>();
-                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource);
+                var bookReturnValidator = currentContainer.Resolve<BookReturnValidator>();
+                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource, bookReturnValidator);
             }));
 
             currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>

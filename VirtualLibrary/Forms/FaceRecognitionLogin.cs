@@ -41,11 +41,11 @@ namespace VirtualLibrary.Forms
                     "\\UserInformation\\haarcascade_frontalface_alt2.xml",
                     trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 ex.MessageBoxResponse(Translations.GetTranslatedString("loginWithPassword"));
                 Close();
-                Program.GetInitializedOpening().ShowDialog();
+                // Program.GetInitializedOpening().ShowDialog();
             }
 
 

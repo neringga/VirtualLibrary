@@ -20,9 +20,10 @@ namespace VirtualLibrary.Forms
         private Result _result;
         private IUserRepository _userRepository;
         private IDataSource _dataSource;
+        private BookReturnValidator _brValidator;
 
 
-        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, IUserRepository userRepository, IDataSource dataSource)
+        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, IUserRepository userRepository, IDataSource dataSource, BookReturnValidator brvalidator)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
@@ -31,6 +32,7 @@ namespace VirtualLibrary.Forms
             _libraryForm = libraryForm;
             _userRepository = userRepository;
             _dataSource = dataSource;
+            _brValidator = brvalidator;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -113,8 +115,7 @@ namespace VirtualLibrary.Forms
         {
             if (_result != null)
             {
-                var bookReturnValidator = new BookReturnValidator();
-                var book = bookReturnValidator.TakenBookListCheckForBook(_result.Text);
+                var book = _brValidator.TakenBookListCheckForBook(_result.Text);
                 if (book != null)
                 {
                     _mTakenBookPresenter.RemoveTakenBook(book);
@@ -133,8 +134,9 @@ namespace VirtualLibrary.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close();
-            _libraryForm.ShowDialog();
+            this.Close();
+            var lfrom = new Library(_mTakenBookPresenter, _dataSource);
+            lfrom.ShowDialog();
         }
     }
 }

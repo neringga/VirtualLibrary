@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Repositories;
@@ -10,10 +11,13 @@ namespace VirtualLibrary.Forms
     {
         private readonly IUserRepository _mUserRepository;
         private Library _libraryForm;
-        public Login(IUserRepository userRepository, Library libraryForm)
+        private IDataSource ds;
+
+        public Login(IUserRepository userRepository, Library libraryForm, IDataSource dataSource)
         {
             _mUserRepository = userRepository;
             _libraryForm = libraryForm;
+            ds = dataSource;
             InitializeComponent();
         }
 
@@ -31,7 +35,7 @@ namespace VirtualLibrary.Forms
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
-            StaticDataSource.CurrUser = usernameTextBox.Text;
+            ds.CurrUser = usernameTextBox.Text;
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
