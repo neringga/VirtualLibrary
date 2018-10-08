@@ -26,7 +26,7 @@ namespace VirtualLibrary.DataSources.Data
         public void GetTrainingSet(out List<Image<Gray, byte>> faceTrainingSet, out int[] labels,
             out List<string> nicknames)
         {
-            XDocument xml = XDocument.Load(_location + "faceImages.xml");
+            XDocument xml = XDocument.Load(_location + StaticStrings.UserFile);
 
             List<string>[] imageNamesLists = new List<string>[_imagesPerPerson];
             List<int> labelsList = new List<int>();
@@ -69,7 +69,7 @@ namespace VirtualLibrary.DataSources.Data
         public void AddUser(Image<Gray, byte>[] faceImages, IUser iuser)
         {
             XmlDocument document = new XmlDocument();
-            document.Load(_location + "faceImages.xml");
+            document.Load(_location + StaticStrings.UserFile);
 
             XmlElement root = document.DocumentElement;
 
@@ -115,7 +115,7 @@ namespace VirtualLibrary.DataSources.Data
         {
             var fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
 
-            var stream = File.OpenWrite(_location + "faceImages.xml");
+            var stream = File.OpenWrite(_location + StaticStrings.UserFile);
 
             using (var writer = XmlWriter.Create(stream))
             {

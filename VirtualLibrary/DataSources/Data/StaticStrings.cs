@@ -8,6 +8,7 @@ namespace VirtualLibrary.DataSources.Data
         public static string WarningText = Translations.GetTranslatedString("returnThisBook");
         public static string WarningText2 = Translations.GetTranslatedString("until");    
         public static string BookFile = "BookList.txt";
+        public static string UserFile = "faceImages.xml";
         public static string EmailCredentialsFile = "email-details.txt";
         public static string PictureFilter = "jpg files(*.jpg)|*.jpg| png files(*.png)|*.png";
     }
