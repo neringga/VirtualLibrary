@@ -76,7 +76,6 @@
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
     <Compile Include="Enums\BookGenre.cs" />
-    <Compile Include="FaceDetection.cs" />
     <Compile Include="EigenFaceRecognition.cs" />
     <Compile Include="Forms\BookActions.cs">
       <SubType>Form</SubType>

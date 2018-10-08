@@ -39,7 +39,6 @@ namespace VirtualLibrary
 
             _capture = new VideoCapture();
 
-
             for (int i = 0; i < Constants.FaceImagesPerUser; i++)
             {
                 img1 = _capture.QueryFrame();
@@ -47,46 +46,44 @@ namespace VirtualLibrary
                 {
                     if (nextFrame != null)
                     {
-                        imageBox1.Image = nextFrame;
-
-                        var grayframe = nextFrame.Convert<Gray, byte>();
-                        var faces = _cascade.DetectMultiScale(grayframe, 1.2, 1);
-
                         try
                         {
+                            imageBox1.Image = nextFrame;
+
+                            var grayframe = nextFrame.Convert<Gray, byte>();
+                            var faces = _cascade.DetectMultiScale(grayframe, 1.2, 1);
+
                             GrayPictures[i] = grayframe.Copy(faces[0]).Resize(100, 100, Inter.Cubic);
+
+                            switch (i)
+                            {
+                                case 0:
+                                    imageBox1.Image = GrayPictures[i];
+                                    break;
+                                case 1:
+                                    imageBox2.Image = GrayPictures[i];
+                                    break;
+                                case 2:
+                                    imageBox3.Image = GrayPictures[i];
+                                    break;
+                                case 3:
+                                    imageBox4.Image = GrayPictures[i];
+                                    break;
+                                case 4:
+                                    imageBox5.Image = GrayPictures[i];
+                                    break;
+                            }
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            //Console.WriteLine(e.Message);
-                            MessageBox.Show(Translations.GetTranslatedString("notDetected"), Translations.GetTranslatedString("error"), MessageBoxButtons.OK,
+                            MessageBox.Show(Translations.GetTranslatedString("notDetected"),
+                                Translations.GetTranslatedString("error"), MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                         }
                     }
 
                     Thread.Sleep(500);
                 }
-
-                //change imageBox variables to array
-                switch (i)
-                {
-                    case 0:
-                        imageBox1.Image = GrayPictures[i];
-                        break;
-                    case 1:
-                        imageBox2.Image = GrayPictures[i];
-                        break;
-                    case 2:
-                        imageBox3.Image = GrayPictures[i];
-                        break;
-                    case 3:
-                        imageBox4.Image = GrayPictures[i];
-                        break;
-                    case 4:
-                        imageBox5.Image = GrayPictures[i];
-                        break;
-                }
-                
                     
             }
 

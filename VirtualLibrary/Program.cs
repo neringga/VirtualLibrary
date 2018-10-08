@@ -20,7 +20,7 @@ namespace VirtualLibrary
             Application.Run(opening);
         }
 
-        private static Opening GetInitializedOpening()
+        public static Opening GetInitializedOpening()
         {
             var userRepository = new UserRepository(StaticDataSource.DataSource);
             return new Opening(userRepository);
