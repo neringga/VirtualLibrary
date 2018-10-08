@@ -123,6 +123,7 @@ namespace VirtualLibrary
         {
             using (var photoForm = new LiveCamera())
             {
+                MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 photoForm.ShowDialog();
                 _faceImages = photoForm.GrayPictures;
                 InputCorrect();
@@ -134,8 +135,16 @@ namespace VirtualLibrary
             _mUserPresenter.AddUser();
 
             UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
-                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", 5);
-            xml.AddUser(_faceImages, this);
+                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", Constants.FaceImagesPerUser);
+
+            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\faceImages.xml"))
+            {
+                xml.AddUser(_faceImages, this);
+            }
+            else
+            {
+                xml.CreateNewUserList(_faceImages, this);
+            }
 
             Close();
         }
