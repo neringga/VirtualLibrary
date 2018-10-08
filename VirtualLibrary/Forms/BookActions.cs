@@ -71,6 +71,7 @@ namespace VirtualLibrary.Forms
             {
                 try
                 {
+                    
                     _mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
                     var takenBooks = _mTakenBookPresenter.GetTakenBooks();
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
@@ -79,19 +80,18 @@ namespace VirtualLibrary.Forms
                     var userRepository = new UserRepository(StaticDataSource.DataSource);
                     var userPresenter = new UserPresenter(null, userRepository);
                     var users = userPresenter.GetUserList();
-
-
                     var userToSendEmailTo =
                         users.First(user => user.Nickname == StaticDataSource.CurrUser);
+
                     var bookReturnWarning = new BookReturnWarning(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
                     bookReturnWarning.SendWarningEmail();
-                    MessageBox.Show(Translations.GetTranslatedString("returnUntil ") + addedBook.HasToBeReturned);
+                    MessageBox.Show(Translations.GetTranslatedString("returnUntil") + addedBook.HasToBeReturned);
                 }
-                catch (Exception)
+                catch (InvalidOperationException)
                 {
                     MessageBox.Show(Translations.GetTranslatedString("cannotTake"));
                 }

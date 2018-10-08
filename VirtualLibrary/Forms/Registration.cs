@@ -1,8 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
@@ -112,7 +114,7 @@ namespace VirtualLibrary
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            var inputValidator = new InputValidator();
+            //var inputValidator = new InputValidator();
             if (string.IsNullOrEmpty(nameTextBox.Text))
                 _nameErrorProvider.SetError(nameTextBox, Translations.GetTranslatedString("empty"));
         }
@@ -121,8 +123,6 @@ namespace VirtualLibrary
         {
             using (var photoForm = new LiveCamera())
             {
-                MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
                 photoForm.ShowDialog();
                 _faceImages = photoForm.GrayPictures;
                 InputCorrect();
@@ -133,8 +133,9 @@ namespace VirtualLibrary
         {
             _mUserPresenter.AddUser();
 
-            //UserInformationInXMLFiles xml = new UserInformationInXMLFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            //xml.AddUser(faceImages, this);
+            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
+                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", 5);
+            xml.AddUser(_faceImages, this);
 
             Close();
         }
@@ -187,7 +188,7 @@ namespace VirtualLibrary
 
         private void SurnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            var inputValidator = new InputValidator();
+            new InputValidator();
             if (string.IsNullOrEmpty(surnameTextBox.Text))
                 _surnameErrorProvider.SetError(surnameTextBox, Translations.GetTranslatedString("empty"));
             else
@@ -209,9 +210,9 @@ namespace VirtualLibrary
             if (!string.IsNullOrEmpty(usernameTextBox.Text) &&
                 !string.IsNullOrEmpty(surnameTextBox.Text) &&
                 !string.IsNullOrEmpty(nameTextBox.Text) &&
-                !string.IsNullOrEmpty(emailTextBox.Text) //&&
-                //faceImages != null
-            )
+                !string.IsNullOrEmpty(emailTextBox.Text) &&
+                _faceImages != null
+                )
                 registerButton.Enabled = true;
             else
                 registerButton.Enabled = false;

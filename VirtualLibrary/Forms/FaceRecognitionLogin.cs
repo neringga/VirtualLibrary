@@ -6,6 +6,7 @@ using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
 
 namespace VirtualLibrary.Forms
@@ -23,13 +24,23 @@ namespace VirtualLibrary.Forms
             List<Image<Gray, byte>> trainingSet;
             int[] labels;
 
-            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
+            try
+            {
+                UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
+                xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
 
-            faceRecognition = new EigenFaceRecognition(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                                                                                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                                                                               trainingSet, nicknames, Constants.FaceImagesPerUser);
-
+                faceRecognition = new EigenFaceRecognition(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
+                    trainingSet, nicknames, Constants.FaceImagesPerUser);
+            }
+            catch (NullReferenceException ex)
+            {
+                ex.MessageBoxResponse("Please login with your username and password");
+                Close();
+                Program.GetInitializedOpening().ShowDialog();
+            }
 
             InitializeComponent();
         }
@@ -62,6 +73,11 @@ namespace VirtualLibrary.Forms
             _capture.Dispose();
             Dispose();
             Close();
+        }
+
+        private void FaceRecognitionLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
