@@ -10,7 +10,7 @@
         public EmailCredentials()
         {
             var textFile = new TextFile();
-            var credentials = textFile.ReadTextFile(Constants.EmailCredentialsFile);
+            var credentials = textFile.ReadTextFile(StaticStrings.EmailCredentialsFile);
             foreach (var line in credentials)
             {
                 var spLine = line.Split(' ');

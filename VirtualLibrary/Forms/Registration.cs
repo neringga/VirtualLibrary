@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
+using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -26,7 +26,9 @@ namespace VirtualLibrary
         private readonly ErrorProvider _surnameErrorProvider;
         private readonly ErrorProvider _usernameErrorProvider;
 
+
         private IInputValidator _inputValidator;
+        private static string _language;
 
         public Registration(IRepository<IUser> userRepository, IInputValidator inputValidator)
         {
@@ -82,6 +84,12 @@ namespace VirtualLibrary
             get => usernameTextBox.Text;
             set => usernameTextBox.Text = value;
         }
+        public string Language
+        {
+            get => null;
+            set => string.Copy(_language);
+        }
+
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -91,16 +99,26 @@ namespace VirtualLibrary
         {
             if (_inputValidator.ValidString(nameTextBox.Text))
                 _nameErrorProvider.SetError(nameTextBox, "Can't be empty");
-            else
-                _nameErrorProvider.SetError(nameTextBox, string.Empty);
 
+            if (string.IsNullOrEmpty(nameTextBox.Text))
+                _nameErrorProvider.SetError(nameTextBox, Translations.GetTranslatedString("empty"));
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            using (var photoForm = new LiveCamera())
+            {
+                MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                photoForm.ShowDialog();
+                _faceImages = photoForm.GrayPictures;
+                InputCorrect();
+            }
         }
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (_inputValidator.ValidPassword(passwordTextBox.Text))
-                _passwordErrorProvider.SetError(passwordTextBox, "Password needs to be longer than 6 letters");
-
+                _passwordErrorProvider.SetError(passwordTextBox, Translations.GetTranslatedString("shortPassword"));
             else
                 _passwordErrorProvider.SetError(passwordTextBox, string.Empty);
         }
@@ -114,7 +132,7 @@ namespace VirtualLibrary
             }
             else
             {
-                _repPasswordErrorProvider.SetError(repeatPasswTextBox, "Passwords do not match");
+                _repPasswordErrorProvider.SetError(repeatPasswTextBox, Translations.GetTranslatedString("doNotMatch"));
                 registerButton.Enabled = false;
             }
         }
@@ -122,11 +140,10 @@ namespace VirtualLibrary
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!_inputValidator.ValidString(usernameTextBox.Text))
-                _surnameErrorProvider.SetError(usernameTextBox, "Can't be empty");
+                _surnameErrorProvider.SetError(usernameTextBox, Translations.GetTranslatedString("empty"));
 
             else if (_inputValidator.UsernameTaken(usernameTextBox.Text))
-                _usernameErrorProvider.SetError(usernameTextBox, "This username already exist");
-
+                _usernameErrorProvider.SetError(usernameTextBox, Translations.GetTranslatedString("usernameExists"));
             else
                 _usernameErrorProvider.SetError(usernameTextBox, string.Empty);
         }
@@ -134,7 +151,7 @@ namespace VirtualLibrary
         private void SurnameTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!_inputValidator.ValidString(surnameTextBox.Text))
-                _surnameErrorProvider.SetError(surnameTextBox, "Can't be empty");
+                _surnameErrorProvider.SetError(surnameTextBox, Translations.GetTranslatedString("empty"));
             else
                 _emailErrorProvider.SetError(emailTextBox, string.Empty);
         }
@@ -142,13 +159,14 @@ namespace VirtualLibrary
         private void EmailTextBox_TextChanged(object sender, EventArgs e)
         {
             if (!_inputValidator.ValidEmail(emailTextBox.Text))
-                _emailErrorProvider.SetError(emailTextBox, "Incorrect format");
+                _emailErrorProvider.SetError(emailTextBox, Translations.GetTranslatedString("incorrectFormat"));
             else
                 _emailErrorProvider.SetError(emailTextBox, string.Empty);
         }
 
         private void InputCorrect()
         {
+
             var enteredCredentials = new List<string>() { usernameTextBox.Text, surnameTextBox.Text, nameTextBox.Text, emailTextBox.Text };
             if (_inputValidator.ValidateStrings(enteredCredentials))
                 registerButton.Enabled = true;
@@ -156,40 +174,26 @@ namespace VirtualLibrary
                 registerButton.Enabled = false;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            using (var photoForm = new LiveCamera())
-            {
-                photoForm.ShowDialog();
-                _faceImages = photoForm.GrayPictures;
-                InputCorrect();
-            }
-        }
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-
             _mUserPresenter.AddUser();
 
-            if (_faceImages == null || _faceImages.Length == 0)
+            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
+                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", StaticStrings.FaceImagesPerUser);
+
+            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\faceImages.xml"))
             {
-                MessageBox.Show("No images added. Please note that you will not be able to sign in with Face Recognition.");
+                xml.AddUser(_faceImages, this);
             }
             else
             {
-                UserInformationInXmlFiles xml = new UserInformationInXmlFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\",
-                                                                                Constants.FaceImagesPerUser);
-                if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\faceLabels.xml"))
-                {
-                    xml.AddUser(_faceImages, this);
-                }
-                else
-                {
-                    xml.CreateNewUserList(_faceImages, this);
-                }
+                xml.CreateNewUserList(_faceImages, this);
             }
+
             Close();
         }
+
 
         private void SetupErrorProviders()
         {
@@ -229,6 +233,21 @@ namespace VirtualLibrary
 
         private void Label4_Click(object sender, EventArgs e)
         {
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _language = "EN";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _language = "LT";
+        }
+
+        public static string GetUserLanguageSetting()
+        {
+            return _language;
         }
     }
 }

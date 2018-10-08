@@ -1,4 +1,6 @@
-﻿namespace VirtualLibrary.Forms
+﻿using VirtualLibrary.Localization;
+
+namespace VirtualLibrary.Forms
 {
     partial class BookActions
     {
@@ -55,7 +57,7 @@
             this.pictureUploadButton.Name = "pictureUploadButton";
             this.pictureUploadButton.Size = new System.Drawing.Size(103, 23);
             this.pictureUploadButton.TabIndex = 1;
-            this.pictureUploadButton.Text = "Upload";
+            this.pictureUploadButton.Text = Translations.GetTranslatedString("pictureUploadButton");
             this.pictureUploadButton.UseVisualStyleBackColor = true;
             this.pictureUploadButton.Click += new System.EventHandler(this.PictureUploadButton_Click);
             // 
@@ -66,7 +68,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Upload picture of barcode";
+            this.label1.Text = Translations.GetTranslatedString("label1");
             // 
             // ScannedBookInfo
             // 
@@ -75,7 +77,7 @@
             this.ScannedBookInfo.Name = "ScannedBookInfo";
             this.ScannedBookInfo.Size = new System.Drawing.Size(93, 13);
             this.ScannedBookInfo.TabIndex = 3;
-            this.ScannedBookInfo.Text = "ScannedBookInfo";
+            this.ScannedBookInfo.Text = Translations.GetTranslatedString("scannedBookInfo");
             this.ScannedBookInfo.Click += new System.EventHandler(this.ScannedBookInfo_Click);
             // 
             // TakeBookButton
@@ -84,7 +86,7 @@
             this.TakeBookButton.Name = "TakeBookButton";
             this.TakeBookButton.Size = new System.Drawing.Size(113, 23);
             this.TakeBookButton.TabIndex = 4;
-            this.TakeBookButton.Text = "Take this book";
+            this.TakeBookButton.Text = Translations.GetTranslatedString("takeBookButton");
             this.TakeBookButton.UseVisualStyleBackColor = true;
             this.TakeBookButton.Click += new System.EventHandler(this.TakeBookButton_Click);
             // 
@@ -94,7 +96,7 @@
             this.ReturnBookButton.Name = "ReturnBookButton";
             this.ReturnBookButton.Size = new System.Drawing.Size(113, 23);
             this.ReturnBookButton.TabIndex = 5;
-            this.ReturnBookButton.Text = "Return this book";
+            this.ReturnBookButton.Text = Translations.GetTranslatedString("returnBookButton");
             this.ReturnBookButton.UseVisualStyleBackColor = true;
             this.ReturnBookButton.Click += new System.EventHandler(this.ReturnBookButton_Click);
             // 
@@ -106,7 +108,7 @@
             this.Info.Name = "Info";
             this.Info.Size = new System.Drawing.Size(93, 13);
             this.Info.TabIndex = 6;
-            this.Info.Text = "Scanned book:";
+            this.Info.Text = Translations.GetTranslatedString("infoText");
             // 
             // button1
             // 
@@ -114,7 +116,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "Back";
+            this.button1.Text = Translations.GetTranslatedString("button1Text");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -132,7 +134,7 @@
             this.Controls.Add(this.pictureUploadButton);
             this.Controls.Add(this.barcodePictureBox);
             this.Name = "BookActions";
-            this.Text = "BarcodeScanner";
+            this.Text = Translations.GetTranslatedString("barcodeScanner");
             ((System.ComponentModel.ISupportInitialize)(this.barcodePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

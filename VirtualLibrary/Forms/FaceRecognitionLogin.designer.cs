@@ -1,4 +1,6 @@
-﻿namespace VirtualLibrary.Forms
+﻿using VirtualLibrary.Localization;
+
+namespace VirtualLibrary.Forms
 {
     partial class FaceRecognitionLogin
     {
@@ -41,7 +43,7 @@
             // 
             this.cameraBox.Location = new System.Drawing.Point(0, 0);
             this.cameraBox.Name = "cameraBox";
-            this.cameraBox.Size = new System.Drawing.Size(800, 480);
+            this.cameraBox.Size = new System.Drawing.Size(706, 430);
             this.cameraBox.TabIndex = 2;
             this.cameraBox.TabStop = false;
             // 
@@ -49,21 +51,21 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(867, 85);
+            this.label1.Location = new System.Drawing.Point(744, 85);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 25);
+            this.label1.Size = new System.Drawing.Size(75, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Name:";
+            this.label1.Text = Translations.GetTranslatedString("nameLabel");
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(943, 85);
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.Location = new System.Drawing.Point(825, 85);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(134, 31);
+            this.nameLabel.Size = new System.Drawing.Size(97, 25);
             this.nameLabel.TabIndex = 4;
-            this.nameLabel.Text = "Loading...";
+            this.nameLabel.Text = Translations.GetTranslatedString("loading");
             // 
             // startRecognitionTimer
             // 
@@ -74,11 +76,11 @@
             // loginButton
             // 
             this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginButton.Location = new System.Drawing.Point(949, 411);
+            this.loginButton.Location = new System.Drawing.Point(730, 192);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(296, 50);
+            this.loginButton.Size = new System.Drawing.Size(295, 42);
             this.loginButton.TabIndex = 5;
-            this.loginButton.Text = "Log in as ";
+            this.loginButton.Text = Translations.GetTranslatedString("logInButton");
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
@@ -86,13 +88,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1273, 488);
+            this.ClientSize = new System.Drawing.Size(1030, 442);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cameraBox);
             this.Name = "FaceRecognitionLogin";
-            this.Text = "FaceRecognitionLogin";
+            this.Text = Translations.GetTranslatedString("faceRecognisionLogin");
+            this.Load += new System.EventHandler(this.FaceRecognitionLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

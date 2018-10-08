@@ -12,7 +12,7 @@ namespace VirtualLibrary.Data
         public BookList()
         {
             var textFile = new TextFile();
-            var list = textFile.ReadTextFile(Constants.BookFile);
+            var list = textFile.ReadTextFile(StaticStrings.BookFile);
          
             string[] words;
 

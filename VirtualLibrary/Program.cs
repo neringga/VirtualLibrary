@@ -29,6 +29,7 @@ namespace VirtualLibrary
 
 
         public static IUnityContainer BuildContainer()
+
         {
             var currentContainer = new UnityContainer();
 

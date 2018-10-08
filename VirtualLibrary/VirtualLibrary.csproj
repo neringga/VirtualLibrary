@@ -120,17 +120,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookReturnWarning.cs" />
+    <Compile Include="BookReturnEmail.cs" />
     <Compile Include="DataSources\Data\BookList.cs" />
-    <Compile Include="DataSources\Data\Constants.cs" />
     <Compile Include="DataSources\Data\EmailCredentials.cs" />
     <Compile Include="DataSources\Data\StaticDataSource.cs" />
+    <Compile Include="DataSources\Data\StaticStrings.cs" />
     <Compile Include="DataSources\Data\TextFile.cs" />
     <Compile Include="DataSources\Data\UserInformationInXMLFiles.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
     <Compile Include="Enums\BookGenre.cs" />
-    <Compile Include="FaceDetection.cs" />
     <Compile Include="EigenFaceRecognition.cs" />
     <Compile Include="Forms\BookActions.cs">
       <SubType>Form</SubType>
@@ -178,6 +177,9 @@
     <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\IInputValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
+    <Compile Include="Localization\LanguageValuePair.cs" />
+    <Compile Include="Localization\Translation.cs" />
+    <Compile Include="Localization\Translations.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Presenters\ScannerPresenter.cs" />

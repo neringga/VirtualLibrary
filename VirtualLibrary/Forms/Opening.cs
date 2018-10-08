@@ -25,7 +25,10 @@ namespace VirtualLibrary.Forms
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
+
+            Hide();
             _registrationForm.ShowDialog();
+            Show();
         }
 
         private void Button1_Click(object sender, EventArgs e)

@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using VirtualLibrary.DataSources.Data;
-using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
-using VirtualLibrary.View;
 
 namespace VirtualLibrary.Helpers
 {
@@ -16,7 +13,7 @@ namespace VirtualLibrary.Helpers
         {
             _userRepository = userRepository;
         }
-     
+
         public bool UsernameTaken(string username, string defaultUsername = "default")
         {
             if (username == null)

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using VirtualLibrary.Data;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 
@@ -28,7 +29,7 @@ namespace VirtualLibrary.Forms
                 if (book.TakenByUser == dataSource.CurrUser)
                 {
                     var book1 = books.First(item => item.Code == book.Code);
-                    bookListBox.Items.Add(book1.Author + book1.Title + " RETURN ON " + book.HasToBeReturned);
+                    bookListBox.Items.Add(book1.Author + book1.Title + Translations.GetTranslatedString("returnOn") + book.HasToBeReturned);
                 }
         }
 

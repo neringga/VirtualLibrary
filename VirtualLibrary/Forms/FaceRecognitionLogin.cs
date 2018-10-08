@@ -7,6 +7,8 @@ using Emgu.CV.Face;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Helpers;
+using VirtualLibrary.Localization;
 
 namespace VirtualLibrary.Forms
 {
@@ -28,13 +30,23 @@ namespace VirtualLibrary.Forms
             List<Image<Gray, byte>> trainingSet;
             int[] labels;
 
-            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-            xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
+            try
+            {
+                UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
+                xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
 
-            faceRecognition = new EigenFaceRecognition(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                                                                                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                                                                               trainingSet, nicknames, Constants.FaceImagesPerUser);
-
+                faceRecognition = new EigenFaceRecognition(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
+                    trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
+            }
+            catch (NullReferenceException ex)
+            {
+                ex.MessageBoxResponse(Translations.GetTranslatedString("loginWithPassword"));
+                Close();
+                Program.GetInitializedOpening().ShowDialog();
+            }
 
 
         }
@@ -52,13 +64,13 @@ namespace VirtualLibrary.Forms
 
             if (currentNickname != null)
             {
-                loginButton.Text = "Log in as " + currentNickname;
+                loginButton.Text = Translations.GetTranslatedString("logInButton") + currentNickname;
                 nameLabel.Text = currentNickname;
                 _dataSource.CurrUser = currentNickname;
             }
             else
             {
-                nameLabel.Text = "Unknown";
+                nameLabel.Text = Translations.GetTranslatedString("unknown");
             }
 
             cameraBox.Image = display;
@@ -71,6 +83,11 @@ namespace VirtualLibrary.Forms
             _capture.Dispose();
             Dispose();
             Close();
+        }
+
+        private void FaceRecognitionLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
