@@ -135,7 +135,7 @@ namespace VirtualLibrary
             _mUserPresenter.AddUser();
 
             UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
-                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", Constants.FaceImagesPerUser);
+                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", StaticStrings.FaceImagesPerUser);
 
             if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\faceImages.xml"))
             {

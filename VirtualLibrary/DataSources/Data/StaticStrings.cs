@@ -11,5 +11,6 @@ namespace VirtualLibrary.DataSources.Data
         public static string UserFile = "faceImages.xml";
         public static string EmailCredentialsFile = "email-details.txt";
         public static string PictureFilter = "jpg files(*.jpg)|*.jpg| png files(*.png)|*.png";
+        public static int FaceImagesPerUser = 5;
     }
 }
