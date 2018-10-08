@@ -959,6 +959,23 @@ namespace VirtualLibrary.Localization
                     }
                 }
             },
+            new Translation()
+            {
+            id = "notDetected",
+            translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Face was not detected. Please try again. "
+                    },
+                    new LanguageValuePair()
+                    {
+                         language = "LT",
+                         value = "Veidas neaptiktas. Prašome mėginti dar kartą"
+                    }
+                }
+            },
         };
 
         public static string GetTranslatedString (string id)

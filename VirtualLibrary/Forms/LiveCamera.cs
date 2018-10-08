@@ -7,6 +7,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Localization;
 
 namespace VirtualLibrary
 {
@@ -31,7 +32,7 @@ namespace VirtualLibrary
 
         private void StartTakingPictures(object sender, EventArgs e)
         {
-            MessageBox.Show("Look to the camera for 3 seconds", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Mat img1;
             Image<Bgr, byte> nextFrame;
@@ -58,7 +59,7 @@ namespace VirtualLibrary
                         catch (IndexOutOfRangeException)
                         {
                             //Console.WriteLine(e.Message);
-                            MessageBox.Show("Face was not detected. Try again", "Error", MessageBoxButtons.OK,
+                            MessageBox.Show(Translations.GetTranslatedString("notDetected"), Translations.GetTranslatedString("error"), MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                         }
                     }
