@@ -992,7 +992,24 @@ namespace VirtualLibrary.Localization
                         value = "Prašome registruotis su prisijungimo vardu"
                     }
                 }
-            }
+            },
+            new Translation()
+            {
+                id = "signInWithCamera",
+                translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Sign in with camera"
+                    },
+                    new LanguageValuePair()
+                    {
+                        language = "LT",
+                        value = "Prisijungti su kamera"
+                    }
+                }
+            },
         };
 
         public static string GetTranslatedString (string id)

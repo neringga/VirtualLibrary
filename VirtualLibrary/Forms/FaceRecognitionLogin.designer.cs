@@ -55,7 +55,7 @@ namespace VirtualLibrary.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Name: ";
+            this.label1.Text = Translations.GetTranslatedString("nameLabel");
             // 
             // nameLabel
             // 
@@ -65,7 +65,7 @@ namespace VirtualLibrary.Forms
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(97, 25);
             this.nameLabel.TabIndex = 4;
-            this.nameLabel.Text = "Loading...";
+            this.nameLabel.Text = Translations.GetTranslatedString("loading");
             // 
             // startRecognitionTimer
             // 
@@ -80,7 +80,7 @@ namespace VirtualLibrary.Forms
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(295, 42);
             this.loginButton.TabIndex = 5;
-            this.loginButton.Text = "Login as: ";
+            this.loginButton.Text = Translations.GetTranslatedString("logInButton");
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
@@ -94,7 +94,7 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cameraBox);
             this.Name = "FaceRecognitionLogin";
-            this.Text = "Face recognision login";
+            this.Text = Translations.GetTranslatedString("faceRecognisionLogin");
             this.Load += new System.EventHandler(this.FaceRecognitionLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
