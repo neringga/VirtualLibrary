@@ -33,7 +33,7 @@ namespace VirtualLibrary.Forms
                 faceRecognition = new EigenFaceRecognition(
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
                     "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                    trainingSet, nicknames, Constants.FaceImagesPerUser);
+                    trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
             }
             catch (NullReferenceException ex)
             {
