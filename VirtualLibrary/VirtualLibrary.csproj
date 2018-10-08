@@ -121,6 +121,7 @@
     <Compile Include="Helpers\BookReturnValidator.cs" />
     <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
+    <Compile Include="IEmguCvFaceRecognition.cs" />
     <Compile Include="Localization\LanguageValuePair.cs" />
     <Compile Include="Localization\Translation.cs" />
     <Compile Include="Localization\Translations.cs" />
