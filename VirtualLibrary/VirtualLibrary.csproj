@@ -65,9 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookReturnWarning.cs" />
+    <Compile Include="BookReturnEmail.cs" />
     <Compile Include="DataSources\Data\BookList.cs" />
-    <Compile Include="DataSources\Data\Constants.cs" />
     <Compile Include="DataSources\Data\EmailCredentials.cs" />
     <Compile Include="DataSources\Data\StaticDataSource.cs" />
     <Compile Include="DataSources\Data\StaticStrings.cs" />

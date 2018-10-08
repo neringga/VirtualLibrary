@@ -976,6 +976,23 @@ namespace VirtualLibrary.Localization
                     }
                 }
             },
+            new Translation()
+            {
+                id = "loginWithPassword",
+                translatedStrings = new List<LanguageValuePair>()
+                {
+                    new LanguageValuePair()
+                    {
+                        language = "EN",
+                        value = "Please login with your username and password"
+                    },
+                    new LanguageValuePair()
+                    {
+                        language = "LT",
+                        value = "Prašome registruotis su prisijungimo vardu"
+                    }
+                }
+            }
         };
 
         public static string GetTranslatedString (string id)
