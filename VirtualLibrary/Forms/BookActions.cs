@@ -71,8 +71,9 @@ namespace VirtualLibrary.Forms
             {
                 try
                 {
-                    
-                    _mTakenBookPresenter.AddTakenBook(_book, StaticDataSource.CurrUser);
+
+                    _mTakenBookPresenter.AddTakenBook(view: _book, username: StaticDataSource.CurrUser);
+
                     var takenBooks = _mTakenBookPresenter.GetTakenBooks();
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
                                                              StaticDataSource.CurrUser);
