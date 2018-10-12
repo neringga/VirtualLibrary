@@ -1,1027 +1,1026 @@
-﻿using System;
-using System.Collections.Generic;
-using VirtualLibrary.Presenters;
+﻿using System.Collections.Generic;
+
 namespace VirtualLibrary.Localization
 {
     public static class Translations
     {
-        static List<Translation> translations = new List<Translation>()
+        private static readonly List<Translation> translations = new List<Translation>
         {
-            new Translation()
+            new Translation
             {
-            id = "pictureUploadButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "pictureUploadButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Upload"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Įkelti"
+                        language = "LT",
+                        value = "Įkelti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "label1",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "label1",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Upload picture of barcode"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Įkelti barkodo nuotrauką"
+                        language = "LT",
+                        value = "Įkelti barkodo nuotrauką"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "scannedBookInfo",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "scannedBookInfo",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Scanned Book Info"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Nuskanuotos knygos informacija"
+                        language = "LT",
+                        value = "Nuskanuotos knygos informacija"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "takeBookButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "takeBookButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Take this book"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Paimti šią knygą"
+                        language = "LT",
+                        value = "Paimti šią knygą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "returnBookButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "returnBookButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Return this book"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Grąžinti šią knygą"
+                        language = "LT",
+                        value = "Grąžinti šią knygą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "infoText",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "infoText",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Scanned book:"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Nuskanuota knyga:"
+                        language = "LT",
+                        value = "Nuskanuota knyga:"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "button1Text",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "button1Text",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Back"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Atgal"
+                        language = "LT",
+                        value = "Atgal"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "barcodeScanner",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "barcodeScanner",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Barcode scanner"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Barkodo skanuotojas"
+                        language = "LT",
+                        value = "Barkodo skanuotojas"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "signIn",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "signIn",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Sign in"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisiregistruoti"
+                        language = "LT",
+                        value = "Prisiregistruoti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "nameBox",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "nameBox",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Name: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Vardas: "
+                        language = "LT",
+                        value = "Vardas: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "loading",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "loading",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Loading..."
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Kraunasi..."
+                        language = "LT",
+                        value = "Kraunasi..."
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "logInButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "logInButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Login as: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisijungti kaip: "
+                        language = "LT",
+                        value = "Prisijungti kaip: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "faceRecognisionLogin",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "faceRecognisionLogin",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Face recognision login"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisijungimas su veido atpažinimu"
+                        language = "LT",
+                        value = "Prisijungimas su veido atpažinimu"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "scannerOpenButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "scannerOpenButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Scan book"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Nuskanuoti knygą"
+                        language = "LT",
+                        value = "Nuskanuoti knygą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "listOfBooks",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "listOfBooks",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Books that have to be returned: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Knygas, kurias reikia grąžinti: "
+                        language = "LT",
+                        value = "Knygas, kurias reikia grąžinti: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "forBooks",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "forBooks",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "For taking or returning book: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Knygos paėmimui arba grąžinimui: "
+                        language = "LT",
+                        value = "Knygos paėmimui arba grąžinimui: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "library",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "library",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Library"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Bilioteka"
+                        language = "LT",
+                        value = "Bilioteka"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "continueButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "continueButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Continue"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Tęsti"
+                        language = "LT",
+                        value = "Tęsti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "login",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "login",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Login"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisijungti"
+                        language = "LT",
+                        value = "Prisijungti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "username",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "username",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Username"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisijungimo vardas"
+                        language = "LT",
+                        value = "Prisijungimo vardas"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "password",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "password",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Password"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Slaptažodis"
+                        language = "LT",
+                        value = "Slaptažodis"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "noAccount",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "noAccount",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Don\'t have an account?"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Neturite paskyros?"
+                        language = "LT",
+                        value = "Neturite paskyros?"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "welcome",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "welcome",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Welcome to the Virtual Library"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Jus sveikina Virtualioji Biblioteka"
+                        language = "LT",
+                        value = "Jus sveikina Virtualioji Biblioteka"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "registerButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "registerButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Register"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prisiregistruoti"
+                        language = "LT",
+                        value = "Prisiregistruoti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "projectName",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "projectName",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Virtual Library"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Virtualioji Biblioteka"
+                        language = "LT",
+                        value = "Virtualioji Biblioteka"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "nameLabel",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "nameLabel",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Name: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Vardas: "
+                        language = "LT",
+                        value = "Vardas: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "surnameLabel",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "surnameLabel",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Surname: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Pavardė: "
+                        language = "LT",
+                        value = "Pavardė: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "emailLabel",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "emailLabel",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Email: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Elektroninis paštas: "
+                        language = "LT",
+                        value = "Elektroninis paštas: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "birthLabel",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "birthLabel",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Date of birth: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Gimimo data: "
+                        language = "LT",
+                        value = "Gimimo data: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "takePhoto",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "takePhoto",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Take a picture"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Nusifotografuoti"
+                        language = "LT",
+                        value = "Nusifotografuoti"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "newUser",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "newUser",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "New user registration"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Naujo naudotojo registracija"
+                        language = "LT",
+                        value = "Naujo naudotojo registracija"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "repeatPassword",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "repeatPassword",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Repeat password: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Pakartoti slaptažodį: "
+                        language = "LT",
+                        value = "Pakartoti slaptažodį: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "chooseLanguage",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "chooseLanguage",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Choose a language: "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Pasirinkite kalbą: "
+                        language = "LT",
+                        value = "Pasirinkite kalbą: "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "registrationButton",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "registrationButton",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Registration"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Registracija"
+                        language = "LT",
+                        value = "Registracija"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "userNotFound",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "userNotFound",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "User not found. Please register before trying to log in."
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Vartotojas nerastas. Prašome prisiregistruoti prieš bandant prisijungti."
+                        language = "LT",
+                        value = "Vartotojas nerastas. Prašome prisiregistruoti prieš bandant prisijungti."
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "empty",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "empty",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Can't be empty."
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Negali būti tuščias."
+                        language = "LT",
+                        value = "Negali būti tuščias."
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "lookAtCamera",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "lookAtCamera",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Look to the camera for 3 seconds"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Pažiūrėkite į kamerą 3 sekundes"
+                        language = "LT",
+                        value = "Pažiūrėkite į kamerą 3 sekundes"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "attention",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "attention",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Attention"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Dėmesio"
+                        language = "LT",
+                        value = "Dėmesio"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "shortPassword",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "shortPassword",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Password needs to be longer than 6 letters"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Slaptažodis turi būti ilgesnis nei 6 raidės"
+                        language = "LT",
+                        value = "Slaptažodis turi būti ilgesnis nei 6 raidės"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "doNotMatch",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "doNotMatch",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Passwords do not match"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Slaptažodžiai nesutampa"
+                        language = "LT",
+                        value = "Slaptažodžiai nesutampa"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "usernameExists",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "usernameExists",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "This username already exist"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Šis prisijungimo vardas jau egzistuoja."
+                        language = "LT",
+                        value = "Šis prisijungimo vardas jau egzistuoja."
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "incorrectFormat",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "incorrectFormat",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Incorrect format"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Netinkamas formatas"
+                        language = "LT",
+                        value = "Netinkamas formatas"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "default",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "default",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Default"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Numatytasis"
+                        language = "LT",
+                        value = "Numatytasis"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "unknown",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "unknown",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Unknown"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Nežinoma"
+                        language = "LT",
+                        value = "Nežinoma"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "form2",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "form2",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Form 2"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Antra forma"
+                        language = "LT",
+                        value = "Antra forma"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "warning",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "warning",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Warning to return book"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Įspėjimas grąžinti knygą"
+                        language = "LT",
+                        value = "Įspėjimas grąžinti knygą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "returnThisBook",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "returnThisBook",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "You must return the book listed below:"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Jūs turite grąžinti šią knygą:"
+                        language = "LT",
+                        value = "Jūs turite grąžinti šią knygą:"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "until",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "until",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "until"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "iki"
+                        language = "LT",
+                        value = "iki"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "tryAgain",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "tryAgain",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Try again"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Bandykite dar kartą"
+                        language = "LT",
+                        value = "Bandykite dar kartą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "error",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "error",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Error"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Įvyko klaida"
+                        language = "LT",
+                        value = "Įvyko klaida"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "returnUntil",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "returnUntil",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "You have to return this book on "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Turite grąžinti šią knygą iki "
+                        language = "LT",
+                        value = "Turite grąžinti šią knygą iki "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "cannotTake",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "cannotTake",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "You can not take this book"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Negalite paimti šios knygos"
+                        language = "LT",
+                        value = "Negalite paimti šios knygos"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "addPicture",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "addPicture",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Please add picture of the barcode"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Prašome pridėti barkodo nuotrauką"
+                        language = "LT",
+                        value = "Prašome pridėti barkodo nuotrauką"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "returnSucessfully",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "returnSucessfully",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Book returned successfully."
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Knyga grąžinta sėkmingai."
+                        language = "LT",
+                        value = "Knyga grąžinta sėkmingai."
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "cannotReturn",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "cannotReturn",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "You can not return this book."
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Negalite grąžinti šios knygos"
+                        language = "LT",
+                        value = "Negalite grąžinti šios knygos"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "returnOn",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "returnOn",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = " return on "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = " grąžinti "
+                        language = "LT",
+                        value = " grąžinti "
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
-            id = "notDetected",
-            translatedStrings = new List<LanguageValuePair>()
+                id = "notDetected",
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Face was not detected. Please try again. "
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
-                         language = "LT",
-                         value = "Veidas neaptiktas. Prašome mėginti dar kartą"
+                        language = "LT",
+                        value = "Veidas neaptiktas. Prašome mėginti dar kartą"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
                 id = "loginWithPassword",
-                translatedStrings = new List<LanguageValuePair>()
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Please login with your username and password"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "LT",
                         value = "Prašome registruotis su prisijungimo vardu"
                     }
                 }
             },
-            new Translation()
+            new Translation
             {
                 id = "signInWithCamera",
-                translatedStrings = new List<LanguageValuePair>()
+                translatedStrings = new List<LanguageValuePair>
                 {
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "EN",
                         value = "Sign in with camera"
                     },
-                    new LanguageValuePair()
+                    new LanguageValuePair
                     {
                         language = "LT",
                         value = "Prisijungti su kamera"
                     }
                 }
-            },
+            }
         };
 
-        public static string GetTranslatedString (string id)
+        public static string GetTranslatedString(string id)
         {
-            string lang = Registration.GetUserLanguageSetting();
+            var lang = Registration.GetUserLanguageSetting();
             if (lang == null)
                 lang = "EN";
             string translatedString;
-            Translation foundTranslation = translations.Find(Translation => Translation.id == id);
-            LanguageValuePair pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
+            var foundTranslation = translations.Find(Translation => Translation.id == id);
+            var pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
             translatedString = pair.value;
             return translatedString;
-        }  
+        }
     }
 }

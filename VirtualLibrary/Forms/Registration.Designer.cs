@@ -93,7 +93,7 @@ namespace VirtualLibrary
             this.nameTextBox.Location = new System.Drawing.Point(113, 98);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.nameTextBox.TabIndex = 4;
+            this.nameTextBox.TabIndex = 2;
             this.nameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
             // 
             // surnameTextBox
@@ -101,7 +101,7 @@ namespace VirtualLibrary
             this.surnameTextBox.Location = new System.Drawing.Point(113, 137);
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.surnameTextBox.TabIndex = 5;
+            this.surnameTextBox.TabIndex = 3;
             this.surnameTextBox.TextChanged += new System.EventHandler(this.SurnameTextBox_TextChanged);
             // 
             // emailTextBox
@@ -109,7 +109,7 @@ namespace VirtualLibrary
             this.emailTextBox.Location = new System.Drawing.Point(113, 178);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(100, 20);
-            this.emailTextBox.TabIndex = 6;
+            this.emailTextBox.TabIndex = 4;
             this.emailTextBox.TextChanged += new System.EventHandler(this.EmailTextBox_TextChanged);
             // 
             // button1
@@ -117,7 +117,7 @@ namespace VirtualLibrary
             this.button1.Location = new System.Drawing.Point(373, 101);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(123, 23);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 8;
             this.button1.Text = Translations.GetTranslatedString("takePhoto");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
@@ -128,7 +128,7 @@ namespace VirtualLibrary
             this.dateTimeBox.MaxDate = new System.DateTime(2018, 10, 5, 22, 41, 43, 0);
             this.dateTimeBox.Name = "dateTimeBox";
             this.dateTimeBox.Size = new System.Drawing.Size(196, 20);
-            this.dateTimeBox.TabIndex = 8;
+            this.dateTimeBox.TabIndex = 5;
             this.dateTimeBox.Value = new System.DateTime(2018, 10, 5, 0, 0, 0, 0);
             // 
             // label1
@@ -145,7 +145,7 @@ namespace VirtualLibrary
             this.registerButton.Location = new System.Drawing.Point(234, 324);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(75, 23);
-            this.registerButton.TabIndex = 10;
+            this.registerButton.TabIndex = 11;
             this.registerButton.Text = Translations.GetTranslatedString("registerButton");
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.RegisterButton_Click);
@@ -175,7 +175,7 @@ namespace VirtualLibrary
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(100, 20);
-            this.passwordTextBox.TabIndex = 13;
+            this.passwordTextBox.TabIndex = 6;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
             // 
             // repeatPasswTextBox
@@ -184,7 +184,7 @@ namespace VirtualLibrary
             this.repeatPasswTextBox.Name = "repeatPasswTextBox";
             this.repeatPasswTextBox.PasswordChar = '*';
             this.repeatPasswTextBox.Size = new System.Drawing.Size(100, 20);
-            this.repeatPasswTextBox.TabIndex = 14;
+            this.repeatPasswTextBox.TabIndex = 7;
             this.repeatPasswTextBox.TextChanged += new System.EventHandler(this.RepeatPasswTextBox_TextChanged);
             // 
             // label4
@@ -202,16 +202,16 @@ namespace VirtualLibrary
             this.usernameTextBox.Location = new System.Drawing.Point(113, 57);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.usernameTextBox.TabIndex = 16;
+            this.usernameTextBox.TabIndex = 1;
             this.usernameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(383, 301);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(46, 24);
-            this.button2.TabIndex = 17;
+            this.button2.TabIndex = 9;
             this.button2.Text = "EN";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -219,10 +219,10 @@ namespace VirtualLibrary
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(434, 301);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(46, 24);
-            this.button3.TabIndex = 18;
+            this.button3.TabIndex = 10;
             this.button3.Text = "LT";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -262,6 +262,7 @@ namespace VirtualLibrary
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
+
             this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

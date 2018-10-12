@@ -15,9 +15,8 @@ namespace VirtualLibrary
 {
     public partial class Registration : Form, IUser
     {
+        private static string _language;
         private readonly ErrorProvider _emailErrorProvider;
-
-        private Image<Gray, byte>[] _faceImages;
 
         private readonly UserPresenter _mUserPresenter;
         private readonly ErrorProvider _nameErrorProvider;
@@ -26,9 +25,10 @@ namespace VirtualLibrary
         private readonly ErrorProvider _surnameErrorProvider;
         private readonly ErrorProvider _usernameErrorProvider;
 
+        private Image<Gray, byte>[] _faceImages;
 
-        private IInputValidator _inputValidator;
-        private static string _language;
+
+        private readonly IInputValidator _inputValidator;
 
         public Registration(IRepository<IUser> userRepository, IInputValidator inputValidator)
         {
@@ -84,6 +84,7 @@ namespace VirtualLibrary
             get => usernameTextBox.Text;
             set => usernameTextBox.Text = value;
         }
+
         public string Language
         {
             get => null;
@@ -108,7 +109,8 @@ namespace VirtualLibrary
         {
             using (var photoForm = new LiveCamera())
             {
-                MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"), Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"),
+                    Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 photoForm.ShowDialog();
                 _faceImages = photoForm.GrayPictures;
                 InputCorrect();
@@ -166,8 +168,8 @@ namespace VirtualLibrary
 
         private void InputCorrect()
         {
-
-            var enteredCredentials = new List<string>() { usernameTextBox.Text, surnameTextBox.Text, nameTextBox.Text, emailTextBox.Text };
+            var enteredCredentials = new List<string>
+                {usernameTextBox.Text, surnameTextBox.Text, nameTextBox.Text, emailTextBox.Text};
             if (_inputValidator.ValidateStrings(enteredCredentials))
                 registerButton.Enabled = true;
             else
@@ -179,17 +181,15 @@ namespace VirtualLibrary
         {
             _mUserPresenter.AddUser();
 
-            UserInformationInXmlFiles xml = new UserInformationInXmlFiles(
-                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\", StaticStrings.FaceImagesPerUser);
+            var xml = new UserInformationInXmlFiles(
+                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\",
+                StaticStrings.FaceImagesPerUser);
 
-            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\faceImages.xml"))
-            {
+            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                            "\\userinformation\\faceImages.xml"))
                 xml.AddUser(_faceImages, this);
-            }
             else
-            {
                 xml.CreateNewUserList(_faceImages, this);
-            }
 
             Close();
         }

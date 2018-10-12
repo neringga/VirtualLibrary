@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
-using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private FaceRecognitionLogin _faceRecognitionLoginForm;
-        private Registration _registrationForm;
-        private Login _loginForm;
+        private readonly FaceRecognitionLogin _faceRecognitionLoginForm;
+        private readonly Login _loginForm;
+        private readonly Registration _registrationForm;
 
         public Opening(Registration registrationForm, Login loginForm, FaceRecognitionLogin faceRecognitionLoginForm)
         {
@@ -25,7 +24,6 @@ namespace VirtualLibrary.Forms
 
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
-
             Hide();
             _registrationForm.ShowDialog();
             Show();
@@ -41,7 +39,6 @@ namespace VirtualLibrary.Forms
             Hide();
             _faceRecognitionLoginForm.Init();
             _faceRecognitionLoginForm.ShowDialog();
-            Show();
         }
     }
 }

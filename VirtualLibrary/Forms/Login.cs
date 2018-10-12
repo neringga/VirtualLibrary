@@ -10,7 +10,7 @@ namespace VirtualLibrary.Forms
     public partial class Login : Form
     {
         private readonly IUserRepository _mUserRepository;
-        private Library _libraryForm;
+        private readonly Library _libraryForm;
         private IDataSource ds;
 
         public Login(IUserRepository userRepository, Library libraryForm, IDataSource dataSource)
@@ -42,18 +42,13 @@ namespace VirtualLibrary.Forms
         {
             Close();
             if (_mUserRepository.Login(Username, Password))
-            {
                 _libraryForm.ShowDialog();
-            }
             else
-            {
                 MessageBox.Show(Translations.GetTranslatedString("userNotFound"));
-            }
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

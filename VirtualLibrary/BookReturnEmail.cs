@@ -8,10 +8,10 @@ namespace VirtualLibrary
     internal class BookReturnEmail
     {
         private readonly string _author;
+        private readonly EmailCredentials _emailCredentials = new EmailCredentials();
         private readonly DateTime _returnTime;
         private readonly string _title;
         private readonly string _userEmail;
-        private readonly EmailCredentials _emailCredentials = new EmailCredentials();
 
         public BookReturnEmail(string userEmail, DateTime returnTime, string title, string author)
         {
@@ -37,7 +37,6 @@ namespace VirtualLibrary
 
         public void SendWarningEmail()
         {
-
             var smtpServer = new SmtpClient(_emailCredentials.GetServer())
             {
                 Port = _emailCredentials.GetPort(),
@@ -47,7 +46,6 @@ namespace VirtualLibrary
                 EnableSsl = true
             };
             smtpServer.Send(Mail());
-
         }
     }
 }
