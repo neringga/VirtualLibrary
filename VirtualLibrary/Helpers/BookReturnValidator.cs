@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Repositories;
@@ -9,7 +8,7 @@ namespace VirtualLibrary.Helpers
 {
     public class BookReturnValidator
     {
-        private IBookRepository br;
+        private readonly IBookRepository br;
         private IDataSource ds;
 
         public BookReturnValidator(IBookRepository bookRepo, IDataSource data)
@@ -22,11 +21,9 @@ namespace VirtualLibrary.Helpers
         {
             var takenBooks = br.GetTakenBooks();
             foreach (var book in takenBooks)
-            {
                 if (book.Code == code && book.TakenByUser == StaticDataSource.CurrUser &&
                     book.HasToBeReturned >= DateTime.Now)
                     return book;
-            }
 
             return null;
         }

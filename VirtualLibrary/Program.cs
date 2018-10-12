@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using Unity;
 using Unity.Injection;
 using VirtualLibrary.DataSources;
-using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
@@ -14,7 +13,7 @@ namespace VirtualLibrary
     internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
@@ -34,10 +33,8 @@ namespace VirtualLibrary
             var currentContainer = new UnityContainer();
 
             // Data storage
-            currentContainer.RegisterSingleton<IDataSource>(new InjectionFactory(o =>
-            {
-                return new LocalDataSource();
-            }));
+            currentContainer.RegisterSingleton<IDataSource>(
+                new InjectionFactory(o => { return new LocalDataSource(); }));
 
             currentContainer.RegisterSingleton<IUserRepository>(new InjectionFactory(o =>
             {
@@ -90,7 +87,8 @@ namespace VirtualLibrary
                 var userRepository = currentContainer.Resolve<IUserRepository>();
                 var dataSource = currentContainer.Resolve<IDataSource>();
                 var bookReturnValidator = currentContainer.Resolve<BookReturnValidator>();
-                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource, bookReturnValidator);
+                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource,
+                    bookReturnValidator);
             }));
 
             currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>

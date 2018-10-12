@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Emgu.CV;
@@ -10,7 +10,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources.Data
 {
-    class UserInformationInXmlFiles
+    internal class UserInformationInXmlFiles
     {
         private readonly int _imagesPerPerson;
         private readonly string _location;
@@ -22,30 +22,25 @@ namespace VirtualLibrary.DataSources.Data
         }
 
 
-
         public void GetTrainingSet(out List<Image<Gray, byte>> faceTrainingSet, out int[] labels,
             out List<string> nicknames)
         {
-            XDocument xml = XDocument.Load(_location + StaticStrings.UserFile);
+            var xml = XDocument.Load(_location + StaticStrings.UserFile);
 
-            List<string>[] imageNamesLists = new List<string>[_imagesPerPerson];
-            List<int> labelsList = new List<int>();
+            var imageNamesLists = new List<string>[_imagesPerPerson];
+            var labelsList = new List<int>();
 
             faceTrainingSet = new List<Image<Gray, byte>>();
 
 
-            for (int i = 0; i < _imagesPerPerson; i++)
-            {
+            for (var i = 0; i < _imagesPerPerson; i++)
                 imageNamesLists[i] = xml.Descendants("IMAGE_" + i).Select(element => element.Value).ToList();
-            }
 
-            for (int i = 0; i < imageNamesLists[0].Count; i++)
+            for (var i = 0; i < imageNamesLists[0].Count; i++)
+            for (var x = 0; x < _imagesPerPerson; x++)
             {
-                for (int x = 0; x < _imagesPerPerson; x++)
-                {
-                    faceTrainingSet.Add(new Image<Gray, byte>(_location + imageNamesLists[x].ElementAt(i)));
-                    labelsList.Add(i * _imagesPerPerson + x);
-                }
+                faceTrainingSet.Add(new Image<Gray, byte>(_location + imageNamesLists[x].ElementAt(i)));
+                labelsList.Add(i * _imagesPerPerson + x);
             }
 
             nicknames = xml.Descendants("NICKNAME").Select(element => element.Value).ToList();
@@ -68,19 +63,19 @@ namespace VirtualLibrary.DataSources.Data
 
         public void AddUser(Image<Gray, byte>[] faceImages, IUser iuser)
         {
-            XmlDocument document = new XmlDocument();
+            var document = new XmlDocument();
             document.Load(_location + StaticStrings.UserFile);
 
-            XmlElement root = document.DocumentElement;
+            var root = document.DocumentElement;
 
-            XmlElement userD = document.CreateElement("USER");
+            var userD = document.CreateElement("USER");
 
-            XmlElement nameD = document.CreateElement("NAME");
-            XmlElement surnameD = document.CreateElement("SURNAME");
-            XmlElement nicknameD = document.CreateElement("NICKNAME");
-            XmlElement passwordD = document.CreateElement("PASSWORD");
-            XmlElement birthD = document.CreateElement("DATE_OF_BIRTH");
-            XmlElement[] images = new XmlElement[_imagesPerPerson];
+            var nameD = document.CreateElement("NAME");
+            var surnameD = document.CreateElement("SURNAME");
+            var nicknameD = document.CreateElement("NICKNAME");
+            var passwordD = document.CreateElement("PASSWORD");
+            var birthD = document.CreateElement("DATE_OF_BIRTH");
+            var images = new XmlElement[_imagesPerPerson];
 
             string[] fileNames;
             if (faceImages != null)
@@ -99,7 +94,7 @@ namespace VirtualLibrary.DataSources.Data
                 userD.AppendChild(passwordD);
                 userD.AppendChild(birthD);
 
-                for (int i = 0; i < _imagesPerPerson; i++)
+                for (var i = 0; i < _imagesPerPerson; i++)
                 {
                     images[i] = document.CreateElement("IMAGE_" + i);
                     images[i].InnerText = fileNames[i];
@@ -111,7 +106,6 @@ namespace VirtualLibrary.DataSources.Data
                 document.Save(_location + "faceImages.xml");
             }
         }
-
 
 
         public void CreateNewUserList(Image<Gray, byte>[] faceImages, IUser iuser)

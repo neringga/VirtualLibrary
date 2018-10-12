@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
-
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 
@@ -13,8 +12,8 @@ namespace VirtualLibrary
 {
     public partial class LiveCamera : Form
     {
-        private VideoCapture _capture;
         private readonly CascadeClassifier _cascade;
+        private VideoCapture _capture;
 
         public Image<Gray, byte>[] GrayPictures;
         public byte[][] Pictures;
@@ -22,7 +21,7 @@ namespace VirtualLibrary
         public LiveCamera()
         {
             _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                                            "\\UserInformation\\haarcascade_frontalface_alt2.xml");
+                                             "\\UserInformation\\haarcascade_frontalface_alt2.xml");
 
             GrayPictures = new Image<Gray, byte>[StaticStrings.FaceImagesPerUser];
             Pictures = new byte[StaticStrings.FaceImagesPerUser][];
@@ -37,13 +36,12 @@ namespace VirtualLibrary
 
             _capture = new VideoCapture();
 
-            for (int i = 0; i < StaticStrings.FaceImagesPerUser; i++)
+            for (var i = 0; i < StaticStrings.FaceImagesPerUser; i++)
             {
                 img1 = _capture.QueryFrame();
                 nextFrame = img1.ToImage<Bgr, byte>();
                 {
                     if (nextFrame != null)
-                    {
                         try
                         {
                             imageBox1.Image = nextFrame;
@@ -78,7 +76,6 @@ namespace VirtualLibrary
                                 Translations.GetTranslatedString("error"), MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                         }
-                    }
 
                     Thread.Sleep(500);
                 }
@@ -101,27 +98,21 @@ namespace VirtualLibrary
                         imageBox5.Image = GrayPictures[i];
                         break;
                 }
-
             }
+
             _capture.Dispose();
         }
-
-        
 
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < StaticStrings.FaceImagesPerUser; i++)
-            {
-                Pictures[i] = GrayPictures[i].Bytes;
-            }
+            for (var i = 0; i < StaticStrings.FaceImagesPerUser; i++) Pictures[i] = GrayPictures[i].Bytes;
 
             Close();
         }
 
         private void LiveCamera_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

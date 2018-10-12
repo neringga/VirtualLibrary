@@ -10,8 +10,6 @@ namespace VirtualLibrary.DataSources
         private readonly IList<IBook> _books;
         private readonly IList<IUser> _users;
 
-        public string CurrUser { get; set; }
-
         public LocalDataSource()
         {
             var booksSource = new BookList();
@@ -23,6 +21,8 @@ namespace VirtualLibrary.DataSources
 
             _users = new List<IUser>();
         }
+
+        public string CurrUser { get; set; }
 
         public void AddBook(IBook book)
         {

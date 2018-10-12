@@ -7,7 +7,7 @@ namespace VirtualLibrary.Helpers
 {
     public class InputValidator : IInputValidator
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public InputValidator(IUserRepository userRepository)
         {

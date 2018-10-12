@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using VirtualLibrary.Data;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -12,8 +13,8 @@ namespace VirtualLibrary.Forms
 {
     public partial class Library : Form
     {
-        private TakenBookPresenter _takenBookPresenter;
-        private IDataSource _dataSource;
+        private readonly IDataSource _dataSource;
+        private readonly TakenBookPresenter _takenBookPresenter;
 
         public Library(TakenBookPresenter takenBookPresenter, IDataSource dataSource)
         {
@@ -29,7 +30,8 @@ namespace VirtualLibrary.Forms
                 if (book.TakenByUser == StaticDataSource.CurrUser)
                 {
                     var book1 = books.First(item => item.Code == book.Code);
-                    bookListBox.Items.Add(book1.Author + book1.Title + Translations.GetTranslatedString("returnOn") + book.HasToBeReturned);
+                    bookListBox.Items.Add(book1.Author + book1.Title + Translations.GetTranslatedString("returnOn") +
+                                          book.HasToBeReturned);
                 }
         }
 
@@ -37,7 +39,8 @@ namespace VirtualLibrary.Forms
         {
             Close();
             var usrRepo = new UserRepository(_dataSource);
-            var bookActionsForm = new BookActions(_takenBookPresenter, this, usrRepo, _dataSource, new Helpers.BookReturnValidator(new BookRepository(_dataSource), _dataSource)); // TODO 
+            var bookActionsForm = new BookActions(_takenBookPresenter, this, usrRepo, _dataSource,
+                new BookReturnValidator(new BookRepository(_dataSource), _dataSource)); // TODO 
             bookActionsForm.ShowDialog();
         }
 
@@ -64,7 +67,6 @@ namespace VirtualLibrary.Forms
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
