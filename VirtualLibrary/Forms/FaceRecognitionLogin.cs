@@ -14,13 +14,23 @@ namespace VirtualLibrary.Forms
     {
         private readonly VideoCapture _capture;
         private readonly Library _libraryForm;
-        private readonly EigenFaceRecognition faceRecognition;
+        private EigenFaceRecognition faceRecognition;
 
         public FaceRecognitionLogin(Library libraryForm)
         {
             _libraryForm = libraryForm;
             _capture = new VideoCapture();
+        }
 
+        public void Init()
+        {
+            GetImages();
+            InitializeComponent();
+        }
+
+
+        public void GetImages()
+        {
             List<string> nicknames;
             List<Image<Gray, byte>> trainingSet;
             int[] labels;
@@ -41,11 +51,6 @@ namespace VirtualLibrary.Forms
                 MessageBox.Show(Translations.GetTranslatedString("loginWithPassword"));
                 Close();
             }
-        }
-
-        public void Init()
-        {
-            InitializeComponent();
         }
 
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
