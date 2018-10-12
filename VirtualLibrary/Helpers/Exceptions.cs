@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.IO;
+using VirtualLibrary.DataSources.Data;
 
 namespace VirtualLibrary.Helpers
 {
     public static class Exceptions
     {
-        public static void MessageBoxResponse(this Exception ex, string message)
+        public static void Log(this Exception ex)
         {
-            MessageBox.Show(message);
+            using (StreamWriter text = new StreamWriter(StaticStrings.ExceptionsLogFile))
+            {
+                text.WriteLine(ex.ToString());
+            }
         }
     }
 }

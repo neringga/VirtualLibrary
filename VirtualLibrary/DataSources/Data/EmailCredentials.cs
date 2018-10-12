@@ -2,12 +2,17 @@
 {
     public class EmailCredentials
     {
-        private readonly string _password;
-        private readonly int _smtpPort;
-        private readonly string _smtpServer;
-        private readonly string _username;
+        private string _password;
+        private int _smtpPort;
+        private string _smtpServer;
+        private string _username;
 
         public EmailCredentials()
+        {
+            GetEmailCredentialsFromFile();
+        }
+
+        private void GetEmailCredentialsFromFile()
         {
             var textFile = new TextFile();
             var credentials = textFile.ReadTextFile(StaticStrings.EmailCredentialsFile);
