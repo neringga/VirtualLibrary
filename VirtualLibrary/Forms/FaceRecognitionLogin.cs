@@ -14,7 +14,7 @@ namespace VirtualLibrary.Forms
     {
         private readonly VideoCapture _capture;
         private readonly Library _libraryForm;
-        private EigenFaceRecognition faceRecognition;
+        private EigenFaceRecognition _faceRecognition;
 
         public FaceRecognitionLogin(Library libraryForm)
         {
@@ -41,7 +41,7 @@ namespace VirtualLibrary.Forms
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
                 xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
 
-                faceRecognition = new EigenFaceRecognition(
+                _faceRecognition = new EigenFaceRecognition(
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
                     "\\UserInformation\\haarcascade_frontalface_alt2.xml",
                     trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
@@ -56,7 +56,7 @@ namespace VirtualLibrary.Forms
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
         {
             var display = _capture.QueryFrame().ToImage<Bgr, byte>();
-            var currentNickname = faceRecognition.Recognize(display);
+            var currentNickname = _faceRecognition.Recognize(display);
 
             if (currentNickname != null)
             {
