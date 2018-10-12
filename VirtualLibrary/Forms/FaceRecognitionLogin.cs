@@ -66,7 +66,8 @@ namespace VirtualLibrary.Forms
             {
                 loginButton.Text = Translations.GetTranslatedString("logInButton") + currentNickname;
                 nameLabel.Text = currentNickname;
-                _dataSource.CurrUser = currentNickname;
+                //_dataSource.CurrUser = currentNickname;
+                StaticDataSource.CurrUser = currentNickname;
             }
             else
             {

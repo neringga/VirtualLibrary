@@ -5,7 +5,7 @@ using VirtualLibrary.DataSources.Data;
 
 namespace VirtualLibrary
 {
-    internal class BookReturnWarning
+    internal class BookReturnEmail
     {
         private readonly string _author;
         private readonly DateTime _returnTime;
@@ -13,7 +13,7 @@ namespace VirtualLibrary
         private readonly string _userEmail;
         private readonly EmailCredentials _emailCredentials = new EmailCredentials();
 
-        public BookReturnWarning(string userEmail, DateTime returnTime, string title, string author)
+        public BookReturnEmail(string userEmail, DateTime returnTime, string title, string author)
         {
             _userEmail = userEmail;
             _title = title;
@@ -37,23 +37,17 @@ namespace VirtualLibrary
 
         public void SendWarningEmail()
         {
-            try
-            {
-                var smtpServer = new SmtpClient(_emailCredentials.GetServer())
-                {
-                    Port = _emailCredentials.GetPort(),
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(
-                        _emailCredentials.GetUsername(), _emailCredentials.GetPassword()),
-                    EnableSsl = true
-                };
-                smtpServer.Send(Mail());
 
-            }
-            catch (Exception ex)
+            var smtpServer = new SmtpClient(_emailCredentials.GetServer())
             {
-                Console.WriteLine(ex.ToString());
-            }
+                Port = _emailCredentials.GetPort(),
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(
+                    _emailCredentials.GetUsername(), _emailCredentials.GetPassword()),
+                EnableSsl = true
+            };
+            smtpServer.Send(Mail());
+
         }
     }
 }

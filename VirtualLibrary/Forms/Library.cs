@@ -26,7 +26,7 @@ namespace VirtualLibrary.Forms
             var takenBooks = _takenBookPresenter.GetTakenBooks();
 
             foreach (var book in takenBooks)
-                if (book.TakenByUser == dataSource.CurrUser)
+                if (book.TakenByUser == StaticDataSource.CurrUser)
                 {
                     var book1 = books.First(item => item.Code == book.Code);
                     bookListBox.Items.Add(book1.Author + book1.Title + Translations.GetTranslatedString("returnOn") + book.HasToBeReturned);

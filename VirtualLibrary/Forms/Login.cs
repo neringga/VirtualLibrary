@@ -35,7 +35,7 @@ namespace VirtualLibrary.Forms
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
-            ds.CurrUser = usernameTextBox.Text;
+            StaticDataSource.CurrUser = usernameTextBox.Text;
         }
 
         private void LoginButton_Click(object sender, EventArgs e)

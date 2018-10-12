@@ -80,23 +80,31 @@ namespace VirtualLibrary.Forms
             {
                 try
                 {
-                    _mTakenBookPresenter.AddTakenBook(view: _book, username: _dataSource.CurrUser);
+                    _mTakenBookPresenter.AddTakenBook(view: _book, username: StaticDataSource.CurrUser);
 
                     var takenBooks = _mTakenBookPresenter.GetTakenBooks();
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
-                                                             _dataSource.CurrUser);
+                                                             StaticDataSource.CurrUser);
 
                     var userPresenter = new UserPresenter(null, _userRepository);
                     var users = userPresenter.GetUserList();
                     var userToSendEmailTo =
-                        users.First(user => user.Nickname == _dataSource.CurrUser);
+                        users.First(user => user.Nickname == StaticDataSource.CurrUser);
 
-                    var bookReturnWarning = new BookReturnWarning(
+                    var bookReturnWarning = new BookReturnEmail(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
-                    bookReturnWarning.SendWarningEmail();
+                    try
+                    {
+                        bookReturnWarning.SendWarningEmail();
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Log();
+                    }
+
                     MessageBox.Show(Translations.GetTranslatedString("returnUntil") + addedBook.HasToBeReturned);
                 }
                 catch (InvalidOperationException)

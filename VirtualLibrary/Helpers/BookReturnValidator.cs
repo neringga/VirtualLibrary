@@ -23,7 +23,7 @@ namespace VirtualLibrary.Helpers
             var takenBooks = br.GetTakenBooks();
             foreach (var book in takenBooks)
             {
-                if (book.Code == code && book.TakenByUser == ds.CurrUser &&
+                if (book.Code == code && book.TakenByUser == StaticDataSource.CurrUser &&
                     book.HasToBeReturned >= DateTime.Now)
                     return book;
             }
