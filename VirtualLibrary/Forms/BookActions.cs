@@ -142,7 +142,8 @@ namespace VirtualLibrary.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Dispose();
+            Close();
             var lfrom = new Library(_mTakenBookPresenter, _dataSource);
             lfrom.ShowDialog();
         }

@@ -10,7 +10,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources.Data
 {
-    internal class UserInformationInXmlFiles
+    class UserInformationInXmlFiles
     {
         private readonly int _imagesPerPerson;
         private readonly string _location;

@@ -4,7 +4,7 @@ using Emgu.CV.Structure;
 
 namespace VirtualLibrary.View
 {
-    internal interface IEmguCvFaceRecognition
+    interface IEmguCvFaceRecognition
     {
         string Recognize(Image<Bgr, byte> cameraDisplay);
 

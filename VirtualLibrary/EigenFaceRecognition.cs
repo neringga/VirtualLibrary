@@ -10,7 +10,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
-    internal class EigenFaceRecognition : IEmguCvFaceRecognition
+    class EigenFaceRecognition : IEmguCvFaceRecognition
     {
         private const int Threshold = 3000;
         private const int Distance = 3000;

@@ -14,12 +14,10 @@ namespace VirtualLibrary.Data
             var textFile = new TextFile();
             var list = textFile.ReadTextFile(StaticStrings.BookFile);
 
-            string[] words;
-
             foreach (var line in list)
             {
                 var book = new Book();
-                words = line.Split(',');
+                var words = line.Split(',');
                 book.Title = words[0];
                 book.Author = words[1];
                 book.Code = words[2];

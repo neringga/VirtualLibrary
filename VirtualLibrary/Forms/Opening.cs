@@ -39,7 +39,6 @@ namespace VirtualLibrary.Forms
             Hide();
             _faceRecognitionLoginForm.Init();
             _faceRecognitionLoginForm.ShowDialog();
-            Show();
         }
     }
 }

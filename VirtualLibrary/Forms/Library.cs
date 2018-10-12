@@ -37,11 +37,11 @@ namespace VirtualLibrary.Forms
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-            Close();
             var usrRepo = new UserRepository(_dataSource);
             var bookActionsForm = new BookActions(_takenBookPresenter, this, usrRepo, _dataSource,
                 new BookReturnValidator(new BookRepository(_dataSource), _dataSource)); // TODO 
             bookActionsForm.ShowDialog();
+            Close();
         }
 
         private void BookListBox_SelectedIndexChanged(object sender, EventArgs e)
