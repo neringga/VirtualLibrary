@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.CV.Face;
-using Emgu.CV.Structure;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
-using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
 
 namespace VirtualLibrary.Forms
@@ -41,9 +39,9 @@ namespace VirtualLibrary.Forms
                     "\\UserInformation\\haarcascade_frontalface_alt2.xml",
                     trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                ex.MessageBoxResponse(Translations.GetTranslatedString("loginWithPassword"));
+                MessageBox.Show(Translations.GetTranslatedString("loginWithPassword"));
                 Close();
                 // Program.GetInitializedOpening().ShowDialog();
             }

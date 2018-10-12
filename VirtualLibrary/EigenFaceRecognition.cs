@@ -6,6 +6,7 @@ using System.Linq;
 using Emgu.CV;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using VirtualLibrary.Helpers;
 
 using VirtualLibrary.View;
 
@@ -51,14 +52,14 @@ namespace VirtualLibrary
             }
             catch (IndexOutOfRangeException e)
             {
-                Console.WriteLine(e.Message);
+                e.Log();
                 return null;
             }
 
             FaceRecognizer.PredictionResult result = recognizer.Predict(faceImage);
 
             //For testing purpose
-            Console.WriteLine(result.Distance);
+            //Console.WriteLine(result.Distance);
 
             if (result.Distance <= Distance)
             {
