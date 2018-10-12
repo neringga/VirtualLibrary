@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Repositories;
@@ -9,10 +10,14 @@ namespace VirtualLibrary.Forms
     public partial class Login : Form
     {
         private readonly IUserRepository _mUserRepository;
+        private Library _libraryForm;
+        private IDataSource ds;
 
-        public Login(IUserRepository userRepository)
+        public Login(IUserRepository userRepository, Library libraryForm, IDataSource dataSource)
         {
             _mUserRepository = userRepository;
+            _libraryForm = libraryForm;
+            ds = dataSource;
             InitializeComponent();
         }
 
@@ -38,8 +43,7 @@ namespace VirtualLibrary.Forms
             Close();
             if (_mUserRepository.Login(Username, Password))
             {
-                var library = new Library();
-                library.ShowDialog();
+                _libraryForm.ShowDialog();
             }
             else
             {

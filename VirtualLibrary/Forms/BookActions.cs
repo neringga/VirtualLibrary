@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
@@ -15,15 +16,23 @@ namespace VirtualLibrary.Forms
     {
         private IBook _book;
         private readonly TakenBookPresenter _mTakenBookPresenter;
+        private Library _libraryForm;
         private Result _result;
+        private IUserRepository _userRepository;
+        private IDataSource _dataSource;
+        private BookReturnValidator _brValidator;
 
 
-        public BookActions()
+        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, IUserRepository userRepository, IDataSource dataSource, BookReturnValidator brvalidator)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
-            _mTakenBookPresenter = new TakenBookPresenter(new BookRepository(StaticDataSource.DataSource));
+            _mTakenBookPresenter = takenBookPresenter;
+            _libraryForm = libraryForm;
+            _userRepository = userRepository;
+            _dataSource = dataSource;
+            _brValidator = brvalidator;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -71,25 +80,31 @@ namespace VirtualLibrary.Forms
             {
                 try
                 {
-
                     _mTakenBookPresenter.AddTakenBook(view: _book, username: StaticDataSource.CurrUser);
 
                     var takenBooks = _mTakenBookPresenter.GetTakenBooks();
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
                                                              StaticDataSource.CurrUser);
 
-                    var userRepository = new UserRepository(StaticDataSource.DataSource);
-                    var userPresenter = new UserPresenter(null, userRepository);
+                    var userPresenter = new UserPresenter(null, _userRepository);
                     var users = userPresenter.GetUserList();
                     var userToSendEmailTo =
                         users.First(user => user.Nickname == StaticDataSource.CurrUser);
 
-                    var bookReturnWarning = new BookReturnWarning(
+                    var bookReturnWarning = new BookReturnEmail(
                     userToSendEmailTo.Email,
                     addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
-                    bookReturnWarning.SendWarningEmail();
+                    try
+                    {
+                        bookReturnWarning.SendWarningEmail();
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.Log();
+                    }
+
                     MessageBox.Show(Translations.GetTranslatedString("returnUntil") + addedBook.HasToBeReturned);
                 }
                 catch (InvalidOperationException)
@@ -108,8 +123,7 @@ namespace VirtualLibrary.Forms
         {
             if (_result != null)
             {
-                var bookReturnValidator = new BookReturnValidator();
-                var book = bookReturnValidator.TakenBookListCheckForBook(_result.Text);
+                var book = _brValidator.TakenBookListCheckForBook(_result.Text);
                 if (book != null)
                 {
                     _mTakenBookPresenter.RemoveTakenBook(book);
@@ -128,8 +142,9 @@ namespace VirtualLibrary.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close();
-            new Library().ShowDialog();
+            this.Close();
+            var lfrom = new Library(_mTakenBookPresenter, _dataSource);
+            lfrom.ShowDialog();
         }
     }
 }

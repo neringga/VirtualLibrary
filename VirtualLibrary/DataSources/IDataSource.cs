@@ -5,6 +5,7 @@ namespace VirtualLibrary.DataSources
 {
     public interface IDataSource
     {
+        string CurrUser { get; set; }
         IList<IBook> GetBookList();
         IList<IUser> GetUserList();
         IList<IBook> GetTakenBookList();

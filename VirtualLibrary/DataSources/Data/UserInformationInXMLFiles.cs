@@ -82,31 +82,34 @@ namespace VirtualLibrary.DataSources.Data
             XmlElement birthD = document.CreateElement("DATE_OF_BIRTH");
             XmlElement[] images = new XmlElement[_imagesPerPerson];
 
-
-            string[] fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
-
-            nameD.InnerText = iuser.Name;
-            surnameD.InnerText = iuser.Surname;
-            nicknameD.InnerText = iuser.Nickname;
-            passwordD.InnerText = iuser.Password;
-            birthD.InnerText = iuser.DateOfBirth;
-
-            userD.AppendChild(nameD);
-            userD.AppendChild(surnameD);
-            userD.AppendChild(nicknameD);
-            userD.AppendChild(passwordD);
-            userD.AppendChild(birthD);
-
-            for (int i = 0; i < _imagesPerPerson; i++)
+            string[] fileNames;
+            if (faceImages != null)
             {
-                images[i] = document.CreateElement("IMAGE_" + i);
-                images[i].InnerText = fileNames[i];
-                userD.AppendChild(images[i]);
+                fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
+
+                nameD.InnerText = iuser.Name;
+                surnameD.InnerText = iuser.Surname;
+                nicknameD.InnerText = iuser.Nickname;
+                passwordD.InnerText = iuser.Password;
+                birthD.InnerText = iuser.DateOfBirth;
+
+                userD.AppendChild(nameD);
+                userD.AppendChild(surnameD);
+                userD.AppendChild(nicknameD);
+                userD.AppendChild(passwordD);
+                userD.AppendChild(birthD);
+
+                for (int i = 0; i < _imagesPerPerson; i++)
+                {
+                    images[i] = document.CreateElement("IMAGE_" + i);
+                    images[i].InnerText = fileNames[i];
+                    userD.AppendChild(images[i]);
+                }
+
+                root.AppendChild(userD);
+
+                document.Save(_location + "faceImages.xml");
             }
-
-            root.AppendChild(userD);
-
-            document.Save(_location + "faceImages.xml");
         }
 
 

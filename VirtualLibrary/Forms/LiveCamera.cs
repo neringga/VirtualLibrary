@@ -82,9 +82,27 @@ namespace VirtualLibrary
 
                     Thread.Sleep(500);
                 }
-                    
-            }
 
+                switch (i)
+                {
+                    case 0:
+                        imageBox1.Image = GrayPictures[i];
+                        break;
+                    case 1:
+                        imageBox2.Image = GrayPictures[i];
+                        break;
+                    case 2:
+                        imageBox3.Image = GrayPictures[i];
+                        break;
+                    case 3:
+                        imageBox4.Image = GrayPictures[i];
+                        break;
+                    case 4:
+                        imageBox5.Image = GrayPictures[i];
+                        break;
+                }
+
+            }
             _capture.Dispose();
         }
 

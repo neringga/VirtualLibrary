@@ -1,18 +1,26 @@
 ﻿
 using System;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Helpers
 {
-    internal class BookReturnValidator
+    public class BookReturnValidator
     {
-        private readonly BookRepository _bookRepository = new BookRepository(StaticDataSource.DataSource);
+        private IBookRepository br;
+        private IDataSource ds;
+
+        public BookReturnValidator(IBookRepository bookRepo, IDataSource data)
+        {
+            br = bookRepo;
+            ds = data;
+        }
 
         public IBook TakenBookListCheckForBook(string code)
         {
-            var takenBooks = _bookRepository.GetTakenBooks();
+            var takenBooks = br.GetTakenBooks();
             foreach (var book in takenBooks)
             {
                 if (book.Code == code && book.TakenByUser == StaticDataSource.CurrUser &&

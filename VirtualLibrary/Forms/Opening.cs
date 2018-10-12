@@ -6,12 +6,17 @@ namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private readonly IUserRepository _mUserRepository;
+        private FaceRecognitionLogin _faceRecognitionLoginForm;
+        private Registration _registrationForm;
+        private Login _loginForm;
 
-        public Opening(IUserRepository userRepository)
+        public Opening(Registration registrationForm, Login loginForm, FaceRecognitionLogin faceRecognitionLoginForm)
         {
-            _mUserRepository = userRepository;
             InitializeComponent();
+
+            _faceRecognitionLoginForm = faceRecognitionLoginForm;
+            _registrationForm = registrationForm;
+            _loginForm = loginForm;
         }
 
         private void Label2_Click(object sender, EventArgs e)
@@ -21,25 +26,22 @@ namespace VirtualLibrary.Forms
         private void RegistrationButton_Click(object sender, EventArgs e)
         {
 
-            this.Hide();
-            new Registration(_mUserRepository).ShowDialog();
-            this.Show();
+            Hide();
+            _registrationForm.ShowDialog();
+            Show();
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            var login = new Login(_mUserRepository);
-            login.ShowDialog();
+            _loginForm.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (var form = new FaceRecognitionLogin())
-            {
-                Hide();
-                form.ShowDialog();
-                Show();
-            }
+            Hide();
+            _faceRecognitionLoginForm.Init();
+            _faceRecognitionLoginForm.ShowDialog();
+            Show();
         }
     }
 }

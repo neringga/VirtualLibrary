@@ -8,7 +8,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary.Presenters
 {
-    internal class TakenBookPresenter
+    public class TakenBookPresenter
     {
         private readonly IBookRepository _mBookRepository;
         private readonly IBook _takenBook = new Book();
@@ -25,8 +25,7 @@ namespace VirtualLibrary.Presenters
             _takenBook.Code = view.Code;
             _takenBook.TakenWhen = DateTime.Now;
 
-            var bookRepository = new BookRepository(StaticDataSource.DataSource);
-            var books = bookRepository.GetList();
+            var books = _mBookRepository.GetList();
             var book = books.First(item => item.Code == _takenBook.Code);
 
             _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
