@@ -13,13 +13,11 @@ namespace VirtualLibrary.Forms
     public partial class FaceRecognitionLogin : Form
     {
         private readonly VideoCapture _capture;
-        private IDataSource _dataSource;
         private readonly Library _libraryForm;
         private readonly EigenFaceRecognition faceRecognition;
 
-        public FaceRecognitionLogin(IDataSource dataSource, Library libraryForm)
+        public FaceRecognitionLogin(Library libraryForm)
         {
-            _dataSource = dataSource;
             _libraryForm = libraryForm;
             _capture = new VideoCapture();
 

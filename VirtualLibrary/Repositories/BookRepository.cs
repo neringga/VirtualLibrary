@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VirtualLibrary.DataSources;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Repositories
@@ -46,6 +48,17 @@ namespace VirtualLibrary.Repositories
         public bool ReturnBook(IBook book) // NOT USED, TODO: implement
         {
             return false;
+        }
+
+        public IBook CheckForTakenBook(string code)
+        {
+            var takenBooks = GetTakenBooks();
+            foreach (var book in takenBooks)
+                if (book.Code == code && book.TakenByUser == StaticDataSource.CurrUser &&
+                    book.HasToBeReturned >= DateTime.Now)
+                    return book;
+
+            return null;
         }
     }
 }

@@ -13,13 +13,14 @@ namespace VirtualLibrary.Forms
 {
     public partial class Library : Form
     {
-        private readonly IDataSource _dataSource;
         private readonly TakenBookPresenter _takenBookPresenter;
+        private ILibraryData _libraryData;
 
-        public Library(TakenBookPresenter takenBookPresenter, IDataSource dataSource)
+        public Library(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
             _takenBookPresenter = takenBookPresenter;
-            _dataSource = dataSource;
+            _libraryData = libraryData;
+
             InitializeComponent();
 
             var bookListFromFile = new BookList();
@@ -37,9 +38,7 @@ namespace VirtualLibrary.Forms
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-            var usrRepo = new UserRepository(_dataSource);
-            var bookActionsForm = new BookActions(_takenBookPresenter, this, usrRepo, _dataSource,
-                new BookReturnValidator(new BookRepository(_dataSource), _dataSource)); // TODO 
+            var bookActionsForm = new BookActions(_takenBookPresenter, this, _libraryData);
             bookActionsForm.ShowDialog();
             Close();
         }

@@ -18,21 +18,17 @@ namespace VirtualLibrary.Forms
         private readonly TakenBookPresenter _mTakenBookPresenter;
         private Library _libraryForm;
         private Result _result;
-        private IUserRepository _userRepository;
-        private IDataSource _dataSource;
-        private BookReturnValidator _brValidator;
+        private ILibraryData _libraryData;
 
 
-        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, IUserRepository userRepository, IDataSource dataSource, BookReturnValidator brvalidator)
+        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, ILibraryData libraryData)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
             _mTakenBookPresenter = takenBookPresenter;
             _libraryForm = libraryForm;
-            _userRepository = userRepository;
-            _dataSource = dataSource;
-            _brValidator = brvalidator;
+            _libraryData = libraryData;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -86,7 +82,7 @@ namespace VirtualLibrary.Forms
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
                                                              StaticDataSource.CurrUser);
 
-                    var userPresenter = new UserPresenter(null, _userRepository);
+                    var userPresenter = new UserPresenter(null, _libraryData.userRepository);
                     var users = userPresenter.GetUserList();
                     var userToSendEmailTo =
                         users.First(user => user.Nickname == StaticDataSource.CurrUser);
@@ -123,7 +119,7 @@ namespace VirtualLibrary.Forms
         {
             if (_result != null)
             {
-                var book = _brValidator.TakenBookListCheckForBook(_result.Text);
+                var book = _libraryData.bookRepository.CheckForTakenBook(_result.Text);
                 if (book != null)
                 {
                     _mTakenBookPresenter.RemoveTakenBook(book);
@@ -144,7 +140,7 @@ namespace VirtualLibrary.Forms
         {
             Dispose();
             Close();
-            var lfrom = new Library(_mTakenBookPresenter, _dataSource);
+            var lfrom = new Library(_mTakenBookPresenter, _libraryData);
             lfrom.ShowDialog();
         }
     }
