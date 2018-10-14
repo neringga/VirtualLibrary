@@ -5,6 +5,7 @@ namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
+        private static string _language;
         private readonly FaceRecognitionLogin _faceRecognitionLoginForm;
         private readonly Registration _registrationForm;
         private readonly Login _loginForm;
@@ -40,6 +41,25 @@ namespace VirtualLibrary.Forms
             Hide();
             _faceRecognitionLoginForm.Init();
             _faceRecognitionLoginForm.ShowDialog();
+        }
+
+        private void Opening_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _language = "LT";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _language = "EN";
+        }
+        public static string GetUserLanguageSetting()
+        {
+            return _language;
         }
     }
 }

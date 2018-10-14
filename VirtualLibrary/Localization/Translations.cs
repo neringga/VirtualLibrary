@@ -1,9 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using VirtualLibrary.Forms;
 
 namespace VirtualLibrary.Localization
 {
     public static class Translations
     {
+        private static readonly Dictionary<string, Dictionary<string, string>> newTranslations = new Dictionary<string, Dictionary<string, string>>()
+        {
+            { "LT", new Dictionary<string, string>(){
+                {"pictureUploadButton", "Įkelti"},
+                { "label1","Įkelti barkodo nuotrauką" },
+                { "empty", "Negali būti tuščias"}
+            }
+            },
+            {"EN", new Dictionary<string, string>()
+            {
+                {"pictureUploadButton", "Upload" },
+                {"label1", "Upload picture of barcode" },
+                {"empty", "Can't be empty" }
+            }
+
+            }
+
+        };
+
+
         private static readonly List<Translation> translations = new List<Translation>
         {
             new Translation
@@ -1013,14 +1035,19 @@ namespace VirtualLibrary.Localization
 
         public static string GetTranslatedString(string id)
         {
-            var lang = Registration.GetUserLanguageSetting();
+            var lang = Opening.GetUserLanguageSetting();
             if (lang == null)
-                lang = "EN";
-            string translatedString;
-            var foundTranslation = translations.Find(Translation => Translation.id == id);
-            var pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
-            translatedString = pair.value;
-            return translatedString;
+                lang = "LT";
+            //string translatedString;
+            //var foundTranslation = translations.Find(Translation => Translation.id == id);
+            // var pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
+            //translatedString = pair.value
+            Dictionary<string, string> tempDictionary = newTranslations[lang];
+            if (tempDictionary.ContainsKey(id) == true)
+            {
+                return tempDictionary[id];
+            }
+            return "WORST STRING";
         }
     }
 }

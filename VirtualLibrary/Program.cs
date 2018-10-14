@@ -90,6 +90,12 @@ namespace VirtualLibrary
                 return new BookActions(takenBookPresenter, libraryForm, libraryData);
             }));
 
+            currentContainer.RegisterType<ChooseLanguage>(new InjectionFactory(o =>
+            {
+                return new ChooseLanguage();
+
+            }));
+
             currentContainer.RegisterType<Opening>(new InjectionFactory(o =>
             {
                 var registrationForm = currentContainer.Resolve<Registration>();
