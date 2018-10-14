@@ -13,7 +13,7 @@ namespace VirtualLibrary
     internal static class Program
     {
         /// <summary>
-        ///     The main entry point for the application.
+        ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
@@ -48,61 +48,46 @@ namespace VirtualLibrary
                 return new BookRepository(dataSource);
             }));
 
-            // Helpers
-            currentContainer.RegisterType<IInputValidator>(new InjectionFactory(o =>
+            currentContainer.RegisterSingleton<ILibraryData>(new InjectionFactory(o =>
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
-                return new InputValidator(userRepository);
-            }));
-
-            currentContainer.RegisterType<BookReturnValidator>(new InjectionFactory(o =>
-            {
-                var dataSource = currentContainer.Resolve<IDataSource>();
                 var bookRepository = currentContainer.Resolve<IBookRepository>();
-
-                return new BookReturnValidator(bookRepository, dataSource);
-            }));
-
-
-            // Forms
-            currentContainer.RegisterType<Registration>(new InjectionFactory(o =>
-            {
-                var userRepository = currentContainer.Resolve<IUserRepository>();
-                var inputValidator = currentContainer.Resolve<InputValidator>();
-                return new Registration(userRepository, inputValidator);
-            }));
-
-            currentContainer.RegisterType<Login>(new InjectionFactory(o =>
-            {
-                var userRepository = currentContainer.Resolve<IUserRepository>();
-                var libraryForm = currentContainer.Resolve<Library>();
-                var dataSource = currentContainer.Resolve<IDataSource>();
-                return new Login(userRepository, libraryForm, dataSource);
-            }));
-
-            currentContainer.RegisterType<BookActions>(new InjectionFactory(o =>
-            {
-                var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
-                var libraryForm = currentContainer.Resolve<Library>();
-                var userRepository = currentContainer.Resolve<IUserRepository>();
-                var dataSource = currentContainer.Resolve<IDataSource>();
-                var bookReturnValidator = currentContainer.Resolve<BookReturnValidator>();
-                return new BookActions(takenBookPresenter, libraryForm, userRepository, dataSource,
-                    bookReturnValidator);
+                return new LibraryData(userRepository, bookRepository);
             }));
 
             currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>
             {
-                var dataSource = currentContainer.Resolve<IDataSource>();
                 var libraryForm = currentContainer.Resolve<Library>();
-                return new FaceRecognitionLogin(dataSource, libraryForm);
+                return new FaceRecognitionLogin(libraryForm);
+            }));
+
+            currentContainer.RegisterType<Registration>(new InjectionFactory(o =>
+            {
+                var libraryData = currentContainer.Resolve<ILibraryData>();
+                var inputValidator = currentContainer.Resolve<InputValidator>();
+                return new Registration(libraryData, inputValidator);
+            }));
+
+            currentContainer.RegisterType<Login>(new InjectionFactory(o =>
+            {
+                var libraryData = currentContainer.Resolve<ILibraryData>();
+                var libraryForm = currentContainer.Resolve<Library>();
+                return new Login(libraryData, libraryForm);
             }));
 
             currentContainer.RegisterType<Library>(new InjectionFactory(o =>
             {
+                var libraryData = currentContainer.Resolve<ILibraryData>();
                 var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
-                var dataSource = currentContainer.Resolve<IDataSource>();
-                return new Library(takenBookPresenter, dataSource);
+                return new Library(takenBookPresenter, libraryData);
+            }));
+
+            currentContainer.RegisterType<BookActions>(new InjectionFactory(o =>
+            {
+                var libraryData = currentContainer.Resolve<ILibraryData>();
+                var libraryForm = currentContainer.Resolve<Library>();
+                var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
+                return new BookActions(takenBookPresenter, libraryForm, libraryData);
             }));
 
             currentContainer.RegisterType<Opening>(new InjectionFactory(o =>
@@ -114,13 +99,18 @@ namespace VirtualLibrary
                 return new Opening(registrationForm, loginForm, faceRecognitionForm);
             }));
 
-            // Presenters
+            // Helpers & Presenters
             currentContainer.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>
             {
                 var bookRepository = currentContainer.Resolve<IBookRepository>();
                 return new TakenBookPresenter(bookRepository);
             }));
 
+            currentContainer.RegisterType<IInputValidator>(new InjectionFactory(o =>
+            {
+                var userRepository = currentContainer.Resolve<IUserRepository>();
+                return new InputValidator(userRepository);
+            }));
 
             return currentContainer;
         }

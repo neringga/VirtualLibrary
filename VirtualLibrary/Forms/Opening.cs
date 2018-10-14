@@ -6,8 +6,9 @@ namespace VirtualLibrary.Forms
     public partial class Opening : Form
     {
         private readonly FaceRecognitionLogin _faceRecognitionLoginForm;
-        private readonly Login _loginForm;
         private readonly Registration _registrationForm;
+        private readonly Login _loginForm;
+
 
         public Opening(Registration registrationForm, Login loginForm, FaceRecognitionLogin faceRecognitionLoginForm)
         {

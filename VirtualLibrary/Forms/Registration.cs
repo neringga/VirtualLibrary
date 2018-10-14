@@ -30,7 +30,7 @@ namespace VirtualLibrary
 
         private readonly IInputValidator _inputValidator;
 
-        public Registration(IRepository<IUser> userRepository, IInputValidator inputValidator)
+        public Registration(ILibraryData libraryData, IInputValidator inputValidator)
         {
             _inputValidator = inputValidator;
 
@@ -46,7 +46,7 @@ namespace VirtualLibrary
 
             registerButton.Enabled = false;
 
-            _mUserPresenter = new UserPresenter(this, userRepository);
+            _mUserPresenter = new UserPresenter(this, libraryData.userRepository);
         }
 
         public new string Name

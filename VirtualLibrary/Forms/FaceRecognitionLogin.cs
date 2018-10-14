@@ -13,16 +13,24 @@ namespace VirtualLibrary.Forms
     public partial class FaceRecognitionLogin : Form
     {
         private readonly VideoCapture _capture;
-        private IDataSource _dataSource;
         private readonly Library _libraryForm;
-        private readonly EigenFaceRecognition faceRecognition;
+        private EigenFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(IDataSource dataSource, Library libraryForm)
+        public FaceRecognitionLogin(Library libraryForm)
         {
-            _dataSource = dataSource;
             _libraryForm = libraryForm;
             _capture = new VideoCapture();
+        }
 
+        public void Init()
+        {
+            GetImages();
+            InitializeComponent();
+        }
+
+
+        public void GetImages()
+        {
             List<string> nicknames;
             List<Image<Gray, byte>> trainingSet;
             int[] labels;
@@ -33,7 +41,7 @@ namespace VirtualLibrary.Forms
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
                 xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
 
-                faceRecognition = new EigenFaceRecognition(
+                _faceRecognition = new EigenFaceRecognition(
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
                     "\\UserInformation\\haarcascade_frontalface_alt2.xml",
                     trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
@@ -45,15 +53,10 @@ namespace VirtualLibrary.Forms
             }
         }
 
-        public void Init()
-        {
-            InitializeComponent();
-        }
-
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
         {
             var display = _capture.QueryFrame().ToImage<Bgr, byte>();
-            var currentNickname = faceRecognition.Recognize(display);
+            var currentNickname = _faceRecognition.Recognize(display);
 
             if (currentNickname != null)
             {

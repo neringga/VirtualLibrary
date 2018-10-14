@@ -173,7 +173,6 @@
     <Compile Include="Forms\Library.Designer.cs">
       <DependentUpon>Library.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BookReturnValidator.cs" />
     <Compile Include="Helpers\Exceptions.cs" />
     <Compile Include="Helpers\IInputValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
@@ -190,8 +189,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookRepository.cs" />
     <Compile Include="Repositories\IBookRepository.cs" />
+    <Compile Include="Repositories\ILibraryData.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\LibraryData.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="View\IBook.cs" />
     <Compile Include="View\IUser.cs" />

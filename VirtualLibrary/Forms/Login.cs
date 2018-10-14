@@ -11,13 +11,11 @@ namespace VirtualLibrary.Forms
     {
         private readonly IUserRepository _mUserRepository;
         private readonly Library _libraryForm;
-        private IDataSource ds;
 
-        public Login(IUserRepository userRepository, Library libraryForm, IDataSource dataSource)
+        public Login(ILibraryData libraryData, Library libraryForm)
         {
-            _mUserRepository = userRepository;
+            _mUserRepository = libraryData.userRepository;
             _libraryForm = libraryForm;
-            ds = dataSource;
             InitializeComponent();
         }
 
