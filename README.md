@@ -9,7 +9,7 @@ Virtual Library is a Windows Form application created in order to let users take
 * User can scan a book and choose to either take it or return it (once he is logged in). 
 * User can see the information on what books he has already taken and the dates on when to return them (once he is logged in).
 * Notification system (user gets an email - reminder on when to return books).
-* User can choose the application language - English or Lithuanian. 
+* User can choose the language of application- English or Lithuanian. 
 
 ## Installation
 You can download the application here - https://github.com/neringga/VirtualLibrary.git
