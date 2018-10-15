@@ -7,6 +7,7 @@ namespace VirtualLibrary.DataSources.Data
         public const string ExceptionsLogFile = "RuntimeExceptions.txt";
         public const string BookFile = "BookList.txt";
         public const string UserFile = "faceImages.xml";
+        public const string FaceDetectionTrainingFile = "\\UserInformation\\haarcascade_frontalface_alt2.xml";
         public const string EmailCredentialsFile = "email-details.txt";
         public const string PictureFilter = "jpg files(*.jpg)|*.jpg| png files(*.png)|*.png";
         public const int FaceImagesPerUser = 5;
