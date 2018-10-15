@@ -177,8 +177,6 @@
     <Compile Include="Helpers\IInputValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="IEmguCvFaceRecognition.cs" />
-    <Compile Include="Localization\LanguageValuePair.cs" />
-    <Compile Include="Localization\Translation.cs" />
     <Compile Include="Localization\Translations.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\User.cs" />
