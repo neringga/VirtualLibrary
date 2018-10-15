@@ -4,9 +4,9 @@ using VirtualLibrary.DataSources.Data;
 
 namespace VirtualLibrary.Helpers
 {
-    public static class Exceptions
+    public class ExceptionToFileLogger : IExceptionLogger
     {
-        public static void Log(this Exception ex)
+        public void Log(Exception ex)
         {
             using (var text = new StreamWriter(StaticStrings.ExceptionsLogFile))
             {

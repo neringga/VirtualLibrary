@@ -39,7 +39,6 @@ namespace VirtualLibrary.Forms
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
             var bookActionsForm = new BookActions(_takenBookPresenter, _libraryData);
-            Hide();
             bookActionsForm.ShowDialog();
             Close();
         }

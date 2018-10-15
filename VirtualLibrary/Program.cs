@@ -57,6 +57,14 @@ namespace VirtualLibrary
                 return new LibraryData(userRepository, bookRepository);
             }));
 
+            currentContainer.RegisterSingleton<Opening>(new InjectionFactory(o =>
+            {
+                var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
+                var libraryData = currentContainer.Resolve<ILibraryData>();
+                var validator = currentContainer.Resolve<IInputValidator>();
+                var exceptionLogger = currentContainer.Resolve<IExceptionLogger>();
+                return new Opening(takenBookPresenter, libraryData, validator, exceptionLogger);
+            }));
 
             // Helpers & Presenters
             currentContainer.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>
@@ -69,6 +77,11 @@ namespace VirtualLibrary
             {
                 var userRepository = currentContainer.Resolve<IUserRepository>();
                 return new InputValidator(userRepository);
+            }));
+
+            currentContainer.RegisterType<IExceptionLogger>(new InjectionFactory(o =>
+            {
+                return new ExceptionToFileLogger();
             }));
 
             return currentContainer;
