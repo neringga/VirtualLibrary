@@ -57,7 +57,6 @@ namespace VirtualLibrary
                 return new LibraryData(userRepository, bookRepository);
             }));
 
-           
 
             // Helpers & Presenters
             currentContainer.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>

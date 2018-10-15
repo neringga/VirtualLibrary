@@ -12,7 +12,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
-    class EigenFaceRecognition : IEmguCvFaceRecognition
+    internal class EigenFaceRecognition : IEmguCvFaceRecognition
     {
         private const int Threshold = 3000;
         private const int Distance = 3000;
@@ -24,7 +24,6 @@ namespace VirtualLibrary
         private List<Image<Gray, byte>> _trainingSet;
 
         private readonly FaceRecognizer _recognizer;
-
 
         public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser)
         {
@@ -51,9 +50,6 @@ namespace VirtualLibrary
             }
 
             var result = _recognizer.Predict(faceImage);
-
-            //For testing purpose
-            //Console.WriteLine(result.Distance);
 
             if (result.Distance <= Distance)
                 return _namesList.ElementAt(result.Label / 5);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 
 namespace VirtualLibrary.Localization
@@ -135,14 +136,11 @@ namespace VirtualLibrary.Localization
 
         public static string GetTranslatedString(string id)
         {
-            var lang = Opening.GetUserLanguageSetting();
-            if (lang == null)
-                lang = "LT";
-            //string translatedString;
-            //var foundTranslation = translations.Find(Translation => Translation.id == id);
-            // var pair = foundTranslation.translatedStrings.Find(LanguageValuePair => LanguageValuePair.language == lang);
-            //translatedString = pair.value
-            Dictionary<string, string> tempDictionary = newTranslations[lang];
+           // var lang = StaticDataSource.CurrLanguage;
+            if (StaticDataSource.CurrLanguage == null)
+                StaticDataSource.CurrLanguage = "EN";
+
+            Dictionary<string, string> tempDictionary = newTranslations[StaticDataSource.CurrLanguage];
             if (tempDictionary.ContainsKey(id) == true)
             {
                 return tempDictionary[id];

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
+
 
 namespace VirtualLibrary.Forms
 {
@@ -68,7 +69,6 @@ namespace VirtualLibrary.Forms
                 nameLabel.Text = Translations.GetTranslatedString("unknown");
             }
 
-            
         }
 
 

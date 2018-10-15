@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
+using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
@@ -12,10 +13,10 @@ namespace VirtualLibrary.Forms
         private readonly IUserRepository _mUserRepository;
         private readonly Library _libraryForm;
 
-        public Login(ILibraryData libraryData, Library libraryForm)
+        public Login(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
             _mUserRepository = libraryData.userRepository;
-            _libraryForm = libraryForm;
+            _libraryForm = new Library(takenBookPresenter, libraryData);
             InitializeComponent();
         }
 

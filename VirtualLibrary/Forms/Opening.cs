@@ -1,23 +1,32 @@
 ﻿using System;
 using System.Windows.Forms;
+using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Helpers;
+using VirtualLibrary.Presenters;
+using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
 {
     public partial class Opening : Form
     {
-        private static string _language;
         private readonly FaceRecognitionLogin _faceRecognitionLoginForm;
         private readonly Registration _registrationForm;
         private readonly Login _loginForm;
+        private TakenBookPresenter _takenBookPresenter;
+        private ILibraryData _libraryData;
+        private IInputValidator _validator;
 
 
-        public Opening(Registration registrationForm, Login loginForm, FaceRecognitionLogin faceRecognitionLoginForm)
+        public Opening(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IInputValidator validator)
         {
             InitializeComponent();
 
-            _faceRecognitionLoginForm = faceRecognitionLoginForm;
-            _registrationForm = registrationForm;
-            _loginForm = loginForm;
+            _takenBookPresenter = takenBookPresenter;
+            _libraryData = libraryData;
+            _validator = validator;
+            _faceRecognitionLoginForm = new FaceRecognitionLogin(takenBookPresenter, libraryData);
+            _registrationForm = new Registration(_libraryData, _validator);
+            _loginForm = new Login(_takenBookPresenter, _libraryData);
         }
 
         private void Label2_Click(object sender, EventArgs e)
@@ -50,16 +59,16 @@ namespace VirtualLibrary.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            _language = "LT";
+            StaticDataSource.CurrLanguage = "LT";
+            Hide();
+            new Opening(_takenBookPresenter, _libraryData, _validator).ShowDialog();
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            _language = "EN";
-        }
-        public static string GetUserLanguageSetting()
-        {
-            return _language;
+            StaticDataSource.CurrLanguage = "EN";
+           
         }
     }
 }
