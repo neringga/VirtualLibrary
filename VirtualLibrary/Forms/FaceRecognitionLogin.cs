@@ -8,32 +8,33 @@ using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
+
 
 namespace VirtualLibrary.Forms
 {
     public partial class FaceRecognitionLogin : Form
     {
-        private readonly VideoCapture _capture;
+        private VideoCapture _capture;
         private readonly Library _libraryForm;
-        private EigenFaceRecognition _faceRecognition;
+        private IEmguCvFaceRecognition _faceRecognition;
 
         public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
             _libraryForm = new Library(takenBookPresenter, libraryData);
-            _capture = new VideoCapture();
+            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser);
         }
 
         public void Init()
         {
-            GetImages();
             InitializeComponent();
         }
 
 
         public void GetImages()
         {
-            List<string> nicknames;
-            List<Image<Gray, byte>> trainingSet;
+            List<string> nicknames = new List<string>();
+            List<Image<Gray, byte>> trainingSet = new List<Image<Gray, byte>>();
             int[] labels;
 
             try
@@ -41,17 +42,14 @@ namespace VirtualLibrary.Forms
                 var xml = new UserInformationInXmlFiles(
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
                 xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
-
-                _faceRecognition = new EigenFaceRecognition(
-                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                    trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
             }
             catch (Exception)
             {
                 MessageBox.Show(Translations.GetTranslatedString("loginWithPassword"));
                 Close();
             }
+
+            _faceRecognition.Train(trainingSet, nicknames);
         }
 
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
@@ -82,8 +80,11 @@ namespace VirtualLibrary.Forms
             Close();
         }
 
-        private void FaceRecognitionLogin_Load(object sender, EventArgs e)
+        private void FaceRecognitionLogin_Shown(object sender, EventArgs e)
         {
+            GetImages();
+            _capture = new VideoCapture();
+            startRecognitionTimer.Start();
         }
     }
 }

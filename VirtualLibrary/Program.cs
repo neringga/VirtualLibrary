@@ -3,10 +3,12 @@ using System.Windows.Forms;
 using Unity;
 using Unity.Injection;
 using VirtualLibrary.DataSources;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
@@ -55,7 +57,6 @@ namespace VirtualLibrary
                 return new LibraryData(userRepository, bookRepository);
             }));
 
- 
 
             // Helpers & Presenters
             currentContainer.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>

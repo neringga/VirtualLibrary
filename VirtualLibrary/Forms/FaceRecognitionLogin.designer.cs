@@ -95,7 +95,7 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.cameraBox);
             this.Name = "FaceRecognitionLogin";
             this.Text = Translations.GetTranslatedString("faceRecognisionLogin");
-            this.Load += new System.EventHandler(this.FaceRecognitionLogin_Load);
+            this.Shown += new System.EventHandler(this.FaceRecognitionLogin_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

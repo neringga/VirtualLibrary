@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
@@ -15,31 +17,26 @@ namespace VirtualLibrary
         private const int Threshold = 3000;
         private const int Distance = 3000;
         private const int ComponentsNumber = 80;
-        private readonly CascadeClassifier cascade;
-        private readonly int faceImagesPerUser;
-        private readonly List<string> namesList;
 
-        private readonly FaceRecognizer recognizer;
+        private readonly CascadeClassifier _cascade;
+        private readonly int _faceImagesPerUser;
+        private List<string> _namesList;
+        private List<Image<Gray, byte>> _trainingSet;
 
-        private readonly List<Image<Gray, byte>> trainingSet;
+        private readonly FaceRecognizer _recognizer;
 
-        public EigenFaceRecognition(string faceDetectionTrainingFilePath, List<Image<Gray, byte>> trainingSet,
-            List<string> namesList, int faceImagesPerUser)
+        public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser)
         {
-            this.trainingSet = trainingSet;
-            this.namesList = namesList;
-            this.faceImagesPerUser = faceImagesPerUser;
+            this._faceImagesPerUser = faceImagesPerUser;
 
-            recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
-            cascade = new CascadeClassifier(faceDetectionTrainingFilePath);
-
-            Train();
+            _recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
+            _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + faceDetectionTrainingFilePath);
         }
 
 
         public string Recognize(Image<Bgr, byte> display)
         {
-            var faces = cascade.DetectMultiScale(display.Convert<Gray, byte>(), 1.2, 0);
+            var faces = _cascade.DetectMultiScale(display.Convert<Gray, byte>(), 1.2, 0);
             Image<Gray, byte> faceImage;
 
             try
@@ -52,18 +49,18 @@ namespace VirtualLibrary
                 return null;
             }
 
-            var result = recognizer.Predict(faceImage);
+            var result = _recognizer.Predict(faceImage);
 
             if (result.Distance <= Distance)
-                return namesList.ElementAt(result.Label / 5);
+                return _namesList.ElementAt(result.Label / 5);
             return null;
         }
 
 
         public void AddUser(List<Image<Gray, byte>> faceImages, string name)
         {
-            namesList.Add(name);
-            for (var i = 0; i < faceImagesPerUser; i++) trainingSet.Add(faceImages.ElementAt(i));
+            _namesList.Add(name);
+            for (var i = 0; i < _faceImagesPerUser; i++) _trainingSet.Add(faceImages.ElementAt(i));
 
             Train();
         }
@@ -74,13 +71,21 @@ namespace VirtualLibrary
             var labelsList = new List<int>();
             var label = 0;
 
-            foreach (var grayFaceImage in trainingSet)
+            foreach (var grayFaceImage in _trainingSet)
             {
                 labelsList.Add(label);
                 label++;
             }
 
-            recognizer.Train(trainingSet.ToArray(), labelsList.ToArray());
+            _recognizer.Train(_trainingSet.ToArray(), labelsList.ToArray());
+        }
+
+
+        public void Train(List<Image<Gray, byte>> trainingSet, List<string> nameList)
+        {
+            _trainingSet = trainingSet;
+            _namesList = nameList;
+            Train();
         }
     }
 }
