@@ -21,13 +21,13 @@ namespace VirtualLibrary.Forms
         private ILibraryData _libraryData;
 
 
-        public BookActions(TakenBookPresenter takenBookPresenter, Library libraryForm, ILibraryData libraryData)
+        public BookActions(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
             _mTakenBookPresenter = takenBookPresenter;
-            _libraryForm = libraryForm;
+            _libraryForm = new Library(_mTakenBookPresenter, _libraryData);
             _libraryData = libraryData;
         }
 

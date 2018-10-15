@@ -48,7 +48,7 @@ namespace VirtualLibrary.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(158, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Don\'t have an account?";
+            this.label1.Text = Translations.GetTranslatedString("Don\'t have an account?"); 
             // 
             // label2
             // 
@@ -59,7 +59,7 @@ namespace VirtualLibrary.Forms
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(272, 25);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Welcome to the Virtual Library";
+            this.label2.Text = Translations.GetTranslatedString("Welcome to the Virtual Library");
             this.label2.Click += new System.EventHandler(this.Label2_Click);
             // 
             // button1
@@ -69,7 +69,7 @@ namespace VirtualLibrary.Forms
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 2;
-            this.button1.Text = "Sign in";
+            this.button1.Text = Translations.GetTranslatedString("Sign in");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
@@ -80,7 +80,7 @@ namespace VirtualLibrary.Forms
             this.RegistrationButton.Name = "RegistrationButton";
             this.RegistrationButton.Size = new System.Drawing.Size(100, 28);
             this.RegistrationButton.TabIndex = 3;
-            this.RegistrationButton.Text = "Register";
+            this.RegistrationButton.Text = Translations.GetTranslatedString("Register");
             this.RegistrationButton.UseVisualStyleBackColor = true;
             this.RegistrationButton.Click += new System.EventHandler(this.RegistrationButton_Click);
             // 
@@ -91,7 +91,7 @@ namespace VirtualLibrary.Forms
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(208, 28);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Sign in with camera";
+            this.button2.Text = Translations.GetTranslatedString("Sign in with camera");
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -122,7 +122,7 @@ namespace VirtualLibrary.Forms
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 17);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Choose language:";
+            this.label3.Text = Translations.GetTranslatedString("Choose language:"); 
             // 
             // Opening
             // 
@@ -139,7 +139,7 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Opening";
-            this.Text = "Virtual Library";
+            this.Text = Translations.GetTranslatedString("Virtual Library"); 
             this.Load += new System.EventHandler(this.Opening_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

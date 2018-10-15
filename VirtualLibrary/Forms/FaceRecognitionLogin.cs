@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
+using VirtualLibrary.Presenters;
+using VirtualLibrary.Repositories;
 
 namespace VirtualLibrary.Forms
 {
@@ -16,9 +17,9 @@ namespace VirtualLibrary.Forms
         private readonly Library _libraryForm;
         private EigenFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(Library libraryForm)
+        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
-            _libraryForm = libraryForm;
+            _libraryForm = new Library(takenBookPresenter, libraryData);
             _capture = new VideoCapture();
         }
 
@@ -63,13 +64,13 @@ namespace VirtualLibrary.Forms
                 loginButton.Text = Translations.GetTranslatedString("logInButton") + currentNickname;
                 nameLabel.Text = currentNickname;
                 StaticDataSource.CurrUser = currentNickname;
+                cameraBox.Image = display;
             }
             else
             {
                 nameLabel.Text = Translations.GetTranslatedString("unknown");
             }
 
-            cameraBox.Image = display;
         }
 
 

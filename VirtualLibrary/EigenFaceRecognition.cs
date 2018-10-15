@@ -10,7 +10,7 @@ using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
-    class EigenFaceRecognition : IEmguCvFaceRecognition
+    internal class EigenFaceRecognition : IEmguCvFaceRecognition
     {
         private const int Threshold = 3000;
         private const int Distance = 3000;
@@ -26,8 +26,6 @@ namespace VirtualLibrary
         public EigenFaceRecognition(string faceDetectionTrainingFilePath, List<Image<Gray, byte>> trainingSet,
             List<string> namesList, int faceImagesPerUser)
         {
-            //check if parameters are okey
-
             this.trainingSet = trainingSet;
             this.namesList = namesList;
             this.faceImagesPerUser = faceImagesPerUser;
@@ -56,9 +54,6 @@ namespace VirtualLibrary
 
             var result = recognizer.Predict(faceImage);
 
-            //For testing purpose
-            //Console.WriteLine(result.Distance);
-
             if (result.Distance <= Distance)
                 return namesList.ElementAt(result.Label / 5);
             return null;
@@ -67,11 +62,6 @@ namespace VirtualLibrary
 
         public void AddUser(List<Image<Gray, byte>> faceImages, string name)
         {
-            if (faceImages.Count < faceImagesPerUser)
-            {
-                //return something
-            }
-
             namesList.Add(name);
             for (var i = 0; i < faceImagesPerUser; i++) trainingSet.Add(faceImages.ElementAt(i));
 

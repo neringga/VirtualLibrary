@@ -15,7 +15,7 @@ namespace VirtualLibrary
 {
     public partial class Registration : Form, IUser
     {
-        private static string _language;
+        //private static string _language;
         private readonly ErrorProvider _emailErrorProvider;
 
         private readonly UserPresenter _mUserPresenter;
@@ -88,7 +88,7 @@ namespace VirtualLibrary
         public string Language
         {
             get => null;
-            set => string.Copy(_language);
+            set => string.Copy(StaticDataSource.CurrLanguage);
         }
 
 
@@ -98,11 +98,10 @@ namespace VirtualLibrary
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_inputValidator.ValidString(nameTextBox.Text))
-                _nameErrorProvider.SetError(nameTextBox, "Can't be empty");
-
             if (string.IsNullOrEmpty(nameTextBox.Text))
                 _nameErrorProvider.SetError(nameTextBox, Translations.GetTranslatedString("empty"));
+            else
+                _nameErrorProvider.SetError(nameTextBox, String.Empty);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -155,7 +154,7 @@ namespace VirtualLibrary
             if (!_inputValidator.ValidString(surnameTextBox.Text))
                 _surnameErrorProvider.SetError(surnameTextBox, Translations.GetTranslatedString("empty"));
             else
-                _emailErrorProvider.SetError(emailTextBox, string.Empty);
+                _emailErrorProvider.SetError(surnameTextBox, string.Empty);
         }
 
         private void EmailTextBox_TextChanged(object sender, EventArgs e)

@@ -57,7 +57,7 @@ namespace VirtualLibrary
             this.NameLabel.AutoSize = true;
             this.NameLabel.Location = new System.Drawing.Point(27, 102);
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(41, 13);
+            this.NameLabel.Size = new System.Drawing.Size(46, 13);
             this.NameLabel.TabIndex = 0;
             this.NameLabel.Text = Translations.GetTranslatedString("nameLabel");
             // 
@@ -66,7 +66,7 @@ namespace VirtualLibrary
             this.SurnameLabel.AutoSize = true;
             this.SurnameLabel.Location = new System.Drawing.Point(27, 140);
             this.SurnameLabel.Name = "SurnameLabel";
-            this.SurnameLabel.Size = new System.Drawing.Size(55, 13);
+            this.SurnameLabel.Size = new System.Drawing.Size(53, 13);
             this.SurnameLabel.TabIndex = 1;
             this.SurnameLabel.Text = Translations.GetTranslatedString("surnameLabel");
             // 
@@ -75,7 +75,7 @@ namespace VirtualLibrary
             this.EmailLabel.AutoSize = true;
             this.EmailLabel.Location = new System.Drawing.Point(27, 178);
             this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(38, 13);
+            this.EmailLabel.Size = new System.Drawing.Size(101, 13);
             this.EmailLabel.TabIndex = 2;
             this.EmailLabel.Text = Translations.GetTranslatedString("emailLabel");
             // 
@@ -90,7 +90,7 @@ namespace VirtualLibrary
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Location = new System.Drawing.Point(113, 98);
+            this.nameTextBox.Location = new System.Drawing.Point(130, 99);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(100, 20);
             this.nameTextBox.TabIndex = 2;
@@ -98,7 +98,7 @@ namespace VirtualLibrary
             // 
             // surnameTextBox
             // 
-            this.surnameTextBox.Location = new System.Drawing.Point(113, 137);
+            this.surnameTextBox.Location = new System.Drawing.Point(130, 137);
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(100, 20);
             this.surnameTextBox.TabIndex = 3;
@@ -106,7 +106,7 @@ namespace VirtualLibrary
             // 
             // emailTextBox
             // 
-            this.emailTextBox.Location = new System.Drawing.Point(113, 178);
+            this.emailTextBox.Location = new System.Drawing.Point(130, 178);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(100, 20);
             this.emailTextBox.TabIndex = 4;
@@ -124,7 +124,7 @@ namespace VirtualLibrary
             // 
             // dateTimeBox
             // 
-            this.dateTimeBox.Location = new System.Drawing.Point(113, 215);
+            this.dateTimeBox.Location = new System.Drawing.Point(130, 213);
             this.dateTimeBox.MaxDate = new System.DateTime(2018, 10, 5, 22, 41, 43, 0);
             this.dateTimeBox.Name = "dateTimeBox";
             this.dateTimeBox.Size = new System.Drawing.Size(196, 20);
@@ -136,7 +136,7 @@ namespace VirtualLibrary
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(221, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 13);
+            this.label1.Size = new System.Drawing.Size(132, 13);
             this.label1.TabIndex = 9;
             this.label1.Text = Translations.GetTranslatedString("newUser");
             // 
@@ -144,7 +144,7 @@ namespace VirtualLibrary
             // 
             this.registerButton.Location = new System.Drawing.Point(234, 324);
             this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(75, 23);
+            this.registerButton.Size = new System.Drawing.Size(92, 23);
             this.registerButton.TabIndex = 11;
             this.registerButton.Text = Translations.GetTranslatedString("registerButton");
             this.registerButton.UseVisualStyleBackColor = true;
@@ -155,7 +155,7 @@ namespace VirtualLibrary
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(30, 253);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 11;
             this.label2.Text = Translations.GetTranslatedString("password");
             this.label2.Click += new System.EventHandler(this.Label2_Click);
@@ -165,13 +165,13 @@ namespace VirtualLibrary
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 292);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 13);
+            this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = Translations.GetTranslatedString("repeatPassword");
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(113, 249);
+            this.passwordTextBox.Location = new System.Drawing.Point(130, 250);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(100, 20);
@@ -180,7 +180,7 @@ namespace VirtualLibrary
             // 
             // repeatPasswTextBox
             // 
-            this.repeatPasswTextBox.Location = new System.Drawing.Point(113, 289);
+            this.repeatPasswTextBox.Location = new System.Drawing.Point(129, 289);
             this.repeatPasswTextBox.Name = "repeatPasswTextBox";
             this.repeatPasswTextBox.PasswordChar = '*';
             this.repeatPasswTextBox.Size = new System.Drawing.Size(100, 20);
@@ -192,19 +192,40 @@ namespace VirtualLibrary
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(27, 59);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = Translations.GetTranslatedString("username");
             this.label4.Click += new System.EventHandler(this.Label4_Click);
             // 
             // usernameTextBox
             // 
-            this.usernameTextBox.Location = new System.Drawing.Point(113, 57);
+            this.usernameTextBox.Location = new System.Drawing.Point(130, 56);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
             this.usernameTextBox.TabIndex = 1;
             this.usernameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
-           
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(0, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(0, 0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(100, 23);
+            this.label5.TabIndex = 0;
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +251,6 @@ namespace VirtualLibrary
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(this.SurnameLabel);
             this.Controls.Add(this.NameLabel);
-
             this.Load += new System.EventHandler(this.Registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
