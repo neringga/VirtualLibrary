@@ -235,19 +235,5 @@ namespace VirtualLibrary
         {
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            _language = "EN";
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            _language = "LT";
-        }
-
-        public static string GetUserLanguageSetting()
-        {
-            return _language;
-        }
     }
 }
