@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
@@ -19,10 +20,10 @@ namespace VirtualLibrary.Forms
         private readonly Library _libraryForm;
         private IEmguCvFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
+        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IExceptionLogger exceptionLogger)
         {
             _libraryForm = new Library(takenBookPresenter, libraryData);
-            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser);
+            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser, exceptionLogger);
         }
 
         public void Init()

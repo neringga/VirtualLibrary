@@ -173,8 +173,9 @@
     <Compile Include="Forms\Library.Designer.cs">
       <DependentUpon>Library.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\Exceptions.cs" />
+    <Compile Include="Helpers\ExceptionToFileLogger.cs" />
     <Compile Include="Helpers\IInputValidator.cs" />
+    <Compile Include="Helpers\IExceptionLogger.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="IEmguCvFaceRecognition.cs" />
     <Compile Include="Localization\Translations.cs" />

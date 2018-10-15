@@ -15,20 +15,22 @@ namespace VirtualLibrary.Forms
     public partial class BookActions : Form
     {
         private IBook _book;
+
+        private ILibraryData _libraryData;
         private readonly TakenBookPresenter _mTakenBookPresenter;
         private Library _libraryForm;
         private Result _result;
-        private ILibraryData _libraryData;
-
 
         public BookActions(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
-            _mTakenBookPresenter = takenBookPresenter;
+
             _libraryForm = new Library(_mTakenBookPresenter, _libraryData);
+
             _libraryData = libraryData;
+            _mTakenBookPresenter = takenBookPresenter;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -92,14 +94,8 @@ namespace VirtualLibrary.Forms
                     addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
-                    try
-                    {
-                        bookReturnWarning.SendWarningEmail();
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.Log();
-                    }
+
+                    bookReturnWarning.SendWarningEmail();
 
                     MessageBox.Show(Translations.GetTranslatedString("returnUntil") + addedBook.HasToBeReturned);
                 }

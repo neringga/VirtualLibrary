@@ -23,11 +23,14 @@ namespace VirtualLibrary
         private List<string> _namesList;
         private List<Image<Gray, byte>> _trainingSet;
 
+        private IExceptionLogger _exceptionLogger;
+
         private readonly FaceRecognizer _recognizer;
 
-        public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser)
+        public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser, IExceptionLogger exceptionLogger)
         {
-            this._faceImagesPerUser = faceImagesPerUser;
+            _exceptionLogger = exceptionLogger;
+            _faceImagesPerUser = faceImagesPerUser;
 
             _recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
             _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + faceDetectionTrainingFilePath);
@@ -43,9 +46,9 @@ namespace VirtualLibrary
             {
                 faceImage = display.Convert<Gray, byte>().Copy(faces[0]).Resize(100, 100, Inter.Cubic);
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException ex)
             {
-                e.Log();
+                _exceptionLogger.Log(ex);
                 return null;
             }
 

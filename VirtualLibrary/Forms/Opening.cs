@@ -15,16 +15,18 @@ namespace VirtualLibrary.Forms
         private TakenBookPresenter _takenBookPresenter;
         private ILibraryData _libraryData;
         private IInputValidator _validator;
+        private IExceptionLogger _exceptionLogger;
 
 
-        public Opening(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IInputValidator validator)
+        public Opening(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IInputValidator validator, IExceptionLogger exceptionLogger)
         {
             InitializeComponent();
 
             _takenBookPresenter = takenBookPresenter;
             _libraryData = libraryData;
             _validator = validator;
-            _faceRecognitionLoginForm = new FaceRecognitionLogin(takenBookPresenter, libraryData);
+            _exceptionLogger = exceptionLogger;
+            _faceRecognitionLoginForm = new FaceRecognitionLogin(takenBookPresenter, libraryData, _exceptionLogger);
             _registrationForm = new Registration(_libraryData, _validator);
             _loginForm = new Login(_takenBookPresenter, _libraryData);
         }
@@ -61,7 +63,7 @@ namespace VirtualLibrary.Forms
         {
             StaticDataSource.CurrLanguage = "LT";
             Hide();
-            new Opening(_takenBookPresenter, _libraryData, _validator).ShowDialog();
+            new Opening(_takenBookPresenter, _libraryData, _validator, _exceptionLogger).ShowDialog();
 
         }
 
