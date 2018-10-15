@@ -6,6 +6,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
 {
@@ -13,24 +14,24 @@ namespace VirtualLibrary.Forms
     {
         private VideoCapture _capture;
         private readonly Library _libraryForm;
-        private EigenFaceRecognition _faceRecognition;
+        private IEmguCvFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(Library libraryForm)
+        public FaceRecognitionLogin(IEmguCvFaceRecognition faceRecognition, Library libraryForm)
         {
             _libraryForm = libraryForm;
+            _faceRecognition = faceRecognition;
         }
 
         public void Init()
         {
-            GetImages();
             InitializeComponent();
         }
 
 
         public void GetImages()
         {
-            List<string> nicknames;
-            List<Image<Gray, byte>> trainingSet;
+            List<string> nicknames = new List<string>();
+            List<Image<Gray, byte>> trainingSet = new List<Image<Gray, byte>>();
             int[] labels;
 
             try
@@ -38,17 +39,14 @@ namespace VirtualLibrary.Forms
                 var xml = new UserInformationInXmlFiles(
                     new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
                 xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
-
-                _faceRecognition = new EigenFaceRecognition(
-                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                    "\\UserInformation\\haarcascade_frontalface_alt2.xml",
-                    trainingSet, nicknames, StaticStrings.FaceImagesPerUser);
             }
             catch (Exception)
             {
                 MessageBox.Show(Translations.GetTranslatedString("loginWithPassword"));
                 Close();
             }
+
+            _faceRecognition.Train(trainingSet, nicknames);
         }
 
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
@@ -81,6 +79,7 @@ namespace VirtualLibrary.Forms
 
         private void FaceRecognitionLogin_Shown(object sender, EventArgs e)
         {
+            GetImages();
             _capture = new VideoCapture();
             startRecognitionTimer.Start();
         }

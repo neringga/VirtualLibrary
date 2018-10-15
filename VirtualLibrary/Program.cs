@@ -3,10 +3,12 @@ using System.Windows.Forms;
 using Unity;
 using Unity.Injection;
 using VirtualLibrary.DataSources;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Forms;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
@@ -58,7 +60,13 @@ namespace VirtualLibrary
             currentContainer.RegisterType<FaceRecognitionLogin>(new InjectionFactory(o =>
             {
                 var libraryForm = currentContainer.Resolve<Library>();
-                return new FaceRecognitionLogin(libraryForm);
+                var faceRecognition = currentContainer.Resolve<IEmguCvFaceRecognition>();
+                return new FaceRecognitionLogin(faceRecognition, libraryForm);
+            }));
+
+            currentContainer.RegisterType<IEmguCvFaceRecognition>(new InjectionFactory(o =>
+            {
+                return new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser);
             }));
 
             currentContainer.RegisterType<Registration>(new InjectionFactory(o =>
