@@ -10,6 +10,5 @@ namespace VirtualLibrary.View
 
         string Recognize(Image<Bgr, byte> cameraDisplay);
 
-        void AddUser(List<Image<Gray, byte>> trainingSet, string name);
     }
 }

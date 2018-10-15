@@ -6,6 +6,8 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
+using VirtualLibrary.Presenters;
+using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary.Forms
@@ -16,10 +18,10 @@ namespace VirtualLibrary.Forms
         private readonly Library _libraryForm;
         private IEmguCvFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(IEmguCvFaceRecognition faceRecognition, Library libraryForm)
+        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
         {
-            _libraryForm = libraryForm;
-            _faceRecognition = faceRecognition;
+            _libraryForm = new Library(takenBookPresenter, libraryData);
+            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser);
         }
 
         public void Init()
@@ -59,13 +61,14 @@ namespace VirtualLibrary.Forms
                 loginButton.Text = Translations.GetTranslatedString("logInButton") + currentNickname;
                 nameLabel.Text = currentNickname;
                 StaticDataSource.CurrUser = currentNickname;
+                cameraBox.Image = display;
             }
             else
             {
                 nameLabel.Text = Translations.GetTranslatedString("unknown");
             }
 
-            cameraBox.Image = display;
+            
         }
 
 
