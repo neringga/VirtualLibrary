@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Localization;
 
@@ -12,14 +11,13 @@ namespace VirtualLibrary.Forms
 {
     public partial class FaceRecognitionLogin : Form
     {
-        private readonly VideoCapture _capture;
+        private VideoCapture _capture;
         private readonly Library _libraryForm;
         private EigenFaceRecognition _faceRecognition;
 
         public FaceRecognitionLogin(Library libraryForm)
         {
             _libraryForm = libraryForm;
-            _capture = new VideoCapture();
         }
 
         public void Init()
@@ -81,8 +79,10 @@ namespace VirtualLibrary.Forms
             Close();
         }
 
-        private void FaceRecognitionLogin_Load(object sender, EventArgs e)
+        private void FaceRecognitionLogin_Shown(object sender, EventArgs e)
         {
+            _capture = new VideoCapture();
+            startRecognitionTimer.Start();
         }
     }
 }

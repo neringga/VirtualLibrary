@@ -89,12 +89,7 @@ namespace VirtualLibrary
                 var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
                 return new BookActions(takenBookPresenter, libraryForm, libraryData);
             }));
-
-            currentContainer.RegisterType<ChooseLanguage>(new InjectionFactory(o =>
-            {
-                return new ChooseLanguage();
-
-            }));
+            
 
             currentContainer.RegisterType<Opening>(new InjectionFactory(o =>
             {

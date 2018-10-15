@@ -53,9 +53,9 @@ namespace VirtualLibrary.Forms
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(744, 85);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 25);
+            this.label1.Size = new System.Drawing.Size(86, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = Translations.GetTranslatedString("nameLabel");
+            this.label1.Text = "Vardas: ";
             // 
             // nameLabel
             // 
@@ -63,13 +63,12 @@ namespace VirtualLibrary.Forms
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabel.Location = new System.Drawing.Point(825, 85);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(97, 25);
+            this.nameLabel.Size = new System.Drawing.Size(105, 25);
             this.nameLabel.TabIndex = 4;
-            this.nameLabel.Text = Translations.GetTranslatedString("loading");
+            this.nameLabel.Text = "Kraunasi...";
             // 
             // startRecognitionTimer
             // 
-            this.startRecognitionTimer.Enabled = true;
             this.startRecognitionTimer.Interval = 1;
             this.startRecognitionTimer.Tick += new System.EventHandler(this.StartRecognitionTimer_Tick);
             // 
@@ -80,7 +79,7 @@ namespace VirtualLibrary.Forms
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(295, 42);
             this.loginButton.TabIndex = 5;
-            this.loginButton.Text = Translations.GetTranslatedString("logInButton");
+            this.loginButton.Text = "Prisijungti kaip:";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
@@ -94,8 +93,8 @@ namespace VirtualLibrary.Forms
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cameraBox);
             this.Name = "FaceRecognitionLogin";
-            this.Text = Translations.GetTranslatedString("faceRecognisionLogin");
-            this.Load += new System.EventHandler(this.FaceRecognitionLogin_Load);
+            this.Text = "Prisijungti naudojant veido atpažinimą";
+            this.Shown += new System.EventHandler(this.FaceRecognitionLogin_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.cameraBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
