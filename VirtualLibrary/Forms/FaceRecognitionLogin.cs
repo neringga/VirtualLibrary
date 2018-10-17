@@ -20,10 +20,12 @@ namespace VirtualLibrary.Forms
         private readonly Library _libraryForm;
         private IEmguCvFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IExceptionLogger exceptionLogger)
+        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, 
+            ILibraryData libraryData, UserPresenter userPresenter, IExceptionLogger exceptionLogger)
         {
-            _libraryForm = new Library(takenBookPresenter, libraryData);
-            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser, exceptionLogger);
+            _libraryForm = new Library(takenBookPresenter, libraryData, userPresenter, exceptionLogger);
+            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, 
+                StaticStrings.FaceImagesPerUser, exceptionLogger);
         }
 
         public void Init()

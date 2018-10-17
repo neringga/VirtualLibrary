@@ -15,30 +15,40 @@ namespace VirtualLibrary.Forms
     {
         private readonly TakenBookPresenter _takenBookPresenter;
         private ILibraryData _libraryData;
+        private UserPresenter _userPresenter;
+        private IExceptionLogger _exceptionLogger;
 
-        public Library(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
+        public Library(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, UserPresenter userPresenter,
+            IExceptionLogger exceptionLogger)
         {
             _takenBookPresenter = takenBookPresenter;
             _libraryData = libraryData;
+            _userPresenter = userPresenter;
+            _exceptionLogger = exceptionLogger;
 
             InitializeComponent();
 
-            var bookListFromFile = new BookList();
-            var books = bookListFromFile.GetBookList();
-            var takenBooks = _takenBookPresenter.GetTakenBooks();
 
-            foreach (var book in takenBooks)
-                if (book.TakenByUser == StaticDataSource.CurrUser)
+            try
+            {
+                var userTakenBooks = _takenBookPresenter.FindUserTakenBooks();
+
+                foreach (var book in userTakenBooks)
                 {
-                    var book1 = books.First(item => item.Code == book.Code);
-                    bookListBox.Items.Add(book1.Author + book1.Title + Translations.GetTranslatedString("returnOn") +
+                    bookListBox.Items.Add(book.Author + book.Title + Translations.GetTranslatedString("returnOn") +
                                           book.HasToBeReturned);
                 }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
         }
 
         private void ScannerOpenButton_Click(object sender, EventArgs e)
         {
-            var bookActionsForm = new BookActions(_takenBookPresenter, _libraryData);
+            var bookActionsForm = new BookActions(_takenBookPresenter, _libraryData, _userPresenter, _exceptionLogger);
             bookActionsForm.ShowDialog();
             Close();
         }
