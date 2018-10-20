@@ -1,7 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using VirtualLibrary.DataSources.Data;
@@ -20,10 +19,13 @@ namespace VirtualLibrary.Forms
         private readonly Library _libraryForm;
         private IEmguCvFaceRecognition _faceRecognition;
 
-        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, ILibraryData libraryData, IExceptionLogger exceptionLogger)
+        public FaceRecognitionLogin(TakenBookPresenter takenBookPresenter, 
+            ILibraryData libraryData, UserPresenter userPresenter, IExceptionLogger exceptionLogger)
         {
-            _libraryForm = new Library(takenBookPresenter, libraryData);
-            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, StaticStrings.FaceImagesPerUser, exceptionLogger);
+            _libraryForm = new Library(takenBookPresenter, libraryData, userPresenter, exceptionLogger);
+            _faceRecognition = new EigenFaceRecognition(StaticStrings.FaceDetectionTrainingFile, 
+                StaticStrings.FaceImagesPerUser, exceptionLogger);
+
         }
 
         public void Init()
@@ -32,26 +34,6 @@ namespace VirtualLibrary.Forms
         }
 
 
-        public void GetImages()
-        {
-            List<string> nicknames = new List<string>();
-            List<Image<Gray, byte>> trainingSet = new List<Image<Gray, byte>>();
-            int[] labels;
-
-            try
-            {
-                var xml = new UserInformationInXmlFiles(
-                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5);
-                xml.GetTrainingSet(out trainingSet, out labels, out nicknames);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(Translations.GetTranslatedString("loginWithPassword"));
-                Close();
-            }
-
-            _faceRecognition.Train(trainingSet, nicknames);
-        }
 
         private void StartRecognitionTimer_Tick(object sender, EventArgs e)
         {
@@ -83,7 +65,8 @@ namespace VirtualLibrary.Forms
 
         private void FaceRecognitionLogin_Shown(object sender, EventArgs e)
         {
-            GetImages();
+            _faceRecognition.Train(new UserInformationInXmlFiles(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5));
             _capture = new VideoCapture();
             startRecognitionTimer.Start();
         }

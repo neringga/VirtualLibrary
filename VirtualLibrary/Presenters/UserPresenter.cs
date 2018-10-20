@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
 
@@ -15,6 +17,11 @@ namespace VirtualLibrary.Presenters
             _mUserRepository = userRepository;
         }
 
+        public UserPresenter(IRepository<IUser> userRepository)
+        {
+            _mUserRepository = userRepository;
+        }
+
         public bool AddUser()
         {
             if (_userView != null)
@@ -22,13 +29,22 @@ namespace VirtualLibrary.Presenters
                 _mUserRepository.Add(_userView);
                 return true;
             }
-
             return false;
+        }
+
+        public void AddUser(IUser userView)
+        {
+            _mUserRepository.Add(userView);
         }
 
         public IList<IUser> GetUserList()
         {
             return _mUserRepository.GetList();
+        }
+
+        public IUser FindUser()
+        {
+            return _mUserRepository.GetList().FirstOrDefault(user => user.Nickname == StaticDataSource.CurrUser);
         }
     }
 }

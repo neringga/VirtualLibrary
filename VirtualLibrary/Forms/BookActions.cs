@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Windows.Forms;
 using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
@@ -18,19 +19,24 @@ namespace VirtualLibrary.Forms
 
         private ILibraryData _libraryData;
         private readonly TakenBookPresenter _mTakenBookPresenter;
+        private UserPresenter _userPresenter;
         private Library _libraryForm;
         private Result _result;
+        private IExceptionLogger _exceptionLogger;
 
-        public BookActions(TakenBookPresenter takenBookPresenter, ILibraryData libraryData)
+        public BookActions(TakenBookPresenter takenBookPresenter, ILibraryData libraryData,
+            UserPresenter userPresenter, IExceptionLogger exceptionLogger)
         {
             InitializeComponent();
             ScannedBookInfo.Enabled = false;
             Info.Enabled = false;
 
-            _libraryForm = new Library(_mTakenBookPresenter, _libraryData);
+            _libraryForm = new Library(_mTakenBookPresenter, _libraryData, _userPresenter, _exceptionLogger);
 
+            _userPresenter = userPresenter;
             _libraryData = libraryData;
             _mTakenBookPresenter = takenBookPresenter;
+            _exceptionLogger = exceptionLogger;
         }
 
         private void PictureUploadButton_Click(object sender, EventArgs e)
@@ -84,18 +90,19 @@ namespace VirtualLibrary.Forms
                     var addedBook = takenBooks.First(item => item.Code == _book.Code && item.TakenByUser ==
                                                              StaticDataSource.CurrUser);
 
-                    var userPresenter = new UserPresenter(null, _libraryData.userRepository);
-                    var users = userPresenter.GetUserList();
-                    var userToSendEmailTo =
-                        users.First(user => user.Nickname == StaticDataSource.CurrUser);
-
                     var bookReturnWarning = new BookReturnEmail(
-                    userToSendEmailTo.Email,
+                    _userPresenter.FindUser().Email,
                     addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
-
-                    bookReturnWarning.SendWarningEmail();
+                    try
+                    {
+                        bookReturnWarning.SendWarningEmail();
+                    }
+                    catch (SmtpException ex)
+                    {
+                        _exceptionLogger.Log(ex);
+                    }
 
                     MessageBox.Show(Translations.GetTranslatedString("returnUntil") + addedBook.HasToBeReturned);
                 }
@@ -136,7 +143,7 @@ namespace VirtualLibrary.Forms
         {
             Dispose();
             Close();
-            var lfrom = new Library(_mTakenBookPresenter, _libraryData);
+            var lfrom = new Library(_mTakenBookPresenter, _libraryData, _userPresenter, _exceptionLogger);
             lfrom.ShowDialog();
         }
     }

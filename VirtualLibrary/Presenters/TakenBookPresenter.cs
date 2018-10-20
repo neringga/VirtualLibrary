@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Model;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -29,6 +30,12 @@ namespace VirtualLibrary.Presenters
 
             _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
+        }
+
+        public List<IBook> FindUserTakenBooks()
+        {
+            return (List<IBook>) _mBookRepository.GetTakenBooks().Where(
+                book => book.TakenByUser == StaticDataSource.CurrUser);
         }
 
 
