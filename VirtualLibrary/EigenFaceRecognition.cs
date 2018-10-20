@@ -7,14 +7,17 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
-using VirtualLibrary.DataSources.Data;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.Helpers;
+using VirtualLibrary.Model;
 using VirtualLibrary.View;
 
 namespace VirtualLibrary
 {
     internal class EigenFaceRecognition : IEmguCvFaceRecognition
     {
+        private const int ImageWidth = 100;
+        private const int ImageHeight = 100;
         private const int Threshold = 3000;
         private const int Distance = 3000;
         private const int ComponentsNumber = 80;
@@ -85,11 +88,22 @@ namespace VirtualLibrary
         }
 
 
-        public void Train(UserInformationInXmlFiles xml)
+        public void Train(IExternalDataSource<User> dataSource)
         {
-            int[] labels;
+            _namesList = new List<string>();
+            _trainingSet = new List<Image<Gray, byte>>();
+            List<User> userList = (List<User>) dataSource.GetList();
 
-            xml.GetTrainingSet(out _trainingSet, out labels, out _namesList);
+            foreach(User user in userList)
+            {
+                _namesList.Add(user.Nickname);
+                for (int i = 0; i < _faceImagesPerUser; i++)
+                {
+                    Image<Gray, byte> image = new Image<Gray, byte>(ImageWidth, ImageHeight);
+                    image.Bytes = user.Pictures[i];
+                    _trainingSet.Add(image);
+                }
+            }
 
             Train();
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -28,7 +29,7 @@ namespace VirtualLibrary
         private readonly ErrorProvider _surnameErrorProvider;
         private readonly ErrorProvider _usernameErrorProvider;
 
-        private Image<Gray, byte>[] _faceImages;
+        private byte[][] _faceImages;
 
 
         private readonly IInputValidator _inputValidator;
@@ -99,6 +100,12 @@ namespace VirtualLibrary
             set => string.Copy(StaticDataSource.CurrLanguage);
         }
 
+        public byte[][] Pictures
+        {
+            get => _faceImages;
+            set => _faceImages = value;
+        }
+
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
         {
@@ -119,7 +126,8 @@ namespace VirtualLibrary
                 MessageBox.Show(Translations.GetTranslatedString("lookAtCamera"),
                     Translations.GetTranslatedString("attention"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 photoForm.ShowDialog();
-                _faceImages = photoForm.GrayPictures;
+                _faceImages = photoForm.Pictures;
+                Pictures = _faceImages;
                 InputCorrect();
             }
         }
@@ -189,19 +197,10 @@ namespace VirtualLibrary
             _mUserPresenter.AddUser();
 
             IExternalDataSource<User> xmlSerializer = new XmlSerializedDataSource<User> (new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                            "\\userinformation\\");
+                            "\\Data\\");
+            
 
             xmlSerializer.AddElement(new User(this));
-
-            var xml = new UserInformationInXmlFiles(
-                new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\",
-                StaticStrings.FaceImagesPerUser);
-
-            if (File.Exists(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
-                            "\\userinformation\\faceImages.xml"))
-                xml.AddUser(_faceImages, this);
-            else
-                xml.CreateNewUserList(_faceImages, this);
 
             Close();
         }

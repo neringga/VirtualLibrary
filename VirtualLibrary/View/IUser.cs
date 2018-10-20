@@ -9,5 +9,6 @@
         string Password { get; set; }
         string Nickname { get; set; }
         string Language { get; set; }
+        byte[][] Pictures { get; set; }
     }
 }

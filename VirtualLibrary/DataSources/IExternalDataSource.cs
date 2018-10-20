@@ -2,7 +2,7 @@
 
 namespace VirtualLibrary.DataSources
 {
-    interface IExternalDataSource<T>
+    public interface IExternalDataSource<T>
     {
         IList<T> GetList();
 

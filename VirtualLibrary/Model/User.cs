@@ -20,11 +20,11 @@ namespace VirtualLibrary.Model
             Password = iuser.Password;
             Nickname = iuser.Nickname;
             Language = iuser.Language;
-
+            Pictures = iuser.Pictures;
         }
 
         public string PhoneNumber { get; set; }
-        public byte[] Picture { get; set; }
+        public byte[][] Pictures { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }

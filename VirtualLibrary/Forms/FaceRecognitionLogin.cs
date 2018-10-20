@@ -3,9 +3,12 @@ using Emgu.CV.Structure;
 using System;
 using System.IO;
 using System.Windows.Forms;
+
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
+using VirtualLibrary.Model;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -65,8 +68,8 @@ namespace VirtualLibrary.Forms
 
         private void FaceRecognitionLogin_Shown(object sender, EventArgs e)
         {
-            _faceRecognition.Train(new UserInformationInXmlFiles(
-                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\UserInformation\\", 5));
+            _faceRecognition.Train(new XmlSerializedDataSource<User>(
+                    new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\Data\\"));
             _capture = new VideoCapture();
             startRecognitionTimer.Start();
         }
