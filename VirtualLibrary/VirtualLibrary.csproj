@@ -143,7 +143,9 @@
     <Compile Include="DataSources\Data\TextFile.cs" />
     <Compile Include="DataSources\Data\UserInformationInXMLFiles.cs" />
     <Compile Include="DataSources\IDataSource.cs" />
+    <Compile Include="DataSources\IExternalDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
+    <Compile Include="DataSources\XmlSerializedDataSource.cs" />
     <Compile Include="EigenFaceRecognition.cs" />
     <Compile Include="Forms\BookActions.cs">
       <SubType>Form</SubType>

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
+using VirtualLibrary.DataSources;
 using VirtualLibrary.DataSources.Data;
 using VirtualLibrary.Helpers;
 using VirtualLibrary.Localization;
+using VirtualLibrary.Model;
 using VirtualLibrary.Presenters;
 using VirtualLibrary.Repositories;
 using VirtualLibrary.View;
@@ -29,6 +32,11 @@ namespace VirtualLibrary
 
 
         private readonly IInputValidator _inputValidator;
+
+        public Registration()
+        {
+
+        }
 
         public Registration(ILibraryData libraryData, IInputValidator inputValidator)
         {
@@ -179,6 +187,11 @@ namespace VirtualLibrary
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             _mUserPresenter.AddUser();
+
+            IExternalDataSource<User> xmlSerializer = new XmlSerializedDataSource<User> (new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName +
+                            "\\userinformation\\");
+
+            xmlSerializer.AddElement(new User(this));
 
             var xml = new UserInformationInXmlFiles(
                 new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + "\\userinformation\\",

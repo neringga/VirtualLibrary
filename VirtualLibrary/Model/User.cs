@@ -1,9 +1,28 @@
-﻿using VirtualLibrary.View;
+﻿using System;
+using VirtualLibrary.View;
 
 namespace VirtualLibrary.Model
 {
+    [Serializable]
     public class User : IUser
     {
+        public User()
+        {
+
+        }
+
+        public User(IUser iuser)
+        {
+            Name = iuser.Name;
+            Surname = iuser.Surname;
+            Email = iuser.Email;
+            DateOfBirth = iuser.DateOfBirth;
+            Password = iuser.Password;
+            Nickname = iuser.Nickname;
+            Language = iuser.Language;
+
+        }
+
         public string PhoneNumber { get; set; }
         public byte[] Picture { get; set; }
         public string Name { get; set; }
