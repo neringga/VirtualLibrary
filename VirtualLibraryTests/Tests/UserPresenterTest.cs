@@ -40,7 +40,7 @@ namespace VirtualLibraryTests.Helpers
             m_fakeUser = new User() { Name = "name", Surname = "surname", Email = "e@mail.com" };
             Initialize();
 
-            m_userPresenter.UserDataInsertUser();
+            //  m_userPresenter.UserDataInsertUser();
             // m_mockRepo.Verify(mock => mock.Add(m_fakeUser), Times.Once()); TODO: fix the mock verification
 
         }
