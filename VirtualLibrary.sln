@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualLibrary", "VirtualLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualLibraryTests", "VirtualLibraryTests\VirtualLibraryTests.csproj", "{7DCD41D6-B172-43DA-AB5E-2AB5AEA2BBEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VILIB", "..\VirtualLibrary\VILIB\VILIB.csproj", "{CF137B9B-24E4-4A4E-9B4F-4C8A9634AEAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VILIB", "VILIB\VILIB.csproj", "{CF137B9B-24E4-4A4E-9B4F-4C8A9634AEAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
