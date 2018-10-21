@@ -22,5 +22,19 @@ namespace VILIB.Presenters
             return _mBookRepository.GetList().Where(book => book.IsTaken == false);
         }
 
+        public IBook FindBookByCode(string code)
+        {
+            var books = _mBookRepository.GetList();
+            if (books != null)
+            {
+                foreach (var book in books)
+                {
+                    if (book.Code.Equals(code))
+                        return book;
+                }
+            }
+            return null;
+        }
+
     }
 }

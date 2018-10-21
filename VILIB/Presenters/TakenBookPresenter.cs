@@ -18,7 +18,7 @@ namespace VILIB.Presenters
             _mBookRepository = bookRepository;
         }
 
-        public void AddTakenBook(IBook view, string username)
+        public IBook AddTakenBook(IBook view, string username)
         {
             _takenBook.IsTaken = true;
             _takenBook.TakenByUser = username;
@@ -30,6 +30,8 @@ namespace VILIB.Presenters
 
             _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
+
+            return _takenBook;
         }
 
         public List<IBook> FindUserTakenBooks()

@@ -52,8 +52,9 @@ namespace VILIB
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>
             {
                 var takenBookPresenter = container.Resolve<TakenBookPresenter>();
-                var libraryData = container.Resolve<ILibraryData>();
-                return new TakenBookController(takenBookPresenter, libraryData);
+                var bookPresenter = container.Resolve<BookPresenter>();
+                var scannerPresenter = container.Resolve<ScannerPresenter>();
+                return new TakenBookController(takenBookPresenter, bookPresenter, scannerPresenter);
             }));
 
             container.RegisterType<BookController>(new InjectionFactory(o =>
