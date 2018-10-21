@@ -12,14 +12,12 @@ namespace VirtualLibrary.Model
 
         public bool IsTaken { get; set; }
         public string TakenByUser { get; set; }
-        public DateTime TakenWhen { get; set; }
-        public DateTime HasToBeReturned { get; set; }
+        public DateTime? TakenWhen { get; set; }
+        public DateTime? HasToBeReturned { get; set; }
 
         public bool Equals(IBook other)
         {
-            return
-                Code == other
-                    .Code; //  || (Code == string.Empty && other.Code == string.Empty) || (Code == null && other.Code == null);
+            return Code == other.Code;
         }
 
         //TODO: 

@@ -92,7 +92,7 @@ namespace VirtualLibrary.Forms
 
                     var bookReturnWarning = new BookReturnEmail(
                     _userPresenter.FindUser().Email,
-                    addedBook.HasToBeReturned,
+                    (DateTime)addedBook.HasToBeReturned,
                     _book.Author,
                     _book.Title);
                     try
