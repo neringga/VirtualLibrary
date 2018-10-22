@@ -5,7 +5,7 @@ using ZXing;
 
 namespace VILIB.Presenters
 {
-    internal class ScannerPresenter
+    public class ScannerPresenter
     {
         private readonly IBarcodeReader _reader = new BarcodeReader();
 
@@ -15,19 +15,5 @@ namespace VILIB.Presenters
             return _reader.Decode(barcodeBitmap);
         }
 
-        public IBook ScannedBook(string barcode)
-        {
-            var localDataSource = new LocalDataSource();
-            var books = localDataSource.GetBookList();
-            if (books != null)
-            {
-                foreach (var book in books)
-                {
-                    if (book.Code.Equals(barcode))
-                        return book;
-                }
-            }
-            return null;
-        }
     }
 }
