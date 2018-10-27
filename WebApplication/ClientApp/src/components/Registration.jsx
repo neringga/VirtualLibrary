@@ -29,12 +29,14 @@ export class Registration extends Component {
 		event.preventDefault()
 		const data = this.state
 		console.log(data)
-		axios.put("http://localhost:50898/api/User", data)
+		axios.put("http://localhost:50898/api/User/5", data)
 			.then(response => {
-				if (response.data)
-					console.log("miau")
-				else
-					console.log(response)
+				if (response.data) {
+					console.log("gerai")
+				}
+				else{
+					console.log("blogai")
+				}	
 			});
 
 	}

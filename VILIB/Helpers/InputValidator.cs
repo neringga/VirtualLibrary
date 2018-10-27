@@ -27,7 +27,7 @@ namespace VILIB.Helpers
             if (email == null)
                 return true;
 
-            return _userRepository.GetList().Select(user => user.Nickname).Contains(email);
+            return _userRepository.GetList().Select(user => user.Email).Contains(email);
         }
 
         public bool ValidPassword(string password)

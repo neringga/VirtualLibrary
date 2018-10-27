@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using VILIB.Helpers;
 using VILIB.Model;
@@ -52,17 +53,17 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            IUser credentials = JsonConvert.DeserializeObject<IUser>(jsonContent);
+            var credentials = JsonConvert.DeserializeObject<User>(jsonContent);
 
             if (!_mInputValidator.UsernameTaken(credentials.Nickname)
-                || !_mInputValidator.UsernameTaken(credentials.Email))
+                || !_mInputValidator.EmailTaken(credentials.Email))
             {
-                return JsonResponse.JsonHttpResponse<Object>(null);
+                _mUserRepository.Add(credentials);
+                return JsonResponse.JsonHttpResponse<Object>(true);
             }
             else
             {
-                _mUserRepository.Add(credentials);
-                return JsonResponse.JsonHttpResponse<Object>("Success");
+                return JsonResponse.JsonHttpResponse<Object>(false);
             }
         }
 
