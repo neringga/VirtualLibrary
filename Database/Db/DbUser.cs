@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace VirtualLibrary.DataSources.Db
 {
     public class DbUser : IUser
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id;
+        public int RowId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
