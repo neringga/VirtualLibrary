@@ -1,7 +1,9 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 import "./Registration.css";
-//import constants from "./Constants";
+import {HttpRequestPath, userRegistrationApi, emailRegex, emailErr, emailRegisteredErr, successfullRegistration,
+	 usernameErr, passordNotMatchErr, emailRegexErr, usernameShortErr} from "./Constants.jsx";
+import { Link } from 'react-router-dom'
 
 
 export class Registration extends Component {
@@ -25,19 +27,41 @@ export class Registration extends Component {
 		
 	}
 
+	checkInput = (event) => {
+		if (this.state.username == null || this.state.username.length < 3) {
+			alert(usernameShortErr)
+			return false
+		}
+		if (this.state.password == null || this.state.password != this.state.repPassword) {
+			alert(passordNotMatchErr)
+			return false
+		}
+		if (this.state.email == null || 
+			!this.state.email.match(emailRegex)) {
+			alert(emailRegexErr)
+			return false
+		}
+		
+		return true
+	}
+
 	handleSubmit = (event) => {
 		event.preventDefault()
+		if (this.checkInput()) {
 		const data = this.state
-		console.log(data)
-		axios.put("http://localhost:50898/api/User/5", data)
+		axios.put(HttpRequestPath + userRegistrationApi, data)
 			.then(response => {
 				if (response.data) {
-					console.log("gerai")
+					alert(successfullRegistration)
 				}
-				else{
-					console.log("blogai")
-				}	
+				else if (response.data == emailErr){
+					alert(emailRegisteredErr)
+				}
+				else if (response.data == usernameErr){
+					alert(usernameErr)
+				}
 			});
+		}
 
 	}
 
@@ -82,6 +106,12 @@ export class Registration extends Component {
 						type="Password"
 						onChange={this.handleInputChange}
 					/>
+					<br />
+					<Link to={'/camera'}>                   
+						<button className="button">
+							Take a pic
+						</button>
+					</Link>
 					<br />
 					<button >Register</button>
 				</form>

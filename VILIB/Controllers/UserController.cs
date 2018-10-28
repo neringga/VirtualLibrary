@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using VILIB.DataSources.Data;
 using VILIB.Helpers;
 using VILIB.Model;
 using VILIB.View;
@@ -55,16 +56,30 @@ namespace VILIB.Controllers
             string jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<User>(jsonContent);
 
-            if (!_mInputValidator.UsernameTaken(credentials.Nickname)
-                || !_mInputValidator.EmailTaken(credentials.Email))
+            if (_mInputValidator.UsernameTaken(credentials.Nickname))
+            {
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UsernameErr);
+            }
+            else if (_mInputValidator.EmailTaken(credentials.Email))
+            {
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.EmailErr);
+            }
+            else
             {
                 _mUserRepository.Add(credentials);
                 return JsonResponse.JsonHttpResponse<Object>(true);
             }
-            else
-            {
-                return JsonResponse.JsonHttpResponse<Object>(false);
-            }
+
+            //if (!_mInputValidator.UsernameTaken(credentials.Nickname)
+            //    || !_mInputValidator.EmailTaken(credentials.Email))
+            //{
+            //    _mUserRepository.Add(credentials);
+            //    return JsonResponse.JsonHttpResponse<Object>(true);
+            //}
+            //else
+            //{
+            //    return JsonResponse.JsonHttpResponse<Object>(false);
+            //}
         }
 
         // DELETE: api/User/5
