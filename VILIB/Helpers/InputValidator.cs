@@ -14,12 +14,20 @@ namespace VILIB.Helpers
             _userRepository = userRepository;
         }
 
-        public bool UsernameTaken(string username, string defaultUsername = "default")
+        public bool UsernameTaken(string username)
         {
             if (username == null)
-                username = defaultUsername;
+                return true;
 
             return _userRepository.GetList().Select(user => user.Nickname).Contains(username);
+        }
+
+        public bool EmailTaken(string email)
+        {
+            if (email == null)
+                return true;
+
+            return _userRepository.GetList().Select(user => user.Email).Contains(email);
         }
 
         public bool ValidPassword(string password)
