@@ -4,7 +4,8 @@ namespace VILIB.Helpers
 {
     public interface IInputValidator
     {
-        bool UsernameTaken(string username, string defaultUsername = "default");
+        bool UsernameTaken(string username);
+        bool EmailTaken(string email);
         bool ValidPassword(string password);
         bool ValidEmail(string email);
         bool ValidString(string value);
