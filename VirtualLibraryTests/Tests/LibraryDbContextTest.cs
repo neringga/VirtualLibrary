@@ -26,7 +26,7 @@ namespace VirtualLibraryTests.Tests
         public void LibraryCintext_UsersTableShouldBeNotNull()
         {
             var dbContext = new LibraryDbContext();
-            Assert.IsNotNull(dbContext.Users);
+            Assert.IsNotNull(dbContext.Database.Users);
         }
     }
 }
