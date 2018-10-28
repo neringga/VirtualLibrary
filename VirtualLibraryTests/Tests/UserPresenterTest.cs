@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Database.Db;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -34,19 +35,15 @@ namespace VirtualLibraryTests.Helpers
             Assert.IsNotNull(m_userPresenter);
         }
 
-        [TestMethod]
-        public void UserDataInsertUser_ValidUser_MessageBoxShown()
-        {
-            m_fakeUser = new User() { Name = "name", Surname = "surname", Email = "e@mail.com" };
-            Initialize();
+       
 
-<<<<<<< Updated upstream:VirtualLibraryTests/Tests/UserPresenterTest.cs
-            //  m_userPresenter.UserDataInsertUser();
-=======
-            // m_userPresenter.UserDataInsertUser();
->>>>>>> Stashed changes:VirtualLibraryTests/Helpers/UserPresenterTest.cs
-            // m_mockRepo.Verify(mock => mock.Add(m_fakeUser), Times.Once()); TODO: fix the mock verification
+        //[TestMethod]
+        //public void UserDataInsertUser_ValidUser_MessageBoxShown()
+        //{
+        //    m_fakeUser = new User() { Name = "name", Surname = "surname", Email = "e@mail.com" };
+        //    Initialize();
 
-        }
+
+        //}
     }
 }
