@@ -1,121 +1,153 @@
-﻿import React, { Component } from 'react';
-import axios from 'axios';
+﻿import React, { Component } from "react";
+import axios from "axios";
 import "./Registration.css";
-import {HttpRequestPath, userRegistrationApi, emailRegex, emailErr, emailRegisteredErr, successfullRegistration,
-	 usernameErr, passordNotMatchErr, emailRegexErr, usernameShortErr} from "./Constants.jsx";
-import { Link } from 'react-router-dom'
-
+import {
+  HttpRequestPath,
+  userRegistrationApi,
+  emailRegex,
+  emailErr,
+  emailRegisteredErr,
+  successfullRegistration,
+  usernameErr,
+  passordNotMatchErr,
+  emailRegexErr,
+  usernameShortErr
+} from "./Constants.jsx";
+import { Link } from "react-router-dom";
 
 export class Registration extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			username: "",
-			firstName: "",
-			lastName: "",
-			email: "",
-			password: "",
-			repPassword: ""
-		}
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      repPassword: ""
+    };
+  }
 
-	handleInputChange = (event) => {
-		event.preventDefault()
-		this.setState({
-			[event.target.name]: event.target.value
-		});
-		
-	}
+  handleInputChange = event => {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
-	checkInput = (event) => {
-		if (this.state.username == null || this.state.username.length < 3) {
-			alert(usernameShortErr)
-			return false
-		}
-		if (this.state.password == null || this.state.password != this.state.repPassword) {
-			alert(passordNotMatchErr)
-			return false
-		}
-		if (this.state.email == null || 
-			!this.state.email.match(emailRegex)) {
-			alert(emailRegexErr)
-			return false
-		}
-		
-		return true
-	}
+  checkInput = event => {
+    if (this.state.username == null || this.state.username.length < 3) {
+      alert(usernameShortErr);
+      return false;
+    }
+    if (
+      this.state.password == null ||
+      this.state.password != this.state.repPassword
+    ) {
+      alert(passordNotMatchErr);
+      return false;
+    }
+    if (this.state.email == null || !this.state.email.match(emailRegex)) {
+      alert(emailRegexErr);
+      return false;
+    }
 
-	handleSubmit = (event) => {
-		event.preventDefault()
-		if (this.checkInput()) {
-		const data = this.state
-		axios.put(HttpRequestPath + userRegistrationApi, data)
-			.then(response => {
-				if (response.data) {
-					alert(successfullRegistration)
-				}
-				else if (response.data == emailErr){
-					alert(emailRegisteredErr)
-				}
-				else if (response.data == usernameErr){
-					alert(usernameErr)
-				}
-			});
-		}
+    return true;
+  };
 
-	}
+  handleSubmit = event => {
+    event.preventDefault();
+    if (this.checkInput()) {
+      const data = this.state;
+      axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
+        if (response.data) {
+          alert(successfullRegistration);
+        } else if (response.data == emailErr) {
+          alert(emailRegisteredErr);
+        } else if (response.data == usernameErr) {
+          alert(usernameErr);
+        }
+      });
+    }
+  };
 
-	render() {
-		return (
-			<div className="container">
-				<form className="box" onSubmit={this.handleSubmit}>
-					<input
-						name="username"
-						placeholder="Username"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<input
-						name="firstName"
-						placeholder="First name"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<input
-						name="lastName"
-						placeholder="Last name"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<input
-						name="email"
-						placeholder="Email"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<input
-						name="password"
-						placeholder="Password"
-						type="Password"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<input
-						name="repPassword"
-						placeholder="Repeat Password"
-						type="Password"
-						onChange={this.handleInputChange}
-					/>
-					<br />
-					<Link to={'/camera'}>                   
-						<button className="button">
-							Take a pic
-						</button>
-					</Link>
-					<br />
-					<button >Register</button>
-				</form>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="container">
+        <div className="scrollableBox" overflow-y="scroll">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                type="username"
+                className="form-control"
+                placeholder="Username"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>First name</label>
+              <input
+                className="form-control"
+                name="firstName"
+                placeholder="First name"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Last name</label>
+              <input
+                className="form-control"
+                name="lastName"
+                placeholder="Last name"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                className="form-control"
+                name="email"
+                placeholder="Email"
+                onChange={this.handleInputChange}
+              />
+              <small id="emailHelp" class="form-text text-muted">
+                We'll never share your email with anyone else.
+              </small>
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                className="form-control"
+                name="password"
+                placeholder="Password"
+                type="Password"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Repeat password</label>
+              <input
+                className="form-control"
+                name="repPassword"
+                type="Password"
+                onChange={this.handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+            <Link to={"/camera"}>
+            <button type="button" class="btn btn-secondary">Take a picture</button>
+            </Link>
+            </div>
+            <div className="form-group">
+            <Link to={'/NavBar'}>  
+            <button type="submit" className="btn btn-primary">Submit</button>
+            </Link>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
