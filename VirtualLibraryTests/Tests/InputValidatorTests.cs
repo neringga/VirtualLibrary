@@ -13,11 +13,11 @@ namespace VirtualLibrary.Helpers.Tests
     [TestClass]
     public class InputValidatorTests
     {
-        //private InputValidator m_inputValidator;
+        private InputValidator m_inputValidator;
 
-        //private string m_validName = "valid name";
-        //private string m_validSurname = "valid surname";
-        //private string m_validEmail = "valid@email.com";
+        private string m_validName = "valid name";
+        private string m_validSurname = "valid surname";
+        private string m_validEmail = "valid@email.com";
 
         //[TestInitialize]
         //public void Initialize()

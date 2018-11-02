@@ -11,7 +11,7 @@ namespace VirtualLibrary.View
 
         bool IsTaken { get; set; }
         string TakenByUser { get; set; }
-        DateTime TakenWhen { get; set; }
-        DateTime HasToBeReturned { get; set; }
+        DateTime? TakenWhen { get; set; }
+        DateTime? HasToBeReturned { get; set; }
     }
 }
