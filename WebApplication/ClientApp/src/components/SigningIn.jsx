@@ -30,12 +30,60 @@ export class SigningIn extends Component {
             return false;
         }
         if (
-            this.state.password == null ) {
+            this.state.password == null) {
             alert(noPassword);
             return false;
         }
         return true;
     };
 
+    handleSubmit = event => {
+        event.preventDefault();
+        if (this.checkInput()) {
+            const data = this.state;
+            axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
+                if (response.data) {
+                    alert(successfullRegistration);
+                } else if (response.data == noUserErr) {
+                    alert(noUser);
+                }
+            });
+        }
+    };
 
+    render() {
+        return (
+        <div className="container">
+            <div className="scrollableBox" overflow-y="scroll">
+                <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label>Username</label>
+                        <input
+                            type="username"
+                            className="form-control"
+                            placeholder="Username"
+                            onChange={this.handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            className="form-control"
+                            name="password"
+                            placeholder="Password"
+                            type="Password"
+                            onChange={this.handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <Link to={'/NavBar'}>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </Link>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    );
+}
 }
