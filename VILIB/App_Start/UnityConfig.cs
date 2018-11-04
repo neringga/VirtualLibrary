@@ -43,11 +43,11 @@ namespace VILIB
             }));
 
             //Controllers
-            container.RegisterType<UserController>(new InjectionFactory(o =>
+            container.RegisterType<UserRegistrationController>(new InjectionFactory(o =>
             {
                 var userRepository = container.Resolve<IUserRepository>();
                 var inputValidator = container.Resolve<IInputValidator>();
-                return new UserController(userRepository, inputValidator);
+                return new UserRegistrationController(userRepository, inputValidator);
             }));
 
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>

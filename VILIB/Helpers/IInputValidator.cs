@@ -10,5 +10,6 @@ namespace VILIB.Helpers
         bool ValidEmail(string email);
         bool ValidString(string value);
         bool ValidateStrings(IList<string> strings);
+        bool ValidatetLogin(string username, string password);
     }
 }

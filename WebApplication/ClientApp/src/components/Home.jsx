@@ -8,8 +8,12 @@ export class Home extends Component {
 		return (
 			<div className="container">
 				<div className="box">
-					<h1>Welcome to Virtual Library!</h1>
-					<button className="button"> Sign In</button>
+                    <h1>Welcome to Virtual Library!</h1>
+                    <Link to={'/signIn'}>
+                        <button className="button">
+                            SignIn
+                        </button>
+                    </Link>
 					<Link to={'/registration'}>                   
 						<button className="button">
 							Register

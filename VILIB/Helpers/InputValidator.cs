@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using VILIB.DataSources;
 using VILIB.Repositories;
 
 namespace VILIB.Helpers
@@ -49,6 +50,12 @@ namespace VILIB.Helpers
         public bool ValidateStrings(IList<string> strings)
         {
             return strings.All(s => ValidString(s));
+        }
+
+        public bool ValidateLogin(string username, string password)
+        {
+            // if (_userRepository.GetList().Where(user => user.Nickname == username && user.Password == password)) == true)
+            return _userRepository.Login(username, password).Equals(1) ? true : false;
         }
     }
 }
