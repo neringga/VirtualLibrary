@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
-import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export class NavBar extends Component {
       : "collapse navbar-collapse show";
     const classTwo = collapsed ? "navbar-toggle collapsed" : "navbar-toggle";
     return (
-      <nav className="navbar sticky-top navbar-default">
+      <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
             <button
@@ -44,17 +43,20 @@ export class NavBar extends Component {
             </button>
 
             <div className={`${classOne}`} id="navbarResponsive">
-              <a className="navbar-brand disabled" href="#">                     {/*TODO responsive brand(it disapears in small screen*/}
+              <a className="navbar-brand" href="#">                     {/*TODO responsive brand(it disapears in small screen*/}
                 VILIB
               </a>
               <ul className="nav navbar-nav">
-                <li>
-                  <a href="#">Home</a>
+                <li className="active">
+                  <a href="/NavBar">Home</a>
                 </li>
                 <li>
                   <a href="#">My Books</a>
                 </li>
               </ul>
+              <ul className="nav navbar-nav navbar-right">
+        <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
             </div>
           </div>
         </div>

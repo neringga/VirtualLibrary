@@ -6,8 +6,8 @@ export class HomePage extends Component {
   render() {
     return (
       <div className="containerHome">
-        <NavBar/>
-        <BookList/>
+        
+        <BookList/><NavBar/>
       </div>
     );
   }
