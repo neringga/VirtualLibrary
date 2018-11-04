@@ -16,12 +16,12 @@ using VILIB.Repositories;
 namespace VILIB.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class UserController : ApiController
+    public class UserRegistrationController : ApiController
     {
         private readonly IUserRepository _mUserRepository;
         private readonly IInputValidator _mInputValidator;
 
-        public UserController(IUserRepository userRepository, IInputValidator inputValidator)
+        public UserRegistrationController(IUserRepository userRepository, IInputValidator inputValidator)
         {
             _mUserRepository = userRepository;
             _mInputValidator = inputValidator;
@@ -86,6 +86,5 @@ namespace VILIB.Controllers
         //public void Delete(int id)
         //{
         //}
-
-    }
+        }
 }

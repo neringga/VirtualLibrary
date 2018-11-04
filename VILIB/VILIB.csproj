@@ -207,7 +207,8 @@
     <Compile Include="BookReturnEmail.cs" />
     <Compile Include="Controllers\FaceDetectionController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserRegistrationController.cs" />
+    <Compile Include="Controllers\UserSignInController.cs" />
     <Compile Include="DataSources\Data\BookList.cs" />
     <Compile Include="DataSources\Data\EmailCredentials.cs" />
     <Compile Include="DataSources\Data\StaticDataSource.cs" />

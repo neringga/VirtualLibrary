@@ -2,9 +2,11 @@
 import axios from "axios";
 import "./SigningIn.css";
 import {
-    usernameDoesntExist,
+    noUser,
     noUsername,
-    noPassword
+    noPassword,
+    successfullSignIn
+    userRegistrationApi,
 } from "./Constants.jsx";
 import { Link } from "react-router-dom";
 
@@ -43,8 +45,8 @@ export class SigningIn extends Component {
             const data = this.state;
             axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
                 if (response.data) {
-                    alert(successfullRegistration);
-                } else if (response.data == noUserErr) {
+                    alert(successfullSignIn);
+                } else if (response.data == noUser) {
                     alert(noUser);
                 }
             });
@@ -77,7 +79,7 @@ export class SigningIn extends Component {
                     </div>
                     <div className="form-group">
                         <Link to={'/NavBar'}>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="sign in" className="btn btn-primary">SignIn</button>
                         </Link>
                     </div>
 
