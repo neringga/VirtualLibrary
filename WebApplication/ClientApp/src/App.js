@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router';
 
 import { Start } from './components/Start';
 import { Registration } from './components/Registration';
+import { SigningIn } from './components/SigningIn'
 import { Cam } from './components/Cam';
 import { NavBar } from './components/NavBar';
 import { BookList } from './components/BookList';
@@ -14,7 +15,8 @@ export default class App extends Component {
 		return (
 			<Switch>
 				<Route exact path='/' component={Start} />
-				<Route exact path='/registration' component={Registration} />
+                <Route exact path='/registration' component={Registration} />
+                <Route exact path='/signIn' component={SigningIn} />
 				<Route exact path='/camera' component={Cam} />
 				<Route exact path='/homePage' component={HomePage} />
 

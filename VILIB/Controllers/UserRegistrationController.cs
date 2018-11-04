@@ -16,12 +16,12 @@ using VILIB.Repositories;
 namespace VILIB.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class UserController : ApiController
+    public class UserRegistrationController : ApiController
     {
         private readonly IUserRepository _mUserRepository;
         private readonly IInputValidator _mInputValidator;
 
-        public UserController(IUserRepository userRepository, IInputValidator inputValidator)
+        public UserRegistrationController(IUserRepository userRepository, IInputValidator inputValidator)
         {
             _mUserRepository = userRepository;
             _mInputValidator = inputValidator;
@@ -49,7 +49,7 @@ namespace VILIB.Controllers
         //{
         //}
 
-        //PUT: api/User/5
+        //PUT: api/UserRegistration/5
         public async Task<HttpResponseMessage> Put()
         {
             HttpContent requestContent = Request.Content;
@@ -58,7 +58,7 @@ namespace VILIB.Controllers
 
             if (_mInputValidator.UsernameTaken(credentials.Nickname))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UsernameErr);
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.noUser);
             }
             else if (_mInputValidator.EmailTaken(credentials.Email))
             {
@@ -86,6 +86,5 @@ namespace VILIB.Controllers
         //public void Delete(int id)
         //{
         //}
-
-    }
+        }
 }
