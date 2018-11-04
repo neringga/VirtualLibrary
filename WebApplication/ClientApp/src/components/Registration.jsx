@@ -140,7 +140,7 @@ export class Registration extends Component {
             </Link>
             </div>
             <div className="form-group">
-            <Link to={'/NavBar'}>  
+            <Link to={'/HomePage'}>  
             <button type="submit" className="btn btn-primary">Submit</button>
             </Link>
             </div>
