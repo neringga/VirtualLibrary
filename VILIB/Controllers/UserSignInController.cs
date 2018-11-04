@@ -21,7 +21,7 @@ namespace VILIB.Controllers
         private readonly IUserRepository _mUserRepository;
         private readonly IInputValidator _mInputValidator;
 
-        public UserSignInController(IUserRepository userRepository, IInputValidator inputValidator)
+        public UserRegistrationController(IUserRepository userRepository, IInputValidator inputValidator)
         {
             _mUserRepository = userRepository;
             _mInputValidator = inputValidator;
@@ -45,13 +45,26 @@ namespace VILIB.Controllers
         }*/
 
         // PUT: api/UserSignIn/5
-        public void Put(int id, [FromBody]string value)
+        public async Task<HttpResponseMessage> Put()
         {
-        }
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            var credentials = JsonConvert.DeserializeObject<User>(jsonContent);
 
-        /*// DELETE: api/UserSignIn/5
-        public void Delete(int id)
-        {
-        }*/
+            if (_mInputValidator.ValidatetLogin(credentials.Nickname, credentials.Password))
+            {
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.noUser);
+            }
+            else
+            {
+                //_mUserRepository.Add(credentials);
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
+            }
+
+            /*// DELETE: api/UserSignIn/5
+            public void Delete(int id)
+            {
+            }*/
+        }
     }
 }

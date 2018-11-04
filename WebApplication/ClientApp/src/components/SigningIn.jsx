@@ -5,8 +5,9 @@ import {
     noUser,
     noUsername,
     noPassword,
-    successfullSignIn
-    userRegistrationApi,
+    successfullSignIn,
+    userSignInApi,
+    HttpRequestPath
 } from "./Constants.jsx";
 import { Link } from "react-router-dom";
 
@@ -43,7 +44,7 @@ export class SigningIn extends Component {
         event.preventDefault();
         if (this.checkInput()) {
             const data = this.state;
-            axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
+            axios.put(HttpRequestPath + userSignInApi, data).then(response => {
                 if (response.data) {
                     alert(successfullSignIn);
                 } else if (response.data == noUser) {

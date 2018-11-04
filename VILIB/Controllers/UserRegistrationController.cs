@@ -49,7 +49,7 @@ namespace VILIB.Controllers
         //{
         //}
 
-        //PUT: api/User/5
+        //PUT: api/UserRegistration/5
         public async Task<HttpResponseMessage> Put()
         {
             HttpContent requestContent = Request.Content;
@@ -58,7 +58,7 @@ namespace VILIB.Controllers
 
             if (_mInputValidator.UsernameTaken(credentials.Nickname))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UsernameErr);
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.noUser);
             }
             else if (_mInputValidator.EmailTaken(credentials.Email))
             {

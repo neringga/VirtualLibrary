@@ -24,7 +24,7 @@ namespace VILIB.Repositories
             return _dataSource.GetUserList();
         }
 
-        public bool Login(string username, string password)
+        public  bool Login(string username, string password)
         {
             return _dataSource.GetUserList().Where(user => user.Nickname == username && user.Password == password)
                        .ToList().Count == 1;
