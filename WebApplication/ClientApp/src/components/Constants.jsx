@@ -3,6 +3,7 @@
 export const HttpRequestPath = "http://localhost:50898/"
 export const userRegistrationApi = "api/UserRegistration/5"
 export const userSignInApi = "api/UserSignIn/5"
+export const bookListApi = "api/Book"
 export const emailRegex = new RegExp(/^\S+@\S+\.\S+$/)
 export const passordNotMatchErr = "Passwords don't match"
 export const usernameShortErr = "Username is too short"
