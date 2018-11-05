@@ -11,7 +11,8 @@ import {
   usernameErr,
   passordNotMatchErr,
   emailRegexErr,
-  usernameShortErr
+  usernameShortErr,
+  usernameRegisteredErr
 } from "./Constants.jsx";
 import { Link } from "react-router-dom";
 
@@ -24,7 +25,8 @@ export class Registration extends Component {
       lastName: "",
       email: "",
       password: "",
-      repPassword: ""
+      repPassword: "",
+      validInput: false
     };
   }
 
@@ -36,7 +38,7 @@ export class Registration extends Component {
   };
 
   checkInput = event => {
-    if (this.state.username == null || this.state.username.length < 3) {
+    if (this.state.username == null ) {
       alert(usernameShortErr);
       return false;
     }
@@ -60,18 +62,27 @@ export class Registration extends Component {
     if (this.checkInput()) {
       const data = this.state;
       axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
-        if (response.data) {
-          alert(successfullRegistration);
-        } else if (response.data == emailErr) {
+        if (response.data == emailErr) {
           alert(emailRegisteredErr);
         } else if (response.data == usernameErr) {
-          alert(usernameErr);
+          alert(usernameRegisteredErr);
+        } else if (response.data) {
+          alert(successfullRegistration);
         }
       });
     }
+    this.setState({ validInput: true });
   };
 
   render() {
+    const validInput = this.state.validInput;
+    let button;
+    if (validInput) {
+      button = <Link to={'/HomePage'}><button type="submit" className="btn btn-primary">Submit</button></Link>
+    }
+    else {
+      button = <button type="submit" className="btn btn-primary">Submit</button>
+    }
     return (
       <div className="container">
         <div className="scrollableBox" overflow-y="scroll">
@@ -140,11 +151,8 @@ export class Registration extends Component {
             </Link>
             </div>
             <div className="form-group">
-            <Link to={'/HomePage'}>  
-            <button type="submit" className="btn btn-primary">Submit</button>
-            </Link>
+               { button }         
             </div>
-
           </form>
         </div>
       </div>
