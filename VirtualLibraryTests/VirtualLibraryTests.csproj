@@ -89,10 +89,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{E3089982-E97E-445D-A593-093209F31BFE}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VirtualLibrary\VirtualLibrary.csproj">
       <Project>{6F784BA1-E19D-48C1-87A5-0A4C8ECB3548}</Project>
       <Name>VirtualLibrary</Name>
