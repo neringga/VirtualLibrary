@@ -37,14 +37,14 @@ export class BookTaking extends Component {
 
     uploadHandler = () => {
         console.log(this.currentImage);
-        const url = HttpRequestPath + bookActionsApi + 'TakenBook';
+        const url = HttpRequestPath +'api/TakenBook';
         console.log(url);
         const data = this.state.file;
-        //axios.put(url, data).then(response => {
+        axios.put(url, data).then(response => {
+            this.setState({ recongnizedBook: 'Some book title' });
+            this.render();
+        });
 
-        //});
-        this.setState({ recongnizedBook: 'Some book title' });
-        this.render();
     }
 
     takeBookHandler = () => {
@@ -69,7 +69,7 @@ export class BookTaking extends Component {
                         Take this book
 					</button>
                 </div>
-               
+
             );
         } else {
             $recognizedImage = (<div>Not recognized</div>);

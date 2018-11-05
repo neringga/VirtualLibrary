@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Drawing;
 using System.IO;
 using System.Net.Http;
 using System.Web;
@@ -33,14 +34,13 @@ namespace VILIB.Controllers
             };
         }
 
-        public HttpResponseMessage Put(HttpPostedFileBase file)    //not tested
+        public HttpResponseMessage Put(Bitmap image)    //not tested
         {
-            if (file.ContentLength > 0)
+            if (image != null)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/uploads"), fileName);
-                var decodedCode = _scannerPresenter.DecodedBarcode(path);
-                var book = _bookPresenter.FindBookByCode(decodedCode.Text);
+                var bookCode = _scannerPresenter.DecodeToText(image);
+                var book = _bookPresenter.FindBookByCode(bookCode);
+
                 var takenBook = _takenBookPresenter.AddTakenBook(book, StaticDataSource.CurrUser);
                 return new HttpResponseMessage
                 {
@@ -76,6 +76,7 @@ namespace VILIB.Controllers
                     System.Text.Encoding.UTF8, "application/json")
             };
         }
+
 
     }
 

@@ -11,8 +11,14 @@ namespace VILIB.Presenters
 
         public Result DecodedBarcode(string imageLocation)
         {
-            var barcodeBitmap = (Bitmap) Image.FromFile(imageLocation);
+            var barcodeBitmap = (Bitmap)Image.FromFile(imageLocation);
             return _reader.Decode(barcodeBitmap);
+        }
+
+        public string DecodeToText(Bitmap image)
+        {
+            var result = _reader.Decode(image);
+            return result.Text;
         }
 
     }
