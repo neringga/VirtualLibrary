@@ -9,10 +9,18 @@ namespace VILIB.Presenters
     {
         private readonly IBarcodeReader _reader = new BarcodeReader();
 
-        public Result DecodedBarcode(string imageLocation)
+        public string DecodedBarcode(string imageLocation)
         {
-            var barcodeBitmap = (Bitmap) Image.FromFile(imageLocation);
-            return _reader.Decode(barcodeBitmap);
+            var barcodeBitmap = (Bitmap)Image.FromFile(imageLocation);
+            var result = _reader.Decode(barcodeBitmap);
+            return result.Text;
+            //return _reader.Decode(barcodeBitmap);
+        }
+
+        public string DecodeToText(Bitmap image)
+        {
+            var result = _reader.Decode(image);
+            return result.Text;
         }
 
     }

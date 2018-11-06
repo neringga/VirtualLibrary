@@ -1,8 +1,10 @@
 ﻿import * as React from 'react';
 
 export const HttpRequestPath = "http://localhost:50898/"
-export const userRegistrationApi = "api/UserRegistration/5"
-export const userSignInApi = "api/UserSignIn/5"
+export const userRegistrationApi = "api/UserRegistration/"
+export const userSignInApi = "api/UserSignIn/"
+export const bookActionsApi = "api/BarcodeScanner/"
+export const BookTakingApi = "api/TakenBook/"
 export const emailRegex = new RegExp(/^\S+@\S+\.\S+$/)
 export const passordNotMatchErr = "Passwords don't match"
 export const usernameShortErr = "Username is too short"

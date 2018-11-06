@@ -50,6 +50,14 @@ namespace VILIB
                 return new UserRegistrationController(userRepository, inputValidator);
             }));
 
+            container.RegisterType<BarcodeScannerController>(new InjectionFactory(o =>
+            {
+                var takenBookPresenter = container.Resolve<TakenBookPresenter>();
+                var bookPresenter = container.Resolve<BookPresenter>();
+                var scannerPresenter = container.Resolve<ScannerPresenter>();
+                return new BarcodeScannerController(takenBookPresenter, bookPresenter, scannerPresenter);
+            }));
+
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>
             {
                 var takenBookPresenter = container.Resolve<TakenBookPresenter>();

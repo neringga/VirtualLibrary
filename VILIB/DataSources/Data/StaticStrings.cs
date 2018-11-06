@@ -21,7 +21,7 @@ namespace VILIB.DataSources.Data
         public static string RegisteredEmailErr = "This email is already registered";
         public static string RegisteredUsernameErr = "This username is already registered";
         public static string RegisteredSuccessfully = "Registered successfully";
-        public static string LoggedIn = "You are logged in"
+        public static string LoggedIn = "You are logged in";
 
     }
 }
