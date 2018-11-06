@@ -11,6 +11,7 @@ using VILIB.View;
 using VILIB.Helpers;
 using VILIB.Presenters;
 using VILIB.Repositories;
+using VILIB.DataSources.Data;
 
 namespace VILIB
 {
@@ -69,6 +70,11 @@ namespace VILIB
             {
                 var bookPresenter = container.Resolve<BookPresenter>();
                 return new BookController(bookPresenter);
+            }));
+
+            container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
+            {
+                return new FaceDetectionController();//(StaticStrings.faceDetectionTrainingFileName, 1, container.Resolve<IExceptionLogger>()); //replace 1 with StaticStrings const
             }));
 
             // Helpers & Presenters
