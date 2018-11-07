@@ -155,6 +155,7 @@ export class Registration extends Component {
             </div>
             <div className="form-group">
 
+
             <button type="submit" className="btn btn-primary">Submit</button>
 
             </div>

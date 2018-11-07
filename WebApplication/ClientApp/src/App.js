@@ -22,6 +22,7 @@ export default class App extends Component {
 				<Route exact path='/homePage' component={HomePage} />
 
 				<Route exact path='/bookTaking' component={BookTaking} />
+
 			</Switch>
 		);
 	}
