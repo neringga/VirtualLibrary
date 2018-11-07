@@ -11,6 +11,7 @@ using VILIB.View;
 using VILIB.Helpers;
 using VILIB.Presenters;
 using VILIB.Repositories;
+using VILIB.DataSources.Data;
 
 namespace VILIB
 {
@@ -58,6 +59,13 @@ namespace VILIB
                 return new BarcodeScannerController(takenBookPresenter, bookPresenter, scannerPresenter);
             }));
 
+            container.RegisterType<UserSignInController>(new InjectionFactory(o =>
+            {
+                var userRepository = container.Resolve<IUserRepository>();
+                var inputValidator = container.Resolve<IInputValidator>();
+                return new UserSignInController(userRepository, inputValidator);
+            }));
+
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>
             {
                 var takenBookPresenter = container.Resolve<TakenBookPresenter>();
@@ -70,6 +78,11 @@ namespace VILIB
             {
                 var bookPresenter = container.Resolve<BookPresenter>();
                 return new BookController(bookPresenter);
+            }));
+
+            container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
+            {
+                return new FaceDetectionController();//(StaticStrings.faceDetectionTrainingFileName, 1, container.Resolve<IExceptionLogger>()); //replace 1 with StaticStrings const
             }));
 
             // Helpers & Presenters

@@ -9,12 +9,12 @@ namespace VILIB.DataSources.Data
                                                 "timeExceptions.txt";
         public const string BookFile = "BookList.txt";
         public const string UserFile = "faceImages.xml";
-        public const string FaceDetectionTrainingFile = "\\UserInformation\\haarcascade_frontalface_alt2.xml";
+        public const string faceDetectionTrainingFileName = "haarcascade_frontalface_alt2.xml";
         public const string EmailCredentialsFile = "email-details.txt";
         public const string PictureFilter = "jpg files(*.jpg)|*.jpg| png files(*.png)|*.png";
         public const int FaceImagesPerUser = 5;
-        public const int EmailErr = 0;
-        public const int noUser = 1;
+        public const int EmailErr = 1;
+        public const int UserErr = 2;
         public static string SubjectEmail = Translations.GetTranslatedString("warning");
         public static string WarningText = Translations.GetTranslatedString("returnThisBook");
         public static string WarningText2 = Translations.GetTranslatedString("until");

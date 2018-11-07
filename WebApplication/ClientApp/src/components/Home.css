@@ -1,10 +1,69 @@
-﻿.container {
-	background-color:tan;
+﻿h1 {
+	text-align: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+.container {
+	/* background-image: url('https://image.freepik.com/free-photo/wooden-table-with-blurred-background_1134-14.jpg'); */
+	   background-color: #cccccc;
+	   /* background-repeat: no-repeat; */
+	   /* background-size: 100% 100%; */
 	position: fixed;
 	width: 100%;
 	height: 100%;
 	z-index: -10;
 	transition: all 500ms ease;
+}
+
+.containerHome {
+	background-color:white;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	transition: all 500ms ease;
+}
+
+.containerBookList {
+	margin:60px auto;
+	width: 450px;
+	height: 400px;
+	background:whitesmoke;
+	padding: 5px;
+	border-radius: 5px;
+	position: absolute;
+	left: 10px;
+	top: 20px;
+	/* overflow-y: scroll; */
+}
+
+.containerStatistics {
+	margin:60px auto;
+	width: 450px;
+	height: 400px;
+	background:whitesmoke;
+	padding: 5px;
+	border-radius: 5px;
+	position: absolute;
+	left: 500px;
+	top: 20px;
+	/* overflow-y: scroll; */
+}
+
+.containerReviews {
+	margin:60px auto;
+	width: 450px;
+	height: 400px;
+	background:whitesmoke;
+	padding: 5px;
+	border-radius: 5px;
+	position: absolute;
+	left: 1000px;
+	top: 20px;
+	/* overflow-y: scroll; */
 }
 
 .scrollableBox {
@@ -14,7 +73,7 @@
 	height: 500px;
 	background: #fff;
 	padding: 30px;
-	border-radius: 20px;
+	border-radius: 10px;
 	overflow-y: scroll;
 }
 
@@ -25,7 +84,7 @@
 	height: 500px;
 	background: #fff;
 	padding: 30px;
-	border-radius: 20px;
+	border-radius: 10px;
 }
 
 .button {

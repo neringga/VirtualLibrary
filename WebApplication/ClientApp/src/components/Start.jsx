@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Home.css";
 import { Link } from 'react-router-dom'
 
-export class Home extends Component {
+export class Start extends Component {
 
 	render() {
 		return (
