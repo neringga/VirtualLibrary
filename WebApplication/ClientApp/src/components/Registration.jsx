@@ -146,7 +146,7 @@ export class Registration extends Component {
               />
             </div>
             <div className="form-group">
-            <Link to={"/camera"}>
+            <Link to={"/registration/camera"}>
             <button type="button" class="btn btn-secondary">Take a picture</button>
             </Link>
             </div>
