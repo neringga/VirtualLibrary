@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Webcam from "react-webcam";
+import Webcam from 'react-webcam';
 import axios from "axios"
 import "./RegistrationCamera.css";
 import {
@@ -13,7 +13,9 @@ export class RegistrationCamera extends Component {
 
   constructor(props) {
     super(props);
-    
+    this.state = {
+        base64image: null
+    };
   }
 
     setRef = webcam => {
@@ -21,10 +23,23 @@ export class RegistrationCamera extends Component {
     };
 
     capture = () => {
-        const imageSrc = this.webcam.getScreenshot();  
+        //this.setState({base64image: this.webcam.getScreenshot()}); 
+        const jsonUrl = JSON.stringify(this.webcam.getScreenshot());
+        console.log(jsonUrl);
+        axios
+            .post(HttpRequestPath + '/api/FaceDetection', this.webcam.getScreenshot())
+            .then (response => {
+                console.log(response);
+            });
     };
     
+    handleRecognision() {
+        axios
+            .post(HttpRequestPath + 'api/FaceDetection')
+            .then (response => {
 
+            });
+    }
     
 
   render() {
@@ -44,8 +59,7 @@ export class RegistrationCamera extends Component {
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
                     /></center>
-                
-                    <center>
+                <center>
                 <button onClick={this.capture}>Capture photo</button>
                 </center>
         </div>

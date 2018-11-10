@@ -14,6 +14,8 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Web;
+using System.Diagnostics;
 
 namespace VILIB.Controllers
 {
@@ -41,34 +43,30 @@ namespace VILIB.Controllers
         }
 
 
-        public async Task<HttpResponseMessage> Put()
+        public async Task<HttpResponseMessage> Post(string base64image)
         {
-            int numberOfImagesWithFace = 0;
+            var bytes = Convert.FromBase64String(base64image);
+            return JsonResponse.JsonHttpResponse<Object>("Good");
+            //for (int i = 0; i < image.Length; i++)
+            //{
+            //Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
+            //    Image<Bgr, byte> bgrImage = new Image<Bgr, byte>(new Bitmap(image));
+            //    var face = _detection.DetectMultiScale(bgrImage, 1.2, 0);
 
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            var imagesInStrings = JsonConvert.DeserializeObject<string[]>(jsonContent);
+            //    if (face.Length > 0)
+            //    {
+            //        numberOfImagesWithFace++;
+            //}
+            //}
 
-            for (int i = 0; i < imagesInStrings.Length; i++)
-            {
-                Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
-                Image<Bgr, byte> bgrImage = new Image<Bgr, byte>(new Bitmap(image));
-                var face = _detection.DetectMultiScale(bgrImage, 1.2, 0);
-
-                if (face.Length > 0)
-                {
-                    numberOfImagesWithFace++;
-                }
-            }   
-
-            if (numberOfImagesWithFace >= _faceImagesPerUser)
-            {
-            return JsonResponse.JsonHttpResponse<Object>("Enough faces");
-            }
-            else
-            {
-                return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
-            }
+            //if (numberOfImagesWithFace >= _faceImagesPerUser)
+            //{
+            //    return JsonResponse.JsonHttpResponse<Object>("Enough faces");
+            //}
+            //else
+            //{
+            //    return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
+            //}
         }
     }
 }

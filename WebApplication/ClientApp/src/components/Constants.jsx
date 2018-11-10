@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-
+//TODO Delete these constants and find another way how to store them
 export const HttpRequestPath = "http://localhost:50898/"
 export const userRegistrationApi = "api/UserRegistration/"
 export const userSignInApi = "api/UserSignIn/"

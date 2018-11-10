@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Table } from 'react-bootstrap';
 
 import { HttpRequestPath, bookListApi } from "./Constants";
 
@@ -25,17 +26,31 @@ export class BookList extends Component {
   render() {
     return (
       this.state.books!=null &&
-      <div className="containerBookList">
-        <h3>New Books</h3>
+      <center>
+      <div className="box">
+        <h3>Not taken books</h3>
         <br/>
-        <ul className="list-group">
-          { this.state.books.map( book => (
-            <li className="list-group-item"> 
+        <Table responsive>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            { this.state.books.map( book => (
+                <tr>
+            <td></td>
+            <td>
               {book.Title} {book.Author} 
-            </li>
-          ))}
-        </ul>
+            </td>
+            </tr>
+            ))}
+            
+        </tbody>
+      </Table>
       </div>
+      </center>
     );
   }
 }
