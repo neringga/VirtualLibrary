@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VILIB.DataSources;
 using VILIB.View;
 
@@ -7,16 +8,16 @@ namespace VILIB.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDataSource _dataSource;
+        private readonly IAsyncDataSource _dataSource;
 
-        public UserRepository(IDataSource dataSource)
+        public UserRepository(IAsyncDataSource dataSource)
         {
             _dataSource = dataSource;
         }
 
-        public void Add(IUser item)
+        public async Task<int> Add(IUser item)
         {
-            _dataSource.AddUser(item);
+            return await _dataSource.AddUser(item);
         }
 
         public IList<IUser> GetList()
@@ -24,15 +25,16 @@ namespace VILIB.Repositories
             return _dataSource.GetUserList();
         }
 
-        public  bool Login(string username, string password)
+        public bool Login(string username, string password)
         {
-            return _dataSource.GetUserList().Where(user => user.Nickname == username && user.Password == password)
+            var users = _dataSource.GetUserList();
+            return users.Where(user => user.Nickname == username && user.Password == password)
                        .ToList().Count == 1;
         }
 
-        public void Remove(IUser item)
+        public async Task<int> Remove(IUser item)
         {
-            _dataSource.RemoveUser(item);
+            return await _dataSource.RemoveUser(item);
         }
     }
 }

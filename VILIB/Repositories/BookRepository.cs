@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VILIB.DataSources;
 using VILIB.DataSources.Data;
 using VILIB.View;
@@ -16,14 +17,17 @@ namespace VILIB.Repositories
             _dataSource = dataSource;
         }
 
-        public void Add(IBook item)
+        public async Task<int> Add(IBook item)
         {
+           
             _dataSource.AddBook(item);
+            return 1;
         }
 
-        public void Remove(IBook item)
+        public async Task<int> Remove (IBook item)
         {
             _dataSource.RemoveBook(item);
+            return 1;
         }
 
         public IList<IBook> GetList()
