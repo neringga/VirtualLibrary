@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VILIB.DataSources;
@@ -27,8 +28,10 @@ namespace VILIB.Repositories
 
         public bool Login(string username, string password)
         {
+            Func<IUser, bool> userMatchingPredicate = user => user.Nickname == username && user.Password == password;
             var users = _dataSource.GetUserList();
-            return users.Where(user => user.Nickname == username && user.Password == password)
+
+            return users.Where(user => userMatchingPredicate.Invoke(user))
                        .ToList().Count == 1;
         }
 
