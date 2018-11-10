@@ -19,7 +19,7 @@ namespace VILIB.Model
         {
             return
                 Code == other
-                    .Code; //  || (Code == string.Empty && other.Code == string.Empty) || (Code == null && other.Code == null);
+                    .Code;
         }
 
         //TODO: 
