@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Dependencies;
-using Unity;
-using Unity.Exceptions;
-using Unity.Mvc5;
-using VILIB.Presenters;
+﻿using System.Web.Http;
+using Unity.WebApi;
 using VILIB.Resolvers;
 
 namespace VILIB
@@ -29,7 +21,8 @@ namespace VILIB
             );
 
             var container = UnityConfig.RegisterComponents();
-            config.DependencyResolver = new UnityResolver(container);
+            //config.DependencyResolver = new UnityResolver(container);\
+            config.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
 
