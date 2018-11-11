@@ -62,7 +62,10 @@ export class Registration extends Component {
     if (this.checkInput()) {
       const data = this.state;
       axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
-        if (response.data == emailErr) {
+		  if (response.data) {
+			  console.log(response.data)
+          alert(successfullRegistration);
+        } else if (response.data == emailErr) {
           alert(emailRegisteredErr);
         } else if (response.data == usernameErr) {
           alert(usernameRegisteredErr);
@@ -151,7 +154,10 @@ export class Registration extends Component {
             </Link>
             </div>
             <div className="form-group">
-               { button }         
+
+
+            <button type="submit" className="btn btn-primary">Submit</button>
+
             </div>
           </form>
         </div>

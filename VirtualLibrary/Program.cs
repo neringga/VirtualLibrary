@@ -61,6 +61,7 @@ namespace VirtualLibrary
             {
                 var takenBookPresenter = currentContainer.Resolve<TakenBookPresenter>();
                 var userPresenter = currentContainer.Resolve<UserPresenter>();
+
                 var libraryData = currentContainer.Resolve<ILibraryData>();
                 var validator = currentContainer.Resolve<IInputValidator>();
                 var exceptionLogger = currentContainer.Resolve<IExceptionLogger>();
