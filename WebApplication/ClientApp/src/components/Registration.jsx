@@ -1,6 +1,7 @@
 ﻿import React, { Component } from "react";
 import axios from "axios";
 import "./Registration.css";
+import { logo } from './logo.png';
 import {
   HttpRequestPath,
   userRegistrationApi,
@@ -38,18 +39,18 @@ export class Registration extends Component {
   };
 
   checkInput = event => {
-    if (this.state.username == null ) {
+    if (this.state.username === null ) {
       alert(usernameShortErr);
       return false;
     }
     if (
-      this.state.password == null ||
-      this.state.password != this.state.repPassword
+      this.state.password === null ||
+      this.state.password !== this.state.repPassword
     ) {
       alert(passordNotMatchErr);
       return false;
     }
-    if (this.state.email == null || !this.state.email.match(emailRegex)) {
+    if (this.state.email === null || !this.state.email.match(emailRegex)) {
       alert(emailRegexErr);
       return false;
     }
@@ -65,9 +66,9 @@ export class Registration extends Component {
 		  if (response.data) {
 			  console.log(response.data)
           alert(successfullRegistration);
-        } else if (response.data == emailErr) {
+        } else if (response.data === emailErr) {
           alert(emailRegisteredErr);
-        } else if (response.data == usernameErr) {
+        } else if (response.data === usernameErr) {
           alert(usernameRegisteredErr);
         } else if (response.data) {
           alert(successfullRegistration);
@@ -79,12 +80,16 @@ export class Registration extends Component {
 
   render() {
     const validInput = this.state.validInput;
-    let button;
+    let $registrationSuccess = null;
     if (validInput) {
-      button = <Link to={'/HomePage'}><button type="submit" className="btn btn-primary">Submit</button></Link>
+      $registrationSuccess = (
+      <Link to={'/HomePage'}><button type="submit" className="btn btn-primary">Submit</button></Link>
+      );
     }
     else {
-      button = <button type="submit" className="btn btn-primary">Submit</button>
+    $registrationSuccess = (
+      <button type="submit" className="btn btn-primary">Submit</button>
+      );
     }
     return (
       <div className="container">
@@ -155,8 +160,8 @@ export class Registration extends Component {
             </div>
             <div className="form-group">
 
-
-            <button type="submit" className="btn btn-primary">Submit</button>
+            {$registrationSuccess}
+            {/* <button type="submit" className="btn btn-primary">Submit</button> */}
 
             </div>
           </form>
