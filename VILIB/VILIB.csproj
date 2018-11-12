@@ -255,8 +255,6 @@
     <Compile Include="Repositories\LibraryData.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Resolvers\UnityResolver.cs" />
-    <Compile Include="Views\IBook.cs" />
-    <Compile Include="Views\IUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -274,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -283,6 +280,10 @@
     <ProjectReference Include="..\Database\Database.csproj">
       <Project>{E3089982-E97E-445D-A593-093209F31BFE}</Project>
       <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{ef12359a-58ea-4261-81e6-7dcc8d7134e8}</Project>
+      <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

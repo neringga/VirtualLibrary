@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Shared.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VILIB.DataSources.Data;
 using VILIB.Model;
 using VILIB.Repositories;
-using VILIB.View;
 
 namespace VILIB.Presenters
 {

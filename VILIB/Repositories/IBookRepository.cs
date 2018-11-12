@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using VILIB.View;
+﻿using Shared.View;
+using System.Collections.Generic;
 
 namespace VILIB.Repositories
 {

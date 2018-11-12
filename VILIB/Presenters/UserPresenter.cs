@@ -4,6 +4,7 @@ using VILIB.DataSources.Data;
 using VILIB.Repositories;
 using VILIB.View;
 using VILIB.Presenters;
+using Shared.View;
 
 namespace VILIB.Presenters
 {

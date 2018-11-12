@@ -1,20 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Shared.View;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using VILIB.DataSources.Data;
 using VILIB.Helpers;
 using VILIB.Model;
 using VILIB.Presenters;
-using VILIB.View;
 
 namespace VILIB.Controllers
 {
@@ -53,7 +46,7 @@ namespace VILIB.Controllers
 
             if (!book.IsTaken)
             {
-                var takenBook = _takenBookPresenter.AddTakenBook(book, "ner"); //TODO user authentification
+                var takenBook = _takenBookPresenter.AddTakenBook((IBook)book, "ner"); //TODO user authentification
                 return JsonResponse.JsonHttpResponse<Object>(takenBook.HasToBeReturned);
             }
             return JsonResponse.JsonHttpResponse<Object>(false);
