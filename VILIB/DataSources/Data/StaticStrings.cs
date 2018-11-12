@@ -22,6 +22,8 @@ namespace VILIB.DataSources.Data
         public static string RegisteredUsernameErr = "This username is already registered";
         public static string RegisteredSuccessfully = "Registered successfully";
         public static string LoggedIn = "You are logged in";
+        public static string UnknownUser = "User not recognized";
+        public static string FaceNotDetected = "Face not detected";
 
     }
 }

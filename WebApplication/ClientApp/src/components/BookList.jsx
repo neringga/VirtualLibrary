@@ -28,7 +28,7 @@ export class BookList extends Component {
       this.state.books!=null &&
       <center>
       <div className="box">
-        <h3>Not taken books</h3>
+        <h3>Books</h3>
         <br/>
         <Table responsive>
         <thead>

@@ -11,7 +11,7 @@ export class Start extends Component {
         <div className="box">
         <Form>
           <FormGroup className="form">
-          <img src={logo} height="140" width="120"/>
+          <img src={logo} height="200" width="180"/>
           </FormGroup>
           <FormGroup>
           <Link to={"/signIn"}>

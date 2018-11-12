@@ -14,8 +14,7 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Web;
-using System.Diagnostics;
+using System.Web.Mvc;
 
 namespace VILIB.Controllers
 {
@@ -26,47 +25,43 @@ namespace VILIB.Controllers
         private readonly int _faceImagesPerUser;
         private readonly IExceptionLogger _exceptionLogger;
 
-        //public FaceDetectionController(string faceDetectionTrainingFileName, int faceImagesPerUser, IExceptionLogger exceptionLogger)
-        //{
-        //    _faceImagesPerUser = faceImagesPerUser;
-        //    _exceptionLogger = exceptionLogger;
-
-        //    //_detection = new CascadeClassifier(faceDetectionTrainingFileName);
-        //}
-
-        public HttpResponseMessage Get()
+        public FaceDetectionController(string faceDetectionTrainingFileName, int faceImagesPerUser, IExceptionLogger exceptionLogger)
         {
-            return new HttpResponseMessage
-            {
-           
-            };
+            _faceImagesPerUser = faceImagesPerUser;
+            _exceptionLogger = exceptionLogger;
+
+            _detection = new CascadeClassifier(faceDetectionTrainingFileName);
         }
 
 
-        public async Task<HttpResponseMessage> Post(string base64image)
+        public async Task<HttpResponseMessage> Put()
         {
-            var bytes = Convert.FromBase64String(base64image);
-            return JsonResponse.JsonHttpResponse<Object>("Good");
-            //for (int i = 0; i < image.Length; i++)
-            //{
-            //Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
-            //    Image<Bgr, byte> bgrImage = new Image<Bgr, byte>(new Bitmap(image));
-            //    var face = _detection.DetectMultiScale(bgrImage, 1.2, 0);
+            int numberOfImagesWithFace = 0;
 
-            //    if (face.Length > 0)
-            //    {
-            //        numberOfImagesWithFace++;
-            //}
-            //}
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            var imagesInStrings = JsonConvert.DeserializeObject<string[]>(jsonContent);
 
-            //if (numberOfImagesWithFace >= _faceImagesPerUser)
-            //{
-            //    return JsonResponse.JsonHttpResponse<Object>("Enough faces");
-            //}
-            //else
-            //{
-            //    return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
-            //}
+            for (int i = 0; i < imagesInStrings.Length; i++)
+            {
+                Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
+                Image<Bgr, byte> bgrImage = new Image<Bgr, byte>(new Bitmap(image));
+                var face = _detection.DetectMultiScale(bgrImage, 1.2, 0);
+
+                if (face.Length > 0)
+                {
+                    numberOfImagesWithFace++;
+                }
+            }
+
+            if (numberOfImagesWithFace >= _faceImagesPerUser)
+            {
+                return JsonResponse.JsonHttpResponse<Object>("Enough faces");
+            }
+            else
+            {
+                return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
+            }
         }
     }
 }

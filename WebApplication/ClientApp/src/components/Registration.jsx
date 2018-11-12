@@ -96,6 +96,7 @@ export class Registration extends Component {
             <div className="container">
                 <div className="scrollableBox" overflow-y="scroll">
                     <form onSubmit={this.handleSubmit}>
+                        <h3>Register</h3>
                         <div className="form-group">
                             <label>Username</label>
                             <input

@@ -96,9 +96,7 @@ export class BookTaking extends Component {
           <div>Return this book until : {this.state.returnTime}</div>
         </div>
       );
-    } else {
-      $returnTime = <div>Cannot return this book</div>;
-    }
+    } 
 
     return (
       <div className="box">
