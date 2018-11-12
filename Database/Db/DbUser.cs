@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Shared.View;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualLibrary.View;
 
 namespace VirtualLibrary.DataSources.Db
 {
