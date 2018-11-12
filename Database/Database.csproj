@@ -68,18 +68,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualLibrary\VirtualLibrary.csproj">
-      <Project>{6f784ba1-e19d-48c1-87a5-0a4c8ecb3548}</Project>
-      <Name>VirtualLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201810281018481_InitialModel.resx">
       <DependentUpon>201810281018481_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810281028331_BookAndUserTables.resx">
       <DependentUpon>201810281028331_BookAndUserTables.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{ef12359a-58ea-4261-81e6-7dcc8d7134e8}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

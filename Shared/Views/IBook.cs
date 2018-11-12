@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VILIB.View
+namespace Shared.View
 {
     public interface IBook
     {

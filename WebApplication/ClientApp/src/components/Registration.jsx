@@ -70,9 +70,9 @@ export class Registration extends Component {
                 password: this.state.password,
             }
             axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
-                if (response.data == emailErr) {
+                if (response.data === emailErr) {
                     alert(emailRegisteredErr);
-                } else if (response.data == usernameErr) {
+                } else if (response.data === usernameErr) {
                     alert(usernameRegisteredErr);
                 } else if (response.data) {
                     alert(successfullRegistration);

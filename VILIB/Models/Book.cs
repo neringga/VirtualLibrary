@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.View;
+using System;
 using VILIB.View;
 
 namespace VILIB.Model

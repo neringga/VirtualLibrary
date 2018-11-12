@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using VILIB.View;
+using Shared.View;
 
 namespace VILIB.DataSources.Data
 {
