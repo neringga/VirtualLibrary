@@ -27,19 +27,20 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var credentials = JsonConvert.DeserializeObject<User>(jsonContent);
+            var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            if (_mInputValidator.UsernameTaken(credentials.Nickname))
+            if (_mInputValidator.UsernameTaken(credentials.username))
             {
                 return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UserErr);
             }
-            else if (_mInputValidator.EmailTaken(credentials.Email))
+            else if (_mInputValidator.EmailTaken(credentials.email))
             {
                 return JsonResponse.JsonHttpResponse<Object>(StaticStrings.EmailErr);
             }
             else
             {
-                _mUserRepository.Add(credentials);
+                var user = new User() { Nickname = credentials.username, Password = credentials.password, Email = credentials.email, Name = credentials.firstName, Surname = credentials.lastName };
+                var result = await _mUserRepository.Add(user);
                 return JsonResponse.JsonHttpResponse<Object>(true);
             }
 
@@ -74,5 +75,14 @@ namespace VILIB.Controllers
                 return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
             }
         }
+    }
+
+    public class FrontendUser
+    {
+        public string username { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
     }
 }

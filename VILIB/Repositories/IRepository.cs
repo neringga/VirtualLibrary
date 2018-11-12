@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VILIB.Repositories
 {
     public interface IRepository<T>
     {
         IList<T> GetList();
-        void Add(T item);
-        void Remove(T item);
+        Task<int> Add(T item);
+        Task<int> Remove(T item);
     }
 }

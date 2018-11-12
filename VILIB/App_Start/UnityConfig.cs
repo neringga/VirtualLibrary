@@ -12,6 +12,7 @@ using VILIB.Helpers;
 using VILIB.Presenters;
 using VILIB.Repositories;
 using VILIB.DataSources.Data;
+using VirtualLibrary.DataSources.Db;
 
 namespace VILIB
 {
@@ -19,14 +20,21 @@ namespace VILIB
     {
         public static UnityContainer RegisterComponents()
         {
-			var container = new UnityContainer();
+            var container = new UnityContainer();
 
             container.RegisterSingleton<DataSources.IDataSource>(
                new InjectionFactory(o => { return new LocalDataSource(); }));
 
+            container.RegisterSingleton<IAsyncDataSource>(
+              new InjectionFactory(o =>
+              {
+                  var dbContext = new LibraryDbContext();
+                  return new DbDataSource(dbContext);
+              }));
+
             container.RegisterSingleton<IUserRepository>(new InjectionFactory(o =>
             {
-                var dataSource = container.Resolve<DataSources.IDataSource>();
+                var dataSource = container.Resolve<IAsyncDataSource>();
                 return new UserRepository(dataSource);
             }));
 
@@ -97,9 +105,9 @@ namespace VILIB
                 var bookRepository = container.Resolve<IBookRepository>();
                 return new BookPresenter(bookRepository);
             }));
-             
+
             container.RegisterType<IUserPresenter, UserPresenter>(new TransientLifetimeManager());
-            
+
 
             container.RegisterType<IInputValidator>(new InjectionFactory(o =>
             {
