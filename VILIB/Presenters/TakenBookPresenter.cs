@@ -28,6 +28,8 @@ namespace VILIB.Presenters
             var books = _mBookRepository.GetList();
             var book = books.First(item => item.Code == _takenBook.Code);
 
+            _takenBook.Author = book.Author;
+            _takenBook.Title = book.Title;
             _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
 

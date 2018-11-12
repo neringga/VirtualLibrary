@@ -1,11 +1,20 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VILIB.DataSources.Data;
+using VILIB.Helpers;
+using VILIB.Model;
 using VILIB.Presenters;
+using VILIB.View;
 
 namespace VILIB.Controllers
 {
@@ -15,6 +24,7 @@ namespace VILIB.Controllers
         private TakenBookPresenter _takenBookPresenter;
         private BookPresenter _bookPresenter;
         private ScannerPresenter _scannerPresenter;
+        private IBook _book;
 
         public TakenBookController(TakenBookPresenter takenBookPresenter, BookPresenter bookPresenter,
                                     ScannerPresenter scannerPresenter)
@@ -33,28 +43,22 @@ namespace VILIB.Controllers
             };
         }
 
-        public HttpResponseMessage Put(HttpPostedFileBase file)    //not tested
+        
+
+        public async Task<HttpResponseMessage> Put()
         {
-            if (file.ContentLength > 0)
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            var book = JsonConvert.DeserializeObject<Book>(jsonContent);
+
+            if (!book.IsTaken)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/uploads"), fileName);
-                var decodedCode = _scannerPresenter.DecodedBarcode(path);
-                var book = _bookPresenter.FindBookByCode(decodedCode.Text);
-                var takenBook = _takenBookPresenter.AddTakenBook(book, StaticDataSource.CurrUser);
-                return new HttpResponseMessage
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(takenBook.HasToBeReturned),
-                        System.Text.Encoding.UTF8, "application/json")
-                };
-                //file.SaveAs(path);
+                var takenBook = _takenBookPresenter.AddTakenBook(book, "ner"); //TODO user authentification
+                return JsonResponse.JsonHttpResponse<Object>(takenBook.HasToBeReturned);
             }
-
-            return new HttpResponseMessage
-            {
-
-            };
+            return JsonResponse.JsonHttpResponse<Object>(false);
         }
+
 
     }
 
@@ -76,6 +80,7 @@ namespace VILIB.Controllers
                     System.Text.Encoding.UTF8, "application/json")
             };
         }
+
 
     }
 

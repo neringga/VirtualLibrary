@@ -1,9 +1,14 @@
 ﻿import * as React from 'react';
-
+//TODO Delete these constants and find another way how to store them
 export const HttpRequestPath = "http://localhost:50898/"
 export const userRegistrationApi = "api/UserRegistration/"
 export const userSignInApi = "api/UserSignIn/"
+
+export const bookActionsApi = "api/BarcodeScanner/"
+export const BookTakingApi = "api/TakenBook/"
+
 export const bookListApi = "api/Book"
+
 export const faceDetectionApi = "api/FaceDetection"
 export const emailRegex = new RegExp(/^\S+@\S+\.\S+$/)
 export const passordNotMatchErr = "Passwords don't match"

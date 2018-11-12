@@ -1,6 +1,7 @@
 ﻿import React, { Component } from "react";
 import axios from "axios";
 import "./Registration.css";
+import { logo } from './logo.png';
 import {
     HttpRequestPath,
     userRegistrationApi,
@@ -54,6 +55,7 @@ export class Registration extends Component {
             return false;
         }
 
+
         return true;
     };
 
@@ -76,6 +78,7 @@ export class Registration extends Component {
                     alert(successfullRegistration);
                 }
             });
+
         }
         this.setState({ validInput: true });
     };
@@ -131,6 +134,7 @@ export class Registration extends Component {
                             />
                             <small id="emailHelp" class="form-text text-muted">
                                 We'll never share your email with anyone else.
+
               </small>
                         </div>
                         <div className="form-group">
@@ -163,6 +167,8 @@ export class Registration extends Component {
                     </form>
                 </div>
             </div>
+
         );
     }
+
 }
