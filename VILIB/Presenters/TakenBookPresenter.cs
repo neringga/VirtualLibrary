@@ -30,7 +30,7 @@ namespace VILIB.Presenters
 
             _takenBook.Author = book.Author;
             _takenBook.Title = book.Title;
-            _takenBook.HasToBeReturned = _takenBook.TakenWhen.AddDays(book.DaysForBorrowing);
+            _takenBook.HasToBeReturned = ((DateTime)_takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
 
             return _takenBook;

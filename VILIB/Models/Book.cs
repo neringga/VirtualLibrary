@@ -12,8 +12,8 @@ namespace VILIB.Model
 
         public bool IsTaken { get; set; }
         public string TakenByUser { get; set; }
-        public DateTime TakenWhen { get; set; }
-        public DateTime HasToBeReturned { get; set; }
+        public DateTime? TakenWhen { get; set; }
+        public DateTime? HasToBeReturned { get; set; }
 
         public bool Equals(IBook other)
         {
