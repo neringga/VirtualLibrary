@@ -16,6 +16,9 @@ using System.IO;
 using System.Net;
 using System.Web;
 using System.Diagnostics;
+using VILIB.View;
+using System.Web.Hosting;
+using System.Security.Cryptography;
 
 namespace VILIB.Controllers
 {
@@ -26,13 +29,15 @@ namespace VILIB.Controllers
         private readonly int _faceImagesPerUser;
         private readonly IExceptionLogger _exceptionLogger;
 
-        //public FaceDetectionController(string faceDetectionTrainingFileName, int faceImagesPerUser, IExceptionLogger exceptionLogger)
-        //{
-        //    _faceImagesPerUser = faceImagesPerUser;
-        //    _exceptionLogger = exceptionLogger;
+        public FaceDetectionController(string faceDetectionTrainingFileName, int faceImagesPerUser, IExceptionLogger exceptionLogger)
+        {
+            _faceImagesPerUser = faceImagesPerUser;
+            _exceptionLogger = exceptionLogger;
 
-        //    //_detection = new CascadeClassifier(faceDetectionTrainingFileName);
-        //}
+            _detection = new CascadeClassifier(
+                new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/" +
+                "haarcascade_frontalface_alt2.xml")).ToString());
+        }
 
         public HttpResponseMessage Get()
         {
@@ -43,20 +48,53 @@ namespace VILIB.Controllers
         }
 
 
-        public async Task<HttpResponseMessage> Post(string base64image)
+        public async Task<HttpResponseMessage> Post()
         {
-            var bytes = Convert.FromBase64String(base64image);
-            return JsonResponse.JsonHttpResponse<Object>("Good");
-            //for (int i = 0; i < image.Length; i++)
+            int numberOfImagesWithFace = 0;
+            var lol = await Request.Content.ReadAsStreamAsync();
+            MemoryStream memStr = new MemoryStream();
+            try
+            {
+                lol.CopyTo(memStr);
+                lol.Close();
+                var bitmap = new Bitmap(memStr);
+                var currentFrame = new Emgu.CV.Image<Bgr, Byte>(bitmap);
+                Console.WriteLine(_detection);
+                var face = _detection.DetectMultiScale(currentFrame, 1.2, 0);
+                if (face.Length > 0)
+                    return JsonResponse.JsonHttpResponse<Object>("Enough");
+                else
+                    return JsonResponse.JsonHttpResponse<Object>("Not Enough");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                
+            }
+            return JsonResponse.JsonHttpResponse<Object>(null);
+            //var result = new HttpResponseMessage(HttpStatusCode.OK);
+            //if (Request.Content.IsMimeMultipartContent())
             //{
-            //Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
+
+            //}
+            //else
+            //{
+
+            //}
+
+            //var imagesInStrings = JsonConvert.DeserializeObject<string[]>(jsonContent);
+
+            //for (int i = 0; i < lol.Length; i++)
+            //{
+            //    Image image = Image.FromStream(new MemoryStream(Convert.FromBase64String(imagesInStrings[i])));
             //    Image<Bgr, byte> bgrImage = new Image<Bgr, byte>(new Bitmap(image));
             //    var face = _detection.DetectMultiScale(bgrImage, 1.2, 0);
 
             //    if (face.Length > 0)
             //    {
             //        numberOfImagesWithFace++;
-            //}
+            //    }
             //}
 
             //if (numberOfImagesWithFace >= _faceImagesPerUser)
@@ -65,7 +103,7 @@ namespace VILIB.Controllers
             //}
             //else
             //{
-            //    return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
+            //return JsonResponse.JsonHttpResponse<Object>("Not enough faces");
             //}
         }
     }

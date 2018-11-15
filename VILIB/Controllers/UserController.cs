@@ -63,16 +63,16 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var credentials = JsonConvert.DeserializeObject<User>(jsonContent);
+            var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            if (_mInputValidator.ValidateLogin(credentials.Nickname, credentials.Password))
+            if (_mUserRepository.Login(credentials.username, credentials.password))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UserErr);
+                
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
             }
             else
             {
-                //_mUserRepository.Add(credentials);
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
+                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UserErr);
             }
         }
     }

@@ -6,6 +6,7 @@
     "@trendmicro/react-sidenav": "^0.4.5",
     "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
+    "browserify-fs": "^1.0.0",
     "react": "^16.6.1",
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-table": "^4.3.1",

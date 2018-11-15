@@ -90,8 +90,10 @@ namespace VILIB
 
             container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
             {
-                return new FaceDetectionController();//(StaticStrings.faceDetectionTrainingFileName, 1, container.Resolve<IExceptionLogger>()); //replace 1 with StaticStrings const
+                return new FaceDetectionController(StaticStrings.faceDetectionTrainingFileName,
+                    1, container.Resolve<IExceptionLogger>()); //replace 1 with StaticStrings const
             }));
+
 
             // Helpers & Presenters
             container.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>

@@ -28,12 +28,12 @@ export class SigningIn extends Component {
     };
 
     checkInput = event => {
-        if (this.state.username == null) {
+        if (this.state.username === null) {
             alert(noUsername);
             return false;
         }
         if (
-            this.state.password == null) {
+            this.state.password === null) {
             alert(noPassword);
             return false;
         }
@@ -45,9 +45,9 @@ export class SigningIn extends Component {
         if (this.checkInput()) {
             const data = this.state;
             axios.put(HttpRequestPath + userSignInApi, data).then(response => {
-                if (response.data) {
-                    alert(successfullSignIn);
-                } else if (response.data == noUser) {
+                if (response.data === successfullSignIn) {
+                    window.location = '/HomePage';
+                } else {
                     alert(noUser);
                 }
             });
@@ -56,37 +56,36 @@ export class SigningIn extends Component {
 
     render() {
         return (
-        <div className="container">
-            <div className="scrollableBox" overflow-y="scroll">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Username</label>
-                        <input
-                            type="username"
-                            className="form-control"
-                            placeholder="Username"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input
-                            className="form-control"
-                            name="password"
-                            placeholder="Password"
-                            type="Password"
-                            onChange={this.handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <Link to={'/NavBar'}>
-                            <button type="sign in" className="btn btn-primary">SignIn</button>
-                        </Link>
-                    </div>
+            <div className="container">
+                <div className="scrollableBox" overflow-y="scroll">
+                    <form>
+                        <div className="form-group">
+                            <label>Username</label>
+                            <input
+                                type="username"
+                                name="username"
+                                className="form-control"
+                                placeholder="Username"
+                                onChange={this.handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Password</label>
+                            <input
+                                className="form-control"
+                                name="password"
+                                placeholder="Password"
+                                type="Password"
+                                onChange={this.handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <button className="btn btn-primary" onClick={this.handleSubmit}>SignIn</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
 }
