@@ -11,10 +11,7 @@ namespace VILIB.DataSources.Data
         public List<string> ReadTextFile(string fileName)
         {
             var directoryInfo = AppDomain.CurrentDomain.BaseDirectory;
-            //var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
-            //var file = new StreamReader(Path.Combine(directoryInfo.FullName, fileName));
             var file = new StreamReader(Path.Combine(directoryInfo, fileName));
-
 
             var textList = new List<string>();
             string line;

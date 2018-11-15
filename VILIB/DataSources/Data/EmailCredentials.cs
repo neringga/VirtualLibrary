@@ -15,7 +15,8 @@
         private void GetEmailCredentialsFromFile()
         {
             var textFile = new TextFile();
-            var credentials = textFile.ReadTextFile(StaticStrings.EmailCredentialsFile);
+            var credentials = textFile.ReadTextFile(
+                System.Configuration.ConfigurationManager.AppSettings["vilibEmail"]);
             foreach (var line in credentials)
             {
                 var spLine = line.Split(' ');

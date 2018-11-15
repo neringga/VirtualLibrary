@@ -25,7 +25,8 @@ namespace VILIB.DataSources.Data
         public void GetTrainingSet(out List<Image<Gray, byte>> faceTrainingSet, out int[] labels,
             out List<string> nicknames)
         {
-            var xml = XDocument.Load(_location + StaticStrings.UserFile);
+            var xml = XDocument.Load(_location +
+                                     System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
 
             var imageNamesLists = new List<string>[_imagesPerPerson];
             var labelsList = new List<int>();
@@ -48,23 +49,11 @@ namespace VILIB.DataSources.Data
             labels = labelsList.ToArray();
         }
 
-        //Sekmingai atlikus veido atpazinima bus gaunama naudotojo informacija
-        /*public IUser GetUser(string nickname)
-        {
-
-        }
-
-        //Nepavykus veido atpazinimui bus tikrinami ar naudotojo suvesti duomenys yra teisingi(jei taip grazinamas IUser, jei ne - null)
-        public IUser GetUser(string nickname, string password)
-        {
-
-        }*/
-
-
         public void AddUser(Image<Gray, byte>[] faceImages, IUser iuser)
         {
             var document = new XmlDocument();
-            document.Load(_location + StaticStrings.UserFile);
+            document.Load(_location +
+                          System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
 
             var root = document.DocumentElement;
 
@@ -112,7 +101,8 @@ namespace VILIB.DataSources.Data
         {
             var fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
 
-            var stream = File.OpenWrite(_location + StaticStrings.UserFile);
+            var stream = File.OpenWrite(_location +
+                                        System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
 
             using (var writer = XmlWriter.Create(stream))
             {

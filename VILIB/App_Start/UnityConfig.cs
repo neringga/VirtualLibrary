@@ -90,8 +90,9 @@ namespace VILIB
 
             container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
             {
-                return new FaceDetectionController(StaticStrings.faceDetectionTrainingFileName,
-                    1, container.Resolve<IExceptionLogger>()); //replace 1 with StaticStrings const
+                return new FaceDetectionController(
+                    System.Configuration.ConfigurationManager.AppSettings["faceDetectionTrainingFile"],
+                    System.Configuration.ConfigurationManager.AppSettings["faceImgaesPerUser"]);
             }));
 
 
@@ -115,11 +116,6 @@ namespace VILIB
             {
                 var userRepository = container.Resolve<IUserRepository>();
                 return new InputValidator(userRepository);
-            }));
-
-            container.RegisterType<IExceptionLogger>(new InjectionFactory(o =>
-            {
-                return new ExceptionToFileLogger();
             }));
 
             return container;

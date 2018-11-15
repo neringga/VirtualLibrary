@@ -14,7 +14,7 @@ export class BookList extends Component {
 
   componentDidMount() {
     axios
-      .get(HttpRequestPath + bookListApi)
+      .get(HttpRequestPath + ConfigurationManager.AppSettings["BookListApi"])
       .then(response => {
         this.setState({
           books: response.data

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.WebPages;
 using VILIB.Helpers;
 
 namespace VILIB.Controllers
@@ -17,16 +18,15 @@ namespace VILIB.Controllers
     {
         private readonly CascadeClassifier _detection;
         private readonly int _faceImagesPerUser;
-        private readonly IExceptionLogger _exceptionLogger;
 
-        public FaceDetectionController(string faceDetectionTrainingFileName, int faceImagesPerUser, IExceptionLogger exceptionLogger)
+        public FaceDetectionController(string faceDetectionTrainingFileName, string faceImagesPerUser)
         {
-            _faceImagesPerUser = faceImagesPerUser;
-            _exceptionLogger = exceptionLogger;
-
+            _faceImagesPerUser = Int32.Parse(faceImagesPerUser);
             _detection = new CascadeClassifier(
                 new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/" +
-                "haarcascade_frontalface_alt2.xml")).ToString());
+                                  System.Configuration
+                                   .ConfigurationManager.AppSettings["faceDetectionTrainingFile"]))
+                                  .ToString());
         }
 
         public async Task<HttpResponseMessage> Post()
