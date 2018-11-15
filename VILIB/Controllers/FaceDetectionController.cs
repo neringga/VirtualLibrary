@@ -50,10 +50,9 @@ namespace VILIB.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-
+               return JsonResponse.JsonHttpResponse<Object>(null);
             }
-            return JsonResponse.JsonHttpResponse<Object>(null);
+            
 
         }
     }
