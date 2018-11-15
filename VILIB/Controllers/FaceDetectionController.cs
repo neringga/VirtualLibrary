@@ -43,9 +43,9 @@ namespace VILIB.Controllers
                 Console.WriteLine(_detection);
                 var face = _detection.DetectMultiScale(currentFrame, 1.2, 0);
                 if (face.Length > 0)
-                    return JsonResponse.JsonHttpResponse<Object>("Enough");
+                    return JsonResponse.JsonHttpResponse<Object>(true);
                 else
-                    return JsonResponse.JsonHttpResponse<Object>("Not Enough");
+                    return JsonResponse.JsonHttpResponse<Object>(false);
 
             }
             catch (Exception e)
