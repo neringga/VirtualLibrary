@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using VILIB.Helpers;
 using VILIB.View;
 
@@ -22,17 +21,13 @@ namespace VILIB
         private List<string> _namesList;
         private List<Image<Gray, byte>> _trainingSet;
 
-        private IExceptionLogger _exceptionLogger;
-
         private readonly FaceRecognizer _recognizer;
 
-        public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser, IExceptionLogger exceptionLogger)
+        public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser)
         {
-            _exceptionLogger = exceptionLogger;
             _faceImagesPerUser = faceImagesPerUser;
 
             _recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
-           // _cascade = new CascadeClassifier(new DirectoryInfo(Application.StartupPath).Parent.Parent.FullName + faceDetectionTrainingFilePath);
         }
 
 
@@ -47,7 +42,7 @@ namespace VILIB
             }
             catch (IndexOutOfRangeException ex)
             {
-                _exceptionLogger.Log(ex);
+                Console.WriteLine(ex);
                 return null;
             }
 

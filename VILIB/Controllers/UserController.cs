@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -31,11 +32,13 @@ namespace VILIB.Controllers
 
             if (_mInputValidator.UsernameTaken(credentials.username))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UserErr);
+                return JsonResponse.JsonHttpResponse<Object>(
+                    ConfigurationManager.AppSettings["usernameError"]);
             }
             else if (_mInputValidator.EmailTaken(credentials.email))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.EmailErr);
+                return JsonResponse.JsonHttpResponse<Object>(
+                        ConfigurationManager.AppSettings["emailError"]);
             }
             else
             {
@@ -72,9 +75,11 @@ namespace VILIB.Controllers
             }
             else
             {
-                //_mUserRepository.Add(credentials);
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.UserErr);
-                //return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
+
+                return JsonResponse.JsonHttpResponse<Object>(
+                        ConfigurationManager.AppSettings["usernameError"]
+                    );
+
             }
         }
     }

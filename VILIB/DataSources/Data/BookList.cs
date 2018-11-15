@@ -12,7 +12,8 @@ namespace VILIB.Data
         public BookList()
         {
             var textFile = new TextFile();
-            var list = textFile.ReadTextFile(StaticStrings.BookFile);
+            var list = textFile.ReadTextFile(
+                System.Configuration.ConfigurationManager.AppSettings["books"]);
 
             foreach (var line in list)
             {
