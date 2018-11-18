@@ -53,8 +53,8 @@ namespace VILIB.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserSignInController : ApiController
     {
-        public delegate bool LoginHandler(object sender, LoginEventArgs e);
-        public event LoginHandler OnLogin;
+        public delegate bool UserActionHandler<LoginEventArgs>(object sender, LoginEventArgs e);
+        public event UserActionHandler<LoginEventArgs> OnLogin;
 
         private readonly IUserRepository _mUserRepository;
 
@@ -69,10 +69,10 @@ namespace VILIB.Controllers
             string jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            return await Login(credentials);
+            return Login(credentials);
         }
 
-        private async Task<HttpResponseMessage> Login(FrontendUser credentials)
+        private HttpResponseMessage Login(FrontendUser credentials)
         {
             if (credentials == null)
             {
@@ -89,5 +89,10 @@ namespace VILIB.Controllers
                 return JsonResponse.JsonHttpResponse<Object>("Nope");
             }
         }
+    }
+
+    public class UserActionHandler<TEventArgs>
+    {
+
     }
 }

@@ -1,13 +1,8 @@
-using System.Web.Mvc;
-using System.Web.UI;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using Unity.Mvc5;
 using VILIB.Controllers;
 using VILIB.DataSources;
-using VILIB.Model;
-using VILIB.View;
 using VILIB.Helpers;
 using VILIB.Presenters;
 using VILIB.Repositories;
