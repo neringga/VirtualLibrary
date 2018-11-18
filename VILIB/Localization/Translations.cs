@@ -4,8 +4,10 @@ using VILIB.DataSources.Data;
 
 namespace VILIB.Localization
 {
+    public delegate string Delegate(string text);
     public static class Translations
     {
+        public static Delegate translate = new Delegate(GetTranslatedString);
         private static readonly Dictionary<string, Dictionary<string, string>> newTranslations = new Dictionary<string, Dictionary<string, string>>()
         {
             { "LT", new Dictionary<string, string>(){
