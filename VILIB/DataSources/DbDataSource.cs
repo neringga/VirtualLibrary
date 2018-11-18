@@ -32,8 +32,19 @@ namespace VILIB.DataSources.Data
 
         public async Task<int> AddUser(IUser user)
         {
-            _dbContext.Users.Add(ConvertToDbUser(user));
+            // TODO: remove and add a check in context initialization
+            try
+            {
+                _dbContext.Users.Add(ConvertToDbUser(user));
+            }
+            catch (InvalidOperationException e)
+            {
+                e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
+                throw;
+            }
+
             return await _dbContext.SaveChangesAsync();
+
         }
 
         public IList<IBook> GetBookList()
@@ -49,8 +60,17 @@ namespace VILIB.DataSources.Data
 
         public IList<IUser> GetUserList()
         {
-            var users = _dbContext.Users.ToList();
-            return users.Select(user => ConvertToUser(user)).ToList();
+            // TODO: remove and add a check in context initialization
+            try
+            {
+                var users = _dbContext.Users.ToList();
+                return users.Select(user => ConvertToUser(user)).ToList();
+            }
+            catch (InvalidOperationException e)
+            {
+                e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
+                throw;
+            }
         }
 
         public async Task<int> RemoveBook(IBook book)
