@@ -89,6 +89,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{e3089982-e97e-445d-a593-093209f31bfe}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{ef12359a-58ea-4261-81e6-7dcc8d7134e8}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VILIB\VILIB.csproj">
+      <Project>{cf137b9b-24e4-4a4e-9b4f-4c8a9634aeaf}</Project>
+      <Name>VILIB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VirtualLibrary\VirtualLibrary.csproj">
       <Project>{6F784BA1-E19D-48C1-87A5-0A4C8ECB3548}</Project>
       <Name>VirtualLibrary</Name>
