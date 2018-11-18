@@ -51,11 +51,5 @@ namespace VILIB.Helpers
         {
             return strings.All(s => ValidString(s));
         }
-
-        public bool ValidateLogin(string username, string password)
-        {
-            // if (_userRepository.GetList().Where(user => user.Nickname == username && user.Password == password)) == true)
-            return _userRepository.Login(username, password).Equals(1) ? true : false;
-        }
     }
 }

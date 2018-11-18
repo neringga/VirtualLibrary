@@ -70,8 +70,9 @@ namespace VILIB
             container.RegisterType<UserSignInController>(new InjectionFactory(o =>
             {
                 var userRepository = container.Resolve<IUserRepository>();
-                var inputValidator = container.Resolve<IInputValidator>();
-                return new UserSignInController(userRepository, inputValidator);
+                var controller = new UserSignInController(userRepository);
+                controller.OnLogin += userRepository.Login;
+                return controller;
             }));
 
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>

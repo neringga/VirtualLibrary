@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VILIB.DataSources;
+using VILIB.Helpers;
 
 namespace VILIB.Repositories
 {
@@ -26,14 +27,17 @@ namespace VILIB.Repositories
             return _dataSource.GetUserList();
         }
 
-        public bool Login(string username, string password)
+        public bool Login(object sender, LoginEventArgs e)
         {
-            Func<IUser, bool> userMatchingPredicate = user => user.Nickname == username && user.Password == password;
+            Func<IUser, bool> userMatchingPredicate = user => user.Nickname == e.Username && user.Password == e.Password;
             var users = _dataSource.GetUserList();
 
-            return users.Where(user => userMatchingPredicate.Invoke(user))
-                       .ToList().Count == 1;
+            return users
+                    .Where(user => userMatchingPredicate.Invoke(user))
+                    .Any();
         }
+
+
 
         public async Task<int> Remove(IUser item)
         {
