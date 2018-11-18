@@ -4,26 +4,36 @@ using VILIB.Resolvers;
 
 namespace VILIB
 {
+    delegate HttpConfiguration ConfigDelegate(HttpConfiguration delconfig);
+
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-            config.EnableCors(); //lets call api
+            ConfigDelegate ApiConfigDelegate = delegate (HttpConfiguration delconfig)
+            {
+                // Web API configuration and services
+                delconfig.EnableCors(); //lets call api
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+                // Web API routes
+                delconfig.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
+                return delconfig;
+            };
+
+            HttpConfiguration apiConfig = ApiConfigDelegate(config);
+
+            apiConfig.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 
             var container = UnityConfig.RegisterComponents();
-            //config.DependencyResolver = new UnityResolver(container);\
-            config.DependencyResolver = new UnityDependencyResolver(container);
+            //apiConfig.DependencyResolver = new UnityResolver(container);\
+            apiConfig.DependencyResolver = new UnityDependencyResolver(container);
         }
+
     }
 
 }
