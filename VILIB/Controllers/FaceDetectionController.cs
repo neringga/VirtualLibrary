@@ -39,9 +39,9 @@ namespace VILIB.Controllers
                 stream.CopyTo(memStr);
                 stream.Close();
                 var bitmap = new Bitmap(memStr);
-                var currentFrame = new Emgu.CV.Image<Bgr, Byte>(bitmap);
+                var currentFrame = new Image<Bgr, Byte>(bitmap);
                 Console.WriteLine(_detection);
-                var face = _detection.DetectMultiScale(currentFrame, 1.2, 0);
+                var face = _detection.DetectMultiScale(currentFrame, 1.1, 0);
                 if (face.Length > 0)
                     return JsonResponse.JsonHttpResponse<Object>(true);
                 else
