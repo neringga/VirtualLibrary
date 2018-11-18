@@ -1,10 +1,11 @@
 ﻿
 using Shared.View;
+using VILIB.Helpers;
 
 namespace VILIB.Repositories
 {
     public interface IUserRepository : IRepository<IUser>
     {
-        bool Login(string username, string password);
+        bool Login(object sender, LoginEventArgs e);
     }
 }

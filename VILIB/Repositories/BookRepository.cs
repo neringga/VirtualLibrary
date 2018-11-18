@@ -20,16 +20,18 @@ namespace VILIB.Repositories
 
         public async Task<int> Add(IBook item)
         {
-           
+            // INTERMMEDIATE IMPLEMENTATION. TODO: use database
             _dataSource.AddBook(item);
             return 1;
         }
 
-        public async Task<int> Remove (IBook item)
+        public async Task<int> Remove(IBook item)
         {
+            // INTERMMEDIATE IMPLEMENTATION. TODO: use database
             _dataSource.RemoveBook(item);
             return 1;
         }
+
 
         public IList<IBook> GetList()
         {
@@ -41,19 +43,6 @@ namespace VILIB.Repositories
             return _dataSource.GetBookList().Where(book => book.IsTaken).ToList();
         }
 
-        public bool TakeBook(IBook book) // NOT USED, TODO: implement
-        {
-            if (book.IsTaken)
-                return false;
-
-            book.IsTaken = true;
-            return true;
-        }
-
-        public bool ReturnBook(IBook book) // NOT USED, TODO: implement
-        {
-            return false;
-        }
 
         public IBook CheckForTakenBook(string code)
         {

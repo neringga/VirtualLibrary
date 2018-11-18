@@ -1,13 +1,8 @@
-using System.Web.Mvc;
-using System.Web.UI;
 using Unity;
 using Unity.Injection;
 using Unity.Lifetime;
-using Unity.Mvc5;
 using VILIB.Controllers;
 using VILIB.DataSources;
-using VILIB.Model;
-using VILIB.View;
 using VILIB.Helpers;
 using VILIB.Presenters;
 using VILIB.Repositories;
@@ -70,8 +65,9 @@ namespace VILIB
             container.RegisterType<UserSignInController>(new InjectionFactory(o =>
             {
                 var userRepository = container.Resolve<IUserRepository>();
-                var inputValidator = container.Resolve<IInputValidator>();
-                return new UserSignInController(userRepository, inputValidator);
+                var controller = new UserSignInController(userRepository);
+                controller.OnLogin += userRepository.Login;
+                return controller;
             }));
 
             container.RegisterType<TakenBookController>(new InjectionFactory(o =>

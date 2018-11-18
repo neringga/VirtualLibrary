@@ -46,20 +46,21 @@ namespace VILIB.Controllers
                 var result = await _mUserRepository.Add(user);
                 return JsonResponse.JsonHttpResponse<Object>(true);
             }
-
         }
     }
+
 
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserSignInController : ApiController
     {
-        private readonly IUserRepository _mUserRepository;
-        private readonly IInputValidator _mInputValidator;
+        public delegate bool UserActionHandler<LoginEventArgs>(object sender, LoginEventArgs e);
+        public event UserActionHandler<LoginEventArgs> OnLogin;
 
-        public UserSignInController(IUserRepository userRepository, IInputValidator inputValidator)
+        private readonly IUserRepository _mUserRepository;
+
+        public UserSignInController(IUserRepository userRepository)
         {
             _mUserRepository = userRepository;
-            _mInputValidator = inputValidator;
         }
 
         public async Task<HttpResponseMessage> Put()
@@ -68,28 +69,30 @@ namespace VILIB.Controllers
             string jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            if (_mUserRepository.Login(credentials.username, credentials.password))
+            return Login(credentials);
+        }
+
+        private HttpResponseMessage Login(FrontendUser credentials)
+        {
+            if (credentials == null)
             {
-                
+                return JsonResponse.JsonHttpResponse<Object>(false);
+            }
+            var loginArgs = new LoginEventArgs() { Username = credentials.username, Password = credentials.password };
+
+            if (OnLogin(this, loginArgs))
+            {
                 return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
             }
             else
             {
-
-                return JsonResponse.JsonHttpResponse<Object>(
-                        ConfigurationManager.AppSettings["usernameError"]
-                    );
-
+                return JsonResponse.JsonHttpResponse<Object>("Nope");
             }
         }
     }
 
-    public class FrontendUser
+    public class UserActionHandler<TEventArgs>
     {
-        public string username { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
+
     }
 }

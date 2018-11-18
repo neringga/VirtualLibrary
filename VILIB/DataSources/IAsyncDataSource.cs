@@ -16,5 +16,8 @@ namespace VILIB.DataSources
         Task<int> AddBook(IBook book);
         Task<int> RemoveTakenBook(IBook takenBook);
         Task<int> AddTakenBook(IBook takenBook);
+
+        //TODO: decide which to keep - generic implementations or concrete
+        Task<int> RemoveItem<T>(T item);
     }
 }

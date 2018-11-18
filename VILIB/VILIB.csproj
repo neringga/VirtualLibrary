@@ -236,6 +236,7 @@
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="FaceRecognision\IEmguCvFaceRecognition.cs" />
     <Compile Include="Helpers\JsonResponce.cs" />
+    <Compile Include="Helpers\UserCredentialClasses.cs" />
     <Compile Include="Localization\Translations.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\User.cs" />
