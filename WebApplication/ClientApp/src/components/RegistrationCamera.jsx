@@ -22,23 +22,32 @@ export class RegistrationCamera extends Component {
     this.webcam = webcam;
   };
 
-  capture = () => {
+    capture = () => {
+        
+
     let screenshot = this.webcam.getScreenshot();
     var data = screenshot.replace(/^data:image\/\w+;base64,/, "");
-    var buf = new Buffer(data, "base64");
-    fs.writeFile("image.png", buf);
+      var buf = new Buffer(data, "base64");
 
-    fs.readFile("image.png", function(err, data) {
-      axios
-        .post(HttpRequestPath + "api/FaceDetection", data, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(response => {
-          console.log(response);
+      
+        
+
+        fs.writeFile("image.png", buf, function () {
+            fs.readFile("image.png", function (err, data) {
+                axios
+                    .post(HttpRequestPath + "api/FaceDetection", data, {
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        console.log(response);
+                    });
+            });
         });
-    });
+
+
+      
 
     
   };
