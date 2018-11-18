@@ -92,7 +92,7 @@ namespace VILIB
             {
                 return new FaceDetectionController(
                     System.Configuration.ConfigurationManager.AppSettings["faceDetectionTrainingFile"],
-                    System.Configuration.ConfigurationManager.AppSettings["faceImgaesPerUser"]);
+                    System.Configuration.ConfigurationManager.AppSettings["faceImagesPerUser"]);
             }));
 
 
