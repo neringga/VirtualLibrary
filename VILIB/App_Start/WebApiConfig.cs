@@ -10,6 +10,7 @@ namespace VILIB
     {
         public static void Register(HttpConfiguration config)
         {
+            //proof of concept that anonymous method works. Revertable.
             ConfigDelegate ApiConfigDelegate = delegate (HttpConfiguration delconfig)
             {
                 // Web API configuration and services
