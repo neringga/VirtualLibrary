@@ -37,11 +37,9 @@ namespace VILIB.Repositories
                     .Any();
         }
 
-
-
         public async Task<int> Remove(IUser item)
         {
-            return await _dataSource.RemoveUser(item);
+            return await _dataSource.RemoveItem<IUser>(item);
         }
     }
 }

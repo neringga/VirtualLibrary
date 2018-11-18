@@ -91,6 +91,25 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> RemoveItem<T>(T item)
+        {
+            if (item is IUser)
+            {
+                _dbContext.Users.Remove(ConvertToDbUser((IUser)item));
+                return await _dbContext.SaveChangesAsync();
+            }
+
+            else if (item is IBook)
+            {
+                _dbContext.Books.Remove(ConvertToDbBook((IBook)item));
+                return await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new NotSupportedException("Object type is not supported");
+            }
+        }
+
         private DbBook ConvertToDbBook(IBook book)
         {
             return new DbBook()
