@@ -229,6 +229,7 @@
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
     <Compile Include="FaceRecognision\EigenFaceRecognition.cs" />
+    <Compile Include="FaceRecognision\ImageConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
