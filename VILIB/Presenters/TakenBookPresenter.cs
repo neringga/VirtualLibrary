@@ -42,6 +42,19 @@ namespace VILIB.Presenters
                 book => book.TakenByUser == StaticDataSource.CurrUser);
         }
 
+        public IBook FindTakenBookByCode(string code, string user)
+        {
+            var books = _mBookRepository.GetTakenBooks();
+            foreach (var book in books)
+            {
+                if (book.Code == code)
+                {
+                    return book;
+                }
+            }
+            return null;
+        }
+
 
         public void RemoveTakenBook(IBook takenBook)
         {

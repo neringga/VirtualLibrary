@@ -1,82 +1,104 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table } from 'react-bootstrap';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
-import './Home.css';
-import Popup from 'reactjs-popup';
+import { Table, Modal, Button } from "react-bootstrap";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
+import "./Home.css";
+import Popup from "reactjs-popup";
 
 import { HttpRequestPath, bookListApi } from "./Constants";
 import { func } from "prop-types";
 
 export class ReturnBooks extends Component {
-    constructor() {
-        super();
-        this.onRowSelect = this.onRowSelect.bind(this);
-        this.state = {
-            books: []
-          };
-      }
+  constructor() {
+    super();
+    // this.onRowSelect = this.onRowSelect.bind(this);
+    this.state = {
+      books: [],
+      showModal: false,
+      code: null
+    };
+  }
 
-      componentDidMount() {
-        axios
-          .get(HttpRequestPath + "api/TakenBook")
-          .then(response => {
-              console.log(response.data)
-            this.setState({
-              books: response.data
-            });
-          })
-          .catch(error => (console.log("API error")));  //TODO error handling
-      }
+  componentDidMount() {
+    axios
+      .get(HttpRequestPath + "api/TakenBook")
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          books: response.data
+        });
+      })
+      .catch(error => console.log("API error")); //TODO error handling
+  }
 
-      onRowSelect({ row }) {
-        alert("a");
-      }
+  onSelectBook = row => {
+    this.setState({ showModal: true, code : row.Code});
+  };
 
-      
+  close = row => {
+    this.setState({ showModal: false });
+  };
+
+  returnBook = row => {
+    axios.put(HttpRequestPath + 'api/ReturnBook', this.state.code).then(response => {
+        if (response.data) {
+          window.location.reload();
+        }
+    });
+  };
 
   render() {
-    const options = {
-      onRowClick: function(row) {
-      },
-      onRowDoubleClick: function(row) {
-        alert(`You double click row id: ${row.Author}`);
-      },
-     
+    const selectRow = {
+      mode: "radio",
+      clickToSelect: true,
+      onSelect: this.onSelectBook
     };
+
+    const backdropStyle = {
+      ...modalStyle,
+      zIndex: "auto",
+      backgroundColor: "#000",
+      opacity: 0.5
+    };
+
+    const modalStyle = {
+      position: "fixed",
+      zIndex: 1040,
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    };
+
     return (
       <div className="center">
-      <BootstrapTable data = {this.state.books} options={ options } hover >
-          <TableHeaderColumn dataField='Author' isKey>Author</TableHeaderColumn>
-          <TableHeaderColumn dataField='Title'>Title</TableHeaderColumn>
-          <TableHeaderColumn dataField='HasToBeReturned'>Return until</TableHeaderColumn>
-      </BootstrapTable>
+        <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
+          <TableHeaderColumn dataField="Author" isKey>
+            Author
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="Title">Title</TableHeaderColumn>
+          <TableHeaderColumn dataField="Code" hidden="true">Code</TableHeaderColumn>
+          <TableHeaderColumn dataField="HasToBeReturned">
+            Return until
+          </TableHeaderColumn>
+        </BootstrapTable>
+
+        <Modal
+          aria-labelledby="modal-label"
+          style={modalStyle}
+          backdropStyle={backdropStyle}
+          show={this.state.showModal}
+          onHide={this.close}
+        >
+          <div>
+            <h4 id="modal-label">Return book</h4>
+            <p>Do you want to return this book?</p>
+            <Button onClick={this.returnBook}>Yes</Button>
+            <Button onClick={this.close}>No</Button>
+          </div>
+        </Modal>
       </div>
-      // <div className="center">
-      // <Table onClick={this.handleClick} responsive hover>
-      //   <thead>
-      //     <tr>
-      //       <th></th>
-      //       <th>Book</th>
-      //       <th>Return until</th>
-      //     </tr>
-      //   </thead>
-      //   <tbody>
-      //       { this.state.books.map( book => (
-      //           <tr>
-      //       <td></td>
-      //       <td>
-      //         {book.Title} {book.Author} 
-      //       </td>
-      //       <td>
-      //           {book.HasToBeReturned}
-      //       </td></tr>
-      //       ))}
-            
-      //   </tbody>
-      // </Table>
-      // </div>
     );
   }
 }
