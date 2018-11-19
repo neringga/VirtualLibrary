@@ -15,7 +15,7 @@ export class BookList extends Component {
   componentDidMount() {
     axios
 
-        .get(HttpRequestPath + '<%=ConfigurationManager.AppSettings["BookListApi"] %>')
+        .get(HttpRequestPath + 'api/Book')
 
       .then(response => {
         this.setState({
@@ -30,7 +30,7 @@ export class BookList extends Component {
       this.state.books!=null &&
       <center>
       <div className="box">
-        <h3>Not taken books</h3>
+        <h3>Books</h3>
         <br/>
         <Table responsive>
         <thead>
