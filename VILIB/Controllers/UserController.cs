@@ -53,7 +53,7 @@ namespace VILIB.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UserSignInController : ApiController
     {
-        public delegate bool UserActionHandler<LoginEventArgs>(object sender, LoginEventArgs e);
+        public delegate bool UserActionHandler<TEventsArgs>(object sender, TEventsArgs e);
         public event UserActionHandler<LoginEventArgs> OnLogin;
 
         private readonly IUserRepository _mUserRepository;
@@ -89,10 +89,5 @@ namespace VILIB.Controllers
                 return JsonResponse.JsonHttpResponse<Object>("Nope");
             }
         }
-    }
-
-    public class UserActionHandler<TEventArgs>
-    {
-
     }
 }
