@@ -93,8 +93,7 @@ namespace VILIB
             container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
             {
                 return new FaceDetectionController(
-                    System.Configuration.ConfigurationManager.AppSettings["faceDetectionTrainingFile"],
-                    System.Configuration.ConfigurationManager.AppSettings["faceImagesPerUser"]);
+                    System.Configuration.ConfigurationManager.AppSettings["faceDetectionTrainingFile"]);
             }));
 
 
