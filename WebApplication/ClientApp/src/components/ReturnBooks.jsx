@@ -72,7 +72,7 @@ export class ReturnBooks extends Component {
     };
 
     return (
-      <div className="center">
+      <div className="box">
         <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
