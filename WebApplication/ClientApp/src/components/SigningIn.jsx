@@ -56,8 +56,7 @@ export class SigningIn extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="scrollableBox" overflow-y="scroll">
+                // <div className="scrollableBox" overflow-y="scroll">
                     <form>
                         <div className="form-group">
                             <label>Username</label>
@@ -84,8 +83,7 @@ export class SigningIn extends Component {
                         </div>
 
                     </form>
-                </div>
-            </div>
+                // </div>
         );
     }
 }

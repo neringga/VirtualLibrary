@@ -93,8 +93,7 @@ export class Registration extends Component {
             button = <button type="submit" className="btn btn-primary">Submit</button>
         }
         return (
-            <div className="container">
-                <div className="scrollableBox" overflow-y="scroll">
+                <div className="scrollableBox">
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label>Username</label>
@@ -166,7 +165,6 @@ export class Registration extends Component {
                         </div>
                     </form>
                 </div>
-            </div>
 
         );
     }

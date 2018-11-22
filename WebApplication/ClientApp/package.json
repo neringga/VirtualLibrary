@@ -7,18 +7,22 @@
     "axios": "^0.18.0",
     "bootstrap": "^3.3.7",
     "browserify-fs": "^1.0.0",
+    "quagga": "^0.12.1",
     "react": "^16.6.1",
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.0.0",
     "react-html5-camera-photo": "^1.2.9",
+    "react-qr-reader": "^2.1.1",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^2.1.1",
     "react-sidebar": "^3.0.2",
     "react-webcam": "^1.0.4",
     "reactjs-popup": "^1.3.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "semantic-ui": "^2.4.2",
+    "semantic-ui-react": "^0.83.0"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",

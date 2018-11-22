@@ -12,8 +12,6 @@ import logo from './logo.png';
         <Navbar.Header>
           <Navbar.Brand>
             <a>LIBRY</a>
-              {/* TODO Add logo */}
-              {/* <a href="#"><img src={logo} color='white' weight="40" height="40"/></a>   */}
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -44,16 +42,6 @@ import logo from './logo.png';
                 <Glyphicon glyph='glyphicon glyphicon-comment' /> Reviews
               </NavItem>
             </LinkContainer>
-            {/* <LinkContainer to={'/counter'}>
-              <NavItem>
-                <Glyphicon glyph='education' /> Counter
-              </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/fetchdata'}>
-              <NavItem>
-                <Glyphicon glyph='th-list' /> Fetch data
-              </NavItem>
-            </LinkContainer> */} */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

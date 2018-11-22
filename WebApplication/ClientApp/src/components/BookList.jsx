@@ -28,7 +28,6 @@ export class BookList extends Component {
   render() {
     return (
       this.state.books!=null &&
-      <center>
       <div className="box">
         <h3>Books</h3>
         <br/>
@@ -52,7 +51,6 @@ export class BookList extends Component {
         </tbody>
       </Table>
       </div>
-      </center>
     );
   }
 }
