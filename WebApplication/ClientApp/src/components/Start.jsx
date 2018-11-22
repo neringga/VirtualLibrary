@@ -10,13 +10,13 @@ export class Start extends Component {
         <img className="logo" src={logo} height="140" width="120" />
         <h2 className="belowLogo">Welcome</h2>
         <div className="ui padded segment">
-        <Link to={"/signIn"}>
+        <Link to={"/"}>
           <button className="ui fluid primary large button" role="button">
             Login
           </button>
           </Link>
           <div className="ui horizontal divider">Not in the mood for camera?</div>
-          <Link to={"/registration"}>
+          <Link to={"/signIn"}>
           <button className="ui fluid secondary large button" role="button">
             Login without camera
           </button>
