@@ -43,15 +43,12 @@ namespace VILIB.Controllers
                 stream.Close();
                 var bitmap = new Bitmap(memStr);
                 var currentFrame = new Image<Bgr, Byte>(bitmap);
-                Console.WriteLine(_detection);
                 var face = _detection.DetectMultiScale(currentFrame, 1.1, 0);
 
                 if (face.Length > 0)
                 {
                     Image<Gray, byte> grayFaceImage = currentFrame.Convert<Gray, byte>().Copy(face[0]).Resize(_grayFaceImageSize, _grayFaceImageSize, Inter.Cubic);
                     grayFaceImage.ToBitmap().Save(memStr, ImageFormat.Png);
-                        Random rand = new Random();
-                        grayFaceImage.ToBitmap().Save("D:\\CSharpVersion_" + rand.Next() + ".png");
                     return JsonResponse.JsonHttpResponse<Object>(memStr.ToArray());
                 }
                 else

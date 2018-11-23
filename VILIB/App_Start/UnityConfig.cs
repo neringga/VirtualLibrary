@@ -96,6 +96,11 @@ namespace VILIB
                     System.Configuration.ConfigurationManager.AppSettings["faceDetectionTrainingFile"]);
             }));
 
+            container.RegisterType<FaceRecognitionController>(new InjectionFactory(o =>
+            {
+                return new FaceRecognitionController();
+            }));
+
 
             // Helpers & Presenters
             container.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>

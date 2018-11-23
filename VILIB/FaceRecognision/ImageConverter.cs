@@ -13,6 +13,25 @@ namespace VILIB.FaceRecognision
         private const int _grayFaceImageSize = 100;
         private const double _cascadePrecision = 1.1;
 
+
+        public static Image<Bgr, byte> PhotoToBgrImage(byte[] photo)
+        {
+            Image systemImage;
+
+            using (MemoryStream stream = new MemoryStream(photo))
+            {
+                systemImage = Image.FromStream(stream);
+            }
+
+            Bitmap bitmap = new Bitmap(systemImage);
+            return new Image<Bgr, byte>(bitmap);
+        }
+
+        //---------------------------------------------------------------
+        //  All below are not used and will be changed or deleted
+        //---------------------------------------------------------------
+
+
         public static Image<Gray, byte> PhotoToGrayFaceImage(byte[] photo)
         {
             Image systemImage;
@@ -52,7 +71,6 @@ namespace VILIB.FaceRecognision
             }
             return grayFaceImages;
         }
-
 
         public static byte[] PhotoToGrayFaceBytes(byte[] photo)
         {
