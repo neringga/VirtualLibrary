@@ -10,6 +10,7 @@ import { HomePage } from './components/HomePage';
 import { RegistrationCamera } from './components/RegistrationCamera';
 import { ReturnBooks } from './components/ReturnBooks';
 import { BookList } from './components/BookList';
+import { LogInCamera } from './components/LogInCamera';
 import { qrReader } from './components/qrReader';
 
 
@@ -23,6 +24,7 @@ export default class App extends Component {
                 <Route exact path='/registration' component={Registration} />
                 <Route exact path='/signIn' component={SigningIn} />
                 <Route exact path='/registration/camera' component={RegistrationCamera} />
+                <Route exact path='/signIn/camera' component={LogInCamera} />
 				<Layout>
 				<Route exact path='/homePage' component={HomePage} />
 				<Route exact path='/bookTaking' component={BookTaking} />

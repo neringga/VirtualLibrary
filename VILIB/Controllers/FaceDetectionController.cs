@@ -1,14 +1,18 @@
-﻿using Emgu.CV;
-using Emgu.CV.Structure;
-using System;
+﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.WebPages;
+
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+
 using VILIB.Helpers;
 
 namespace VILIB.Controllers
@@ -16,22 +20,24 @@ namespace VILIB.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FaceDetectionController : ApiController
     {
-        private readonly CascadeClassifier _detection;
-        private readonly int _faceImagesPerUser;
+        private readonly int _grayFaceImageSize;
+        private readonly double _cascadePrecision;
 
-        public FaceDetectionController(string faceDetectionTrainingFileName, string faceImagesPerUser)
+        private readonly CascadeClassifier _detection;
+
+        public FaceDetectionController()
         {
-            _faceImagesPerUser = Int32.Parse(faceImagesPerUser);
             _detection = new CascadeClassifier(
                 new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/" +
-                                  System.Configuration
-                                   .ConfigurationManager.AppSettings["faceDetectionTrainingFile"]))
+                                  ConfigurationManager.AppSettings["faceDetectionTrainingFile"]))
                                   .ToString());
+
+            _grayFaceImageSize = int.Parse(ConfigurationManager.AppSettings["faceImageSize"]);
+            _cascadePrecision = double.Parse(ConfigurationManager.AppSettings["cascadePrecision"]);
         }
 
         public async Task<HttpResponseMessage> Post()
         {
-            int numberOfImagesWithFace = 0;
             var stream = await Request.Content.ReadAsStreamAsync();
             MemoryStream memStr = new MemoryStream();
             try
@@ -40,19 +46,22 @@ namespace VILIB.Controllers
                 stream.Close();
                 var bitmap = new Bitmap(memStr);
                 var currentFrame = new Image<Bgr, Byte>(bitmap);
-                Console.WriteLine(_detection);
-                var face = _detection.DetectMultiScale(currentFrame, 1.1, 0);
+                var face = _detection.DetectMultiScale(currentFrame, _cascadePrecision, 0);
+
                 if (face.Length > 0)
-                    return JsonResponse.JsonHttpResponse<Object>(true);
+                {
+                    Image<Gray, byte> grayFaceImage = currentFrame.Convert<Gray, byte>().Copy(face[0]).Resize(_grayFaceImageSize, _grayFaceImageSize, Inter.Cubic);
+                    grayFaceImage.ToBitmap().Save(memStr, ImageFormat.Png);
+                    return JsonResponse.JsonHttpResponse<Object>(memStr.ToArray());
+                }
                 else
                     return JsonResponse.JsonHttpResponse<Object>(false);
-
             }
             catch (Exception e)
             {
-               return JsonResponse.JsonHttpResponse<Object>(null);
+                return JsonResponse.JsonHttpResponse<Object>(null);
             }
-            
+
 
         }
     }
