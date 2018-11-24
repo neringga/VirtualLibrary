@@ -1,4 +1,6 @@
-﻿h1 {
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+h1 {
 	text-align: center;
 	color: black;
 }
@@ -20,96 +22,79 @@ img {
 	text-align: center;
 }
 
-.container {
-	/* background-image: url('https://image.freepik.com/free-photo/wooden-table-with-blurred-background_1134-14.jpg'); */
-	   background-color: #fcfafa;
-	   /* background-repeat: no-repeat; */
-	   /* background-size: 100% 100%; */
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	z-index: -10;
-	transition: all 500ms ease;
-	padding-top: 0px;
-}
-
-.containerBookTaking {
-
-		/* background-image: url('https://image.freepik.com/free-photo/wooden-table-with-blurred-background_1134-14.jpg'); */
-		   background-color: #fcfafa;
-		   /* background-repeat: no-repeat; */
-		   /* background-size: 100% 100%; */
-		width: 100%;
-		height: 100%;
-		left: 70px;
-		z-index: -10;
-		transition: all 500ms ease;
-		padding: 50px;
-
-}
-
-
-
-.containerBookList {
-	margin:60px auto;
-	width: 450px;
-	height: 400px;
-	background:whitesmoke;
-	padding: 5px;
-	border-radius: 5px;
-	position: absolute;
-	left: 10px;
-	top: 20px;
-	/* overflow-y: scroll; */
-}
-
-.containerStatistics {
-	margin:60px auto;
-	width: 450px;
-	height: 400px;
-	background:whitesmoke;
-	padding: 5px;
-	border-radius: 5px;
-	position: absolute;
-	left: 500px;
-	top: 20px;
-	/* overflow-y: scroll; */
-}
-
-.containerReviews {
-	margin:60px auto;
-	width: 450px;
-	height: 400px;
-	background:whitesmoke;
-	padding: 5px;
-	border-radius: 5px;
-	position: absolute;
-	left: 1000px;
-	top: 20px;
-	/* overflow-y: scroll; */
-}
 
 .scrollableBox {
-	position: relative;
-	margin:60px auto;
-	width: 500px;
-	height: 500px;
-	background: #fff;
-	padding: 30px;
-	border-radius: 10px;
+	width: 80%;
+	margin: auto;
+	background:white;
+	padding: 10px;
+	border: 1px #ccc solid;
+	font-family: 'Roboto Condensed', sans-serif;
+	color:black;
 	overflow-y: scroll;
 }
 
 .box {
-	position: relative;
 	text-align: center;
+	width: 100%;
+	/* height: 80%; */
 	margin: auto;
-	width: 500px;
-	height: 600px;
+	margin-top: -30px;
 	background:white;
-	padding: 10px;
-	border-radius: 10px;
+	padding: 30px;
+	padding-bottom: 10px;
+	border: 1px #ccc solid;
+	font-family: 'Roboto Condensed', sans-serif;
+	color:black;
 }
+
+@media(min-width: 768px) {
+	.box {
+		text-align: center;
+		width: 40%;
+		/* height: ; */
+		margin: auto;
+		margin-top: 20px;
+		background:white;
+		padding: 30px;
+		border: 1px #ccc solid;
+		font-family: 'Roboto Condensed', sans-serif;
+		color:black;
+	}
+}
+
+.box logo {
+	size: 1000px;
+}
+
+.belowLogo {
+	margin-top: 50px;
+	color:rgb(90, 88, 88); 
+	letter-spacing: 0.2em;
+}
+
+.cameraStyle {
+	width: 100%;
+	height: 400px;
+}
+
+.cameraText {
+	margin-top: 600px;
+}
+
+.belowCamera {
+	margin-top: 200px;
+}
+
+.spacing {
+	margin-top: 71px;
+	margin-bottom: 0px;
+}
+
+.signUpLink {
+	color: rgb(245, 63, 94);
+}
+
 
 .react-bs-container-body tr {
 	border-top-style: hidden !important;
@@ -119,12 +104,6 @@ img {
 	border-bottom-style: hidden !important;
   }
 
-.button {
-	border-radius: 12px;
-	background-color: lightgrey;
-	height: 30px;
-	color: black;
-}
 
 .form {
 	padding: 50px;
@@ -137,9 +116,6 @@ img {
 	justify-content: center;
 }
 
-.spacing {
-	line-height: 20px; 
-}
 
 
 

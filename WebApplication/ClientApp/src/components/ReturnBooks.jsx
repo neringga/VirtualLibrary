@@ -12,7 +12,6 @@ import { func } from "prop-types";
 export class ReturnBooks extends Component {
   constructor() {
     super();
-    // this.onRowSelect = this.onRowSelect.bind(this);
     this.state = {
       books: [],
       showModal: false,
@@ -72,7 +71,7 @@ export class ReturnBooks extends Component {
     };
 
     return (
-      <div className="center">
+      <div className="box">
         <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
@@ -91,11 +90,14 @@ export class ReturnBooks extends Component {
           show={this.state.showModal}
           onHide={this.close}
         >
-          <div>
+                <div>
+                    <center>
             <h4 id="modal-label">Return book</h4>
             <p>Do you want to return this book?</p>
             <Button onClick={this.returnBook}>Yes</Button>
             <Button onClick={this.close}>No</Button>
+              </center>
+
           </div>
         </Modal>
       </div>

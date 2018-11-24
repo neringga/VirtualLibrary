@@ -11,6 +11,8 @@ import { RegistrationCamera } from './components/RegistrationCamera';
 import { ReturnBooks } from './components/ReturnBooks';
 import { BookList } from './components/BookList';
 import { LogInCamera } from './components/LogInCamera';
+import { qrReader } from './components/qrReader';
+
 
 export default class App extends Component {
 
@@ -28,6 +30,8 @@ export default class App extends Component {
 				<Route exact path='/bookTaking' component={BookTaking} />
 				<Route exact path='/returnBooks' component={ReturnBooks} />
 				<Route exact path='/books' component={BookList} />
+				<Route exact path='/qrReader' component={qrReader} />
+
 				</Layout>
 			</Switch>
 			
