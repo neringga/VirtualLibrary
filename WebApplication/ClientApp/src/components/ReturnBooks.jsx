@@ -72,7 +72,8 @@ export class ReturnBooks extends Component {
     };
 
     return (
-      <div className="box">
+      <div>
+        <center>
         <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
@@ -98,7 +99,9 @@ export class ReturnBooks extends Component {
             <Button onClick={this.close}>No</Button>
           </div>
         </Modal>
-      </div>
+        </center>
+
+        </div>
     );
   }
 }

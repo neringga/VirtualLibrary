@@ -21,12 +21,6 @@ export class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            repPassword: "",
             validInput: false
         };
     }

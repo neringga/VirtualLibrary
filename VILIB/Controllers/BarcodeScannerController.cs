@@ -1,16 +1,12 @@
-﻿using Shared.View;
+﻿using Newtonsoft.Json;
+using Shared.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VILIB.Helpers;
 using VILIB.Presenters;
-using VILIB.View;
 
 namespace VILIB.Controllers
 {
@@ -31,29 +27,18 @@ namespace VILIB.Controllers
         }
         public async Task<HttpResponseMessage> Post()
         {
-            if (!Request.Content.IsMimeMultipartContent())
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            var isbnCode = JsonConvert.DeserializeObject<string>(jsonContent);
+
+            _book = _bookPresenter.FindBookByCode(isbnCode);
+            if (_book != null)
             {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
-
-            try
-            {
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                foreach (MultipartFileData file in provider.FileData)
-                {
-                    var bookCode = _scannerPresenter.DecodedBarcode(file.LocalFileName);
-                    _book = _bookPresenter.FindBookByCode(bookCode);
-
-                }
                 return JsonResponse.JsonHttpResponse<Object>(_book);
             }
-            catch (System.Exception e)
+            else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                return JsonResponse.JsonHttpResponse<Object>(null);
             }
         }
     }
