@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using VILIB.FaceRecognision;
+
 using VILIB.Helpers;
 using VILIB.View;
 
