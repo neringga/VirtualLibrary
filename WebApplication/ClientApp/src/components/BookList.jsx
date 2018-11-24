@@ -34,7 +34,7 @@ export class BookList extends Component {
     }
     return (
       this.state.books != null && (
-        <div className="box">
+        <div className="boxQr">
           <h3>Books</h3>
           <br />
           { $loadingIcon }

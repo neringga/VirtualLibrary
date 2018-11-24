@@ -10,7 +10,6 @@ import { HomePage } from './components/HomePage';
 import { RegistrationCamera } from './components/RegistrationCamera';
 import { ReturnBooks } from './components/ReturnBooks';
 import { BookList } from './components/BookList';
-import { qrReader } from './components/qrReader';
 import { ReturnBook } from './components/ReturnBook';
 
 
@@ -30,7 +29,6 @@ export default class App extends Component {
 				<Route exact path='/returnBooks' component={ReturnBooks} />
 				<Route exact path='/returnBook' component={ReturnBook} />
 				<Route exact path='/books' component={BookList} />
-				<Route exact path='/qrReader' component={qrReader} />
 
 				</Layout>
 			</Switch>

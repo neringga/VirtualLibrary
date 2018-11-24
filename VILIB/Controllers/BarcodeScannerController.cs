@@ -25,13 +25,23 @@ namespace VILIB.Controllers
             _bookPresenter = bookPresenter;
             _scannerPresenter = scannerPresenter;
         }
-        public async Task<HttpResponseMessage> Post()
+
+        public HttpResponseMessage Get()
+        {
+            return new HttpResponseMessage
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(null),
+                    System.Text.Encoding.UTF8, "application/json")
+            };
+        }
+
+        public async Task<HttpResponseMessage> Put()
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var isbnCode = JsonConvert.DeserializeObject<string>(jsonContent);
+            var isbn = JsonConvert.DeserializeObject<QrCode>(jsonContent);
 
-            _book = _bookPresenter.FindBookByCode(isbnCode);
+            _book = _bookPresenter.FindBookByCode(isbn.isbnCode);
             if (_book != null)
             {
                 return JsonResponse.JsonHttpResponse<Object>(_book);
@@ -41,5 +51,10 @@ namespace VILIB.Controllers
                 return JsonResponse.JsonHttpResponse<Object>(null);
             }
         }
+    }
+
+    public class QrCode
+    {
+        public string isbnCode { set; get; }
     }
 }
