@@ -1,7 +1,6 @@
 ﻿import React, { Component } from "react";
 import axios from "axios";
 import "./Registration.css";
-import { logo } from './logo.png';
 import {
     HttpRequestPath,
     userRegistrationApi,
@@ -21,7 +20,6 @@ export class Registration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            validInput: false
         };
     }
 
@@ -33,18 +31,18 @@ export class Registration extends Component {
     };
 
     checkInput = event => {
-        if (this.state.username == null) {
+        if (this.state.username === null) {
             alert(usernameShortErr);
             return false;
         }
         if (
-            this.state.password == null ||
-            this.state.password != this.state.repPassword
+            this.state.password === null ||
+            this.state.password !== this.state.repPassword
         ) {
             alert(passordNotMatchErr);
             return false;
         }
-        if (this.state.email == null || !this.state.email.match(emailRegex)) {
+        if (this.state.email === null || !this.state.email.match(emailRegex)) {
             alert(emailRegexErr);
             return false;
         }

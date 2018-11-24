@@ -1,15 +1,9 @@
 ﻿import React, { Component } from "react";
-import axios from "axios";
 import "./SigningIn.css";
 import {
-    noUser,
     noUsername,
     noPassword,
-    successfullSignIn,
-    userSignInApi,
-    HttpRequestPath
 } from "./Constants.jsx";
-import { Link } from "react-router-dom";
 
 export class SigningIn extends Component {
     constructor(props) {
@@ -43,14 +37,13 @@ export class SigningIn extends Component {
     handleSubmit = event => {
         event.preventDefault();
         if (this.checkInput()) {
-            const data = this.state;
-            // Auth.login(this.state.user, this.state.password);
+
         }
     };
 
     render() {
         return (
-                // <div className="scrollableBox" overflow-y="scroll">
+                // <div className="scrollbleBox" overflow-y="scroll">
                     <form>
                         <div className="form-group">
                             <label>Username</label>

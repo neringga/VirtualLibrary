@@ -16,20 +16,6 @@ export class BookTaking extends Component {
     this.handleError = this.handleError.bind(this);
   }
 
-  // componentDidMount() {
-  //     MediaDevices.ondevicechange += this.handleCameraChange
-  //     window.addEventListener('', this.handleCameraChange)
-  // }
-
-  // componentWillUnmount() {
-  //     MediaDevices.ondevicechange += this.handleCameraChange
-  //     window.removeEventListener('', this.handleCameraChange)
-  // }
-
-  // handleCameraChange = (event) => {
-  //     console.log(event)
-  // }
-
   handleScan(data) {
     if (data != null) {
       this.setState({
@@ -90,7 +76,6 @@ export class BookTaking extends Component {
           returnTime: response.data,
           showDate: true,
           book: null
-          // loading: false
         });
       });
   };

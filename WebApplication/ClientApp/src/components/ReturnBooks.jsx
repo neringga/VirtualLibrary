@@ -1,18 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table, Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-import Popup from "reactjs-popup";
 
-import { HttpRequestPath, bookListApi } from "./Constants";
-import { func } from "prop-types";
+import { HttpRequestPath } from "./Constants";
 
 export class ReturnBooks extends Component {
   constructor() {
     super();
-    // this.onRowSelect = this.onRowSelect.bind(this);
     this.state = {
       books: [],
       showModal: false,

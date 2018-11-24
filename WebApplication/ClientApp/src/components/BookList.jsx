@@ -22,7 +22,7 @@ export class BookList extends Component {
           books: response.data
         });
       })
-      .catch(error => console.log("API error")); //TODO error handling
+      .catch(console.log("API error")); //TODO error handling
   }
 
   render() {
