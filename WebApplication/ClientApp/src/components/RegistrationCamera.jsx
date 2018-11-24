@@ -123,8 +123,6 @@ export class RegistrationCamera extends Component {
         <center>
           <Webcam
             className="center"
-            width="340"
-            height="340"
             audio={false}
             ref={this.setRef}
             screenshotFormat="image/jpeg"

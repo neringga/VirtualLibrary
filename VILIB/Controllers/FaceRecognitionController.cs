@@ -21,6 +21,11 @@ namespace VILIB.Controllers
         //    _recognition = recognition;
         //}
 
+        public FaceRecognitionController()
+        {
+
+        }
+
         public async Task<HttpResponseMessage> Post()
         {
             var stream = await Request.Content.ReadAsStreamAsync();
@@ -28,8 +33,6 @@ namespace VILIB.Controllers
             try
             {
                 stream.CopyTo(memStr);
-                Bitmap bitmap = new Bitmap(memStr);
-                bitmap.Save("D:\\Test.png");
                 stream.Close();
                 string userName = _recognition.Recognize(FaceRecognision.ImageConverter.PhotoToBgrImage(memStr.ToArray()));
 
