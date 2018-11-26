@@ -38,6 +38,14 @@ export class SigningIn extends Component {
         event.preventDefault();
         if (this.checkInput()) {
 
+            const data = this.state;
+            axios.put(HttpRequestPath + userSignInApi, data).then(response => {
+                if (response.data === successfullSignIn) {
+                    window.location = '/HomePage';
+                } else {
+                    alert(noUser);
+                }
+            }); 
         }
     };
 

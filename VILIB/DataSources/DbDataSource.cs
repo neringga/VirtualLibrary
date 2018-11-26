@@ -68,7 +68,10 @@ namespace VILIB.DataSources.Data
             }
             catch (InvalidOperationException e)
             {
-                e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
+                // "Unable to update database to match the current model because there are pending changes and automatic migration is disabled"
+                if (e.Message.Contains("database") && e.Message.Contains("pending changes"))
+                    e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
+
                 throw;
             }
         }
