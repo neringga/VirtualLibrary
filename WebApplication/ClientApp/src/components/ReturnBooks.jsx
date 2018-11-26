@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Table, Modal, Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-import Popup from "reactjs-popup";
 
-import { HttpRequestPath, bookListApi } from "./Constants";
-import { func } from "prop-types";
+import { HttpRequestPath } from "./Constants";
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -39,8 +37,11 @@ export class ReturnBooks extends Component {
     this.setState({ showModal: false });
   };
 
-  returnBook = row => {
-    axios.put(HttpRequestPath + 'api/ReturnBook', this.state.code).then(response => {
+	returnBook = row => {
+		const isbn = {
+			isbnCode: this.state.code,
+		};
+    axios.put(HttpRequestPath + 'api/ReturnBook', isbn).then(response => {
         if (response.data) {
           window.location.reload();
         }
@@ -71,7 +72,8 @@ export class ReturnBooks extends Component {
     };
 
     return (
-      <div className="box">
+      <div>
+        <center>
         <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
@@ -100,7 +102,9 @@ export class ReturnBooks extends Component {
 
           </div>
         </Modal>
-      </div>
+        </center>
+
+        </div>
     );
   }
 }

@@ -1,16 +1,12 @@
-﻿using Shared.View;
+﻿using Newtonsoft.Json;
+using Shared.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VILIB.Helpers;
 using VILIB.Presenters;
-using VILIB.View;
 
 namespace VILIB.Controllers
 {
@@ -29,32 +25,36 @@ namespace VILIB.Controllers
             _bookPresenter = bookPresenter;
             _scannerPresenter = scannerPresenter;
         }
-        public async Task<HttpResponseMessage> Post()
+
+        public HttpResponseMessage Get()
         {
-            if (!Request.Content.IsMimeMultipartContent())
+            return new HttpResponseMessage
             {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
+                Content = new StringContent(JsonConvert.SerializeObject(null),
+                    System.Text.Encoding.UTF8, "application/json")
+            };
+        }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
+        public async Task<HttpResponseMessage> Put()
+        {
+            HttpContent requestContent = Request.Content;
+            string jsonContent = await requestContent.ReadAsStringAsync();
+            var isbn = JsonConvert.DeserializeObject<QrCode>(jsonContent);
 
-            try
+            _book = _bookPresenter.FindBookByCode(isbn.isbnCode);
+            if (_book != null)
             {
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                foreach (MultipartFileData file in provider.FileData)
-                {
-                    var bookCode = _scannerPresenter.DecodedBarcode(file.LocalFileName);
-                    _book = _bookPresenter.FindBookByCode(bookCode);
-
-                }
                 return JsonResponse.JsonHttpResponse<Object>(_book);
             }
-            catch (System.Exception e)
+            else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                return JsonResponse.JsonHttpResponse<Object>(null);
             }
         }
+    }
+
+    public class QrCode
+    {
+        public string isbnCode { set; get; }
     }
 }

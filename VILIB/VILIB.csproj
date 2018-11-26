@@ -234,6 +234,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Code.cs" />
     <Compile Include="Helpers\IInputValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="FaceRecognision\IEmguCvFaceRecognition.cs" />
