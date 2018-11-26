@@ -37,8 +37,11 @@ export class ReturnBooks extends Component {
     this.setState({ showModal: false });
   };
 
-  returnBook = row => {
-    axios.put(HttpRequestPath + 'api/ReturnBook', this.state.code).then(response => {
+	returnBook = row => {
+		const isbn = {
+			isbnCode: this.state.code,
+		};
+    axios.put(HttpRequestPath + 'api/ReturnBook', isbn).then(response => {
         if (response.data) {
           window.location.reload();
         }

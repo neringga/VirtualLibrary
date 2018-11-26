@@ -92,11 +92,11 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var bookCode = JsonConvert.DeserializeObject<String>(jsonContent);
+            var bookCode = JsonConvert.DeserializeObject<Code>(jsonContent);
             StaticDataSource.CurrUser = "ner"; //TODO user authentification
             try
             {
-                var takenBook = _takenBookPresenter.FindTakenBookByCode(bookCode,
+                var takenBook = _takenBookPresenter.FindTakenBookByCode(bookCode.isbnCode,
                     StaticDataSource.CurrUser);
                 _takenBookPresenter.RemoveTakenBook(takenBook);
                 return JsonResponse.JsonHttpResponse<Object>(true);

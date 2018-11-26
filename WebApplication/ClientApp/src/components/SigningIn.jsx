@@ -52,7 +52,6 @@ export class SigningIn extends Component {
                                 name="username"
                                 className="form-control"
                                 placeholder="Username"
-                                valueLink={this.linkState('user')}
                                 onChange={this.handleInputChange}
                             />
                         </div>
@@ -63,7 +62,6 @@ export class SigningIn extends Component {
                                 name="password"
                                 placeholder="Password"
                                 type="Password"
-                                valueLink={this.linkState("password")}
                                 onChange={this.handleInputChange}
                             />
                         </div>
