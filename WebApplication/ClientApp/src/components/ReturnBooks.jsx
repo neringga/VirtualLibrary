@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, Button } from "react-bootstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-
+import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { HttpRequestPath } from "./Constants";
 
 export class ReturnBooks extends Component {
@@ -30,22 +29,44 @@ export class ReturnBooks extends Component {
   }
 
   onSelectBook = row => {
-    this.setState({ showModal: true, code : row.Code});
+    this.setState({ showModal: true, code: row.Code });
   };
 
   close = row => {
     this.setState({ showModal: false });
   };
 
-	returnBook = row => {
-		const isbn = {
-			isbnCode: this.state.code,
-		};
-    axios.put(HttpRequestPath + 'api/ReturnBook', isbn).then(response => {
-        if (response.data) {
-          window.location.reload();
-        }
+  returnBook = row => {
+    const isbn = {
+      isbnCode: this.state.code
+    };
+    axios.put(HttpRequestPath + "api/ReturnBook", isbn).then(response => {
+      if (response.data) {
+        window.location.reload();
+      }
     });
+  };
+
+  handleRowSelect = showPopup => {
+    if (showPopup) {
+      return (
+        <Modal trigger={<Button>Show Modal</Button>} closeIcon>
+        <Header icon='archive' content='Archive Old Messages' />
+        <Modal.Content>
+          <p>
+            Your inbox is getting full, would you like us to enable automatic archiving of old messages?
+          </p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='red'>
+            <Icon name='remove' /> No
+          </Button>
+          <Button color='green'>
+            <Icon name='checkmark' /> Yes
+          </Button>
+        </Modal.Actions>
+      </Modal>);
+    } else return null;
   };
 
   render() {
@@ -73,38 +94,21 @@ export class ReturnBooks extends Component {
 
     return (
       <div>
-        <center>
         <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
           </TableHeaderColumn>
           <TableHeaderColumn dataField="Title">Title</TableHeaderColumn>
-          <TableHeaderColumn dataField="Code" hidden="true">Code</TableHeaderColumn>
+          <TableHeaderColumn dataField="Code" hidden="true">
+            Code
+          </TableHeaderColumn>
           <TableHeaderColumn dataField="HasToBeReturned">
             Return until
           </TableHeaderColumn>
         </BootstrapTable>
 
-        <Modal
-          aria-labelledby="modal-label"
-          style={modalStyle}
-          backdropStyle={backdropStyle}
-          show={this.state.showModal}
-          onHide={this.close}
-        >
-                <div>
-                    <center>
-            <h4 id="modal-label">Return book</h4>
-            <p>Do you want to return this book?</p>
-            <Button onClick={this.returnBook}>Yes</Button>
-            <Button onClick={this.close}>No</Button>
-              </center>
-
-          </div>
-        </Modal>
-        </center>
-
-        </div>
+        {this.handleRowSelect(this.state.showModal)}
+      </div>
     );
   }
 }
