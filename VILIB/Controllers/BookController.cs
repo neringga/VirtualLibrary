@@ -18,7 +18,6 @@ namespace VILIB.Controllers
         private TakenBookPresenter _takenBookPresenter;
         private BookPresenter _bookPresenter;
         private ScannerPresenter _scannerPresenter;
-        private IBook _book;
 
         public TakenBookController(TakenBookPresenter takenBookPresenter, BookPresenter bookPresenter,
                                     ScannerPresenter scannerPresenter)
@@ -30,6 +29,7 @@ namespace VILIB.Controllers
 
         public HttpResponseMessage Get()
         {
+
             return new HttpResponseMessage
             {
                 Content = new StringContent(JsonConvert.SerializeObject(_takenBookPresenter.GetTakenBooks()),
@@ -68,11 +68,7 @@ namespace VILIB.Controllers
 
         public HttpResponseMessage Get()
         {
-            return new HttpResponseMessage
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(_bookPresenter.GetNotTakenBooks()),
-                    System.Text.Encoding.UTF8, "application/json")
-            };
+            return JsonResponse.JsonHttpResponse(_bookPresenter.GetNotTakenBooks());
         }
 
 

@@ -24,6 +24,39 @@ img {
 	text-align: center;
 }
 
+.bookReturn {
+	margin-top: 100px;
+}
+
+p {
+	font-size: 20px;
+}
+
+
+@media only screen and (min-width: 992px){
+    .ui.tiny.modal {
+        position: fixed;
+		top: 20%;
+		left: 30%;
+	}
+}
+
+@media only screen and (min-width: 768px){
+    .ui.tiny.modal {
+        position: fixed;
+		top: 20%;
+		left: 30%;
+	}
+}
+
+@media only screen and (max-width: 767px){
+    .ui.tiny.modal {
+        position: fixed;
+		top: 5%;
+		left: 30%;
+	}
+
+}
 
 .scrollableBox {
 	width: 80%;
