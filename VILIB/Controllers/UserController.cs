@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -69,24 +70,30 @@ namespace VILIB.Controllers
             string jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            return Login(credentials);
+            if (Login(credentials))
+            {
+                var token = JwtManager.GenerateToken(credentials.username);
+                return JsonResponse.JsonHttpResponse<string>(token);
+            }
+
+            throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
 
-        private HttpResponseMessage Login(FrontendUser credentials)
+        private bool Login(FrontendUser credentials)
         {
             if (credentials == null)
             {
-                return JsonResponse.JsonHttpResponse<Object>(false);
+                return false;
             }
             var loginArgs = new LoginEventArgs() { Username = credentials.username, Password = credentials.password };
 
             if (OnLogin(this, loginArgs))
             {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
+                return true;
             }
             else
             {
-                return JsonResponse.JsonHttpResponse<Object>("Nope");
+                return false;
             }
         }
     }

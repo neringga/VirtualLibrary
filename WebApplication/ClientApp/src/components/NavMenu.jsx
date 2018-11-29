@@ -40,6 +40,7 @@ import './NavMenu.css';
                 <Glyphicon glyph='glyphicon glyphicon-comment' /> Reviews
               </NavItem>
             </LinkContainer>
+          
           </Nav>
         </Navbar.Collapse>
       </Navbar>

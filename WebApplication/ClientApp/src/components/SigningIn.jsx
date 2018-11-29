@@ -1,6 +1,7 @@
 ﻿import React, { Component } from "react";
 import axios from 'axios';
 import "./SigningIn.css";
+import {AuthService} from './AuthService';
 import {
     noUsername,
     noPassword,
@@ -16,6 +17,7 @@ export class SigningIn extends Component {
         this.state = {
             username: "",
             password: "",
+           
         };
     }
 
@@ -42,15 +44,26 @@ export class SigningIn extends Component {
     handleSubmit = event => {
         event.preventDefault();
         if (this.checkInput()) {
-
-            const data = this.state;
-            axios.put(HttpRequestPath + userSignInApi, data).then(response => {
-                if (response.data === successfullSignIn) {
-                    window.location = '/HomePage';
-                } else {
-                    alert(noUser);
-                }
-            }); 
+            const data = {
+                username: this.state.username,
+                password: this.state.password,
+              };
+              axios.put(HttpRequestPath + "/api/UserSignIn", data)
+              .then(res => {
+                  localStorage.setItem('id_token', res.data);
+              })
+              .catch(err => 
+                alert(err));
+            
+            
+            // const data = this.state;
+            // axios.put(HttpRequestPath + userSignInApi, data).then(response => {
+            //     if (response.data === successfullSignIn) {
+            //         window.location = '/HomePage';
+            //     } else {
+            //         alert(noUser);
+            //     }
+            // }); 
         }
     };
 
@@ -79,7 +92,7 @@ export class SigningIn extends Component {
                             />
                         </div>
                         <div>
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>SignIn</button>
+                            <button className="btn btn-primary" onClick={this.handleSubmit}>Sign In</button>
                         </div>
 
                     </form>

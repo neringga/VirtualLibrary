@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
+import decode from 'jwt-decode';
+
 
 import { Layout } from './components/Layout'
 import { Start } from './components/Start';
@@ -12,12 +14,24 @@ import { ReturnBooks } from './components/ReturnBooks';
 import { BookList } from './components/BookList';
 import { ReturnBook } from './components/ReturnBook';
 import { LogInCamera } from './components/LogInCamera';
+import { loggedIn } from './components/AuthService.jsx';
 
 
 
 export default class App extends Component {
 
+	
 	render() {
+		
+		const AuthRoute = ({ component: Component, ...rest}) => (
+			<Route {...rest} render={props => (
+			  loggedIn() ? (
+				<Component {...props} />
+			  ) : (
+				<Redirect to={{pathname: '/'}} />
+			  )
+			)} />
+			)
 		return (
 			
 			<Switch>
@@ -27,11 +41,11 @@ export default class App extends Component {
                 <Route exact path='/registration/camera' component={RegistrationCamera} />
                 <Route exact path='/signIn/camera' component={LogInCamera} />
 				<Layout>
-				<Route exact path='/homePage' component={HomePage} />
-				<Route exact path='/bookTaking' component={BookTaking} />
-				<Route exact path='/returnBooks' component={ReturnBooks} />
-				<Route exact path='/returnBook' component={ReturnBook} />
-				<Route exact path='/books' component={BookList} />
+				<AuthRoute exact path='/homePage' component={HomePage} />
+				<AuthRoute exact path='/bookTaking' component={BookTaking} />
+				<AuthRoute exact path='/returnBooks' component={ReturnBooks} />
+				<AuthRoute exact path='/returnBook' component={ReturnBook} />
+				<AuthRoute exact path='/books' component={BookList} />
 
 				</Layout>
 			</Switch>
