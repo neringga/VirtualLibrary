@@ -270,7 +270,6 @@
     <Compile Include="Repositories\LibraryData.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Resolvers\UnityResolver.cs" />
-    <Compile Include="Services\AuthentificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
