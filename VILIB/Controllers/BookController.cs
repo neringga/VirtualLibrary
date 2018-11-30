@@ -1,24 +1,23 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json;
 using VILIB.Helpers;
 using VILIB.Presenters;
-using User = VILIB.Model.User;
 
 namespace VILIB.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class TakenBookController : ApiController
     {
-        private TakenBookPresenter _takenBookPresenter;
         private BookPresenter _bookPresenter;
         private ScannerPresenter _scannerPresenter;
+        private readonly TakenBookPresenter _takenBookPresenter;
 
         public TakenBookController(TakenBookPresenter takenBookPresenter, BookPresenter bookPresenter,
-                                    ScannerPresenter scannerPresenter)
+            ScannerPresenter scannerPresenter)
         {
             _takenBookPresenter = takenBookPresenter;
             _bookPresenter = bookPresenter;
@@ -27,8 +26,7 @@ namespace VILIB.Controllers
 
         public async Task<HttpResponseMessage> Post()
         {
-            HttpContent requestContent = Request.Content;
-            //string jsonContent = await requestContent.ReadAsStringAsync();
+            var requestContent = Request.Content;
             var user = await requestContent.ReadAsStringAsync();
             try
             {
@@ -39,19 +37,13 @@ namespace VILIB.Controllers
             {
                 return JsonResponse.JsonHttpResponse<object>(null);
             }
-            //return new HttpResponseMessage
-            //{
-            //    Content = new StringContent(JsonConvert.SerializeObject(_takenBookPresenter.GetTakenBooks()),
-            //        System.Text.Encoding.UTF8, "application/json")
-            //};
         }
-
 
 
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<Code>(jsonContent);
 
             if (!_takenBookPresenter.IsTaken(data.isbnCode))
@@ -59,16 +51,15 @@ namespace VILIB.Controllers
                 var takenBook = _takenBookPresenter.AddTakenBook(data.isbnCode, data.user);
                 return JsonResponse.JsonHttpResponse<object>(takenBook.HasToBeReturned);
             }
+
             return JsonResponse.JsonHttpResponse<object>(false);
         }
-
-
     }
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class BookController : ApiController
     {
-        private BookPresenter _bookPresenter;
+        private readonly BookPresenter _bookPresenter;
 
         public BookController(BookPresenter bookPresenter)
         {
@@ -79,14 +70,12 @@ namespace VILIB.Controllers
         {
             return JsonResponse.JsonHttpResponse(_bookPresenter.GetNotTakenBooks());
         }
-
-
     }
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class ReturnBookController : ApiController
     {
-        private TakenBookPresenter _takenBookPresenter;
+        private readonly TakenBookPresenter _takenBookPresenter;
 
         public ReturnBookController(TakenBookPresenter takenBookPresenter)
         {
@@ -95,23 +84,20 @@ namespace VILIB.Controllers
 
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<Code>(jsonContent);
             try
             {
                 var takenBook = _takenBookPresenter.FindTakenBookByCode(data.isbnCode,
                     data.user);
                 _takenBookPresenter.RemoveTakenBook(takenBook);
-                return JsonResponse.JsonHttpResponse<Object>(true);
+                return JsonResponse.JsonHttpResponse<object>(true);
             }
             catch (Exception)
             {
-                return JsonResponse.JsonHttpResponse<Object>(false);
+                return JsonResponse.JsonHttpResponse<object>(false);
             }
-
         }
-
     }
-
 }

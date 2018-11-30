@@ -10,6 +10,4 @@
     {
         public string username { set; get; }
     }
-
-
 }

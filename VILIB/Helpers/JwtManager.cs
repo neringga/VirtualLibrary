@@ -1,17 +1,14 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Web;
+using Microsoft.IdentityModel.Tokens;
 
 namespace VILIB.Helpers
 {
     public class JwtManager
     {
-        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+        private const string Secret =
+            "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 
         public static string GenerateToken(string username, int expireMinutes = 20)
         {
@@ -28,7 +25,8 @@ namespace VILIB.Helpers
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
 
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
 
             var stoken = tokenHandler.CreateToken(tokenDescriptor);

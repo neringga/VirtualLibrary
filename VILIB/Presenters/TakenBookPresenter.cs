@@ -1,8 +1,7 @@
-﻿using Shared.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Ajax.Utilities;
+using Shared.View;
 using VILIB.DataSources.Data;
 using VILIB.Model;
 using VILIB.Repositories;
@@ -31,7 +30,7 @@ namespace VILIB.Presenters
 
             _takenBook.Author = book.Author;
             _takenBook.Title = book.Title;
-            _takenBook.HasToBeReturned = ((DateTime)_takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
+            _takenBook.HasToBeReturned = ((DateTime) _takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
 
             return _takenBook;
@@ -47,12 +46,8 @@ namespace VILIB.Presenters
         {
             var books = _mBookRepository.GetTakenBooks();
             foreach (var book in books)
-            {
                 if (book.Code == code)
-                {
                     return book;
-                }
-            }
             return null;
         }
 
@@ -75,18 +70,13 @@ namespace VILIB.Presenters
 
         public List<IBook> GetUserTakenBooks(string user)
         {
-            List<IBook> list = new List<IBook>();
+            var list = new List<IBook>();
             //var a = _mBookRepository.GetTakenBooks().Where(book => book.TakenByUser == user);
             var b = _mBookRepository.GetTakenBooks();
             foreach (var a in b)
-            {
                 if (a.TakenByUser == user)
-                {
                     list.Add(a);
-                }
-            }
             return list;
         }
-
     }
 }

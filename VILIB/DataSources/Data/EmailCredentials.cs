@@ -1,4 +1,6 @@
-﻿namespace VILIB.DataSources.Data
+﻿using System.Configuration;
+
+namespace VILIB.DataSources.Data
 {
     public class EmailCredentials
     {
@@ -16,7 +18,7 @@
         {
             var textFile = new TextFile();
             var credentials = textFile.ReadTextFile(
-                System.Configuration.ConfigurationManager.AppSettings["vilibEmail"]);
+                ConfigurationManager.AppSettings["vilibEmail"]);
             foreach (var line in credentials)
             {
                 var spLine = line.Split(' ');
