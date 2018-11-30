@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Ajax.Utilities;
 using VILIB.DataSources.Data;
 using VILIB.Model;
 using VILIB.Repositories;
@@ -18,11 +19,11 @@ namespace VILIB.Presenters
             _mBookRepository = bookRepository;
         }
 
-        public IBook AddTakenBook(IBook view, string username)
+        public IBook AddTakenBook(string isbnCode, string username)
         {
             _takenBook.IsTaken = true;
             _takenBook.TakenByUser = username;
-            _takenBook.Code = view.Code;
+            _takenBook.Code = isbnCode;
             _takenBook.TakenWhen = DateTime.Now;
 
             var books = _mBookRepository.GetList();
@@ -55,6 +56,12 @@ namespace VILIB.Presenters
             return null;
         }
 
+        public bool IsTaken(string code)
+        {
+            var books = _mBookRepository.GetTakenBooks().FirstOrDefault(book => book.Code == code);
+            return books != null;
+        }
+
 
         public void RemoveTakenBook(IBook takenBook)
         {
@@ -65,5 +72,21 @@ namespace VILIB.Presenters
         {
             return _mBookRepository.GetTakenBooks();
         }
+
+        public List<IBook> GetUserTakenBooks(string user)
+        {
+            List<IBook> list = new List<IBook>();
+            //var a = _mBookRepository.GetTakenBooks().Where(book => book.TakenByUser == user);
+            var b = _mBookRepository.GetTakenBooks();
+            foreach (var a in b)
+            {
+                if (a.TakenByUser == user)
+                {
+                    list.Add(a);
+                }
+            }
+            return list;
+        }
+
     }
 }

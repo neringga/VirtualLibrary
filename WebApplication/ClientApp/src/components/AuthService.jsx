@@ -2,7 +2,6 @@ import decode from "jwt-decode";
 
 export const loggedIn = () => {
   const token = getToken();
-  console.log(token);
   if (!token) {
     return false;
   }
@@ -26,6 +25,6 @@ export const logout = () => {
   localStorage.removeItem("token");
 };
 
-export const getProfile = () => {   //NOT TESTED
-  return decode(this.getToken()).unique_name;
+export const getProfile = () => {
+  return decode(getToken()).unique_name;
 };

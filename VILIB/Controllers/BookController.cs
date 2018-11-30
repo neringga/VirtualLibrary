@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Shared.View;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using VILIB.DataSources.Data;
 using VILIB.Helpers;
-using VILIB.Model;
 using VILIB.Presenters;
+using User = VILIB.Model.User;
 
 namespace VILIB.Controllers
 {
@@ -27,14 +25,25 @@ namespace VILIB.Controllers
             _scannerPresenter = scannerPresenter;
         }
 
-        public HttpResponseMessage Get()
+        public async Task<HttpResponseMessage> Post()
         {
-
-            return new HttpResponseMessage
+            HttpContent requestContent = Request.Content;
+            //string jsonContent = await requestContent.ReadAsStringAsync();
+            var user = await requestContent.ReadAsStringAsync();
+            try
             {
-                Content = new StringContent(JsonConvert.SerializeObject(_takenBookPresenter.GetTakenBooks()),
-                    System.Text.Encoding.UTF8, "application/json")
-            };
+                var list = _takenBookPresenter.GetUserTakenBooks(user);
+                return JsonResponse.JsonHttpResponse<object>(list);
+            }
+            catch (ArgumentNullException)
+            {
+                return JsonResponse.JsonHttpResponse<object>(null);
+            }
+            //return new HttpResponseMessage
+            //{
+            //    Content = new StringContent(JsonConvert.SerializeObject(_takenBookPresenter.GetTakenBooks()),
+            //        System.Text.Encoding.UTF8, "application/json")
+            //};
         }
 
 
@@ -43,14 +52,14 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(jsonContent);
+            var data = JsonConvert.DeserializeObject<Code>(jsonContent);
 
-            if (!book.IsTaken) //TODO book check
+            if (!_takenBookPresenter.IsTaken(data.isbnCode))
             {
-                var takenBook = _takenBookPresenter.AddTakenBook((IBook)book, "ner"); //TODO user authentification
-                return JsonResponse.JsonHttpResponse<Object>(takenBook.HasToBeReturned);
+                var takenBook = _takenBookPresenter.AddTakenBook(data.isbnCode, data.user);
+                return JsonResponse.JsonHttpResponse<object>(takenBook.HasToBeReturned);
             }
-            return JsonResponse.JsonHttpResponse<Object>(false);
+            return JsonResponse.JsonHttpResponse<object>(false);
         }
 
 
@@ -88,12 +97,11 @@ namespace VILIB.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = await requestContent.ReadAsStringAsync();
-            var bookCode = JsonConvert.DeserializeObject<Code>(jsonContent);
-            StaticDataSource.CurrUser = "ner"; //TODO user authentification
+            var data = JsonConvert.DeserializeObject<Code>(jsonContent);
             try
             {
-                var takenBook = _takenBookPresenter.FindTakenBookByCode(bookCode.isbnCode,
-                    StaticDataSource.CurrUser);
+                var takenBook = _takenBookPresenter.FindTakenBookByCode(data.isbnCode,
+                    data.user);
                 _takenBookPresenter.RemoveTakenBook(takenBook);
                 return JsonResponse.JsonHttpResponse<Object>(true);
             }

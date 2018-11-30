@@ -5,6 +5,7 @@ import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
 import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { HttpRequestPath } from "./Constants";
+import { getProfile } from "./AuthService";
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -17,15 +18,15 @@ export class ReturnBooks extends Component {
   }
 
   componentDidMount() {
+    const user = getProfile();
     axios
-      .get(HttpRequestPath + "api/TakenBook")
+      .post(HttpRequestPath + "api/TakenBook", user)
       .then(response => {
-        console.log(response.data);
         this.setState({
           books: response.data
         });
       })
-      .catch(error => console.log("API error")); //TODO error handling
+      .catch(error => console.log("API error"));
   }
 
   onSelectBook = row => {
@@ -37,10 +38,11 @@ export class ReturnBooks extends Component {
   };
 
   returnBook = row => {
-    const isbn = {
-      isbnCode: this.state.code
+    const data = {
+      isbnCode: this.state.code,
+      user: getProfile()
     };
-    axios.put(HttpRequestPath + "api/ReturnBook", isbn).then(response => {
+    axios.put(HttpRequestPath + "api/ReturnBook", data).then(response => {
       if (response.data) {
         window.location.reload();
       }
@@ -61,7 +63,7 @@ export class ReturnBooks extends Component {
           <Button color='red'>
             <Icon name='remove' /> No
           </Button>
-          <Button color='green'>
+          <Button onClick={this.returnBook}color='green'>
             <Icon name='checkmark' /> Yes
           </Button>
         </Modal.Actions>

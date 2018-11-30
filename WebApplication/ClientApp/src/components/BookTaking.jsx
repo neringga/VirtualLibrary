@@ -3,6 +3,7 @@ import QrReader from "react-qr-reader";
 
 import axios from "axios";
 import { HttpRequestPath } from "./Constants.jsx";
+import { getProfile } from "./AuthService";
 
 export class BookTaking extends Component {
   constructor(props) {
@@ -23,15 +24,18 @@ export class BookTaking extends Component {
         showQrReader: false,
         camError: false
       });
-      const isbn = {
-        isbnCode: data
+      const book_data = {
+        isbnCode: data,
+        user: getProfile()
       };
-      axios.put(HttpRequestPath + "api/BarcodeScanner", isbn).then(response => {
-        this.setState({
-          book: response.data,
-          loading: false
+      axios
+        .put(HttpRequestPath + "api/BarcodeScanner", book_data)
+        .then(response => {
+          this.setState({
+            book: response.data,
+            loading: false
+          });
         });
-      });
     }
   }
 
@@ -69,15 +73,22 @@ export class BookTaking extends Component {
   };
 
   handleBookTaking = event => {
-    axios
-      .put(HttpRequestPath + "api/TakenBook", this.state.book)
-      .then(response => {
+    const book_data = {
+      isbnCode: this.state.book.Code,
+      user: getProfile()
+    };
+    axios.put(HttpRequestPath + "api/TakenBook", book_data).then(response => {
+      if (response) {
         this.setState({
           returnTime: response.data,
           showDate: true,
           book: null
         });
-      });
+      }
+      else { //TODO cannot take this book
+        
+      }
+    });
   };
 
   showBook = book => {
@@ -88,9 +99,13 @@ export class BookTaking extends Component {
             Do you really want to take <br />
             <b>{book.Author + " " + book.Title}</b> ?
           </h4>
-          <br/>
+          <br />
           <div className="ui buttons">
-            <button className="ui  big button" role="button" onClick={this.handleBookTaking}>
+            <button
+              className="ui  big button"
+              role="button"
+              onClick={this.handleBookTaking}
+            >
               Yes
             </button>
             <div className="or" />
@@ -110,11 +125,11 @@ export class BookTaking extends Component {
       return (
         <div className="boxQr">
           <h4>
-            Return this book until 
-            <br/>
+            Return this book until
+            <br />
             <b>{date}</b>
             <br />
-            <br/>
+            <br />
             Enjoy reading!
           </h4>
         </div>
