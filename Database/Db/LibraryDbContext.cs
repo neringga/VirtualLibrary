@@ -6,6 +6,7 @@ namespace VirtualLibrary.DataSources.Db
     {
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBook> Books { get; set; }
+        public DbSet<DbImage> Images { get; set; }
 
         public LibraryDbContext() : base()
         {

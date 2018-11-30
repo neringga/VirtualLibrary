@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\DbBook.cs" />
+    <Compile Include="Db\DbImage.cs" />
     <Compile Include="Db\DbUser.cs" />
     <Compile Include="Db\LibraryDbContext.cs" />
     <Compile Include="Migrations\201810281018481_InitialModel.cs" />
