@@ -1,6 +1,5 @@
 ﻿namespace Database.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
 
     public partial class ImageTable : DbMigration
@@ -20,6 +19,7 @@
 
         public override void Down()
         {
+            DropTable("dbo.DbImage");
         }
     }
 }
