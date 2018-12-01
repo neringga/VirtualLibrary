@@ -40,6 +40,11 @@ import './NavMenu.css';
                 <Glyphicon glyph='glyphicon glyphicon-comment' /> Reviews
               </NavItem>
             </LinkContainer>
+            <LinkContainer to={'/bookSearch'} exact>
+              <NavItem>
+                <Glyphicon glyph='glyphicon glyphicon-search' /> Search books
+              </NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -12,8 +12,7 @@ import { ReturnBooks } from './components/ReturnBooks';
 import { BookList } from './components/BookList';
 import { ReturnBook } from './components/ReturnBook';
 import { LogInCamera } from './components/LogInCamera';
-
-
+import { BookSearch } from './components/BookSearch';
 
 export default class App extends Component {
 
@@ -32,7 +31,7 @@ export default class App extends Component {
 				<Route exact path='/returnBooks' component={ReturnBooks} />
 				<Route exact path='/returnBook' component={ReturnBook} />
 				<Route exact path='/books' component={BookList} />
-
+                <Route exact path='/bookSearch' component={BookSearch} />
 				</Layout>
 			</Switch>
 			

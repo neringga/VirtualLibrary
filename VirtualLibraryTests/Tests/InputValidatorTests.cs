@@ -1,12 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VirtualLibrary.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualLibrary.View;
-using VirtualLibrary.Model;
+using VILIB.Helpers;
 
 namespace VirtualLibrary.Helpers.Tests
 {
