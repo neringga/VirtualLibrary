@@ -8,6 +8,7 @@ namespace VirtualLibrary.DataSources.Db
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Nickname { get; set; }
+        [MaxLength(1048576)]
         public byte[] Bytes { get; set; }
     }
 }
