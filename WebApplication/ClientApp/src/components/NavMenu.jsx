@@ -16,7 +16,7 @@ import { logout } from './AuthService';
       <Navbar inverse fixedTop fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Icon color='red' name='book' />
+            <Icon color='white' name='book' />
             <a>LIBRY</a>
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -38,16 +38,12 @@ import { logout } from './AuthService';
                 <Glyphicon glyph='glyphicon glyphicon-book' /> Books
               </NavItem>
             </LinkContainer>
-            <LinkContainer to={'/Statistics'} exact>
+            <LinkContainer to={'/ReturnBooks'} exact>
               <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-stats' /> Your statistics
+                <Glyphicon glyph='glyphicon glyphicon-stats' /> Return book
               </NavItem>
             </LinkContainer>
-            <LinkContainer to={'/'} exact>
-              <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-comment' /> Reviews
-              </NavItem>
-            </LinkContainer>
+           
             <LinkContainer to={'/'} exact>
               <NavItem onClick={logout}>
               <Icon name='log out' /> Logout

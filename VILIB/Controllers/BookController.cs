@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -49,7 +50,18 @@ namespace VILIB.Controllers
             if (!_takenBookPresenter.IsTaken(data.isbnCode))
             {
                 var takenBook = _takenBookPresenter.AddTakenBook(data.isbnCode, data.user);
-                return JsonResponse.JsonHttpResponse<object>(takenBook.HasToBeReturned);
+                try
+                {
+                    var returnDate = (DateTime) takenBook.HasToBeReturned;
+                    var s = returnDate.ToString("MM/dd/yyyy");
+                    return JsonResponse.JsonHttpResponse<object>(s);
+                }
+                catch (InvalidOperationException)
+                {
+                    return JsonResponse.JsonHttpResponse<object>(false);
+                }
+                
+                
             }
 
             return JsonResponse.JsonHttpResponse<object>(false);

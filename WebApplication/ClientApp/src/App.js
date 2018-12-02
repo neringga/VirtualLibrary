@@ -11,7 +11,6 @@ import { HomePage } from "./components/HomePage";
 import { RegistrationCamera } from "./components/RegistrationCamera";
 import { ReturnBooks } from "./components/ReturnBooks";
 import { BookList } from "./components/BookList";
-import { ReturnBook } from "./components/ReturnBook";
 import { LogInCamera } from "./components/LogInCamera";
 import { loggedIn } from "./components/AuthService";
 
@@ -44,7 +43,6 @@ export default class App extends Component {
           <AuthRoute exact path="/homePage" component={HomePage} />
           <AuthRoute exact path="/bookTaking" component={BookTaking} />
           <AuthRoute exact path="/returnBooks" component={ReturnBooks} />
-          <AuthRoute exact path="/returnBook" component={ReturnBook} />
           <AuthRoute exact path="/books" component={BookList} />
         </Layout>
       </Switch>

@@ -71,11 +71,13 @@ namespace VILIB.Presenters
         public List<IBook> GetUserTakenBooks(string user)
         {
             var list = new List<IBook>();
-            //var a = _mBookRepository.GetTakenBooks().Where(book => book.TakenByUser == user);
             var b = _mBookRepository.GetTakenBooks();
             foreach (var a in b)
                 if (a.TakenByUser == user)
+                {
                     list.Add(a);
+                }
+                    
             return list;
         }
     }

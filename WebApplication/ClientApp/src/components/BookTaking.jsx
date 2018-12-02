@@ -10,7 +10,8 @@ export class BookTaking extends Component {
     super(props);
     this.state = {
       delay: 500,
-      showQrReader: true
+      showQrReader: true,
+      returnError: false,
     };
 
     this.handleScan = this.handleScan.bind(this);
@@ -78,15 +79,19 @@ export class BookTaking extends Component {
       user: getProfile()
     };
     axios.put(HttpRequestPath + "api/TakenBook", book_data).then(response => {
-      if (response) {
+      if (response.data) {
+        console.log(true);
         this.setState({
           returnTime: response.data,
           showDate: true,
           book: null
         });
-      }
-      else { //TODO cannot take this book
-        
+      } else {
+        this.setState({
+          returnError: true,
+          book: null
+        })
+        //TODO cannot take this book
       }
     });
   };
@@ -101,16 +106,16 @@ export class BookTaking extends Component {
           </h4>
           <br />
           <div className="ui buttons">
+            <button className="ui  big button" role="button">
+              No
+            </button>
+            <div className="or" />
             <button
-              className="ui  big button"
+              className="ui big positive button"
               role="button"
               onClick={this.handleBookTaking}
             >
               Yes
-            </button>
-            <div className="or" />
-            <button className="ui big positive button" role="button">
-              No
             </button>
           </div>
         </div>
@@ -119,6 +124,17 @@ export class BookTaking extends Component {
       return null;
     }
   };
+
+  handleNotReturning = (err) => {
+    if (err) {
+    return (
+    <div className="boxQr">
+          <h4>
+            You cannot take this book
+          </h4>
+        </div>)
+    }
+  }
 
   showReturnDate = date => {
     if (date != null) {
@@ -173,6 +189,7 @@ export class BookTaking extends Component {
           {this.handleLoading(this.state.isLoading)}
           {this.showBook(this.state.book)}
           {this.showReturnDate(this.state.returnTime)}
+          {this.handleNotReturning(this.state.returnError)}
         </center>
       </div>
     );

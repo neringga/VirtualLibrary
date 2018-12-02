@@ -79,7 +79,7 @@ export class Registration extends Component {
         const validInput = this.state.validInput;
         let button;
         if (validInput) {
-            button = <Link to={'/HomePage'}><button type="submit" className="btn btn-primary">Submit</button></Link>
+            button = <Link to={'/SigningIn'}><button type="submit" className="btn btn-primary">Submit</button></Link>
         }
         else {
             button = <button type="submit" className="btn btn-primary">Submit</button>
