@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
+import { Icon } from 'semantic-ui-react';
+// import { Logout } from './Logout';
+import { Link } from "react-router-dom";
+import { logout } from './AuthService';
+
+
 
  export class NavMenu extends Component {
+   
    render() {
     return (
       <Navbar inverse fixedTop fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
+            <Icon color='white' name='book' />
             <a>LIBRY</a>
           </Navbar.Brand>
           <Navbar.Toggle />
@@ -30,14 +38,15 @@ import './NavMenu.css';
                 <Glyphicon glyph='glyphicon glyphicon-book' /> Books
               </NavItem>
             </LinkContainer>
-            <LinkContainer to={'/Statistics'} exact>
+            <LinkContainer to={'/ReturnBooks'} exact>
               <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-stats' /> Your statistics
+                <Glyphicon glyph='glyphicon glyphicon-stats' /> Return book
               </NavItem>
             </LinkContainer>
+           
             <LinkContainer to={'/'} exact>
-              <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-comment' /> Reviews
+              <NavItem onClick={logout}>
+              <Icon name='log out' /> Logout
               </NavItem>
             </LinkContainer>
           </Nav>

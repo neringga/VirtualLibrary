@@ -336,3 +336,4 @@ ASALocalRun/
 .localhistory/
 *.xml
 /VILIB/App_Data
+/WebApplication/ClientApp/semantic

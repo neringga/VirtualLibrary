@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using VILIB.DataSources;
-using VILIB.View;
 using ZXing;
 
 namespace VILIB.Presenters
@@ -11,7 +9,7 @@ namespace VILIB.Presenters
 
         public string DecodedBarcode(string imageLocation)
         {
-            var barcodeBitmap = (Bitmap)Image.FromFile(imageLocation);
+            var barcodeBitmap = (Bitmap) Image.FromFile(imageLocation);
             var result = _reader.Decode(barcodeBitmap);
             return result.Text;
             //return _reader.Decode(barcodeBitmap);
@@ -22,6 +20,5 @@ namespace VILIB.Presenters
             var result = _reader.Decode(image);
             return result.Text;
         }
-
     }
 }

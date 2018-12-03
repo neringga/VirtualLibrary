@@ -1,22 +1,21 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using VILIB.DataSources.Data;
+using Newtonsoft.Json;
 using VILIB.Helpers;
 using VILIB.Model;
 using VILIB.Repositories;
 
 namespace VILIB.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class UserRegistrationController : ApiController
     {
-        private readonly IUserRepository _mUserRepository;
         private readonly IInputValidator _mInputValidator;
+        private readonly IUserRepository _mUserRepository;
 
         public UserRegistrationController(IUserRepository userRepository, IInputValidator inputValidator)
         {
@@ -26,35 +25,33 @@ namespace VILIB.Controllers
 
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
             if (_mInputValidator.UsernameTaken(credentials.username))
-            {
-                return JsonResponse.JsonHttpResponse<Object>(
+                return JsonResponse.JsonHttpResponse<object>(
                     ConfigurationManager.AppSettings["usernameError"]);
-            }
-            else if (_mInputValidator.EmailTaken(credentials.email))
+
+            if (_mInputValidator.EmailTaken(credentials.email))
+                return JsonResponse.JsonHttpResponse<object>(
+                    ConfigurationManager.AppSettings["emailError"]);
+
+            var user = new User
             {
-                return JsonResponse.JsonHttpResponse<Object>(
-                        ConfigurationManager.AppSettings["emailError"]);
-            }
-            else
-            {
-                var user = new User() { Nickname = credentials.username, Password = credentials.password, Email = credentials.email, Name = credentials.firstName, Surname = credentials.lastName };
-                var result = await _mUserRepository.Add(user);
-                return JsonResponse.JsonHttpResponse<Object>(true);
-            }
+                Nickname = credentials.username, Password = credentials.password, Email = credentials.email,
+                Name = credentials.firstName, Surname = credentials.lastName
+            };
+            var result = await _mUserRepository.Add(user);
+            return JsonResponse.JsonHttpResponse<object>(true);
         }
     }
 
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class UserSignInController : ApiController
     {
         public delegate bool UserActionHandler<TEventsArgs>(object sender, TEventsArgs e);
-        public event UserActionHandler<LoginEventArgs> OnLogin;
 
         private readonly IUserRepository _mUserRepository;
 
@@ -63,31 +60,31 @@ namespace VILIB.Controllers
             _mUserRepository = userRepository;
         }
 
+        public event UserActionHandler<LoginEventArgs> OnLogin;
+
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
             var credentials = JsonConvert.DeserializeObject<FrontendUser>(jsonContent);
 
-            return Login(credentials);
+            if (Login(credentials))
+            {
+                var token = JwtManager.GenerateToken(credentials.username);
+                return JsonResponse.JsonHttpResponse(token);
+            }
+
+            throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
 
-        private HttpResponseMessage Login(FrontendUser credentials)
+        private bool Login(FrontendUser credentials)
         {
-            if (credentials == null)
-            {
-                return JsonResponse.JsonHttpResponse<Object>(false);
-            }
-            var loginArgs = new LoginEventArgs() { Username = credentials.username, Password = credentials.password };
+            if (credentials == null) return false;
+            var loginArgs = new LoginEventArgs {Username = credentials.username, Password = credentials.password};
 
             if (OnLogin(this, loginArgs))
-            {
-                return JsonResponse.JsonHttpResponse<Object>(StaticStrings.LoggedIn);
-            }
-            else
-            {
-                return JsonResponse.JsonHttpResponse<Object>("Nope");
-            }
+                return true;
+            return false;
         }
     }
 }

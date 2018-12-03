@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace VILIB.Helpers
 {
@@ -8,7 +8,7 @@ namespace VILIB.Helpers
     {
         public static HttpResponseMessage JsonHttpResponse<T>(T objectToSendAsJson)
         {
-            return new HttpResponseMessage()
+            return new HttpResponseMessage
             {
                 Content = new StringContent(
                     JsonConvert.SerializeObject(objectToSendAsJson),
@@ -17,6 +17,5 @@ namespace VILIB.Helpers
                 )
             };
         }
-
     }
 }

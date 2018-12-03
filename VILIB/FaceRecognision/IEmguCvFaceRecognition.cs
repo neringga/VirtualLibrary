@@ -9,6 +9,5 @@ namespace VILIB.View
         void Train(List<Image<Gray, byte>> trainingSet, List<string> name);
 
         string Recognize(Image<Bgr, byte> cameraDisplay);
-
     }
 }

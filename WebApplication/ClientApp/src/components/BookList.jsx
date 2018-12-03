@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+
 
 import { HttpRequestPath, bookListApi } from "./Constants";
 
@@ -34,11 +36,16 @@ export class BookList extends Component {
     }
     return (
       this.state.books != null && (
-        <div className="boxQr">
+        <div className="boxBooks">
           <h3>Books</h3>
           <br />
-          { $loadingIcon }
-          <Table responsive>
+          <BootstrapTable search={ true } 
+          data={ this.state.books } >
+          <TableHeaderColumn  dataField='Title' isKey={ true }>Title</TableHeaderColumn>
+          <TableHeaderColumn  dataField='Author'>Author</TableHeaderColumn>
+      </BootstrapTable>
+          {/* { $loadingIcon } */}
+          {/* <Table responsive>
             <thead>
               <tr>
                 <th />
@@ -55,7 +62,7 @@ export class BookList extends Component {
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </Table> */}
         </div>
       )
     );
