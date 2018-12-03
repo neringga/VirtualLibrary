@@ -1,5 +1,4 @@
-﻿
-using Shared.View;
+﻿using Shared.View;
 using VILIB.Helpers;
 
 namespace VILIB.Repositories

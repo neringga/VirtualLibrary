@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, Button } from "react-bootstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-
 import { HttpRequestPath } from "./Constants";
+import { getProfile, getToken } from "./AuthService";
+import { Modal, Button} from 'react-bootstrap';
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -18,33 +18,35 @@ export class ReturnBooks extends Component {
   }
 
   componentDidMount() {
+    const user = getProfile();
+    const token = getToken();
     axios
-      .get(HttpRequestPath + "api/TakenBook")
+      .post(HttpRequestPath + "api/TakenBook", user
+      )
       .then(response => {
-        console.log(response.data);
         this.setState({
           books: response.data
         });
       })
-      .catch(error => console.log("API error")); //TODO error handling
   }
 
   onSelectBook = row => {
-    this.setState({ showModal: true, code : row.Code});
+    this.setState({ showModal: true, code: row.Code });
   };
 
   close = row => {
     this.setState({ showModal: false });
   };
 
-	returnBook = row => {
-		const isbn = {
-			isbnCode: this.state.code,
-		};
-    axios.put(HttpRequestPath + 'api/ReturnBook', isbn).then(response => {
-        if (response.data) {
-          window.location.reload();
-        }
+  returnBook = row => {
+    const data = {
+      isbnCode: this.state.code,
+      user: getProfile()
+    };
+    axios.put(HttpRequestPath + "api/ReturnBook", data).then(response => {
+      if (response.data) {
+        window.location.reload();
+      }
     });
   };
 
@@ -73,18 +75,22 @@ export class ReturnBooks extends Component {
 
     return (
       <div>
-        <center>
-        <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
+        <div className="boxBooks">
+        <h3>Select a book to return</h3>
+        <br/>
+        <BootstrapTable responsive data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
           </TableHeaderColumn>
           <TableHeaderColumn dataField="Title">Title</TableHeaderColumn>
-          <TableHeaderColumn dataField="Code" hidden="true">Code</TableHeaderColumn>
+          <TableHeaderColumn dataField="Code" hidden="true">
+            Code
+          </TableHeaderColumn>
           <TableHeaderColumn dataField="HasToBeReturned">
             Return until
           </TableHeaderColumn>
         </BootstrapTable>
-
+        </div>
         <Modal
           aria-labelledby="modal-label"
           style={modalStyle}
@@ -102,9 +108,8 @@ export class ReturnBooks extends Component {
 
           </div>
         </Modal>
-        </center>
-
-        </div>
+        
+      </div>
     );
   }
 }

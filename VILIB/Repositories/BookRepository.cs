@@ -1,11 +1,10 @@
-﻿using Shared.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared.View;
 using VILIB.DataSources;
 using VILIB.DataSources.Data;
-using VILIB.View;
 
 namespace VILIB.Repositories
 {

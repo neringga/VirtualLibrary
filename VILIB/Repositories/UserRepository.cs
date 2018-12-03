@@ -1,8 +1,8 @@
-﻿using Shared.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shared.View;
 using VILIB.DataSources;
 using VILIB.Helpers;
 
@@ -29,17 +29,18 @@ namespace VILIB.Repositories
 
         public bool Login(object sender, LoginEventArgs e)
         {
-            Func<IUser, bool> userMatchingPredicate = user => user.Nickname == e.Username && user.Password == e.Password;
+            Func<IUser, bool> userMatchingPredicate =
+                user => user.Nickname == e.Username && user.Password == e.Password;
             var users = _dataSource.GetUserList();
 
             return users
-                    .Where(user => userMatchingPredicate.Invoke(user))
-                    .Any();
+                .Where(user => userMatchingPredicate.Invoke(user))
+                .Any();
         }
 
         public async Task<int> Remove(IUser item)
         {
-            return await _dataSource.RemoveItem<IUser>(item);
+            return await _dataSource.RemoveItem(item);
         }
     }
 }

@@ -3,13 +3,15 @@ import QrReader from "react-qr-reader";
 
 import axios from "axios";
 import { HttpRequestPath } from "./Constants.jsx";
+import { getProfile } from "./AuthService";
 
 export class BookTaking extends Component {
   constructor(props) {
     super(props);
     this.state = {
       delay: 500,
-      showQrReader: true
+      showQrReader: true,
+      returnError: false,
     };
 
     this.handleScan = this.handleScan.bind(this);
@@ -23,15 +25,18 @@ export class BookTaking extends Component {
         showQrReader: false,
         camError: false
       });
-      const isbn = {
-        isbnCode: data
+      const book_data = {
+        isbnCode: data,
+        user: getProfile()
       };
-      axios.put(HttpRequestPath + "api/BarcodeScanner", isbn).then(response => {
-        this.setState({
-          book: response.data,
-          loading: false
+      axios
+        .put(HttpRequestPath + "api/BarcodeScanner", book_data)
+        .then(response => {
+          this.setState({
+            book: response.data,
+            loading: false
+          });
         });
-      });
     }
   }
 
@@ -69,15 +74,26 @@ export class BookTaking extends Component {
   };
 
   handleBookTaking = event => {
-    axios
-      .put(HttpRequestPath + "api/TakenBook", this.state.book)
-      .then(response => {
+    const book_data = {
+      isbnCode: this.state.book.Code,
+      user: getProfile()
+    };
+    axios.put(HttpRequestPath + "api/TakenBook", book_data).then(response => {
+      if (response.data) {
+        console.log(true);
         this.setState({
           returnTime: response.data,
           showDate: true,
           book: null
         });
-      });
+      } else {
+        this.setState({
+          returnError: true,
+          book: null
+        })
+        //TODO cannot take this book
+      }
+    });
   };
 
   showBook = book => {
@@ -88,14 +104,18 @@ export class BookTaking extends Component {
             Do you really want to take <br />
             <b>{book.Author + " " + book.Title}</b> ?
           </h4>
-          <br/>
+          <br />
           <div className="ui buttons">
-            <button className="ui  big button" role="button" onClick={this.handleBookTaking}>
-              Yes
+            <button className="ui  big button" role="button">
+              No
             </button>
             <div className="or" />
-            <button className="ui big positive button" role="button">
-              No
+            <button
+              className="ui big positive button"
+              role="button"
+              onClick={this.handleBookTaking}
+            >
+              Yes
             </button>
           </div>
         </div>
@@ -105,16 +125,27 @@ export class BookTaking extends Component {
     }
   };
 
+  handleNotReturning = (err) => {
+    if (err) {
+    return (
+    <div className="boxQr">
+          <h4>
+            You cannot take this book
+          </h4>
+        </div>)
+    }
+  }
+
   showReturnDate = date => {
     if (date != null) {
       return (
         <div className="boxQr">
           <h4>
-            Return this book until 
-            <br/>
+            Return this book until
+            <br />
             <b>{date}</b>
             <br />
-            <br/>
+            <br />
             Enjoy reading!
           </h4>
         </div>
@@ -158,6 +189,7 @@ export class BookTaking extends Component {
           {this.handleLoading(this.state.isLoading)}
           {this.showBook(this.state.book)}
           {this.showReturnDate(this.state.returnTime)}
+          {this.handleNotReturning(this.state.returnError)}
         </center>
       </div>
     );

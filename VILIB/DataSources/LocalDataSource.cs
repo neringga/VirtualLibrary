@@ -1,6 +1,6 @@
-﻿using Shared.View;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Shared.View;
 using VILIB.Data;
 
 namespace VILIB.DataSources

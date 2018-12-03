@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -10,7 +11,7 @@ using Shared.View;
 
 namespace VILIB.DataSources.Data
 {
-    class UserInformationInXmlFiles
+    internal class UserInformationInXmlFiles
     {
         private readonly int _imagesPerPerson;
         private readonly string _location;
@@ -26,7 +27,7 @@ namespace VILIB.DataSources.Data
             out List<string> nicknames)
         {
             var xml = XDocument.Load(_location +
-                                     System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
+                                     ConfigurationManager.AppSettings["userInfo"]);
 
             var imageNamesLists = new List<string>[_imagesPerPerson];
             var labelsList = new List<int>();
@@ -53,7 +54,7 @@ namespace VILIB.DataSources.Data
         {
             var document = new XmlDocument();
             document.Load(_location +
-                          System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
+                          ConfigurationManager.AppSettings["userInfo"]);
 
             var root = document.DocumentElement;
 
@@ -102,7 +103,7 @@ namespace VILIB.DataSources.Data
             var fileNames = SaveImages(faceImages, iuser.Name, iuser.Surname);
 
             var stream = File.OpenWrite(_location +
-                                        System.Configuration.ConfigurationManager.AppSettings["userInfo"]);
+                                        ConfigurationManager.AppSettings["userInfo"]);
 
             using (var writer = XmlWriter.Create(stream))
             {

@@ -1,4 +1,4 @@
-﻿using Shared.View;
+using Shared.View;
 using System.Collections.Generic;
 using System.Linq;
 using VILIB.Repositories;
@@ -23,15 +23,10 @@ namespace VILIB.Presenters
         {
             var books = _mBookRepository.GetList();
             if (books != null)
-            {
                 foreach (var book in books)
-                {
                     if (book.Code.Equals(code))
                         return book;
-                }
-            }
             return null;
         }
-
     }
 }
