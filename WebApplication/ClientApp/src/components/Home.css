@@ -148,6 +148,13 @@ img {
 		font-family: 'Roboto Condensed', sans-serif;
 		color:black;
 	}
+	.modal-container {
+		position: relative;
+	  }
+	  .modal-container .modal, .modal-container .modal-backdrop {
+		position: absolute;
+	  }
+	  
 	.boxBooks {
 		text-align: center;
 		width: 100%;
