@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ReturnBooks } from "./ReturnBooks";
-// import { Button, Divider, Grid, Header, Icon, Search, Segment } from 'semantic-ui-react';
 import './Home.css';
 import { getProfile } from "./AuthService";
 import { Grid, Image, Header, Icon } from 'semantic-ui-react';
@@ -25,7 +24,7 @@ export class HomePage extends Component {
         </Header>
       </Grid.Column>
       </LinkContainer>
-      <LinkContainer to={'/BookReturn'} exact>
+      <LinkContainer to={'/ReturnBooks'} exact>
       <Grid.Column>
       <Header icon>
             <Icon name='eye' color='blue'/>
