@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { Modal } from "react-bootstrap";
+// import { Button, Header, Image, Modal } from 'semantic-ui-react'
 
 import { HttpRequestPath, bookListApi } from "./Constants";
 
@@ -76,6 +77,7 @@ export class BookList extends Component {
       this.state.books != null && (
         <div className="boxBooks">
           <h3>Books</h3>
+          <p>Choose book for more information</p>
           <br />
           <BootstrapTable
             search={true}
@@ -89,6 +91,8 @@ export class BookList extends Component {
             <TableHeaderColumn dataField="Author">Author</TableHeaderColumn>
           </BootstrapTable>
 
+          
+
           <Modal
             aria-labelledby="modal-label"
             style={modalStyle}
@@ -101,11 +105,14 @@ export class BookList extends Component {
                 <Modal.Header closeButton>
                   <Modal.Title>Book information</Modal.Title>
                 </Modal.Header>
+                <b>Description:</b>
+                <br/>
                 <p>{this.state.description}</p>
                 <br />
-                <p>{this.state.pages} pages</p>
+                <p>{this.state.pages} <b>pages</b></p>
                 <br />
-                <p>Ganre: {this.state.ganre}</p>
+                <p><b>Ganre:</b> {this.state.ganre}</p>
+                <br/>
               </center>
             </div>
           </Modal>
