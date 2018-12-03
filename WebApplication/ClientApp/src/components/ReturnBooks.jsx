@@ -3,9 +3,8 @@ import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-// import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { HttpRequestPath } from "./Constants";
-import { getProfile } from "./AuthService";
+import { getProfile, getToken } from "./AuthService";
 import { Modal, Button} from 'react-bootstrap';
 
 export class ReturnBooks extends Component {
@@ -20,14 +19,15 @@ export class ReturnBooks extends Component {
 
   componentDidMount() {
     const user = getProfile();
+    const token = getToken();
     axios
-      .post(HttpRequestPath + "api/TakenBook", user)
+      .post(HttpRequestPath + "api/TakenBook", user
+      )
       .then(response => {
         this.setState({
           books: response.data
         });
       })
-      .catch(error => console.log("API error"));
   }
 
   onSelectBook = row => {
