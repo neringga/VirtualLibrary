@@ -49,7 +49,8 @@ namespace VILIB.DataSources.Data
 
         public IList<IBook> GetBookList()
         {
-            return _dbContext.Books.Select(book => ConvertToBook(book)).ToList();
+            var books = _dbContext.Books.ToList();
+            return books.Select(book => ConvertToBook(book)).ToList();
         }
 
         public IList<IBook> GetTakenBookList()
@@ -98,13 +99,13 @@ namespace VILIB.DataSources.Data
         {
             if (item is IUser)
             {
-                _dbContext.Users.Remove(ConvertToDbUser((IUser) item));
+                _dbContext.Users.Remove(ConvertToDbUser((IUser)item));
                 return await _dbContext.SaveChangesAsync();
             }
 
             if (item is IBook)
             {
-                _dbContext.Books.Remove(ConvertToDbBook((IBook) item));
+                _dbContext.Books.Remove(ConvertToDbBook((IBook)item));
                 return await _dbContext.SaveChangesAsync();
             }
 
@@ -150,8 +151,8 @@ namespace VILIB.DataSources.Data
                 DaysForBorrowing = book.DaysForBorrowing,
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
-                TakenWhen = (DateTime) book.TakenWhen,
-                HasToBeReturned = (DateTime) book.HasToBeReturned
+                TakenWhen = book.TakenWhen,
+                HasToBeReturned = book.HasToBeReturned
             };
         }
 

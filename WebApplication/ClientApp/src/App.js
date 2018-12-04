@@ -45,6 +45,7 @@ export default class App extends Component {
           <AuthRoute exact path="/bookTaking" component={BookTaking} />
           <AuthRoute exact path="/returnBooks" component={ReturnBooks} />
           <AuthRoute exact path="/books" component={BookList} />
+          <AuthRoute exact path='/bookSearch' component={BookSearch} />
         </Layout>
       </Switch>
     );

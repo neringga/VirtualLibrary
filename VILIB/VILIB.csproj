@@ -227,6 +227,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BookReturnEmail.cs" />
     <Compile Include="Controllers\BarcodeScannerController.cs" />
+    <Compile Include="Controllers\BookSearchController.cs" />
     <Compile Include="Controllers\FaceDetectionController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\FaceRecognitionController.cs" />
@@ -287,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BookSearch\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

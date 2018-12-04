@@ -10,27 +10,22 @@ namespace VILIB.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly IDataSource _dataSource;
+        private readonly IAsyncDataSource _dataSource;
 
-        public BookRepository(IDataSource dataSource)
+        public BookRepository(IAsyncDataSource dataSource)
         {
             _dataSource = dataSource;
         }
 
         public async Task<int> Add(IBook item)
         {
-            // INTERMMEDIATE IMPLEMENTATION. TODO: use database
-            _dataSource.AddBook(item);
-            return 1;
+            return await _dataSource.AddBook(item);
         }
 
         public async Task<int> Remove(IBook item)
         {
-            // INTERMMEDIATE IMPLEMENTATION. TODO: use database
-            _dataSource.RemoveBook(item);
-            return 1;
+            return await _dataSource.RemoveBook(item);
         }
-
 
         public IList<IBook> GetList()
         {

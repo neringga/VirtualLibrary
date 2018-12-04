@@ -68,6 +68,7 @@
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -78,11 +79,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Tests\AsyncDataSource.cs" />
+    <Compile Include="Tests\BookSerachControllerIntegrationTest.cs" />
     <Compile Include="Tests\BookTest.cs" />
     <Compile Include="Tests\InputValidatorTests.cs" />
     <Compile Include="Tests\LibraryDbContextTest.cs" />
-    <Compile Include="Tests\SignInTest.cs" />
     <Compile Include="Tests\UserPresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\LocalDbCreator.cs" />
@@ -103,10 +103,6 @@
     <ProjectReference Include="..\VILIB\VILIB.csproj">
       <Project>{cf137b9b-24e4-4a4e-9b4f-4c8a9634aeaf}</Project>
       <Name>VILIB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VirtualLibrary\VirtualLibrary.csproj">
-      <Project>{6F784BA1-E19D-48C1-87A5-0A4C8ECB3548}</Project>
-      <Name>VirtualLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

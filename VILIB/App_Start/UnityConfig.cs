@@ -35,7 +35,7 @@ namespace VILIB
 
             container.RegisterSingleton<IBookRepository>(new InjectionFactory(o =>
             {
-                var dataSource = container.Resolve<DataSources.IDataSource>();
+                var dataSource = container.Resolve<IAsyncDataSource>();
                 return new BookRepository(dataSource);
             }));
 
