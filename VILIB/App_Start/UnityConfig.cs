@@ -95,6 +95,12 @@ namespace VILIB
                 return new FaceDetectionController();
             }));
 
+            container.RegisterType<ImageSavingController>(new InjectionFactory(o =>
+            {
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                return new ImageSavingController(dataSource);
+            }));
+
             container.RegisterType<FaceRecognitionController>(new InjectionFactory(o =>
             {
                 return new FaceRecognitionController();

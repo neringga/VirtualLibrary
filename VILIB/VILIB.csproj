@@ -230,6 +230,7 @@
     <Compile Include="Controllers\FaceDetectionController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\FaceRecognitionController.cs" />
+    <Compile Include="Controllers\ImageSavingController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataSources\Data\BookList.cs" />
     <Compile Include="DataSources\DbDataSource.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="DataSources\IDataSource.cs" />
     <Compile Include="DataSources\LocalDataSource.cs" />
     <Compile Include="FaceRecognision\EigenFaceRecognition.cs" />
+    <Compile Include="FaceRecognision\FaceImage.cs" />
     <Compile Include="FaceRecognision\ImageConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
