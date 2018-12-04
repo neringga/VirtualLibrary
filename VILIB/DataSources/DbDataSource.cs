@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Shared.View;
 using VirtualLibrary.DataSources.Db;
 using VILIB.Model;
+using Database.Db;
 
 namespace VILIB.DataSources.Data
 {
@@ -95,6 +96,17 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+
+        public IList<string> GetHashtagList()
+        {
+            return _dbContext.Hashtags.Select(g => g.Hastag).ToList();
+        }
+
+        public IList<string> GetGenreList()
+        {
+            return _dbContext.Genres.Select(g => g.Genre).ToList();
+        }
+
         public async Task<int> RemoveItem<T>(T item)
         {
             if (item is IUser)
@@ -114,6 +126,7 @@ namespace VILIB.DataSources.Data
 
         private DbBook ConvertToDbBook(IBook book)
         {
+            var hashtaglist = book.Hashtags.Select(h => new DbHashtag() { Hastag = h });
             return new DbBook
             {
                 Title = book.Title,
@@ -123,7 +136,9 @@ namespace VILIB.DataSources.Data
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
                 TakenWhen = book.TakenWhen,
-                HasToBeReturned = book.HasToBeReturned
+                HasToBeReturned = book.HasToBeReturned,
+                Genre = new DbGenre() { Genre = book.Genre },
+                Hashtags = book.Hashtags.Select(h => new DbHashtag() { Hastag = h }).ToList()
             };
         }
 
@@ -152,7 +167,9 @@ namespace VILIB.DataSources.Data
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
                 TakenWhen = book.TakenWhen,
-                HasToBeReturned = book.HasToBeReturned
+                HasToBeReturned = book.HasToBeReturned,
+                Genre = book.Genre.Genre,
+                Hashtags = book.Hashtags.Select(h => h.Hastag).ToList()
             };
         }
 
@@ -169,5 +186,6 @@ namespace VILIB.DataSources.Data
                 Language = user.Language
             };
         }
+
     }
 }

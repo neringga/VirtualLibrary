@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Shared.View;
 
 namespace VILIB.Model
@@ -14,6 +15,9 @@ namespace VILIB.Model
         public string TakenByUser { get; set; }
         public DateTime? TakenWhen { get; set; }
         public DateTime? HasToBeReturned { get; set; }
+
+        public string Genre { get; set; }
+        public IList<string> Hashtags { get; set; }
 
         public bool Equals(IBook other)
         {

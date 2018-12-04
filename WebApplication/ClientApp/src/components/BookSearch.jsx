@@ -23,11 +23,12 @@ export class BookSearch extends Component {
         console.error('search');
         //this.setState({ books: [{ Author: 'aa', Title: 'bb' }] });
         //this.setState({ showResults: true });
-      
+
         this.setState({ loading: true });
-        const data = { keyword: 'aa' };
+        const data = { Keyword: 'aa', Hashtags: ['bb', 'cc'], Genre: 'dd' };
+        console.error(data);
         axios
-            .get(HttpRequestPath + "api/BookSearch", data)
+            .post(HttpRequestPath + "api/BookSearch", data)
             .then(response => {
                 console.error(response.data);
                 this.setState({

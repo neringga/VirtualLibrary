@@ -124,6 +124,18 @@
     <Compile Include="Migrations\201810281028331_BookAndUserTables.Designer.cs">
       <DependentUpon>201810281028331_BookAndUserTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812031619528_GenreAndHashtags.cs" />
+    <Compile Include="Migrations\201812031619528_GenreAndHashtags.Designer.cs">
+      <DependentUpon>201812031619528_GenreAndHashtags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812041726323_TableRenaming.cs" />
+    <Compile Include="Migrations\201812041726323_TableRenaming.Designer.cs">
+      <DependentUpon>201812041726323_TableRenaming.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812041728257_TypoFix.cs" />
+    <Compile Include="Migrations\201812041728257_TypoFix.Designer.cs">
+      <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteDbDataSource.cs" />
@@ -138,6 +150,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810281028331_BookAndUserTables.resx">
       <DependentUpon>201810281028331_BookAndUserTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031619528_GenreAndHashtags.resx">
+      <DependentUpon>201812031619528_GenreAndHashtags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812041726323_TableRenaming.resx">
+      <DependentUpon>201812041726323_TableRenaming.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812041728257_TypoFix.resx">
+      <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

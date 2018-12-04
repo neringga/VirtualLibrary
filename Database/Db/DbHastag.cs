@@ -5,7 +5,7 @@ using VirtualLibrary.DataSources.Db;
 
 namespace Database.Db
 {
-    public class DbHastag
+    public class DbHashtag
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

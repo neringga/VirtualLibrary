@@ -8,8 +8,8 @@ namespace VirtualLibrary.DataSources.Db
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBook> Books { get; set; }
 
-        public DbSet<DbGenre> AvilableGenres { get; set; }
-        public DbSet<DbHastag> AvailableHashtags { get; set; }
+        public DbSet<DbGenre> Genres { get; set; }
+        public DbSet<DbHashtag> Hashtags { get; set; }
 
         public LibraryDbContext() : base()
         {

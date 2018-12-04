@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualLibrary.DataSources.Db
 {
-    public class DbBook : IBook
+    public class DbBook
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,6 +22,6 @@ namespace VirtualLibrary.DataSources.Db
         public DateTime? HasToBeReturned { get; set; }
 
         public DbGenre Genre { get; set; }
-        public virtual ICollection<DbHastag> Hastags { get; set; }
+        public virtual ICollection<DbHashtag> Hashtags { get; set; }
     }
 }
