@@ -3,8 +3,9 @@ import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
-import { Button, Header, Icon, Modal } from "semantic-ui-react";
 import { HttpRequestPath } from "./Constants";
+import { getProfile, getToken } from "./AuthService";
+import { Modal, Button} from 'react-bootstrap';
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -17,15 +18,16 @@ export class ReturnBooks extends Component {
   }
 
   componentDidMount() {
+    const user = getProfile();
+    const token = getToken();
     axios
-      .get(HttpRequestPath + "api/TakenBook")
+      .post(HttpRequestPath + "api/TakenBook", user
+      )
       .then(response => {
-        console.log(response.data);
         this.setState({
           books: response.data
         });
       })
-      .catch(error => console.log("API error")); //TODO error handling
   }
 
   onSelectBook = row => {
@@ -37,36 +39,15 @@ export class ReturnBooks extends Component {
   };
 
   returnBook = row => {
-    const isbn = {
-      isbnCode: this.state.code
+    const data = {
+      isbnCode: this.state.code,
+      user: getProfile()
     };
-    axios.put(HttpRequestPath + "api/ReturnBook", isbn).then(response => {
+    axios.put(HttpRequestPath + "api/ReturnBook", data).then(response => {
       if (response.data) {
         window.location.reload();
       }
     });
-  };
-
-  handleRowSelect = showPopup => {
-    if (showPopup) {
-      return (
-        <Modal trigger={<Button>Show Modal</Button>} closeIcon>
-        <Header icon='archive' content='Archive Old Messages' />
-        <Modal.Content>
-          <p>
-            Your inbox is getting full, would you like us to enable automatic archiving of old messages?
-          </p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color='red'>
-            <Icon name='remove' /> No
-          </Button>
-          <Button color='green'>
-            <Icon name='checkmark' /> Yes
-          </Button>
-        </Modal.Actions>
-      </Modal>);
-    } else return null;
   };
 
   render() {
@@ -94,7 +75,10 @@ export class ReturnBooks extends Component {
 
     return (
       <div>
-        <BootstrapTable data={this.state.books} selectRow={selectRow} hover>
+        <div className="boxBooks">
+        <h3>Select a book to return</h3>
+        <br/>
+        <BootstrapTable responsive data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
             Author
           </TableHeaderColumn>
@@ -106,8 +90,25 @@ export class ReturnBooks extends Component {
             Return until
           </TableHeaderColumn>
         </BootstrapTable>
+        </div>
+        <Modal
+          aria-labelledby="modal-label"
+          style={modalStyle}
+          backdropStyle={backdropStyle}
+          show={this.state.showModal}
+          onHide={this.close}
+        >
+                <div>
+                    <center>
+            <h4 id="modal-label">Return book</h4>
+            <p>Do you want to return this book?</p>
+            <Button onClick={this.returnBook}>Yes</Button>
+            <Button onClick={this.close}>No</Button>
+              </center>
 
-        {this.handleRowSelect(this.state.showModal)}
+          </div>
+        </Modal>
+        
       </div>
     );
   }

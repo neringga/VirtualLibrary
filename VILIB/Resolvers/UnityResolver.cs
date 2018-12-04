@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http.Dependencies;
 using Unity;
 using Unity.Exceptions;
@@ -14,10 +12,7 @@ namespace VILIB.Resolvers
 
         public UnityResolver(IUnityContainer container)
         {
-            if (container == null)
-            {
-                throw new ArgumentNullException("container");
-            }
+            if (container == null) throw new ArgumentNullException("container");
             this.container = container;
         }
 

@@ -1,7 +1,7 @@
-﻿using Shared.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shared.View;
 using VILIB.DataSources.Data;
 using VILIB.Model;
 using VILIB.Repositories;
@@ -18,11 +18,11 @@ namespace VILIB.Presenters
             _mBookRepository = bookRepository;
         }
 
-        public IBook AddTakenBook(IBook view, string username)
+        public IBook AddTakenBook(string isbnCode, string username)
         {
             _takenBook.IsTaken = true;
             _takenBook.TakenByUser = username;
-            _takenBook.Code = view.Code;
+            _takenBook.Code = isbnCode;
             _takenBook.TakenWhen = DateTime.Now;
 
             var books = _mBookRepository.GetList();
@@ -30,7 +30,7 @@ namespace VILIB.Presenters
 
             _takenBook.Author = book.Author;
             _takenBook.Title = book.Title;
-            _takenBook.HasToBeReturned = ((DateTime)_takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
+            _takenBook.HasToBeReturned = ((DateTime) _takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
             _mBookRepository.Add(_takenBook);
 
             return _takenBook;
@@ -46,13 +46,15 @@ namespace VILIB.Presenters
         {
             var books = _mBookRepository.GetTakenBooks();
             foreach (var book in books)
-            {
                 if (book.Code == code)
-                {
                     return book;
-                }
-            }
             return null;
+        }
+
+        public bool IsTaken(string code)
+        {
+            var books = _mBookRepository.GetTakenBooks().FirstOrDefault(book => book.Code == code);
+            return books != null;
         }
 
 
@@ -64,6 +66,19 @@ namespace VILIB.Presenters
         public IList<IBook> GetTakenBooks()
         {
             return _mBookRepository.GetTakenBooks();
+        }
+
+        public List<IBook> GetUserTakenBooks(string user)
+        {
+            var list = new List<IBook>();
+            var b = _mBookRepository.GetTakenBooks();
+            foreach (var a in b)
+                if (a.TakenByUser == user)
+                {
+                    list.Add(a);
+                }
+                    
+            return list;
         }
     }
 }

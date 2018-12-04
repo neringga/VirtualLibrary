@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Shared.View;
 using VILIB.DataSources.Data;
 using VILIB.Repositories;
-using VILIB.View;
-using VILIB.Presenters;
-using Shared.View;
 
 namespace VILIB.Presenters
 {
@@ -31,6 +29,7 @@ namespace VILIB.Presenters
                 _mUserRepository.Add(_userView);
                 return true;
             }
+
             return false;
         }
 
@@ -42,7 +41,6 @@ namespace VILIB.Presenters
         public IList<IUser> GetUserList()
         {
             return _mUserRepository.GetList();
-
         }
 
         public IUser FindUser()
@@ -50,5 +48,4 @@ namespace VILIB.Presenters
             return _mUserRepository.GetList().FirstOrDefault(user => user.Nickname == StaticDataSource.CurrUser);
         }
     }
-
 }

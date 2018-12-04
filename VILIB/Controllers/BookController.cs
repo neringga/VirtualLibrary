@@ -1,65 +1,77 @@
-﻿using Newtonsoft.Json;
-using Shared.View;
-using System;
+﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using VILIB.DataSources.Data;
+using Newtonsoft.Json;
 using VILIB.Helpers;
-using VILIB.Model;
 using VILIB.Presenters;
 
 namespace VILIB.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class TakenBookController : ApiController
     {
-        private TakenBookPresenter _takenBookPresenter;
         private BookPresenter _bookPresenter;
         private ScannerPresenter _scannerPresenter;
+        private readonly TakenBookPresenter _takenBookPresenter;
 
         public TakenBookController(TakenBookPresenter takenBookPresenter, BookPresenter bookPresenter,
-                                    ScannerPresenter scannerPresenter)
+            ScannerPresenter scannerPresenter)
         {
             _takenBookPresenter = takenBookPresenter;
             _bookPresenter = bookPresenter;
             _scannerPresenter = scannerPresenter;
         }
 
-        public HttpResponseMessage Get()
+        public async Task<HttpResponseMessage> Post()
         {
-
-            return new HttpResponseMessage
+            var requestContent = Request.Content;
+            var user = await requestContent.ReadAsStringAsync();
+            try
             {
-                Content = new StringContent(JsonConvert.SerializeObject(_takenBookPresenter.GetTakenBooks()),
-                    System.Text.Encoding.UTF8, "application/json")
-            };
+                var list = _takenBookPresenter.GetUserTakenBooks(user);
+                return JsonResponse.JsonHttpResponse<object>(list);
+            }
+            catch (ArgumentNullException)
+            {
+                return JsonResponse.JsonHttpResponse<object>(null);
+            }
         }
-
 
 
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(jsonContent);
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<Code>(jsonContent);
 
-            if (!book.IsTaken) //TODO book check
+            if (!_takenBookPresenter.IsTaken(data.isbnCode))
             {
-                var takenBook = _takenBookPresenter.AddTakenBook((IBook)book, "ner"); //TODO user authentification
-                return JsonResponse.JsonHttpResponse<Object>(takenBook.HasToBeReturned);
+                var takenBook = _takenBookPresenter.AddTakenBook(data.isbnCode, data.user);
+                try
+                {
+                    var returnDate = (DateTime) takenBook.HasToBeReturned;
+                    var s = returnDate.ToString("MM/dd/yyyy");
+                    return JsonResponse.JsonHttpResponse<object>(s);
+                }
+                catch (InvalidOperationException)
+                {
+                    return JsonResponse.JsonHttpResponse<object>(false);
+                }
+                
+                
             }
-            return JsonResponse.JsonHttpResponse<Object>(false);
+
+            return JsonResponse.JsonHttpResponse<object>(false);
         }
-
-
     }
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class BookController : ApiController
     {
-        private BookPresenter _bookPresenter;
+        private readonly BookPresenter _bookPresenter;
 
         public BookController(BookPresenter bookPresenter)
         {
@@ -70,14 +82,12 @@ namespace VILIB.Controllers
         {
             return JsonResponse.JsonHttpResponse(_bookPresenter.GetNotTakenBooks());
         }
-
-
     }
 
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors("*", "*", "*")]
     public class ReturnBookController : ApiController
     {
-        private TakenBookPresenter _takenBookPresenter;
+        private readonly TakenBookPresenter _takenBookPresenter;
 
         public ReturnBookController(TakenBookPresenter takenBookPresenter)
         {
@@ -86,24 +96,20 @@ namespace VILIB.Controllers
 
         public async Task<HttpResponseMessage> Put()
         {
-            HttpContent requestContent = Request.Content;
-            string jsonContent = await requestContent.ReadAsStringAsync();
-            var bookCode = JsonConvert.DeserializeObject<Code>(jsonContent);
-            StaticDataSource.CurrUser = "ner"; //TODO user authentification
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<Code>(jsonContent);
             try
             {
-                var takenBook = _takenBookPresenter.FindTakenBookByCode(bookCode.isbnCode,
-                    StaticDataSource.CurrUser);
+                var takenBook = _takenBookPresenter.FindTakenBookByCode(data.isbnCode,
+                    data.user);
                 _takenBookPresenter.RemoveTakenBook(takenBook);
-                return JsonResponse.JsonHttpResponse<Object>(true);
+                return JsonResponse.JsonHttpResponse<object>(true);
             }
             catch (Exception)
             {
-                return JsonResponse.JsonHttpResponse<Object>(false);
+                return JsonResponse.JsonHttpResponse<object>(false);
             }
-
         }
-
     }
-
 }

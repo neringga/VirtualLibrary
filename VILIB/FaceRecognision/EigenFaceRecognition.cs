@@ -1,11 +1,10 @@
-﻿using Emgu.CV;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using VILIB.Helpers;
 using VILIB.View;
 
 namespace VILIB
@@ -18,10 +17,10 @@ namespace VILIB
 
         private readonly CascadeClassifier _cascade;
         private readonly int _faceImagesPerUser;
-        private List<string> _namesList;
-        private List<Image<Gray, byte>> _trainingSet;
 
         private readonly FaceRecognizer _recognizer;
+        private List<string> _namesList;
+        private List<Image<Gray, byte>> _trainingSet;
 
         public EigenFaceRecognition(string faceDetectionTrainingFilePath, int faceImagesPerUser)
         {
@@ -54,6 +53,14 @@ namespace VILIB
         }
 
 
+        public void Train(List<Image<Gray, byte>> trainingSet, List<string> nameList)
+        {
+            _trainingSet = trainingSet;
+            _namesList = nameList;
+            Train();
+        }
+
+
         public void AddUser(List<Image<Gray, byte>> faceImages, string name)
         {
             _namesList.Add(name);
@@ -75,14 +82,6 @@ namespace VILIB
             }
 
             _recognizer.Train(_trainingSet.ToArray(), labelsList.ToArray());
-        }
-
-
-        public void Train(List<Image<Gray, byte>> trainingSet, List<string> nameList)
-        {
-            _trainingSet = trainingSet;
-            _namesList = nameList;
-            Train();
         }
     }
 }

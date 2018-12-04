@@ -1,22 +1,23 @@
-﻿using Shared.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VILIB.Model;
+using Shared.View;
 using VirtualLibrary.DataSources.Db;
+using VILIB.Model;
 
 namespace VILIB.DataSources.Data
 {
     public class DbDataSource : IAsyncDataSource
     {
-        public string CurrUser { get; set; }
         private readonly LibraryDbContext _dbContext;
 
         public DbDataSource(LibraryDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
+        public string CurrUser { get; set; }
 
         public async Task<int> AddBook(IBook book)
         {
@@ -44,12 +45,12 @@ namespace VILIB.DataSources.Data
             }
 
             return await _dbContext.SaveChangesAsync();
-
         }
 
         public IList<IBook> GetBookList()
         {
-            return _dbContext.Books.Select(book => ConvertToBook(book)).ToList();
+            var books = _dbContext.Books.ToList();
+            return books.Select(book => ConvertToBook(book)).ToList();
         }
 
         public IList<IBook> GetTakenBookList()
@@ -102,20 +103,18 @@ namespace VILIB.DataSources.Data
                 return await _dbContext.SaveChangesAsync();
             }
 
-            else if (item is IBook)
+            if (item is IBook)
             {
                 _dbContext.Books.Remove(ConvertToDbBook((IBook)item));
                 return await _dbContext.SaveChangesAsync();
             }
-            else
-            {
-                throw new NotSupportedException("Object type is not supported");
-            }
+
+            throw new NotSupportedException("Object type is not supported");
         }
 
         private DbBook ConvertToDbBook(IBook book)
         {
-            return new DbBook()
+            return new DbBook
             {
                 Title = book.Title,
                 Author = book.Author,
@@ -130,7 +129,7 @@ namespace VILIB.DataSources.Data
 
         private DbUser ConvertToDbUser(IUser user)
         {
-            return new DbUser()
+            return new DbUser
             {
                 Name = user.Name,
                 Surname = user.Surname,
@@ -144,7 +143,7 @@ namespace VILIB.DataSources.Data
 
         private IBook ConvertToBook(DbBook book)
         {
-            return new Book()
+            return new Book
             {
                 Title = book.Title,
                 Author = book.Author,
@@ -152,14 +151,14 @@ namespace VILIB.DataSources.Data
                 DaysForBorrowing = book.DaysForBorrowing,
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
-                TakenWhen = (DateTime)book.TakenWhen,
-                HasToBeReturned = (DateTime)book.HasToBeReturned
+                TakenWhen = book.TakenWhen,
+                HasToBeReturned = book.HasToBeReturned
             };
         }
 
         private IUser ConvertToUser(DbUser user)
         {
-            return new User()
+            return new User
             {
                 Name = user.Name,
                 Surname = user.Surname,
@@ -170,7 +169,5 @@ namespace VILIB.DataSources.Data
                 Language = user.Language
             };
         }
-
-
     }
 }
