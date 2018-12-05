@@ -31,7 +31,7 @@ namespace VILIB.Controllers
             return allBooks
                 .Where(book =>
                     ApplyGenreFilter(book, searchParams.Genre) &&
-                    ApplyHastagFilter(book, searchParams.Hastags) &&
+                    ApplyHastagFilter(book, searchParams.Hashtags) &&
                     ApplyKeywordFilter(book, searchParams.Keyword))
                 .ToList();
         }
