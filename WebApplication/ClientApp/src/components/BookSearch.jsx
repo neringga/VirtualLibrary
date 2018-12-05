@@ -13,22 +13,41 @@ export class BookSearch extends Component {
             loading: false,
             showResults: false,
             searchKeyword: '',
-            hashtags: [
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' }
-            ],
-            genres: [
-                { value: 'aaa', label: 'aaa' },
-                { value: 'bbb', label: 'bbb' }
-            ],
+            hashtags: [],
+            genres: [],
             selectedHashtags: [],
             selectedGenre: ''
         };
+        this.getHashtags();
     }
 
-    getHashtags = () => { };
-    getGenres = () => { };
+    getHashtags = () => {
+        axios
+            .get(HttpRequestPath + "api/Hashtag")
+            .then(response => {
+                console.error(response.data);
+                const hstg = response.data.map(h => { return { value: h, label: h }; });
+                this.setState({
+                    hashtags: hstg,
+                    loading: false
+                });
+                this.getGenres();
+            });
+    };
+
+    getGenres = () => {
+        axios
+            .get(HttpRequestPath + "api/Genre")
+            .then(response => {
+                console.error(response.data);
+                const gnr = response.data.map(g => { return { value: g, label: g }; });
+                this.setState({
+                    genres: gnr,
+                    loading: false
+                });
+                this.render();
+            });
+    };
 
     enteredKeyword = (event) => {
         console.error('inout change', event);
