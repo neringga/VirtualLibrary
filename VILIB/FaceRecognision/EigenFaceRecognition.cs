@@ -5,6 +5,7 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Face;
 using Emgu.CV.Structure;
+using VILIB.FaceRecognision;
 using VILIB.View;
 
 namespace VILIB
@@ -27,6 +28,8 @@ namespace VILIB
             _faceImagesPerUser = faceImagesPerUser;
 
             _recognizer = new EigenFaceRecognizer(ComponentsNumber, Threshold);
+
+            _cascade = new CascadeClassifier(faceDetectionTrainingFilePath);
         }
 
 
@@ -53,18 +56,22 @@ namespace VILIB
         }
 
 
-        public void Train(List<Image<Gray, byte>> trainingSet, List<string> nameList)
+        public void Train(FaceImage[] faceImages)
         {
-            _trainingSet = trainingSet;
-            _namesList = nameList;
-            Train();
+            _trainingSet = new List<Image<Gray, byte>>();
+            _namesList = new List<string>();
+
+            AddUser(faceImages);
         }
 
 
-        public void AddUser(List<Image<Gray, byte>> faceImages, string name)
+        public void AddUser(FaceImage[] faceImages)
         {
-            _namesList.Add(name);
-            for (var i = 0; i < _faceImagesPerUser; i++) _trainingSet.Add(faceImages.ElementAt(i));
+            foreach (FaceImage image in faceImages)
+            {
+                _trainingSet.Add(FaceRecognision.ImageConverter.PhotoToGrayFaceImage(image.Bytes));
+                _namesList.Add(image.Nickname);
+            }
 
             Train();
         }
