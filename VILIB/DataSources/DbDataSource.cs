@@ -112,6 +112,33 @@ namespace VILIB.DataSources.Data
             throw new NotSupportedException("Object type is not supported");
         }
 
+        public async Task<bool> ReturnBook(string isbnCode, string username)
+        {
+            var books = _dbContext.Books.ToList().Where(b => b.IsTaken && b.Code == isbnCode && b.TakenByUser == username).ToList();
+            if (books.Count == 0 || books.Count != 1)
+                throw new InvalidOperationException("Book has not been taken by this user or multiple books match this criteria");
+
+            var book = books.First();
+            book.IsTaken = false;
+            book.TakenByUser = "";
+
+            return (await _dbContext.SaveChangesAsync() == 1);
+        }
+
+        public async Task<bool> TakeBook(string isbnCode, string username)
+        {
+            var books = _dbContext.Books.ToList().Where(b => !b.IsTaken && b.Code == isbnCode).ToList();
+            if (books.Count == 0 || books.Count != 1)
+                throw new InvalidOperationException("Book has not been found or has been taken");
+
+            var book = books.First();
+            book.IsTaken = true;
+            book.TakenByUser = username;
+            book.HasToBeReturned = DateTime.UtcNow.AddDays(30);
+
+            return (await _dbContext.SaveChangesAsync() == 1);
+        }
+
         private DbBook ConvertToDbBook(IBook book)
         {
             return new DbBook
@@ -169,5 +196,7 @@ namespace VILIB.DataSources.Data
                 Language = user.Language
             };
         }
+
+
     }
 }

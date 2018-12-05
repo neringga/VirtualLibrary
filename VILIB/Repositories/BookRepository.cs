@@ -48,5 +48,15 @@ namespace VILIB.Repositories
 
             return null;
         }
+
+        public async Task TakeBook(string isbnCode, string username)
+        {
+            await _dataSource.TakeBook(isbnCode, username);
+        }
+
+        public async Task ReturnBook(string isbnCode, string username)
+        {
+            await _dataSource.ReturnBook(isbnCode, username);
+        }
     }
 }
