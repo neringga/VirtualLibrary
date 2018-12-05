@@ -49,10 +49,10 @@ namespace VILIB.Controllers
 
             if (!_takenBookPresenter.IsTaken(data.isbnCode))
             {
-                var takenBook = _takenBookPresenter.AddTakenBook(data.isbnCode, data.user);
+                await _takenBookPresenter.TakeBook(data.isbnCode, data.user);
                 try
                 {
-                    var returnDate = (DateTime) takenBook.HasToBeReturned;
+                    var returnDate = DateTime.UtcNow.AddDays(30);
                     var s = returnDate.ToString("MM/dd/yyyy");
                     return JsonResponse.JsonHttpResponse<object>(s);
                 }
@@ -60,8 +60,8 @@ namespace VILIB.Controllers
                 {
                     return JsonResponse.JsonHttpResponse<object>(false);
                 }
-                
-                
+
+
             }
 
             return JsonResponse.JsonHttpResponse<object>(false);
@@ -101,9 +101,7 @@ namespace VILIB.Controllers
             var data = JsonConvert.DeserializeObject<Code>(jsonContent);
             try
             {
-                var takenBook = _takenBookPresenter.FindTakenBookByCode(data.isbnCode,
-                    data.user);
-                _takenBookPresenter.RemoveTakenBook(takenBook);
+                await _takenBookPresenter.ReturnBook(data.isbnCode, data.user);
                 return JsonResponse.JsonHttpResponse<object>(true);
             }
             catch (Exception)
