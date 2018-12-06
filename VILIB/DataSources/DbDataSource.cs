@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Shared.View;
 using VirtualLibrary.DataSources.Db;
+using VILIB.Helpers;
 using VILIB.Model;
+using Database.Db;
 
 namespace VILIB.DataSources.Data
 {
@@ -18,6 +20,12 @@ namespace VILIB.DataSources.Data
         }
 
         public string CurrUser { get; set; }
+
+        public async Task<int> AddReview(Reviews review)
+        {
+            _dbContext.Reviews.Add(ConvertToDbReviews(review));
+            return await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<int> AddBook(IBook book)
         {
@@ -45,6 +53,12 @@ namespace VILIB.DataSources.Data
             }
 
             return await _dbContext.SaveChangesAsync();
+        }
+
+        public IList<Reviews> GetReviewList()
+        {
+            var reviews = _dbContext.Reviews.ToList();
+            return reviews.Select(review => ConvertToReviews(review)).ToList();
         }
 
         public IList<IBook> GetBookList()
@@ -80,6 +94,12 @@ namespace VILIB.DataSources.Data
         public async Task<int> RemoveBook(IBook book)
         {
             _dbContext.Books.Remove(ConvertToDbBook(book));
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveReview(Reviews review)
+        {
+            _dbContext.Reviews.Remove(ConvertToDbReviews(review));
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -154,6 +174,16 @@ namespace VILIB.DataSources.Data
             };
         }
 
+        private DbReview ConvertToDbReviews(Reviews review)
+        {
+            return new DbReview
+            {
+                BookCode = review.BookCode,
+                User = review.User,
+                Review = review.Review
+            };
+        }
+
         private DbUser ConvertToDbUser(IUser user)
         {
             return new DbUser
@@ -197,6 +227,14 @@ namespace VILIB.DataSources.Data
             };
         }
 
-
+        private Reviews ConvertToReviews(DbReview review)
+        {
+            return new Reviews
+            {
+                BookCode = review.BookCode,
+                User = review.User,
+                Review = review.Review
+            };
+        }
     }
 }

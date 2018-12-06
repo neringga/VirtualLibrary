@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-import { Modal } from "react-bootstrap";
+// import { Modal } from "react-bootstrap";
 // import { Button, Header, Image, Modal } from 'semantic-ui-react'
-
-import { HttpRequestPath, bookListApi } from "./Constants";
+import Modal from "react-responsive-modal";
+import { Button, Comment, Form, Icon, Input } from "semantic-ui-react";
+import "./Home.css";
+import { HttpRequestPath } from "./Constants.jsx";
+import { getProfile } from "./AuthService";
 
 export class BookList extends Component {
   constructor() {
     super();
     this.state = {
       books: [],
-      loading: true
+      loading: true,
+      comments: []
     };
   }
 
@@ -27,7 +31,7 @@ export class BookList extends Component {
   onSelectBook = row => {
     const authorName = row.Author.split(" ");
     const auth = authorName.join("+");
-    this.setState({ showModal: true });
+    this.setState({ showReview: true, showModal: true, Code: row.Code, Author: row.Author });
     axios
       .get(
         "https://www.googleapis.com/books/v1/volumes?q=" +
@@ -42,6 +46,12 @@ export class BookList extends Component {
           ganre: res.data.items[0].volumeInfo.categories
         });
       });
+
+    axios.post(HttpRequestPath + "api/Review", row.Code).then(res => {
+      this.setState({
+        comments: res.data
+      });
+    });
   };
 
   handleClose = () => {
@@ -50,18 +60,76 @@ export class BookList extends Component {
     });
   };
 
+  onInputChange = event => {
+    this.setState({
+      newReview: event.target.value
+    });
+  };
+
+  onReviewButtonClick = () => {
+    const data = {
+      BookCode: this.state.Code,
+      User: getProfile(),
+      Review: this.state.newReview
+    };
+
+    this.setState({
+      newReview: null
+    });
+
+    axios.put(HttpRequestPath + "api/Review", data).then(res => {
+      if (res) {
+        var newComments = this.state.comments.slice();
+        newComments.push(data);
+        this.setState({
+          comments: newComments
+        })
+        document.getElementById("myForm").reset();
+      }
+    });
+  };
+
+  handleReviewShowing = (showReview) => {
+    if (showReview || showReview === 1) {
+      return (
+      <div className="comments">
+              {this.state.comments.map(comment => (
+                <div className="singleComment">
+                  <Icon name="comment" />
+                  <b>{comment.User}</b> {comment.Review}
+                </div>
+              ))}
+              <form id="myForm">
+              <div className="commentInput">
+                <Input
+                  onChange={this.onInputChange}
+                  fluid
+                  placeholder="Review"
+                />
+              </div></form>
+              <Button
+                primary
+                onClick={this.onReviewButtonClick}
+                floated="right"
+                size="large"
+                icon
+                labelPosition="left"
+              >
+                <Icon name="add" />
+                Add review
+              </Button>
+            </div>
+      )}
+    else {
+      return null;
+    }
+  }
+
   render() {
     const selectRow = {
       mode: "radio",
       clickToSelect: true,
       onSelect: this.onSelectBook
-    };
-
-    const backdropStyle = {
-      ...modalStyle,
-      zIndex: "auto",
-      backgroundColor: "#000",
-      opacity: 0.5
     };
 
     const modalStyle = {
@@ -89,32 +157,32 @@ export class BookList extends Component {
               Title
             </TableHeaderColumn>
             <TableHeaderColumn dataField="Author">Author</TableHeaderColumn>
+            <TableHeaderColumn dataField="Code" hidden="true">
+              Code
+            </TableHeaderColumn>
           </BootstrapTable>
 
-          
-
           <Modal
-            aria-labelledby="modal-label"
-            style={modalStyle}
-            backdropStyle={backdropStyle}
-            onHide={this.handleClose}
-            show={this.state.showModal}
+            open={this.state.showModal}
+            onClose={this.handleClose}
+            center
+            styles={{ overlay: modalStyle }}
           >
-            <div>
-              <center>
-                <Modal.Header closeButton>
-                  <Modal.Title>Book information</Modal.Title>
-                </Modal.Header>
-                <b>Description:</b>
-                <br/>
-                <p>{this.state.description}</p>
-                <br />
-                <p>{this.state.pages} <b>pages</b></p>
-                <br />
-                <p><b>Ganre:</b> {this.state.ganre}</p>
-                <br/>
-              </center>
+            <div className="font">
+              <h3>Book information</h3>
+              <p>
+                <b>Description:</b> {this.state.description}
+              </p>
+              <br />
+              <p>
+                <b>Ganre:</b> {this.state.ganre}, <b>Pages:</b>{" "}
+                {this.state.pages}
+              </p>
             </div>
+            <hr />
+            <h3>Reviews</h3>
+          {this.handleReviewShowing(this.state.showReview)}
+            
           </Modal>
         </div>
       )
