@@ -39,6 +39,12 @@ namespace VILIB
                 return new BookRepository(dataSource);
             }));
 
+            container.RegisterSingleton<IReviewRepository>(new InjectionFactory(o =>
+            {
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                return new ReviewRepository(dataSource);
+            }));
+
             container.RegisterSingleton<ILibraryData>(new InjectionFactory(o =>
             {
                 var userRepository = container.Resolve<IUserRepository>();
@@ -47,6 +53,8 @@ namespace VILIB
             }));
 
             //Controllers
+
+
             container.RegisterType<UserRegistrationController>(new InjectionFactory(o =>
             {
                 var userRepository = container.Resolve<IUserRepository>();
@@ -100,11 +108,21 @@ namespace VILIB
                 return new FaceRecognitionController();
             }));
 
+            container.RegisterType<ReviewController>(new InjectionFactory(o =>
+            {
+                var reviewRepository = container.Resolve<IReviewRepository>();
+                var reviewPresenter = container.Resolve<ReviewPresenter>();
+                return new ReviewController(reviewPresenter, reviewRepository);
+            }));
+
 
             // Helpers & Presenters
             container.RegisterType<TakenBookPresenter>(new InjectionFactory(o =>
             {
                 var bookRepository = container.Resolve<IBookRepository>();
+                var warning = container.Resolve<BookTakingWarning>();
+                var userPresenter = container.Resolve<UserPresenter>();
+                //return new TakenBookPresenter(bookRepository, warning, userPresenter);
                 return new TakenBookPresenter(bookRepository);
             }));
 
@@ -114,7 +132,17 @@ namespace VILIB
                 return new BookPresenter(bookRepository);
             }));
 
-            container.RegisterType<IUserPresenter, UserPresenter>(new TransientLifetimeManager());
+            container.RegisterType<ReviewPresenter>(new InjectionFactory(o =>
+            {
+                var reviewRepository = container.Resolve<IReviewRepository>();
+                return new ReviewPresenter(reviewRepository);
+            }));
+
+            container.RegisterType<UserPresenter>(new InjectionFactory(o =>
+            {
+                var userRepository = container.Resolve<IUserRepository>();
+                return new UserPresenter(userRepository);
+            }));
 
 
             container.RegisterType<IInputValidator>(new InjectionFactory(o =>

@@ -225,12 +225,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BookReturnEmail.cs" />
     <Compile Include="Controllers\BarcodeScannerController.cs" />
     <Compile Include="Controllers\BookSearchController.cs" />
     <Compile Include="Controllers\FaceDetectionController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\FaceRecognitionController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataSources\Data\BookList.cs" />
     <Compile Include="DataSources\DbDataSource.cs" />
@@ -248,17 +248,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BookControllerClasses.cs" />
+    <Compile Include="Helpers\BookTakingWarning.cs" />
     <Compile Include="Helpers\IInputValidator.cs" />
     <Compile Include="Helpers\InputValidator.cs" />
     <Compile Include="FaceRecognision\IEmguCvFaceRecognition.cs" />
     <Compile Include="Helpers\JsonResponce.cs" />
     <Compile Include="Helpers\JwtManager.cs" />
+    <Compile Include="Helpers\ReviewClass.cs" />
     <Compile Include="Helpers\UserCredentialClasses.cs" />
     <Compile Include="Localization\Translations.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Presenters\BookPresenter.cs" />
     <Compile Include="Presenters\IUserPresenter.cs" />
+    <Compile Include="Presenters\ReviewPresenter.cs" />
     <Compile Include="Presenters\ScannerPresenter.cs" />
     <Compile Include="Presenters\TakenBookPresenter.cs" />
     <Compile Include="Presenters\UserPresenter.cs" />
@@ -267,8 +270,10 @@
     <Compile Include="Repositories\IBookRepository.cs" />
     <Compile Include="Repositories\ILibraryData.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IReviewRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\LibraryData.cs" />
+    <Compile Include="Repositories\ReviewRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Resolvers\UnityResolver.cs" />
   </ItemGroup>

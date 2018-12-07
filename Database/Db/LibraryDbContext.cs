@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Database.Db;
 
 namespace VirtualLibrary.DataSources.Db
 {
@@ -6,6 +7,7 @@ namespace VirtualLibrary.DataSources.Db
     {
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBook> Books { get; set; }
+        public DbSet<DbReview> Reviews { get; set; }
 
         public LibraryDbContext() : base()
         {

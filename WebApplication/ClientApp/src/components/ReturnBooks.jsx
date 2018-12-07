@@ -5,7 +5,8 @@ import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 import "./Home.css";
 import { HttpRequestPath } from "./Constants";
 import { getProfile, getToken } from "./AuthService";
-import { Modal, Button} from 'react-bootstrap';
+import { Button } from "semantic-ui-react";
+import Modal from "react-responsive-modal";
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export class ReturnBooks extends Component {
     this.setState({ showModal: true, code: row.Code });
   };
 
-  close = row => {
+  handleClose = row => {
     this.setState({ showModal: false });
   };
 
@@ -55,13 +56,6 @@ export class ReturnBooks extends Component {
       mode: "radio",
       clickToSelect: true,
       onSelect: this.onSelectBook
-    };
-
-    const backdropStyle = {
-      ...modalStyle,
-      zIndex: "auto",
-      backgroundColor: "#000",
-      opacity: 0.5
     };
 
     const modalStyle = {
@@ -92,22 +86,20 @@ export class ReturnBooks extends Component {
         </BootstrapTable>
         </div>
         <Modal
-          aria-labelledby="modal-label"
-          style={modalStyle}
-          backdropStyle={backdropStyle}
-          show={this.state.showModal}
-          onHide={this.close}
-        >
-                <div>
-                    <center>
+            open={this.state.showModal}
+            onClose={this.handleClose}
+            center
+            styles={{ overlay: modalStyle }}
+          >
+            <div className="font">
             <h4 id="modal-label">Return book</h4>
-            <p>Do you want to return this book?</p>
-            <Button onClick={this.returnBook}>Yes</Button>
-            <Button onClick={this.close}>No</Button>
-              </center>
-
-          </div>
-        </Modal>
+            <br/>
+            <p>Do you really want to return this book?</p>
+            <br/>
+            <Button size="large" onClick={this.returnBook}>Yes</Button>
+            <Button size="large" onClick={this.close}>No</Button>
+            </div>
+          </Modal>
         
       </div>
     );
