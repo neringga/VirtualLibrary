@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-// import { Modal } from "react-bootstrap";
-// import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import Modal from "react-responsive-modal";
 import { Button, Comment, Form, Icon, Input } from "semantic-ui-react";
 import "./Home.css";
@@ -31,7 +29,12 @@ export class BookList extends Component {
   onSelectBook = row => {
     const authorName = row.Author.split(" ");
     const auth = authorName.join("+");
-    this.setState({ showReview: true, showModal: true, Code: row.Code, Author: row.Author });
+    this.setState({
+      showReview: true,
+      showModal: true,
+      Code: row.Code,
+      Author: row.Author
+    });
     axios
       .get(
         "https://www.googleapis.com/books/v1/volumes?q=" +
@@ -83,47 +86,44 @@ export class BookList extends Component {
         newComments.push(data);
         this.setState({
           comments: newComments
-        })
+        });
         document.getElementById("myForm").reset();
       }
     });
   };
 
-  handleReviewShowing = (showReview) => {
+  handleReviewShowing = showReview => {
     if (showReview || showReview === 1) {
       return (
-      <div className="comments">
-              {this.state.comments.map(comment => (
-                <div className="singleComment">
-                  <Icon name="comment" />
-                  <b>{comment.User}</b> {comment.Review}
-                </div>
-              ))}
-              <form id="myForm">
-              <div className="commentInput">
-                <Input
-                  onChange={this.onInputChange}
-                  fluid
-                  placeholder="Review"
-                />
-              </div></form>
-              <Button
-                primary
-                onClick={this.onReviewButtonClick}
-                floated="right"
-                size="large"
-                icon
-                labelPosition="left"
-              >
-                <Icon name="add" />
-                Add review
-              </Button>
+        <div className="comments">
+          {this.state.comments.map(comment => (
+            <div className="singleComment">
+              <Icon name="comment" />
+              <b>{comment.User}</b> {comment.Review}
             </div>
-      )}
-    else {
+          ))}
+          <form id="myForm">
+            <div className="commentInput">
+              <Input onChange={this.onInputChange} fluid placeholder="Review" />
+            </div>
+          </form>
+          <Button
+            primary
+            onClick={this.onReviewButtonClick}
+            floated="right"
+            size="large"
+            icon
+            labelPosition="left"
+          >
+            <Icon name="add" />
+            Add review
+          </Button>
+        </div>
+      );
+    } else {
       return null;
     }
-  }
+  };
 
   render() {
     const selectRow = {
@@ -181,8 +181,7 @@ export class BookList extends Component {
             </div>
             <hr />
             <h3>Reviews</h3>
-          {this.handleReviewShowing(this.state.showReview)}
-            
+            {this.handleReviewShowing(this.state.showReview)}
           </Modal>
         </div>
       )

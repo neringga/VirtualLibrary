@@ -1,249 +1,335 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+﻿@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
 
 h1 {
-	text-align: center;
-	color: black;
+  text-align: center;
+  color: black;
 }
 
 h3 {
-	text-align: center;
-	color: black;
-	padding-top: 30px;
-	letter-spacing: 0.2em;
-	font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+  color: black;
+  padding-top: 30px;
+  letter-spacing: 0.2em;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .font {
-	font-family: 'Roboto Condensed', sans-serif;
-	text-align: center;
+  font-family: "Roboto Condensed", sans-serif;
+  text-align: center;
 }
 
 h2 {
-	padding: 10px;
+  padding: 10px;
 }
 
 a {
-	color: black;
+  color: black;
 }
 
 img {
-	text-align: center;
+  text-align: center;
 }
 
 .bookReturn {
-	margin-top: 100px;
+  margin-top: 100px;
 }
 
 .space {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .spacingHome {
-	margin-top: 20px;
-	margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .comments {
-	font-family: 'Roboto Condensed', sans-serif;
-
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .commentInput {
-	padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .singleComment {
-	padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
-@media only screen and (min-width: 992px){
-    .ui.tiny.modal {
-        position: fixed;
-		top: 20%;
-		left: 30%;
-	}
+@media only screen and (min-width: 992px) {
+  .ui.tiny.modal {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+  }
 }
 
-@media only screen and (min-width: 768px){
-    .ui.tiny.modal {
-        position: fixed;
-		top: 20%;
-		left: 30%;
-	}
+@media only screen and (min-width: 768px) {
+  .ui.tiny.modal {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+  }
 }
 
-@media only screen and (max-width: 767px){
-    .ui.tiny.modal {
-        position: fixed;
-		top: 5%;
-		left: 30%;
-	}
-
+@media only screen and (max-width: 767px) {
+  .ui.tiny.modal {
+    position: fixed;
+    top: 5%;
+    left: 30%;
+  }
 }
 
 .scrollableBox {
-	width: 80%;
-	margin: auto;
-	background:white;
-	padding: 10px;
-	border: 1px #ccc solid;
-	font-family: 'Roboto Condensed', sans-serif;
-	color:black;
-	overflow-y: scroll;
+  width: 80%;
+  margin: auto;
+  background: white;
+  padding: 10px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+  overflow-y: scroll;
 }
 
 .box {
-	text-align: center;
-	width: 100%;
-	/* height: 80%; */
-	margin: auto;
-	margin-top: -30px;
-	background:white;
-	padding: 30px;
-	padding-bottom: 10px;
-	border: 1px #ccc solid;
-	font-family: 'Roboto Condensed', sans-serif;
-	color:black;
+  text-align: center;
+  width: 100%;
+  /* height: 80%; */
+  margin: auto;
+  margin-top: -30px;
+  background: white;
+  padding: 30px;
+  padding-bottom: 10px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
+.boxRegistration {
+  width: 100%;
+  height: 80%;
+  margin-bottom: 0px;
+  margin-top: -50px;
+  background: white;
+  padding: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
+.boxSignin {
+  width: 100%;
+  height: 80%;
+  margin-bottom: 0px;
+  margin-top: -10px;
+  background: white;
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: -30px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
+.sigginForm {
+  padding-bottom: 20px;
 }
 
 .boxQr {
-	text-align: center;
-	width: 100%;
-	/* height: 80%; */
-	margin: auto;
-	margin-top: 100px;
-	background:white;
-	padding: 30px;
-	padding-bottom: 10px;
-	border: 1px #ccc solid;
-	font-family: 'Roboto Condensed', sans-serif;
-	color:black;
+  text-align: center;
+  width: 100%;
+  /* height: 80%; */
+  margin: auto;
+  margin-top: 100px;
+  background: white;
+  padding: 30px;
+  padding-bottom: 10px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
 }
 
 .boxHome {
-	text-align: center;
-	width: 100%;
-	/* height: 80%; */
-	margin: auto;
-	margin-top: 50px;
-	background:white;
-	padding: 30px;
-	padding-bottom: 10px;
-	border: 1px #ccc solid;
-	font-family: 'Roboto Condensed', sans-serif;
-	color:black;
+  text-align: center;
+  width: 100%;
+  /* height: 80%; */
+  margin: auto;
+  margin-top: 50px;
+  background: white;
+  padding: 30px;
+  padding-bottom: 10px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
 }
 
 .boxBooks {
-	text-align: center;
-	width: 100%;
-	height: 80%;
-	margin: auto;
-	margin-top: 10px;
-	background:white;
-	padding: 5px;
-	padding-bottom: 10px;
-	font-family: 'Roboto Condensed', sans-serif;
-	color:black;
+  text-align: center;
+  width: 100%;
+  height: 80%;
+  margin: auto;
+  margin-top: 10px;
+  background: white;
+  padding: 5px;
+  padding-bottom: 10px;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
 }
 
-.boxRet{
-	margin-top: 50px;
-	padding-top: 50px;
+.boxRet {
+  margin-top: 50px;
+  padding-top: 50px;
 }
 
+.regButton {
+  margin-top: 20px;
+  margin-bottom: -20px;
+  padding-bottom: -20px;
+}
 
-@media(min-width: 768px) {
-	.box {
-		text-align: center;
-		width: 40%;
-		/* height: ; */
-		margin: auto;
-		margin-top: 20px;
-		background:white;
-		padding: 30px;
-		border: 1px #ccc solid;
-		font-family: 'Roboto Condensed', sans-serif;
-		color:black;
-	}
-	.modal-container {
-		position: relative;
-	  }
-	  .modal-container .modal, .modal-container .modal-backdrop {
-		position: absolute;
-	  }
-	  
-	.boxBooks {
-		text-align: center;
-		width: 100%;
-		height: 80%;
-		margin: auto;
-		margin-top: 50px;
-		background:white;
-		padding: 5px;
-		padding-bottom: 10px;
-		font-family: 'Roboto Condensed', sans-serif;
-		color:black;
-	}
+.regForm {
+  margin-top: -30px;
+  padding-top: -30px;
+}
+
+@media (min-width: 768px) {
+  .regForm {
+    margin-top: -30px;
+    padding-top: -30px;
+  }
+  .regButton {
+    margin-top: 20px;
+    margin-bottom: -30px;
+    padding-bottom: -30px;
+  }
+
+  .boxSignin {
+    width: 60%;
+    height: 80%;
+    margin: auto;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    background: white;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    border: 1px #ccc solid;
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+  }
+
+  .logoSignIn {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: -20px;
+  }
+
+  .box {
+    text-align: center;
+    width: 40%;
+    /* height: ; */
+    margin: auto;
+    margin-top: 20px;
+    background: white;
+    padding: 30px;
+    border: 1px #ccc solid;
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+  }
+
+  .boxRegistration {
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    /* padding-top: -30px; */
+    padding-bottom: 10px;
+    border: 1px #ccc solid;
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+  }
+
+  .regButton {
+    margin-top: 20px;
+  }
+
+  .modal-container {
+    position: relative;
+  }
+  .modal-container .modal,
+  .modal-container .modal-backdrop {
+    position: absolute;
+  }
+
+  .boxBooks {
+    text-align: center;
+    width: 100%;
+    height: 80%;
+    margin: auto;
+    margin-top: 50px;
+    background: white;
+    padding: 5px;
+    padding-bottom: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+  }
 }
 
 .box logo {
-	size: 1000px;
+  size: 1000px;
 }
 
 .belowLogo {
-	margin-top: 50px;
-	color:rgb(90, 88, 88); 
-	letter-spacing: 0.2em;
+  margin-top: 50px;
+  color: rgb(90, 88, 88);
+  letter-spacing: 0.2em;
 }
 
 .modalOverlay {
-	background:pink;
+  background: pink;
 }
 
 .cameraStyle {
-	width: 100%;
-	height: 400px;
+  width: 100%;
+  height: 400px;
 }
 
 .cameraText {
-	margin-top: 600px;
+  margin-top: 600px;
 }
 
 .belowCamera {
-	margin-top: 200px;
+  margin-top: 200px;
 }
 
 .spacing {
-	margin-top: 71px;
-	margin-bottom: 0px;
+  margin-top: 71px;
+  margin-bottom: 0px;
 }
 
 .signUpLink {
-	color: rgb(245, 63, 94);
+  color: rgb(245, 63, 94);
 }
 
-
 .react-bs-container-body tr {
-	border-top-style: hidden !important;
-  }
-  
-  .react-bs-container-header tr {
-	border-bottom-style: hidden !important;
-  }
+  border-top-style: hidden !important;
+}
 
+.react-bs-container-header tr {
+  border-bottom-style: hidden !important;
+}
 
 .form {
-	padding: 50px;
+  padding: 50px;
 }
 
 .centerButton {
-	text-align: center;
-	margin: auto;
-	display: flex;
-	justify-content: center;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 }
-
-
-
-
