@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
@@ -49,9 +50,10 @@ namespace VILIB
             }
 
             var result = _recognizer.Predict(faceImage);
+            //File.AppendAllText("D:\\Distance.txt", result.Distance + Environment.NewLine);
 
             if (result.Distance <= Distance)
-                return _namesList.ElementAt(result.Label / 5);
+                return _namesList.ElementAt(result.Label);
             return null;
         }
 

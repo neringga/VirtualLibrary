@@ -40,6 +40,9 @@ export class RegistrationCamera extends Component {
 
     capture = () => {
 
+        document.getElementById("captureButton").disabled = true;
+        document.getElementById("saveAndContinueButton").disabled = true;
+
         this.reset();
 
         var stopFuction = function () {
@@ -49,13 +52,16 @@ export class RegistrationCamera extends Component {
             }
         }
 
-        var interval = setInterval(this.testPhoto.bind(this), timeBetweenTakingPictures);
+        var interval = setInterval(this.takePhoto.bind(this), timeBetweenTakingPictures);
 
         var self = setInterval(stopFuction.bind(this), timeBetweenTakingPictures - 100);
+
+        document.getElementById("captureButton").disabled = false;
+        document.getElementById("saveAndContinueButton").disabled = false;
     };
 
 
-    testPhoto() {
+    takePhoto() {
 
         let screenshot = this.webcam.getScreenshot();
         var data = screenshot.replace(/^data:image\/\w+;base64,/, "");
@@ -174,10 +180,10 @@ export class RegistrationCamera extends Component {
                     />
                 </center>
                 <center>
-                    <button onClick={this.capture}>Capture photo</button>
+                    <button id="captureButton" onClick={this.capture}>Capture photo</button>
                 </center>
                 <center>
-                    <button onClick={this.savePhotos.bind(this)}>Save and Continue</button>
+                    <button id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>Save and Continue</button>
                 </center>
             </div>
         );

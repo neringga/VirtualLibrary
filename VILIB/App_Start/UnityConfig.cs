@@ -103,7 +103,10 @@ namespace VILIB
 
             container.RegisterType<FaceRecognitionController>(new InjectionFactory(o =>
             {
-                return new FaceRecognitionController();
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                var controller = new FaceRecognitionController(dataSource);
+                controller.OnLogin += container.Resolve<IUserRepository>().Login;
+                return controller;
             }));
 
 
@@ -130,6 +133,11 @@ namespace VILIB
             }));
 
             return container;
+        }
+
+        private static bool Controller_OnLogin(object sender, LoginEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

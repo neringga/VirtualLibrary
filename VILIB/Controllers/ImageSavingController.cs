@@ -46,8 +46,6 @@ namespace VILIB.Controllers
             {
                 return JsonResponse.JsonHttpResponse<Object>(null);
             }
-
-
         }
     }
 }

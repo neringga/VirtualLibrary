@@ -11,23 +11,19 @@ namespace VILIB.FaceRecognision
         {
             List<FaceImage> imageList = new List<FaceImage>();
             List<Bitmap> bitmapList = new List<Bitmap>();
-            string[] files = Directory.GetFiles(new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/")).ToString(), "*.png");
 
-            List<string> testList = new List<string>();
+            string[] files = Directory.GetFiles(new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/")).ToString(), "*.png");
 
             foreach (string file in files)
             {
-                MemoryStream stream = new MemoryStream();
-                File.OpenRead(file).CopyTo(stream);
                 string[] pathElements = file.Split('\\');
                 string[] fileNameElements = pathElements[pathElements.Length - 1].Split('_');
 
-                testList.Add(fileNameElements[0]);
+                MemoryStream stream = new MemoryStream();
+                File.OpenRead(file).CopyTo(stream);
+
                 imageList.Add(new FaceImage { Nickname = fileNameElements[0], Bytes = stream.ToArray() });
             }
-
-            File.WriteAllLines(@"D:\FileNames.txt", testList.ToArray());
-
 
             return imageList;
         }
