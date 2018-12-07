@@ -6,5 +6,6 @@ namespace VILIB.Repositories
     public interface IUserRepository : IRepository<IUser>
     {
         bool Login(object sender, LoginEventArgs e);
+        bool Login(object sender, string username);
     }
 }

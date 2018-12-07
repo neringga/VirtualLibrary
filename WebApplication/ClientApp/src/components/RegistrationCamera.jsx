@@ -4,10 +4,10 @@ import axios from "axios";
 import fs from "browserify-fs";
 import "./RegistrationCamera.css";
 import {
-  successfullSignIn,
-  faceDetectionApi,
-  userSignInApi,
-  HttpRequestPath
+    successfullSignIn,
+    faceDetectionApi,
+    userSignInApi,
+    HttpRequestPath
 } from "./Constants.jsx";
 
 //Get constants from .config
@@ -15,28 +15,35 @@ const imagesPerPerson = 5;
 const maxUserError = 2;
 const maxServerError = 2;
 const timeBetweenTakingPictures = 1000;
+const timeBetweenSavingPictures = 250;
+
+var saveRequestsMade = 0;
+var saveErrorHappened = false;
+var photosSent = 0;
 
 export class RegistrationCamera extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        photos: null,
-        successes: 0,
-        userError: 0,
-        serverError: 0
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            photos: null,
+            successes: 0,
+            userError: 0,
+            serverError: 0
+        };
+    }
 
-  setRef = webcam => {
-    this.webcam = webcam;
+    setRef = webcam => {
+        this.webcam = webcam;
     };
 
-    
+
 
     capture = () => {
 
+        document.getElementById("captureButton").disabled = true;
+        document.getElementById("saveAndContinueButton").disabled = true;
+
         this.reset();
-        this.state.photos = [];
 
         var stopFuction = function () {
             if (this.state.userError > maxUserError || this.state.serverError > maxServerError || this.state.successes == imagesPerPerson) {
@@ -45,13 +52,16 @@ export class RegistrationCamera extends Component {
             }
         }
 
-        var interval = setInterval(this.testPhoto.bind(this), timeBetweenTakingPictures);
+        var interval = setInterval(this.takePhoto.bind(this), timeBetweenTakingPictures);
 
         var self = setInterval(stopFuction.bind(this), timeBetweenTakingPictures - 100);
+
+        document.getElementById("captureButton").disabled = false;
+        document.getElementById("saveAndContinueButton").disabled = false;
     };
 
 
-    testPhoto() {
+    takePhoto() {
 
         let screenshot = this.webcam.getScreenshot();
         var data = screenshot.replace(/^data:image\/\w+;base64,/, "");
@@ -71,6 +81,7 @@ export class RegistrationCamera extends Component {
 
                 if (response.data != null && response.data != false) {
                     this.state.photos[this.state.successes] = response.data;
+                    this.savePhotos.bind(this);
                     this.state.successes += 1;
                     if (this.state.successes == imagesPerPerson) {
                         this.success();
@@ -97,42 +108,84 @@ export class RegistrationCamera extends Component {
     success() {
         console.log("success"); //temp
         //display success
-        //send this.state.photos to registration
     }
 
 
     reset() {
-        this.state.photos = null;
+        this.state.photos = [];
         this.state.serverError = 0;
         this.state.userError = 0;
         this.state.successes = 0;
     }
 
-    
+
+    savePhoto() {
+        const data = {
+            Bytes: this.state.photos[photosSent],
+            Nickname: "AAA" //Nickname from Registration.jsx
+        }
+        photosSent++;
+
+        axios.put(HttpRequestPath + "api/ImageSaving", data).then(response => {
+            saveRequestsMade++;
+            if (response.data === null) {
+                saveErrorHappened = true;
+            }
+            if (saveRequestsMade == imagesPerPerson) {
+                if (saveErrorHappened == true) {
+                    console.log("Server saving error");
+                    //Inform user about problem in server
+                } else {
+                    console.log("Saving success");
+                    //Inform user about successful save
+                }
+            }
+            console.log(response);
+        });
+    }
 
 
-  render() {
-    const videoConstraints = {
-      width: 800,
-      height: 500,
-      facingMode: "user"
-    };
 
-    return (
-      <div className="container">
-        <center>
-          <Webcam
-            className="center"
-            audio={false}
-            ref={this.setRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
-          />
-        </center>
-        <center>
-          <button onClick={this.capture}>Capture photo</button>
-        </center>
-      </div>
-    );
-  }
+    savePhotos() {
+
+        saveRequestsMade = 0;
+        saveErrorHappened = false;
+        photosSent = 0;
+
+        for (var i = 0; i < imagesPerPerson; i++) {
+            setTimeout(this.savePhoto.bind(this), i * timeBetweenSavingPictures)
+        }
+
+
+    }
+
+
+
+    render() {
+        const videoConstraints = {
+            width: 800,
+            height: 500,
+            facingMode: "user"
+        };
+
+        return (
+            <div className="container">
+                <center>
+                    <Webcam
+                        className="center"
+                        audio={false}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                        videoConstraints={videoConstraints}
+                    />
+                </center>
+                <center>
+                    <button id="captureButton" onClick={this.capture}>Capture photo</button>
+                </center>
+                <center>
+                    <button id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>Save and Continue</button>
+                </center>
+            </div>
+        );
+    }
 }

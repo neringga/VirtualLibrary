@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\DbBook.cs" />
+    <Compile Include="Db\DbFaceImage.cs" />
     <Compile Include="Db\DbReview.cs" />
     <Compile Include="Db\DbUser.cs" />
     <Compile Include="Db\LibraryDbContext.cs" />

@@ -38,6 +38,17 @@ namespace VILIB.Repositories
                 .Any();
         }
 
+        public bool Login(object sender, string Username)
+        {
+            Func<IUser, bool> userMatchingPredicate =
+                user => user.Nickname == Username;
+            var users = _dataSource.GetUserList();
+
+            return users
+                .Where(user => userMatchingPredicate.Invoke(user))
+                .Any();
+        }
+
         public async Task<int> Remove(IUser item)
         {
             return await _dataSource.RemoveItem(item);

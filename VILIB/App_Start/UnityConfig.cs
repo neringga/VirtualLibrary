@@ -103,9 +103,18 @@ namespace VILIB
                 return new FaceDetectionController();
             }));
 
+            container.RegisterType<ImageSavingController>(new InjectionFactory(o =>
+            {
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                return new ImageSavingController(dataSource);
+            }));
+
             container.RegisterType<FaceRecognitionController>(new InjectionFactory(o =>
             {
-                return new FaceRecognitionController();
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                var controller = new FaceRecognitionController(dataSource);
+                controller.OnLogin += container.Resolve<IUserRepository>().Login;
+                return controller;
             }));
 
             container.RegisterType<ReviewController>(new InjectionFactory(o =>
@@ -152,6 +161,11 @@ namespace VILIB
             }));
 
             return container;
+        }
+
+        private static bool Controller_OnLogin(object sender, LoginEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
