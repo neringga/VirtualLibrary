@@ -8,7 +8,7 @@ namespace VILIB.Presenters
 {
     public class UserPresenter : IUserPresenter
     {
-        private readonly IRepository<IUser> _mUserRepository;
+        private readonly IUserRepository _mUserRepository;
         private readonly IUser _userView;
 
         //public UserPresenter(IUser view, IRepository<IUser> userRepository)
@@ -17,7 +17,7 @@ namespace VILIB.Presenters
         //    _mUserRepository = userRepository;
         //}
 
-        public UserPresenter(IRepository<IUser> userRepository)
+        public UserPresenter(IUserRepository userRepository)
         {
             _mUserRepository = userRepository;
         }
@@ -46,6 +46,11 @@ namespace VILIB.Presenters
         public IUser FindUser()
         {
             return _mUserRepository.GetList().FirstOrDefault(user => user.Nickname == StaticDataSource.CurrUser);
+        }
+
+        public string GetUserEmail(string username)
+        {
+            return _mUserRepository.GetList().FirstOrDefault(user => user.Nickname == username).Email;
         }
     }
 }

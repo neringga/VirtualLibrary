@@ -49,6 +49,11 @@ import { logout } from './AuthService';
               <Icon name='log out' /> Logout
               </NavItem>
             </LinkContainer>
+            <LinkContainer to={'/bookSearch'} exact>
+              <NavItem>
+                <Glyphicon glyph='glyphicon glyphicon-search' /> Search books
+              </NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

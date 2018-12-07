@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
 using Shared.View;
+using System.Collections.Generic;
+using System.Linq;
 using VILIB.Repositories;
 
 namespace VILIB.Presenters
