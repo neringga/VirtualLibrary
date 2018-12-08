@@ -7,6 +7,7 @@ using VILIB.Helpers;
 using VILIB.Model;
 using Database.Db;
 using VirtualLibrary.DataSources.Db;
+using System.Text.RegularExpressions;
 
 namespace VILIB.DataSources.Data
 {
@@ -24,6 +25,17 @@ namespace VILIB.DataSources.Data
         public async Task<int> AddReview(Reviews review)
         {
             _dbContext.Reviews.Add(ConvertToDbReviews(review));
+
+            var reviewedBook = _dbContext.Books.FirstOrDefault(book => book.Code == review.BookCode);
+
+            foreach (Match match in Regex.Matches(review.Review, @"(?<!\w)#\w+"))
+            {
+                var hashtag = match.Value;
+                var newHashtag = new DbHashtag() { Hastag = hashtag };
+                _dbContext.Hashtags.Add(newHashtag);
+                reviewedBook.Hashtags.Add(newHashtag);
+            }
+
             return await _dbContext.SaveChangesAsync();
         }
 
