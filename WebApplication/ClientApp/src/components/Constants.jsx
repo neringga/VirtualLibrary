@@ -20,5 +20,5 @@ export const noUser = "User not found"
 export const noUsername = "Please type in your username"
 export const noPassword = "Please type in your password"
 export const successfullSignIn = "You are logged in"
-export const emailErr = 1
+export const emailErr = 3
 export const usernameErr = 2

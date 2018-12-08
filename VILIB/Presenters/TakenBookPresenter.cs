@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Shared.View;
 using VILIB.DataSources.Data;
 using VILIB.Model;
@@ -18,27 +19,19 @@ namespace VILIB.Presenters
             _mBookRepository = bookRepository;
         }
 
-        public IBook AddTakenBook(string isbnCode, string username)
+        public async Task TakeBook(string isbnCode, string username)
         {
-            _takenBook.IsTaken = true;
-            _takenBook.TakenByUser = username;
-            _takenBook.Code = isbnCode;
-            _takenBook.TakenWhen = DateTime.Now;
+            await _mBookRepository.TakeBook(isbnCode, username);
+        }
 
-            var books = _mBookRepository.GetList();
-            var book = books.First(item => item.Code == _takenBook.Code);
-
-            _takenBook.Author = book.Author;
-            _takenBook.Title = book.Title;
-            _takenBook.HasToBeReturned = ((DateTime) _takenBook.TakenWhen).AddDays(book.DaysForBorrowing);
-            _mBookRepository.Add(_takenBook);
-
-            return _takenBook;
+        public async Task ReturnBook(string isbnCode, string username)
+        {
+            await _mBookRepository.ReturnBook(isbnCode, username);
         }
 
         public List<IBook> FindUserTakenBooks()
         {
-            return (List<IBook>) _mBookRepository.GetTakenBooks().Where(
+            return (List<IBook>)_mBookRepository.GetTakenBooks().Where(
                 book => book.TakenByUser == StaticDataSource.CurrUser);
         }
 
@@ -57,12 +50,6 @@ namespace VILIB.Presenters
             return books != null;
         }
 
-
-        public void RemoveTakenBook(IBook takenBook)
-        {
-            _mBookRepository.Remove(takenBook);
-        }
-
         public IList<IBook> GetTakenBooks()
         {
             return _mBookRepository.GetTakenBooks();
@@ -77,7 +64,7 @@ namespace VILIB.Presenters
                 {
                     list.Add(a);
                 }
-                    
+
             return list;
         }
     }

@@ -14,6 +14,7 @@ import { BookList } from "./components/BookList";
 import { BookSearch } from "./components/BookSearch";
 import { LogInCamera } from "./components/LogInCamera";
 import { loggedIn } from "./components/AuthService";
+import { BookSearch } from "./components/BookSearch";
 
 
 export default class App extends Component {

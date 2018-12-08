@@ -1,4 +1,4 @@
-﻿using Database.Db;
+using Database.Db;
 using System.Data.Entity;
 
 namespace VirtualLibrary.DataSources.Db
@@ -7,6 +7,7 @@ namespace VirtualLibrary.DataSources.Db
     {
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBook> Books { get; set; }
+        public DbSet<DbReview> Reviews { get; set; }
 
         public DbSet<DbGenre> Genres { get; set; }
         public DbSet<DbHashtag> Hashtags { get; set; }

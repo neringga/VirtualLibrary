@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Shared.View;
 using VirtualLibrary.DataSources.Db;
+using VILIB.Helpers;
 using VILIB.Model;
 using Database.Db;
 
@@ -19,6 +20,12 @@ namespace VILIB.DataSources.Data
         }
 
         public string CurrUser { get; set; }
+
+        public async Task<int> AddReview(Reviews review)
+        {
+            _dbContext.Reviews.Add(ConvertToDbReviews(review));
+            return await _dbContext.SaveChangesAsync();
+        }
 
         public async Task<int> AddBook(IBook book)
         {
@@ -46,6 +53,12 @@ namespace VILIB.DataSources.Data
             }
 
             return await _dbContext.SaveChangesAsync();
+        }
+
+        public IList<Reviews> GetReviewList()
+        {
+            var reviews = _dbContext.Reviews.ToList();
+            return reviews.Select(review => ConvertToReviews(review)).ToList();
         }
 
         public IList<IBook> GetBookList()
@@ -81,6 +94,12 @@ namespace VILIB.DataSources.Data
         public async Task<int> RemoveBook(IBook book)
         {
             _dbContext.Books.Remove(ConvertToDbBook(book));
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveReview(Reviews review)
+        {
+            _dbContext.Reviews.Remove(ConvertToDbReviews(review));
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -124,6 +143,33 @@ namespace VILIB.DataSources.Data
             throw new NotSupportedException("Object type is not supported");
         }
 
+        public async Task<bool> ReturnBook(string isbnCode, string username)
+        {
+            var books = _dbContext.Books.ToList().Where(b => b.IsTaken && b.Code == isbnCode && b.TakenByUser == username).ToList();
+            if (books.Count == 0 || books.Count != 1)
+                throw new InvalidOperationException("Book has not been taken by this user or multiple books match this criteria");
+
+            var book = books.First();
+            book.IsTaken = false;
+            book.TakenByUser = "";
+
+            return (await _dbContext.SaveChangesAsync() == 1);
+        }
+
+        public async Task<bool> TakeBook(string isbnCode, string username)
+        {
+            var books = _dbContext.Books.ToList().Where(b => !b.IsTaken && b.Code == isbnCode).ToList();
+            if (books.Count == 0 || books.Count != 1)
+                throw new InvalidOperationException("Book has not been found or has been taken");
+
+            var book = books.First();
+            book.IsTaken = true;
+            book.TakenByUser = username;
+            book.HasToBeReturned = DateTime.UtcNow.AddDays(30);
+
+            return (await _dbContext.SaveChangesAsync() == 1);
+        }
+
         private DbBook ConvertToDbBook(IBook book)
         {
             var hashtaglist = book.Hashtags.Select(h => new DbHashtag() { Hastag = h });
@@ -139,6 +185,16 @@ namespace VILIB.DataSources.Data
                 HasToBeReturned = book.HasToBeReturned,
                 Genre = new DbGenre() { Genre = book.Genre },
                 Hashtags = book.Hashtags.Select(h => new DbHashtag() { Hastag = h }).ToList()
+            };
+        }
+
+        private DbReview ConvertToDbReviews(Reviews review)
+        {
+            return new DbReview
+            {
+                BookCode = review.BookCode,
+                User = review.User,
+                Review = review.Review
             };
         }
 
@@ -187,5 +243,14 @@ namespace VILIB.DataSources.Data
             };
         }
 
+        private Reviews ConvertToReviews(DbReview review)
+        {
+            return new Reviews
+            {
+                BookCode = review.BookCode,
+                User = review.User,
+                Review = review.Review
+            };
+        }
     }
 }

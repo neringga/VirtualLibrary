@@ -114,6 +114,8 @@
     <Compile Include="Db\DbBook.cs" />
     <Compile Include="Db\DbGenre.cs" />
     <Compile Include="Db\DbHastag.cs" />
+    <Compile Include="Db\DbFaceImage.cs" />
+    <Compile Include="Db\DbReview.cs" />
     <Compile Include="Db\DbUser.cs" />
     <Compile Include="Db\LibraryDbContext.cs" />
     <Compile Include="Migrations\201810281018481_InitialModel.cs" />
@@ -136,9 +138,9 @@
     <Compile Include="Migrations\201812041728257_TypoFix.Designer.cs">
       <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812081512527_FixOneToMany.cs" />
-    <Compile Include="Migrations\201812081512527_FixOneToMany.Designer.cs">
-      <DependentUpon>201812081512527_FixOneToMany.cs</DependentUpon>
+    <Compile Include="Migrations\201812060912441_AddReview.cs" />
+    <Compile Include="Migrations\201812060912441_AddReview.Designer.cs">
+      <DependentUpon>201812060912441_AddReview.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,8 +166,8 @@
     <EmbeddedResource Include="Migrations\201812041728257_TypoFix.resx">
       <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812081512527_FixOneToMany.resx">
-      <DependentUpon>201812081512527_FixOneToMany.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812060912441_AddReview.resx">
+      <DependentUpon>201812060912441_AddReview.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

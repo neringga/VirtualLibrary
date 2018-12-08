@@ -51,8 +51,9 @@ namespace VILIB.Controllers
                 if (face.Length > 0)
                 {
                     Image<Gray, byte> grayFaceImage = currentFrame.Convert<Gray, byte>().Copy(face[0]).Resize(_grayFaceImageSize, _grayFaceImageSize, Inter.Cubic);
-                    grayFaceImage.ToBitmap().Save(memStr, ImageFormat.Png);
-                    return JsonResponse.JsonHttpResponse<Object>(memStr.ToArray());
+                    MemoryStream memoryStream = new MemoryStream();
+                    grayFaceImage.ToBitmap().Save(memoryStream, ImageFormat.Png);
+                    return JsonResponse.JsonHttpResponse<Object>(memoryStream.ToArray());
                 }
                 else
                     return JsonResponse.JsonHttpResponse<Object>(false);
