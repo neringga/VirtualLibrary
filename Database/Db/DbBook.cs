@@ -21,7 +21,7 @@ namespace VirtualLibrary.DataSources.Db
         public DateTime? TakenWhen { get; set; }
         public DateTime? HasToBeReturned { get; set; }
 
-        public DbGenre Genre { get; set; }
+        public virtual DbGenre Genre { get; set; }
         public virtual ICollection<DbHashtag> Hashtags { get; set; }
     }
 }

@@ -168,8 +168,8 @@ namespace VILIB.DataSources.Data
                 TakenByUser = book.TakenByUser,
                 TakenWhen = book.TakenWhen,
                 HasToBeReturned = book.HasToBeReturned,
-                Genre = book.Genre.Genre,
-                Hashtags = book.Hashtags.Select(h => h.Hastag).ToList()
+                Genre = book.Genre?.Genre,
+                Hashtags = book.Hashtags?.Select(h => h.Hastag).ToList()
             };
         }
 

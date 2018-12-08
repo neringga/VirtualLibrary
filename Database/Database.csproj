@@ -136,6 +136,10 @@
     <Compile Include="Migrations\201812041728257_TypoFix.Designer.cs">
       <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812081512527_FixOneToMany.cs" />
+    <Compile Include="Migrations\201812081512527_FixOneToMany.Designer.cs">
+      <DependentUpon>201812081512527_FixOneToMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteDbDataSource.cs" />
@@ -159,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812041728257_TypoFix.resx">
       <DependentUpon>201812041728257_TypoFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812081512527_FixOneToMany.resx">
+      <DependentUpon>201812081512527_FixOneToMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

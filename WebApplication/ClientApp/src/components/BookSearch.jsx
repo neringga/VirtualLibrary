@@ -66,21 +66,20 @@ export class BookSearch extends Component {
             Genre: this.state.selectedGenre.value
         };
         console.error(data);
-        //axios
-        //    .post(HttpRequestPath + "api/BookSearch", data)
-        //    .then(response => {
-        //        console.error(response.data);
-        //        this.setState({
-        //            loading: false,
-        //            books: response.data,
-        //            showResults: true
-        //        });
-        //        this.render();
-        //    })
-        //    .catch(() => {
-        //        this.setState({ loading: false });
-        //        console.log("API error")
-        //    }); //TODO error handling
+        axios
+            .post(HttpRequestPath + "api/BookSearch", data)
+            .then(response => {
+                console.error(response.data);
+                this.setState({
+                    loading: false,
+                    books: response.data,
+                    showResults: true
+                });
+                this.render();
+            })
+            .catch(() => {
+                this.setState({ loading: false });
+            });
     }
 
     handleSelectedHashtag = (event) => {
@@ -123,30 +122,41 @@ export class BookSearch extends Component {
 
         if (this.state.genres.length !== 0) {
             $genreSelection = (
-                <Select
-                    options={this.state.genres}
-                    onChange={this.handleSelectedGenre}
-                    placeholder={'Select genre...'}
-                />
+                <div>
+                    <div className="ui horizontal divider">Looking for a particular genre?</div>
+                    <Select
+                        options={this.state.genres}
+                        onChange={this.handleSelectedGenre}
+                        placeholder={'Select genre...'}
+                    />
+                </div>
             )
         }
 
         if (this.state.hashtags.length !== 0) {
             $hashtagSelection = (
-                <Select
-                    options={this.state.hashtags}
-                    onChange={this.handleSelectedHashtag}
-                    isMulti={true}
-                    placeholder={'Select hashtags...'}
-                />
+                <div>
+                    <div className="ui horizontal divider">Specify hashtags to match your interests</div>
+                    <Select
+                        options={this.state.hashtags}
+                        onChange={this.handleSelectedHashtag}
+                        isMulti={true}
+                        placeholder={'Select hashtags...'}
+                    />
+                </div>
             )
         }
+
+        var topMargin = {
+           'margin-top': '20px'
+        };
 
         return (
             this.state.books != null && (
                 <div className="boxQr">
                     <h3>Book Search</h3>
                     <br />
+                    <div className="ui horizontal divider">Enter search keyword</div>
                     <div className="form-group">
                         <input
                             type="searchKeyword"
@@ -158,7 +168,7 @@ export class BookSearch extends Component {
                     </div>
                     {$genreSelection}
                     {$hashtagSelection}
-                    <button value="Search" onClick={this.search}>Search</button>
+                    <button style={topMargin} className="ui fluid secondary large button" value="Search" onClick={this.search}>Search</button>
                     {$loadingIcon}
                     {$table}
                 </div>

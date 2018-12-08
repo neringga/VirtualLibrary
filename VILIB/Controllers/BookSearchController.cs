@@ -38,14 +38,14 @@ namespace VILIB.Controllers
 
         private bool ApplyKeywordFilter(IBook book, string keyword)
         {
-            if (keyword == null) return true;
+            if (keyword == null || keyword == "") return true;
 
             return book.Author.Contains(keyword) || book.Title.Contains(keyword);
         }
 
         private bool ApplyGenreFilter(IBook book, string genre)
         {
-            if (genre == null) return true;
+            if (genre == null || genre == "" ) return true;
 
             return book.Genre == genre;
         }
@@ -55,7 +55,7 @@ namespace VILIB.Controllers
             if (hashtags == null || hashtags.Count == 0) return true;
 
             foreach (var h in hashtags)
-                if (!book.Hashtags.Contains(h)) return false;
+                if (h != "" && !book.Hashtags.Contains(h)) return false;
 
             return true;
         }
