@@ -8,6 +8,7 @@ namespace VirtualLibrary.DataSources.Db
         public DbSet<DbUser> Users { get; set; }
         public DbSet<DbBook> Books { get; set; }
         public DbSet<DbReview> Reviews { get; set; }
+        public DbSet<DbFaceImage> FaceImages { get; set; }
 
         public LibraryDbContext() : base()
         {

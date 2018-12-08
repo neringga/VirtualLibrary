@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
-import fs from "browserify-fs";
 import "./RegistrationCamera.css";
 import {
-    successfullSignIn,
-    faceDetectionApi,
-    userSignInApi,
     HttpRequestPath
 } from "./Constants.jsx";
 
@@ -90,14 +86,14 @@ export class RegistrationCamera extends Component {
                 if (response.data == false) {
                     this.state.userError += 1;
                     if (this.state.userError > maxUserError) {
-                        console.log("user fault"); //temp
+                        alert("user fault"); //temp
                         //Inform user about problem on his end, give suggestions
                     }
                 }
                 if (response.data == null) {
                     this.state.serverError += 1;
                     if (this.state.serverError > maxServerError) {
-                        console.log("server fault"); //temp
+                        alert("server fault"); //temp
                         //Inform user about problem in server
                     }
                 }
@@ -106,7 +102,7 @@ export class RegistrationCamera extends Component {
 
 
     success() {
-        console.log("success"); //temp
+        alert("Success !!"); //temp
         //display success
     }
 
@@ -122,7 +118,7 @@ export class RegistrationCamera extends Component {
     savePhoto() {
         const data = {
             Bytes: this.state.photos[photosSent],
-            Nickname: "AAA" //Nickname from Registration.jsx
+            Nickname: localStorage.getItem("Nickname")
         }
         photosSent++;
 
@@ -133,10 +129,11 @@ export class RegistrationCamera extends Component {
             }
             if (saveRequestsMade == imagesPerPerson) {
                 if (saveErrorHappened == true) {
-                    console.log("Server saving error");
+                    alert("Server saving error");
                     //Inform user about problem in server
                 } else {
                     console.log("Saving success");
+                    window.location = '/';
                     //Inform user about successful save
                 }
             }
