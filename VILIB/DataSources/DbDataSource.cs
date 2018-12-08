@@ -196,8 +196,18 @@ namespace VILIB.DataSources.Data
                 TakenWhen = book.TakenWhen,
                 HasToBeReturned = book.HasToBeReturned,
                 Genre = new DbGenre() { Genre = book.Genre },
-                Hashtags = book.Hashtags.Select(h => new DbHashtag() { Hastag = h }).ToList()
+                Hashtags = GetHashtags(book)
             };
+        }
+
+        private IList<DbHashtag> GetHashtags(IBook book)
+        {
+            var res = new List<DbHashtag>();
+
+            foreach (var h in book.Hashtags)
+                res.Add(new DbHashtag() { Hastag = h });
+
+            return res;
         }
 
         private DbReview ConvertToDbReviews(Reviews review)
