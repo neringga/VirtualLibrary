@@ -119,7 +119,7 @@ export class Registration extends Component {
     faceRecognitionPrompt = () => {
         confirmAlert({
             title: 'Face Recognition',
-            message: 'Would you like to set up face recognition ?\nNote: if you are afraid that someone may access you account, we not recommend this feature',
+            message: 'Would you like to set up Face recognition ?',
             buttons: [
                 {
                     label: 'Yes',
@@ -210,12 +210,6 @@ export class Registration extends Component {
                 Passwords do not match
               </Label>
             ) : null}
-            <br />
-            <Button
-              content="Take a picture"
-              icon="camera"
-              labelPosition="left"
-            />
             <br />
             <div className="regButton">
               <center>

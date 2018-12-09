@@ -37,7 +37,7 @@ export class LogInCamera extends Component {
                 window.location = "/homePage";
             })
             .catch(err => {
-                console.log("error");
+                alert("User not recognized");
             });
 
 
