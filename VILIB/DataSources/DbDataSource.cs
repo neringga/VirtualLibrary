@@ -6,6 +6,7 @@ using Shared.View;
 using VILIB.Helpers;
 using VILIB.Model;
 using Database.Db;
+using VILIB.FaceRecognision;
 using VirtualLibrary.DataSources.Db;
 using System.Text.RegularExpressions;
 
@@ -67,6 +68,12 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> AddFaceImage(FaceImage faceImage)
+        {
+            _dbContext.FaceImages.Add(ConvertToDbFaceImage(faceImage));
+            return await _dbContext.SaveChangesAsync();
+        }
+
         public IList<Reviews> GetReviewList()
         {
             var reviews = _dbContext.Reviews.ToList();
@@ -103,6 +110,12 @@ namespace VILIB.DataSources.Data
             }
         }
 
+        public List<FaceImage> GetFaceImageList()
+        {
+            var faceImages = _dbContext.FaceImages.ToList();
+            return faceImages.Select(faceImage => ConvertToFaceImage(faceImage)).ToList();
+        }
+
         public async Task<int> RemoveBook(IBook book)
         {
             _dbContext.Books.Remove(ConvertToDbBook(book));
@@ -127,6 +140,10 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> RemoveFaceImages(string Nickname)
+        {
+            //TODO
+            return await _dbContext.SaveChangesAsync();
 
         public IList<string> GetHashtagList()
         {
@@ -272,6 +289,25 @@ namespace VILIB.DataSources.Data
                 BookCode = review.BookCode,
                 User = review.User,
                 Review = review.Review
+            };
+        }
+
+
+        private DbFaceImage ConvertToDbFaceImage(FaceImage faceImage)
+        {
+            return new DbFaceImage
+            {
+                Nickname = faceImage.Nickname,
+                Bytes = faceImage.Bytes
+            };
+        }
+
+        private FaceImage ConvertToFaceImage(DbFaceImage faceImage)
+        {
+            return new FaceImage
+            {
+                Nickname = faceImage.Nickname,
+                Bytes = faceImage.Bytes
             };
         }
     }

@@ -1,6 +1,7 @@
 ﻿import React, { Component } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
+import { setToken } from "./AuthService";
 import "./RegistrationCamera.css";
 import {
     HttpRequestPath
@@ -32,7 +33,11 @@ export class LogInCamera extends Component {
                 }
             })
             .then(response => {
-                console.log(response);
+                setToken(response.data);
+                window.location = "/homePage";
+            })
+            .catch(err => {
+                alert("User not recognized");
             });
 
 

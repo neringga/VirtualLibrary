@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Shared.View;
+using VILIB.FaceRecognision;
 using VILIB.Helpers;
 
 namespace VILIB.DataSources
@@ -12,6 +13,7 @@ namespace VILIB.DataSources
         IList<IUser> GetUserList();
         IList<Reviews> GetReviewList();
         IList<IBook> GetTakenBookList();
+        List<FaceImage> GetFaceImageList();
         IList<string> GetHashtagList();
         IList<string> GetGenreList();
         Task<int> RemoveUser(IUser user);
@@ -20,6 +22,8 @@ namespace VILIB.DataSources
         Task<int> AddBook(IBook book);
         Task<int> AddReview(Reviews review);
         Task<int> RemoveReview(Reviews review);
+        Task<int> AddFaceImage(FaceImage faceImage);
+        Task<int> RemoveFaceImages(string Nickname);
 
         Task<bool> TakeBook(string isbnCode, string username);
         Task<bool> ReturnBook(string isbnCode, string username);

@@ -2,6 +2,8 @@
 import axios from "axios";
 import "./Registration.css";
 import { FormGroup, FormControl } from "react-bootstrap";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 import {
   HttpRequestPath,
   userRegistrationApi,
@@ -94,20 +96,49 @@ export class Registration extends Component {
         lastName: this.state.lastName,
         email: this.state.email,
         password: this.state.password
-      };
+        };
+
+        
+        
+
       axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
         if (response.data == emailErr) {
           this.setState({notFilledErr: true, emailRegisteredErr: "This email is already registered"});
         } else if (response.data == usernameErr) {
           this.setState({notFilledErr: true, usernameRegisteredErr: "This username is already registered"});
         } else if (response.data) {
-          window.location = '/SignIn';
+            this.faceRecognitionPrompt();
         }
       });this.setState({ validInput: true });
     } else {
       this.setState({ notFilledErr: true, notFilledFieldsErr: "Not all fields have been fild"});
     }
-  };
+    };
+
+
+    faceRecognitionPrompt = () => {
+        confirmAlert({
+            title: 'Face Recognition',
+            message: 'Would you like to set up Face recognition ?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        localStorage.setItem("Nickname", this.state.username);
+                        window.location = '/registration/camera';
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+                        window.location = '/SignIn';
+                    }
+                }
+            ]
+        })
+    };
+
+
 
   render() {
     return (
@@ -179,12 +210,6 @@ export class Registration extends Component {
                 Passwords do not match
               </Label>
             ) : null}
-            <br />
-            <Button
-              content="Take a picture"
-              icon="camera"
-              labelPosition="left"
-            />
             <br />
             <div className="regButton">
               <center>
