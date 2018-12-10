@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Shared.View;
-using VirtualLibrary.DataSources.Db;
 using VILIB.Helpers;
 using VILIB.Model;
 using Database.Db;
+using VirtualLibrary.DataSources.Db;
+using System.Text.RegularExpressions;
 
 namespace VILIB.DataSources.Data
 {
@@ -24,6 +25,17 @@ namespace VILIB.DataSources.Data
         public async Task<int> AddReview(Reviews review)
         {
             _dbContext.Reviews.Add(ConvertToDbReviews(review));
+
+            var reviewedBook = _dbContext.Books.FirstOrDefault(book => book.Code == review.BookCode);
+
+            foreach (Match match in Regex.Matches(review.Review, @"(?<!\w)#\w+"))
+            {
+                var hashtag = match.Value;
+                var newHashtag = new DbHashtag() { Hastag = hashtag };
+                _dbContext.Hashtags.Add(newHashtag);
+                reviewedBook.Hashtags.Add(newHashtag);
+            }
+
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -115,6 +127,17 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+
+        public IList<string> GetHashtagList()
+        {
+            return _dbContext.Hashtags.Select(g => g.Hastag).ToList();
+        }
+
+        public IList<string> GetGenreList()
+        {
+            return _dbContext.Genres.Select(g => g.Genre).ToList();
+        }
+
         public async Task<int> RemoveItem<T>(T item)
         {
             if (item is IUser)
@@ -161,6 +184,7 @@ namespace VILIB.DataSources.Data
 
         private DbBook ConvertToDbBook(IBook book)
         {
+            var hashtaglist = book.Hashtags.Select(h => new DbHashtag() { Hastag = h });
             return new DbBook
             {
                 Title = book.Title,
@@ -170,8 +194,20 @@ namespace VILIB.DataSources.Data
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
                 TakenWhen = book.TakenWhen,
-                HasToBeReturned = book.HasToBeReturned
+                HasToBeReturned = book.HasToBeReturned,
+                Genre = new DbGenre() { Genre = book.Genre },
+                Hashtags = GetHashtags(book)
             };
+        }
+
+        private IList<DbHashtag> GetHashtags(IBook book)
+        {
+            var res = new List<DbHashtag>();
+
+            foreach (var h in book.Hashtags)
+                res.Add(new DbHashtag() { Hastag = h });
+
+            return res;
         }
 
         private DbReview ConvertToDbReviews(Reviews review)
@@ -209,7 +245,9 @@ namespace VILIB.DataSources.Data
                 IsTaken = book.IsTaken,
                 TakenByUser = book.TakenByUser,
                 TakenWhen = book.TakenWhen,
-                HasToBeReturned = book.HasToBeReturned
+                HasToBeReturned = book.HasToBeReturned,
+                Genre = book.Genre?.Genre,
+                Hashtags = book.Hashtags?.Select(h => h.Hastag).ToList()
             };
         }
 

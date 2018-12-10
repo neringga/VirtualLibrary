@@ -12,6 +12,8 @@ namespace VILIB.DataSources
         IList<IUser> GetUserList();
         IList<Reviews> GetReviewList();
         IList<IBook> GetTakenBookList();
+        IList<string> GetHashtagList();
+        IList<string> GetGenreList();
         Task<int> RemoveUser(IUser user);
         Task<int> AddUser(IUser user);
         Task<int> RemoveBook(IBook book);

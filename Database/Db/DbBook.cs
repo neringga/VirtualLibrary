@@ -1,11 +1,13 @@
-﻿using Shared.View;
+﻿using Database.Db;
+using Shared.View;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualLibrary.DataSources.Db
 {
-    public class DbBook : IBook
+    public class DbBook
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,5 +20,8 @@ namespace VirtualLibrary.DataSources.Db
         public string TakenByUser { get; set; }
         public DateTime? TakenWhen { get; set; }
         public DateTime? HasToBeReturned { get; set; }
+
+        public virtual DbGenre Genre { get; set; }
+        public virtual ICollection<DbHashtag> Hashtags { get; set; }
     }
 }

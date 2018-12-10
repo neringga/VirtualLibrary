@@ -98,6 +98,20 @@ namespace VILIB
                 return new BookController(bookPresenter);
             }));
 
+            container.RegisterType<HashtagController>(new InjectionFactory(o =>
+            {
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                var hashtagRepo = new HastagRepository(dataSource);
+                return new HashtagController(hashtagRepo);
+            }));
+
+            container.RegisterType<GenreController>(new InjectionFactory(o =>
+            {
+                var dataSource = container.Resolve<IAsyncDataSource>();
+                var genreRepo = new GenreRepository(dataSource);
+                return new GenreController(genreRepo);
+            }));
+
             container.RegisterType<FaceDetectionController>(new InjectionFactory(o =>
             {
                 return new FaceDetectionController();
