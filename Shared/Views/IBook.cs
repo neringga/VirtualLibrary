@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shared.View
 {
@@ -13,5 +14,8 @@ namespace Shared.View
         string TakenByUser { get; set; }
         DateTime? TakenWhen { get; set; }
         DateTime? HasToBeReturned { get; set; }
+
+        string Genre { get; set; }
+        IList<string> Hashtags { get; set; }
     }
 }
