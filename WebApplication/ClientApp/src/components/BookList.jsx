@@ -8,7 +8,7 @@ import { HttpRequestPath } from "./Constants.jsx";
 import { getProfile } from "./AuthService";
 
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

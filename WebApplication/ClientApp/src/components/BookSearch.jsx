@@ -6,7 +6,7 @@ import { HttpRequestPath, bookListApi } from "./Constants";
 import Select from 'react-select';
 
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

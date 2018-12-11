@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { logout } from './AuthService';
 
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

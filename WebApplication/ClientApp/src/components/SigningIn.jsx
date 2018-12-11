@@ -3,7 +3,7 @@ import axios from "axios";
 import "./SigningIn.css";
 import './Home.css';
 import { setToken } from "./AuthService";
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 import { Form, Message, Button } from "semantic-ui-react";
 import logo from "./logo.png";
 import LocalizedStrings from 'react-localization';

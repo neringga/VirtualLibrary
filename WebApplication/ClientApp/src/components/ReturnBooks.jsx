@@ -9,7 +9,7 @@ import { Button } from "semantic-ui-react";
 import Modal from "react-responsive-modal";
 
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

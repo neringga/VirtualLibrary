@@ -2,7 +2,7 @@
 import './Home.css';
 
 import LocalizedStrings from 'react-localization';
-import { setLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

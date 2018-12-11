@@ -20,7 +20,7 @@ import "./Home.css";
 import { Progress, Form, Label, Button, Message } from "semantic-ui-react";
 
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {

@@ -3,8 +3,7 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import logo from "./logo.png";
 import LocalizedStrings from 'react-localization';
-import { setLanguage } from "./AuthService";
-
+import { setLanguage } from "./LangService";
 let strings = new LocalizedStrings({
     en: {
         welcome: "Welcome!",
@@ -38,7 +37,7 @@ export class Start extends Component {
             <img className="logo" src={logo} height="140" width="120" />
             <h2 className="belowLogo">{strings.welcome}</h2>
             <button className="btn btn-secondary btn-lg active" role="button"
-                onClick={() => this._onSetLanguageTo('')}>LT
+                onClick={() => this._onSetLanguageTo('lt')}>LT
                 </button>
             <button className= "btn btn-secondary btn-lg active" role = "button"
                 onClick={() => this._onSetLanguageTo('en')}>EN

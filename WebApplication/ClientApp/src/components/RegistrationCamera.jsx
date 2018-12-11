@@ -6,7 +6,7 @@ import {
     HttpRequestPath
 } from "./Constants.jsx";
 import LocalizedStrings from 'react-localization';
-import { getLanguage } from "./AuthService";
+import { getLanguage } from "./LangService";
 
 //Get constants from .config
 const imagesPerPerson = 5;
@@ -228,7 +228,7 @@ export class RegistrationCamera extends Component {
                     <button id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>{strings.save}</button>
                 </center>
                 <center>
-                    <button id="cancelButton" onClick={function () { window.location = 'signIn/' }}>Cancel Face recognition</button>
+                    <button id="cancelButton" onClick={function () { window.location = 'signIn/' }}>{strings.cancel}</button>
                 </center>
             </div>
         );
