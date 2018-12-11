@@ -110,7 +110,6 @@ export class SigningIn extends Component {
               <input
                 name="password"
                 placeholder={strings.password}
-                type={strings.password}
                 onChange={this.handleInputChange}
               />
             </Form.Field>

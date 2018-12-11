@@ -5,6 +5,25 @@ import { Table } from "react-bootstrap";
 import { HttpRequestPath, bookListApi } from "./Constants";
 import Select from 'react-select';
 
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./AuthService";
+
+let strings = new LocalizedStrings({
+    en: {
+        genreLooking: "Looking for a particular genre?",
+        selectGenre: "'Select genre...'",
+        bookSearch: "Book Search",
+        hashtags: "Specify hashtags to match your interests",
+        enteredKeyword: "Enter search keyword",
+        searchKeyword: "{Search keyword", 
+        search: "Search",
+    },
+    lt: {
+        
+    },
+
+});
+
 export class BookSearch extends Component {
     constructor() {
         super();
@@ -94,7 +113,12 @@ export class BookSearch extends Component {
         this.setState({ searchKeyword: event.target.value });
     };
 
+    _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
+
     render() {
+        const lang = getLanguage();
         let $loadingIcon = null;
         let $table = null;
         let $genreSelection = null;
@@ -123,11 +147,11 @@ export class BookSearch extends Component {
         if (this.state.genres.length !== 0) {
             $genreSelection = (
                 <div>
-                    <div className="ui horizontal divider">Looking for a particular genre?</div>
+                    <div className="ui horizontal divider">{strings.genreLooking}</div>
                     <Select
                         options={this.state.genres}
                         onChange={this.handleSelectedGenre}
-                        placeholder={'Select genre...'}
+                        placeholder={strings.selectGenre}
                     />
                 </div>
             )
@@ -136,12 +160,12 @@ export class BookSearch extends Component {
         if (this.state.hashtags.length !== 0) {
             $hashtagSelection = (
                 <div>
-                    <div className="ui horizontal divider">Specify hashtags to match your interests</div>
+                    <div className="ui horizontal divider">{strings.hashtags}</div>
                     <Select
                         options={this.state.hashtags}
                         onChange={this.handleSelectedHashtag}
                         isMulti={true}
-                        placeholder={'Select hashtags...'}
+                        placeholder={strings.selectGenre}
                     />
                 </div>
             )
@@ -152,23 +176,24 @@ export class BookSearch extends Component {
         };
 
         return (
+            this._onSetLanguageTo(lang),
             this.state.books != null && (
                 <div className="boxQr">
-                    <h3>Book Search</h3>
+                    <h3>{strings.bookSearch}</h3>
                     <br />
-                    <div className="ui horizontal divider">Enter search keyword</div>
+                    <div className="ui horizontal divider">{strings.enteredKeyword}</div>
                     <div className="form-group">
                         <input
-                            type="searchKeyword"
-                            name="searchKeyword"
-                            className="form-control"
-                            placeholder="Enter search keyword..."
+                            type={strings.searchKeyword}
+                            name={strings.searchKeyword}
+                        className="form-control"
+                            placeholder={strings.enteredKeyword}
                             onChange={this.handleKeywordChange}
                         />
                     </div>
                     {$genreSelection}
                     {$hashtagSelection}
-                    <button style={topMargin} className="ui fluid secondary large button" value="Search" onClick={this.search}>Search</button>
+                    <button style={topMargin} className="ui fluid secondary large button" value="Search" onClick={this.search}>{strings.search}</button>
                     {$loadingIcon}
                     {$table}
                 </div>
