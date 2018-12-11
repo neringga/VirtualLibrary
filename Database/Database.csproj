@@ -150,6 +150,10 @@
     <Compile Include="Migrations\201812091333055_FaceImage.Designer.cs">
       <DependentUpon>201812091333055_FaceImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812081701450_Merge.cs" />
+    <Compile Include="Migrations\201812081701450_Merge.Designer.cs">
+      <DependentUpon>201812081701450_Merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteDbDataSource.cs" />
@@ -179,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812091333055_FaceImage.resx">
       <DependentUpon>201812091333055_FaceImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812081701450_Merge.resx">
+      <DependentUpon>201812081701450_Merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

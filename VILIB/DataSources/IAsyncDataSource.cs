@@ -13,9 +13,9 @@ namespace VILIB.DataSources
         IList<IUser> GetUserList();
         IList<Reviews> GetReviewList();
         IList<IBook> GetTakenBookList();
+        List<FaceImage> GetFaceImageList();
         IList<string> GetHashtagList();
         IList<string> GetGenreList();
-        IList<FaceImage> GetFaceImageList();
         Task<int> RemoveUser(IUser user);
         Task<int> AddUser(IUser user);
         Task<int> RemoveBook(IBook book);
@@ -28,7 +28,6 @@ namespace VILIB.DataSources
         Task<bool> TakeBook(string isbnCode, string username);
         Task<bool> ReturnBook(string isbnCode, string username);
 
-        //TODO: decide which to keep - generic implementations or concrete
         Task<int> RemoveItem<T>(T item);
     }
 }
