@@ -43,15 +43,15 @@ import { logout } from './AuthService';
                 <Glyphicon glyph='glyphicon glyphicon-stats' /> Return book
               </NavItem>
             </LinkContainer>
-           
-            <LinkContainer to={'/'} exact>
-              <NavItem onClick={logout}>
-              <Icon name='log out' /> Logout
-              </NavItem>
-            </LinkContainer>
             <LinkContainer to={'/bookSearch'} exact>
               <NavItem>
                 <Glyphicon glyph='glyphicon glyphicon-search' /> Search books
+              </NavItem>
+            </LinkContainer>
+            <br/>
+            <LinkContainer to={'/'} exact>
+              <NavItem onClick={logout}>
+              <Icon name='log out' /> Logout
               </NavItem>
             </LinkContainer>
           </Nav>

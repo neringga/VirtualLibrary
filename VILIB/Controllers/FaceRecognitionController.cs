@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -37,7 +38,7 @@ namespace VILIB.Controllers
                                                       ConfigurationManager.AppSettings["faceDetectionTrainingFile"]))
                                                       .ToString(), int.Parse(ConfigurationManager.AppSettings["faceImageSize"]));
 
-            _recognition.Train(ReadingLocalImages.getFaceImages().ToArray());
+            _recognition.Train(_dataSource.GetFaceImageList().ToArray());
 
         }
 
@@ -53,13 +54,12 @@ namespace VILIB.Controllers
                 stream.Close();
                 string nickname = _recognition.Recognize(FaceRecognision.ImageConverter.PhotoToBgrImage(memStr.ToArray()));
 
-                //if (OnLogin(this, nickname))
-                //{
-                //    var token = JwtManager.GenerateToken(nickname);
-                //    return JsonResponse.JsonHttpResponse(token);
-                //}
-                //return JsonResponse.JsonHttpResponse<Object>(false);
-                return JsonResponse.JsonHttpResponse<Object>(nickname);
+                if (OnLogin(this, nickname))
+                {
+                    var token = JwtManager.GenerateToken(nickname);
+                    return JsonResponse.JsonHttpResponse(token);
+                }
+                return JsonResponse.JsonHttpResponse<Object>(false);
             }
             catch (Exception e)
             {

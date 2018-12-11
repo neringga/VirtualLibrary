@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
-import fs from "browserify-fs";
 import "./RegistrationCamera.css";
 import {
-    successfullSignIn,
-    faceDetectionApi,
-    userSignInApi,
     HttpRequestPath
 } from "./Constants.jsx";
+import { Button } from "semantic-ui-react";
 
 //Get constants from .config
 const imagesPerPerson = 5;
@@ -30,6 +27,9 @@ export class RegistrationCamera extends Component {
             userError: 0,
             serverError: 0
         };
+        window.onload = function () {
+            document.getElementById("saveAndContinueButton").disabled = true;
+        }
     }
 
     setRef = webcam => {
@@ -39,9 +39,8 @@ export class RegistrationCamera extends Component {
 
 
     capture = () => {
-
-        document.getElementById("captureButton").disabled = true;
-        document.getElementById("saveAndContinueButton").disabled = true;
+        
+        this.lockButtons();
 
         this.reset();
 
@@ -55,9 +54,6 @@ export class RegistrationCamera extends Component {
         var interval = setInterval(this.takePhoto.bind(this), timeBetweenTakingPictures);
 
         var self = setInterval(stopFuction.bind(this), timeBetweenTakingPictures - 100);
-
-        document.getElementById("captureButton").disabled = false;
-        document.getElementById("saveAndContinueButton").disabled = false;
     };
 
 
@@ -85,12 +81,14 @@ export class RegistrationCamera extends Component {
                     this.state.successes += 1;
                     if (this.state.successes == imagesPerPerson) {
                         this.success();
+                        this.unlockButtons();
                     }
                 }
                 if (response.data == false) {
                     this.state.userError += 1;
                     if (this.state.userError > maxUserError) {
                         console.log("user fault"); //temp
+                        this.unlockButtons();
                         //Inform user about problem on his end, give suggestions
                     }
                 }
@@ -98,6 +96,7 @@ export class RegistrationCamera extends Component {
                     this.state.serverError += 1;
                     if (this.state.serverError > maxServerError) {
                         console.log("server fault"); //temp
+                        this.unlockButtons();
                         //Inform user about problem in server
                     }
                 }
@@ -106,8 +105,18 @@ export class RegistrationCamera extends Component {
 
 
     success() {
-        console.log("success"); //temp
+        //alert("Success !!"); //temp
         //display success
+    }
+
+    lockButtons() {
+        document.getElementById("captureButton").disabled = true;
+        document.getElementById("saveAndContinueButton").disabled = true;
+    }
+
+    unlockButtons() {
+        document.getElementById("captureButton").disabled = false;
+        document.getElementById("saveAndContinueButton").disabled = false;
     }
 
 
@@ -120,9 +129,12 @@ export class RegistrationCamera extends Component {
 
 
     savePhoto() {
+
+        this.lockButtons();
+
         const data = {
             Bytes: this.state.photos[photosSent],
-            Nickname: "AAA" //Nickname from Registration.jsx
+            Nickname: localStorage.getItem("Nickname")
         }
         photosSent++;
 
@@ -134,9 +146,11 @@ export class RegistrationCamera extends Component {
             if (saveRequestsMade == imagesPerPerson) {
                 if (saveErrorHappened == true) {
                     console.log("Server saving error");
+                    this.unlockButtons();
                     //Inform user about problem in server
                 } else {
                     console.log("Saving success");
+                    window.location = '/';
                     //Inform user about successful save
                 }
             }
@@ -159,7 +173,12 @@ export class RegistrationCamera extends Component {
 
     }
 
+    
 
+    OnLoad = () => {
+        alert("Fuck off");
+        document.getElementById("saveAndContinueButton").disabled = true;
+    }
 
     render() {
         const videoConstraints = {
@@ -169,7 +188,7 @@ export class RegistrationCamera extends Component {
         };
 
         return (
-            <div className="container">
+            <div className="container" >
                 <center>
                     <Webcam
                         className="center"
@@ -180,11 +199,12 @@ export class RegistrationCamera extends Component {
                     />
                 </center>
                 <center>
-                    <button id="captureButton" onClick={this.capture}>Capture photo</button>
+                    <Button primary size="big" id="captureButton" onClick={this.capture}>Capture photo</Button>
                 </center>
                 <center>
-                    <button id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>Save and Continue</button>
+                    <Button primary size="big" id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>Save and finish registration</Button>
                 </center>
+                
             </div>
         );
     }

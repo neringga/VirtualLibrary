@@ -34,13 +34,8 @@ namespace VILIB.Controllers
 
             try
             {
-                Random random = new Random();
-                MemoryStream streamM = new MemoryStream(imageFromFrontend.Bytes);
-                string fileName = new DirectoryInfo(HttpContext.Current.Server.MapPath("~/UserInformation/" +
-                                     imageFromFrontend.Nickname + "_" + random.Next() + ".png")).ToString();
-                new Bitmap(streamM).Save(fileName);
-                //await _dataSource.AddFaceImage(imageFromFrontend);
-                return JsonResponse.JsonHttpResponse<Object>(fileName);
+                await _dataSource.AddFaceImage(imageFromFrontend);
+                return JsonResponse.JsonHttpResponse<Object>(true);
             }
             catch (Exception e)
             {

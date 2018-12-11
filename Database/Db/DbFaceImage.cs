@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database.Db
 {
-    class DbFaceImage : IFaceImage
+    public class DbFaceImage : IFaceImage
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

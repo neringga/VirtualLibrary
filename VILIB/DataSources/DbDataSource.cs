@@ -8,6 +8,7 @@ using VILIB.Model;
 using Database.Db;
 using VirtualLibrary.DataSources.Db;
 using System.Text.RegularExpressions;
+using VILIB.FaceRecognision;
 
 namespace VILIB.DataSources.Data
 {
@@ -67,6 +68,12 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> AddFaceImage(FaceImage faceImage)
+        {
+            _dbContext.FaceImages.Add(ConvertToDbFaceImage(faceImage));
+            return await _dbContext.SaveChangesAsync();
+        }
+
         public IList<Reviews> GetReviewList()
         {
             var reviews = _dbContext.Reviews.ToList();
@@ -83,6 +90,12 @@ namespace VILIB.DataSources.Data
         {
             var books = _dbContext.Books.ToList();
             return books.Select(book => ConvertToBook(book)).Where(book => book.IsTaken).ToList();
+        }
+
+        public IList<FaceImage> GetFaceImageList()
+        {
+            var faceImages = _dbContext.FaceImages.ToList();
+            return faceImages.Select(faceImage => ConvertToFaceImage(faceImage)).ToList();
         }
 
         public IList<IUser> GetUserList()
@@ -127,7 +140,6 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
-
         public IList<string> GetHashtagList()
         {
             return _dbContext.Hashtags.Select(g => g.Hastag).ToList();
@@ -136,6 +148,12 @@ namespace VILIB.DataSources.Data
         public IList<string> GetGenreList()
         {
             return _dbContext.Genres.Select(g => g.Genre).ToList();
+        }
+
+        public async Task<int> RemoveFaceImages(string Nickname)
+        {
+            //TODO
+            return await _dbContext.SaveChangesAsync();
         }
 
         public async Task<int> RemoveItem<T>(T item)
@@ -272,6 +290,25 @@ namespace VILIB.DataSources.Data
                 BookCode = review.BookCode,
                 User = review.User,
                 Review = review.Review
+            };
+        }
+
+
+        private DbFaceImage ConvertToDbFaceImage(FaceImage faceImage)
+        {
+            return new DbFaceImage
+            {
+                Nickname = faceImage.Nickname,
+                Bytes = faceImage.Bytes
+            };
+        }
+
+        private FaceImage ConvertToFaceImage(DbFaceImage faceImage)
+        {
+            return new FaceImage
+            {
+                Nickname = faceImage.Nickname,
+                Bytes = faceImage.Bytes
             };
         }
     }
