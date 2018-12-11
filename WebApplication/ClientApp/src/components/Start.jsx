@@ -3,6 +3,7 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 import logo from "./logo.png";
 import LocalizedStrings from 'react-localization';
+import { setLanguage } from "./AuthService";
 
 let strings = new LocalizedStrings({
     en: {
@@ -20,13 +21,16 @@ let strings = new LocalizedStrings({
         loginNoCamera: "Prisijungti be kameros",
         noAccount: "Neturite paskyros?",
         signUp: "Prisiregistruokite dabar!",
+
     }
 });
+
 
 export class Start extends Component {
     _onSetLanguageTo(lang) {
         strings.setLanguage(lang);
         this.setState({});
+        setLanguage(lang);
     }
   render() {
     return (

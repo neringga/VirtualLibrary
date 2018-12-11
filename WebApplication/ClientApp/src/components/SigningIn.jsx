@@ -3,9 +3,10 @@ import axios from "axios";
 import "./SigningIn.css";
 import './Home.css';
 import { setToken } from "./AuthService";
+import { getLanguage } from "./AuthService";
 import { Form, Message, Button } from "semantic-ui-react";
 import logo from "./logo.png";
-
+import LocalizedStrings from 'react-localization';
 import {
   noUsername,
   noPassword,
@@ -14,6 +15,26 @@ import {
   noUser,
   HttpRequestPath
 } from "./Constants.jsx";
+
+let strings = new LocalizedStrings({
+    en: {
+        username: "Username",
+        password: "Password",
+        signIn: "Sign in",
+        tryAgain: "Try again!",
+        notValid: "Username or password not valid",
+        submit: "Submit",
+        
+    },
+    lt: {
+        username: "Prisijungimo vardas",
+        password: "Slaptažodis",
+        signIn: "Prisijungti",
+        tryAgain: "Bandykite dar kartą!",
+        notValid: "Neteisingas prisijungimo vardas arba slaptažodis",
+        submit: "Pateikti",
+    }
+});
 
 export class SigningIn extends Component {
   constructor(props) {
@@ -24,7 +45,6 @@ export class SigningIn extends Component {
       badCredentials: false,
     };
   }
-
   handleInputChange = event => {
     event.preventDefault();
     this.setState({
@@ -61,38 +81,42 @@ export class SigningIn extends Component {
           this.setState({badCredentials: true})
         });
     }
-  };
-
-  render() {
-    return (
+    };
+        _onSetLanguageTo(lang) {
+            strings.setLanguage(lang);
+        }
+    render() {
+        const lang = getLanguage();
+      return (
+      this._onSetLanguageTo(lang),
       <div className="boxSignin">
-      <center><img className="logoSignIn" src={logo} height="140" width="120" /></center>
-        <h3>Sign In</h3>
-        {this.state.badCredentials ? (
-              <Message error header="Try again!" list={["Username or password not valid"]} />
-            ) : null}
+            <center><img className="logoSignIn" src={logo} height="140" width="120" /></center>
+            <h3>{strings.signIn}</h3>
+            {this.state.badCredentials ? (
+                <Message error header={strings.tryAgain} list={ strings.notValid } />
+              ) : null}
       <div className="sigginForm">
       <Form size="big">
-      <Form.Field>
-              <label>Username</label>
+                    <Form.Field>
+                        <label>{strings.username}</label>
               <input
                 name="username"
-                placeholder="Username"
+                placeholder={strings.username}
                 onChange={this.handleInputChange}
               />
             </Form.Field>
             <Form.Field>
-              <label>Password</label>
+                        <label>{strings.password}</label>
               <input
                 name="password"
-                placeholder="Password"
-                type="Password"
+                placeholder={strings.password}
+                type={strings.password}
                 onChange={this.handleInputChange}
               />
             </Form.Field>
             <center>
                 <Button onClick={this.handleSubmit} size="large" primary>
-                  Submit
+                            {strings.submit}
                 </Button>
               </center>
       </Form>
