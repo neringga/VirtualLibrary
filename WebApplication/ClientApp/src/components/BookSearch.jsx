@@ -11,15 +11,21 @@ import { getLanguage } from "./AuthService";
 let strings = new LocalizedStrings({
     en: {
         genreLooking: "Looking for a particular genre?",
-        selectGenre: "'Select genre...'",
+        selectGenre: "Select genre...",
         bookSearch: "Book Search",
         hashtags: "Specify hashtags to match your interests",
         enteredKeyword: "Enter search keyword",
-        searchKeyword: "{Search keyword", 
+        searchKeyword: "Search keyword", 
         search: "Search",
     },
     lt: {
-        
+        genreLooking: "Ieškai konkretaus žanro?",
+        selectGenre: "Pasirinkite žanrą...",
+        bookSearch: "Knygos paieška",
+        hashtags: "Patikslinkite grotelėmis, norint, kad atitiktų Jūsų interesus ",
+        enteredKeyword: "Įveskite paieškos raktažodį",
+        searchKeyword: "Paieškos raktažodis",
+        search: "Ieškoti", 
     },
 
 });

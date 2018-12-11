@@ -7,6 +7,20 @@ import {
     HttpRequestPath
 } from "./Constants.jsx";
 
+
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./AuthService";
+
+let strings = new LocalizedStrings({
+    en: {
+        login: "Log in"
+    },
+    lt: {
+        login: "Prisijungti"
+    },
+
+});
+
 export class LogInCamera extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +58,12 @@ export class LogInCamera extends Component {
 
     };
 
+    _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
+
     render() {
+        const lang = getLanguage();
         const videoConstraints = {
             width: 800,
             height: 500,
@@ -52,6 +71,7 @@ export class LogInCamera extends Component {
         };
 
         return (
+            this._onSetLanguageTo(lang),
             <div className="container">
                 <center>
                     <Webcam
@@ -63,7 +83,7 @@ export class LogInCamera extends Component {
                     />
                 </center>
                 <center>
-                    <button onClick={this.capture}>Log in</button>
+                    <button onClick={this.capture}>{strings.login}</button>
                 </center>
             </div>
         );
