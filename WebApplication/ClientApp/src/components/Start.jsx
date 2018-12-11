@@ -37,8 +37,12 @@ export class Start extends Component {
       <div className="box">
             <img className="logo" src={logo} height="140" width="120" />
             <h2 className="belowLogo">{strings.welcome}</h2>
-            <button onClick={() => this._onSetLanguageTo('lt')}>lt</button>
-            <button onClick={() => this._onSetLanguageTo('en')}>en</button>
+            <button className="btn btn-secondary btn-lg active" role="button"
+                onClick={() => this._onSetLanguageTo('lt')}>lt
+                </button>
+            <button className= "btn btn-secondary btn-lg active" role = "button"
+                onClick={() => this._onSetLanguageTo('en')}>en
+                </button>
         <div className="ui padded segment">
           <Link to={"/signIn/camera"}>
           <button className="ui fluid primary large button" role="button">
