@@ -46,25 +46,10 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> AddTakenBook(IBook takenBook)
-        {
-            _dbContext.Books.Add(ConvertToDbBook(takenBook));
-            return await _dbContext.SaveChangesAsync();
-        }
-
         public async Task<int> AddUser(IUser user)
         {
-            // TODO: remove and add a check in context initialization
-            try
-            {
-                _dbContext.Users.Add(ConvertToDbUser(user));
-            }
-            catch (InvalidOperationException e)
-            {
-                e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
-                throw;
-            }
-
+            // DB Insert
+            _dbContext.Users.Add(ConvertToDbUser(user));
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -82,32 +67,23 @@ namespace VILIB.DataSources.Data
 
         public IList<IBook> GetBookList()
         {
+
             var books = _dbContext.Books.ToList();
             return books.Select(book => ConvertToBook(book)).ToList();
+
         }
 
         public IList<IBook> GetTakenBookList()
         {
+            // DB Select
             var books = _dbContext.Books.ToList();
             return books.Select(book => ConvertToBook(book)).Where(book => book.IsTaken).ToList();
         }
 
         public IList<IUser> GetUserList()
         {
-            // TODO: remove and add a check in context initialization
-            try
-            {
-                var users = _dbContext.Users.ToList();
-                return users.Select(user => ConvertToUser(user)).ToList();
-            }
-            catch (InvalidOperationException e)
-            {
-                // "Unable to update database to match the current model because there are pending changes and automatic migration is disabled"
-                if (e.Message.Contains("database") && e.Message.Contains("pending changes"))
-                    e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
-
-                throw;
-            }
+            var users = _dbContext.Users.ToList();
+            return users.Select(user => ConvertToUser(user)).ToList();
         }
 
         public List<FaceImage> GetFaceImageList()
@@ -134,13 +110,15 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+
         public async Task<int> RemoveUser(IUser user)
         {
+            // DB Delete
             _dbContext.Users.Remove(ConvertToDbUser(user));
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> RemoveFaceImages(string Nickname)
+        public async Task<int> RemoveFaceImages(string nickname)
         {
             //TODO
             return await _dbContext.SaveChangesAsync();
@@ -188,11 +166,11 @@ namespace VILIB.DataSources.Data
 
         public async Task<bool> TakeBook(string isbnCode, string username)
         {
-            var books = _dbContext.Books.ToList().Where(b => !b.IsTaken && b.Code == isbnCode).ToList();
-            if (books.Count == 0 || books.Count != 1)
+            var book = _dbContext.Books.SingleOrDefault(b => !b.IsTaken && b.Code == isbnCode);
+            if (book == null)
                 throw new InvalidOperationException("Book has not been found or has been taken");
 
-            var book = books.First();
+            // DB Update
             book.IsTaken = true;
             book.TakenByUser = username;
             book.HasToBeReturned = DateTime.UtcNow.AddDays(30);
@@ -311,5 +289,70 @@ namespace VILIB.DataSources.Data
                 Bytes = faceImage.Bytes
             };
         }
+
+
+        // LINQ usage: Join, Group, Skip and Take, Agregate function.
+
+        // LINQ Group
+        public IDictionary<string, IEnumerable<IBook>> GetBooksByGenre()
+        {
+            var booksByGenre = new Dictionary<string, IEnumerable<IBook>>();
+
+            foreach (var group in _dbContext.Books.GroupBy(book => book.Genre).ToList())
+                booksByGenre.Add(group.Key.Genre, group.Select(b => ConvertToBook(b)).ToList());
+
+            return booksByGenre;
+        }
+
+        // Linq Join
+        public IEnumerable<IBook> GetBooksTakenByUser(string username)
+        {
+            return _dbContext.Books
+                .Join(
+                    _dbContext.Users,
+                    book => book.TakenByUser,
+                    user => user.Nickname,
+                    (book, user) => new { DbBook = book, DbUser = user })
+                .Where(bookAndUser => bookAndUser.DbUser.Nickname == username)
+                .ToList()
+                .Select(bookAndUser => ConvertToBook(bookAndUser.DbBook));
+        }
+
+        // Linq Skip and Take
+        public IEnumerable<IUser> GetFirstFiveUsersOlderThan18Years()
+        {
+            try
+            {
+                var dbUsers = _dbContext.Users.ToList();
+                var userIndex = dbUsers
+                    .Select((value, idx) => new { value, idx })
+                    .Where(valueIdxPair => DateTime.Now.Year - DateTime.Parse(valueIdxPair.value.DateOfBirth).Year >= 18)
+                    .Select(valueIdxPair => valueIdxPair.idx)
+                    .First();
+
+                return dbUsers.Skip(userIndex).Take(5);
+            }
+            catch (InvalidOperationException e)
+            {
+                if (e.Message.Contains("Sequence contains no elements"))
+                    return new List<IUser>();
+
+                throw;
+            }
+        }
+
+        // Linq Aggregate
+        public string GetGenreWithTheMostBooks()
+        {
+            var genreBookGroups = GetBooksByGenre();
+            var firstGenre = genreBookGroups.First();
+
+            return genreBookGroups
+                .Aggregate(
+                    firstGenre,
+                    (mostPopular, next) => next.Value.ToList().Count > mostPopular.Value.ToList().Count ? next : mostPopular,
+                    value => value.Key);
+        }
+
     }
 }
