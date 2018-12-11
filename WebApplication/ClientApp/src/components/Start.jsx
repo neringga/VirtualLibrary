@@ -38,10 +38,10 @@ export class Start extends Component {
             <img className="logo" src={logo} height="140" width="120" />
             <h2 className="belowLogo">{strings.welcome}</h2>
             <button className="btn btn-secondary btn-lg active" role="button"
-                onClick={() => this._onSetLanguageTo('lt')}>lt
+                onClick={() => this._onSetLanguageTo('')}>LT
                 </button>
             <button className= "btn btn-secondary btn-lg active" role = "button"
-                onClick={() => this._onSetLanguageTo('en')}>en
+                onClick={() => this._onSetLanguageTo('en')}>EN
                 </button>
         <div className="ui padded segment">
           <Link to={"/signIn/camera"}>
