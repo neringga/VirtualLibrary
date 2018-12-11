@@ -46,25 +46,10 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> AddTakenBook(IBook takenBook)
-        {
-            _dbContext.Books.Add(ConvertToDbBook(takenBook));
-            return await _dbContext.SaveChangesAsync();
-        }
-
         public async Task<int> AddUser(IUser user)
         {
-            // TODO: remove and add a check in context initialization
-            try
-            {
-                _dbContext.Users.Add(ConvertToDbUser(user));
-            }
-            catch (InvalidOperationException e)
-            {
-                e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
-                throw;
-            }
-
+            // DB Insert
+            _dbContext.Users.Add(ConvertToDbUser(user));
             return await _dbContext.SaveChangesAsync();
         }
 
@@ -82,32 +67,23 @@ namespace VILIB.DataSources.Data
 
         public IList<IBook> GetBookList()
         {
+
             var books = _dbContext.Books.ToList();
             return books.Select(book => ConvertToBook(book)).ToList();
+
         }
 
         public IList<IBook> GetTakenBookList()
         {
+            // DB Select
             var books = _dbContext.Books.ToList();
             return books.Select(book => ConvertToBook(book)).Where(book => book.IsTaken).ToList();
         }
 
         public IList<IUser> GetUserList()
         {
-            // TODO: remove and add a check in context initialization
-            try
-            {
-                var users = _dbContext.Users.ToList();
-                return users.Select(user => ConvertToUser(user)).ToList();
-            }
-            catch (InvalidOperationException e)
-            {
-                // "Unable to update database to match the current model because there are pending changes and automatic migration is disabled"
-                if (e.Message.Contains("database") && e.Message.Contains("pending changes"))
-                    e.Data.Add("Dev message", "Database has pending model changes. Apply those first.");
-
-                throw;
-            }
+            var users = _dbContext.Users.ToList();
+            return users.Select(user => ConvertToUser(user)).ToList();
         }
 
         public List<FaceImage> GetFaceImageList()
@@ -134,16 +110,19 @@ namespace VILIB.DataSources.Data
             return await _dbContext.SaveChangesAsync();
         }
 
+
         public async Task<int> RemoveUser(IUser user)
         {
+            // DB Delete
             _dbContext.Users.Remove(ConvertToDbUser(user));
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> RemoveFaceImages(string Nickname)
+        public async Task<int> RemoveFaceImages(string nickname)
         {
             //TODO
             return await _dbContext.SaveChangesAsync();
+        }
 
         public IList<string> GetHashtagList()
         {
@@ -310,5 +289,10 @@ namespace VILIB.DataSources.Data
                 Bytes = faceImage.Bytes
             };
         }
+
+
+        // Select/insert/update/delete usage.
+        private
+
     }
 }

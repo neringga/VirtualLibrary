@@ -28,7 +28,6 @@ namespace VILIB.DataSources
         Task<bool> TakeBook(string isbnCode, string username);
         Task<bool> ReturnBook(string isbnCode, string username);
 
-        //TODO: decide which to keep - generic implementations or concrete
         Task<int> RemoveItem<T>(T item);
     }
 }
