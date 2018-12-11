@@ -170,6 +170,7 @@ namespace VILIB.DataSources.Data
             if (books.Count == 0 || books.Count != 1)
                 throw new InvalidOperationException("Book has not been found or has been taken");
 
+            // DB Update
             var book = books.First();
             book.IsTaken = true;
             book.TakenByUser = username;
