@@ -19,6 +19,53 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import { Progress, Form, Label, Button, Message } from "semantic-ui-react";
 
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./AuthService";
+
+let strings = new LocalizedStrings({
+    en: {
+        emailRegistered: "This email is already registered",
+        usernameRegistered: "This username is already registered",
+        notAll: "Not all fields have been fild",
+        faceRecognition: "Face Recognition",
+        doYou: "Would you like to set up Face recognition ?",
+        yes: "Yes",
+        no: "No",
+        register: "Register",
+        tryAgain: "Try again!",
+        username: "Username",
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email",
+        ivalidEmail: "Invalid email", 
+        password: "Password",
+        repeat: "Repeat password",
+        doNotMatch: "Passwords do not match",
+        submit: "Submit",
+    },
+    lt: {
+        emailRegistered: "Jau egzistuoja vartotojas tokiu elektroniniu paštu",
+        usernameRegistered: "Jau egzistuoja vartotojas tokiu prisijungimo vardu",
+        notAll: "Yra tuščių laukų",
+        faceRecognition: "Veido atpažinimas",
+        doYou: "Ar norėtumėte naudoti veido atpažinimą?",
+        yes: "Taip",
+        no: "Ne",
+        register: "Registracija",
+        tryAgain: "Bandykite dar kartą!",
+        username: "Prisijungimo vardas",
+        firstName: "Vardas",
+        lastName: "Pavardė",
+        email: "Elektroninis paštas",
+        ivalidEmail: "Netinkamas elektroninis paštas",
+        password: "Slaptažodis",
+        repeat: "Pakartokite slaptažodį",
+        doNotMatch: "Slaptažodžiai nesutampa",
+        submit: "Pateikti",
+    },
+
+});
+
 export class Registration extends Component {
   constructor(props) {
     super(props);
@@ -103,33 +150,33 @@ export class Registration extends Component {
 
       axios.put(HttpRequestPath + userRegistrationApi, data).then(response => {
         if (response.data == emailErr) {
-          this.setState({notFilledErr: true, emailRegisteredErr: "This email is already registered"});
+            this.setState({ notFilledErr: true, emailRegisteredErr:  strings.emailRegistered  });
         } else if (response.data == usernameErr) {
-          this.setState({notFilledErr: true, usernameRegisteredErr: "This username is already registered"});
+          this.setState({notFilledErr: true, usernameRegisteredErr: strings.usernameRegistered});
         } else if (response.data) {
             this.faceRecognitionPrompt();
         }
       });this.setState({ validInput: true });
     } else {
-      this.setState({ notFilledErr: true, notFilledFieldsErr: "Not all fields have been fild"});
+      this.setState({ notFilledErr: true, notFilledFieldsErr: strings.notAll});
     }
     };
 
 
     faceRecognitionPrompt = () => {
         confirmAlert({
-            title: 'Face Recognition',
-            message: 'Would you like to set up Face recognition ?',
+            title:  strings.faceRecognition ,
+            message: strings.doYou,
             buttons: [
                 {
-                    label: 'Yes',
+                    label: strings.yes,
                     onClick: () => {
                         localStorage.setItem("Nickname", this.state.username);
                         window.location = '/registration/camera';
                     }
                 },
                 {
-                    label: 'No',
+                    label: strings.no,
                     onClick: () => {
                         window.location = '/SignIn';
                     }
@@ -138,23 +185,27 @@ export class Registration extends Component {
         })
     };
 
+    _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
 
-
-  render() {
-    return (
+    render() {
+        const lang = getLanguage();
+        return (
+            this._onSetLanguageTo(lang),
       <div className="boxRegistration">
-        <h3>Register</h3>
+                <h3>{strings.register}</h3>
         {this.state.notFilledErr ? (
-              <Message error header="Try again!" list={[this.state.notFilledFieldsErr,
+                    <Message error header={strings.tryAgain} list={[this.state.notFilledFieldsErr,
               this.state.usernameRegisteredErr, this.state.emailRegisteredErr]} />
             ) : null}
         <div className="regForm">
           <Form size="big">
             <Form.Field required>
-              <label>Username</label>
+                            <label>{strings.username}</label>
               <input
                 name="username"
-                placeholder="Username"
+                                placeholder={strings.username}
                 onChange={this.handleInputChange}
               />
             </Form.Field>
@@ -163,58 +214,58 @@ export class Registration extends Component {
                 required
                 fluid
                 name="firstName"
-                label="First name"
-                placeholder="First name"
+                                label={strings.firstName}
+                                placeholder={strings.firstName}
                 onChange={this.handleInputChange}
               />
               <Form.Input
                 required
                 fluid
                 name="lastName"
-                label="Last name"
-                placeholder="Last name"
+                                label={strings.lastName}
+                                placeholder={strings.lastName}
                 onChange={this.handleInputChange}
               />
             </Form.Group>
             <Form.Field required>
-              <label>Email</label>
+                            <label>{strings.email}</label>
               <input
-                placeholder="Email"
+                                placeholder={strings.email}
                 name="email"
                 onChange={this.handleEmailChange}
               />
               {this.state.emailErr ? (
-                <Label basic color="red" pointing active>
-                  Invalid email
+                                <Label basic color="red" pointing active>
+                                    {strings.ivalidEmail}
                 </Label>
               ) : null}
             </Form.Field>
             <Form.Input
               required
-              label="Password"
-              placeholder="Password"
+                            label={strings.password}
+                            placeholder={strings.password}
               name="password"
               type="password"
               onChange={this.handleInputChange}
             />
             <Form.Input
               required
-              label="Repeat Password"
-              placeholder="Password"
+                            label={strings.repeat}
+                            placeholder={strings.repeat}
               name="repPassword"
               type="password"
               onChange={this.handlePasswordChange}
             />
             {this.state.passRepErr ? (
               <Label basic color="red" pointing active>
-                Passwords do not match
+                                {strings.doNotMatch}
               </Label>
             ) : null}
             <br />
             <div className="regButton">
               <center>
                 <Button onClick={this.handleSubmit} size="large" primary>
-                  Submit
+                                    {strings.submit}
                 </Button>
               </center>
             </div>
