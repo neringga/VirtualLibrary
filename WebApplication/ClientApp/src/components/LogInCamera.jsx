@@ -12,10 +12,12 @@ import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
   en: {
-    login: "Log in"
+      login: "Log in",
+      look: "Look at the camera, smile and press login",
   },
   lt: {
-    login: "Prisijungti"
+      login: "Prisijungti",
+      look: "Žiūrėkite į kamerą, šypsokitės ir spauskite 'Prisijungti'",
   }
 });
 
@@ -69,7 +71,7 @@ export class LogInCamera extends Component {
       (
         <div>
           
-            <h3 className="camTitle">Look at the camera, smile and press login</h3><center>
+                <h3 className="camTitle">{strings.look}</h3><center>
           <Webcam
             className="center"
             audio={false}

@@ -93,7 +93,7 @@ export class SigningIn extends Component {
             <center><img className="logoSignIn" src={logo} height="140" width="120" /></center>
             <h3>{strings.signIn}</h3>
             {this.state.badCredentials ? (
-                <Message error header={strings.tryAgain} list={ strings.notValid } />
+                <Message error header={strings.tryAgain} list={ [strings.notValid] } />
               ) : null}
       <div className="sigginForm">
       <Form size="big">
@@ -108,7 +108,8 @@ export class SigningIn extends Component {
             <Form.Field>
                         <label>{strings.password}</label>
               <input
-                name="password"
+                              name="password"
+                              type="Password"
                 placeholder={strings.password}
                 onChange={this.handleInputChange}
               />

@@ -10,7 +10,8 @@ import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
     en: {
-        genreLooking: "Looking for a particular genre?",
+
+        Looking: "Looking for a particular genre?",
         selectGenre: "Select genre...",
         bookSearch: "Book Search",
         hashtags: "Specify hashtags to match your interests",
@@ -19,7 +20,7 @@ let strings = new LocalizedStrings({
         search: "Search",
     },
     lt: {
-        genreLooking: "Ieškai konkretaus žanro?",
+        Looking: "Ieškai konkretaus žanro?",
         selectGenre: "Pasirinkite žanrą...",
         bookSearch: "Knygos paieška",
         hashtags: "Patikslinkite grotelėmis, norint, kad atitiktų Jūsų interesus ",

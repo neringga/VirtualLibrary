@@ -19,6 +19,9 @@ let strings = new LocalizedStrings({
         description: "Description:",
         genre: "Genre:",
         review: "Reviews",
+        addReview: "Add review",
+        books: "Books",
+        author: "Author",
     },
     lt: {
         chooseBook: "Pasirinkite knygą, jei norite gauti daugiau informacijos",
@@ -28,6 +31,9 @@ let strings = new LocalizedStrings({
         description: "Aprašymas:",
         genre: "Žanras:",
         review: "Atsiliepimai",
+        addReview: "Pridėti atsiliepimą",
+        books: "Knygos",
+        author: "Autorius",
     },
 });
 
@@ -128,8 +134,8 @@ export class BookList extends Component {
             </div>
           ))}
           <form id="myForm">
-            <div className="commentInput">
-              <Input onChange={this.onInputChange} fluid placeholder="Review" />
+                  <div className="commentInput">
+                      <Input onChange={this.onInputChange} fluid placeholder={strings.review} />
             </div>
           </form>
           <Button
@@ -141,7 +147,7 @@ export class BookList extends Component {
             labelPosition="left"
           >
             <Icon name="add" />
-            Add review
+                  {strings.addReview}
           </Button>
         </div>
       );
@@ -175,7 +181,7 @@ export class BookList extends Component {
       this._onSetLanguageTo(lang),
       this.state.books != null && (
         <div className="boxBooks">
-                  <h3>Books</h3>
+                  <h3>{strings.books}</h3>
                   <p>{strings.chooseBook}</p>
           <br />
           <BootstrapTable
@@ -187,7 +193,7 @@ export class BookList extends Component {
             <TableHeaderColumn dataField="Title" isKey={true}>
                           {strings.title}
             </TableHeaderColumn>
-            <TableHeaderColumn dataField="Author">Author</TableHeaderColumn>
+                      <TableHeaderColumn dataField="Author">{strings.author}</TableHeaderColumn>
             <TableHeaderColumn dataField="Code" hidden="true">
                           {strings.code}
             </TableHeaderColumn>
