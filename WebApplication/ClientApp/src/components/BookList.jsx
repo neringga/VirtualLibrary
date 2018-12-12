@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+﻿import React, { Component } from "react";
 import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import Modal from "react-responsive-modal";
@@ -6,6 +6,31 @@ import { Button, Comment, Form, Icon, Input } from "semantic-ui-react";
 import "./Home.css";
 import { HttpRequestPath } from "./Constants.jsx";
 import { getProfile } from "./AuthService";
+
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./LangService";
+
+let strings = new LocalizedStrings({
+    en: {
+        chooseBook: "Choose book for more information",
+        title: "Title",
+        code: "Code",
+        bookInfo: "Book information",
+        description: "Description:",
+        genre: "Genre:",
+        review: "Reviews",
+    },
+    lt: {
+        chooseBook: "Pasirinkite knygą, jei norite gauti daugiau informacijos",
+        title: "Pavadinimas",
+        code: "Kodas",
+        bookInfo: "Informacija apie knygą",
+        description: "Aprašymas:",
+        genre: "Žanras:",
+        review: "Atsiliepimai",
+    },
+});
+
 
 export class BookList extends Component {
   constructor() {
@@ -123,9 +148,14 @@ export class BookList extends Component {
     } else {
       return null;
     }
-  };
+        }
 
-  render() {
+        _onSetLanguageTo(lang) {
+            strings.setLanguage(lang);
+        }
+
+    render() {
+    const lang = getLanguage();
     const selectRow = {
       mode: "radio",
       clickToSelect: true,
@@ -141,11 +171,12 @@ export class BookList extends Component {
       right: 0
     };
 
-    return (
+      return (
+      this._onSetLanguageTo(lang),
       this.state.books != null && (
         <div className="boxBooks">
-          <h3>Books</h3>
-          <p>Choose book for more information</p>
+                  <h3>Books</h3>
+                  <p>{strings.chooseBook}</p>
           <br />
           <BootstrapTable
             search={true}
@@ -154,11 +185,11 @@ export class BookList extends Component {
             hover
           >
             <TableHeaderColumn dataField="Title" isKey={true}>
-              Title
+                          {strings.title}
             </TableHeaderColumn>
             <TableHeaderColumn dataField="Author">Author</TableHeaderColumn>
             <TableHeaderColumn dataField="Code" hidden="true">
-              Code
+                          {strings.code}
             </TableHeaderColumn>
           </BootstrapTable>
 
@@ -169,18 +200,18 @@ export class BookList extends Component {
             styles={{ overlay: modalStyle }}
           >
             <div className="font">
-              <h3>Book information</h3>
-              <p>
-                <b>Description:</b> {this.state.description}
+                          <h3>{strings.bookInfo}</h3>
+                          <p>
+                              <b>{strings.description}</b> {this.state.description}
               </p>
               <br />
               <p>
-                <b>Ganre:</b> {this.state.ganre}, <b>Pages:</b>{" "}
+                              <b>{strings.gendre}</b> {this.state.ganre}, <b>Pages:</b>{" "}
                 {this.state.pages}
               </p>
             </div>
             <hr />
-            <h3>Reviews</h3>
+                      <h3>{strings.review}</h3>
             {this.handleReviewShowing(this.state.showReview)}
           </Modal>
         </div>

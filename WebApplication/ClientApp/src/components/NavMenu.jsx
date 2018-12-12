@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
@@ -7,12 +7,36 @@ import { Icon } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { logout } from './AuthService';
 
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./LangService";
 
+let strings = new LocalizedStrings({
+    en: {
+        home: "Home",
+        takeBook: "Take book",
+        books: "Books",
+        returnBook: "Return book",
+        searchBooks: "Search books",
+    },
+    lt: {
+        home: "Pagrindinis puslapis",
+        takeBook: "Paimti knygą",
+        books: "Knygos",
+        returnBook: "Grąžinti knygą",
+        searchBooks: "Ieškoti knygų",
+
+    },
+
+});
 
  export class NavMenu extends Component {
-   
-   render() {
-    return (
+     _onSetLanguageTo(lang) {
+         strings.setLanguage(lang);
+     }
+     render() {
+         const lang = getLanguage();
+         return (
+             this._onSetLanguageTo(lang),
       <Navbar inverse fixedTop fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
@@ -25,22 +49,22 @@ import { logout } from './AuthService';
           <Nav>
             <LinkContainer to={'/HomePage'} exact>
               <NavItem>
-                <Glyphicon glyph='home' /> Home
+                                 <Glyphicon glyph='home' /> {strings.home}
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/BookTaking'} exact>
-              <NavItem>
-                <Glyphicon glyph='	glyphicon glyphicon-download-alt' /> Take book
+                             <NavItem>
+                                 <Glyphicon glyph='	glyphicon glyphicon-download-alt' /> {strings.takeBook}
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/books'} exact>
-              <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-book' /> Books
+                             <NavItem>
+                                 <Glyphicon glyph='glyphicon glyphicon-book' /> {strings.books}
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/ReturnBooks'} exact>
-              <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-stats' /> Return book
+                             <NavItem>
+                                 <Glyphicon glyph='glyphicon glyphicon-stats' /> {strings.returnBook}
               </NavItem>
             </LinkContainer>
            
@@ -50,8 +74,8 @@ import { logout } from './AuthService';
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/bookSearch'} exact>
-              <NavItem>
-                <Glyphicon glyph='glyphicon glyphicon-search' /> Search books
+                             <NavItem>
+                                 <Glyphicon glyph='glyphicon glyphicon-search' /> {strings.searchBooks}
               </NavItem>
             </LinkContainer>
           </Nav>
