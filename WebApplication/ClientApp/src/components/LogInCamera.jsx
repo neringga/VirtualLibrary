@@ -7,6 +7,20 @@ import "./Home.css";
 import { HttpRequestPath } from "./Constants.jsx";
 import { Button, Icon } from "semantic-ui-react";
 
+
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./LangService";
+
+let strings = new LocalizedStrings({
+    en: {
+        login: "Log in"
+    },
+    lt: {
+        login: "Prisijungti"
+    },
+
+});
+
 export class LogInCamera extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +64,10 @@ export class LogInCamera extends Component {
         )
     }
   }
+  
+  _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
 
   render() {
     const videoConstraints = {
@@ -57,8 +75,10 @@ export class LogInCamera extends Component {
       height: 500,
       facingMode: "user"
     };
+  const lang = getLanguage();
 
     return (
+        this._onSetLanguageTo(lang),
       <div>
           
             <h3 className="camTitle">Look at the camera, smile and press login</h3><center>
@@ -72,11 +92,12 @@ export class LogInCamera extends Component {
           />
         
           <Button size="big" onClick={this.capture}icon labelPosition="right">
-            Login
+            {strings.login}
             <Icon name="right arrow" />
           </Button>
         </center>
       </div>
     );
   }
+
 }

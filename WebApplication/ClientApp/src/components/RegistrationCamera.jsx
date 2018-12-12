@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+﻿import React, { Component } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import "./RegistrationCamera.css";
@@ -6,6 +6,9 @@ import {
     HttpRequestPath
 } from "./Constants.jsx";
 import { Button } from "semantic-ui-react";
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./LangService";
+
 
 //Get constants from .config
 const imagesPerPerson = 5;
@@ -17,6 +20,21 @@ const timeBetweenSavingPictures = 250;
 var saveRequestsMade = 0;
 var saveErrorHappened = false;
 var photosSent = 0;
+
+let strings = new LocalizedStrings({
+    en: {
+        capture: "Capture photo",
+        save: "Save and finish Registration",
+        cancel: "Cancel Face recognition",
+
+    },
+    lt: {
+        capture: "Padaryti nuotrauką",
+        save: "Išsaugoti ir užbaigti registraciją",
+        cancel: "Atšaukti veido atpažinimą",
+    },
+        
+});
 
 export class RegistrationCamera extends Component {
     constructor(props) {
@@ -180,7 +198,13 @@ export class RegistrationCamera extends Component {
         document.getElementById("saveAndContinueButton").disabled = true;
     }
 
+    _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
+
     render() {
+        const lang = getLanguage();
+
         const videoConstraints = {
             width: 800,
             height: 500,
@@ -188,6 +212,7 @@ export class RegistrationCamera extends Component {
         };
 
         return (
+            this._onSetLanguageTo(lang),
             <div className="container" >
                 <center>
                     <Webcam
@@ -199,10 +224,10 @@ export class RegistrationCamera extends Component {
                     />
                 </center>
                 <center>
-                    <Button primary size="big" id="captureButton" onClick={this.capture}>Capture photo</Button>
+                    <Button primary size="big" id="captureButton" onClick={this.capture}>{strings.capture}</Button>
                 </center>
                 <center>
-                    <Button primary size="big" id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>Save and finish registration</Button>
+                    <Button primary size="big" id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>{strings.save}</Button>
                 </center>
                 
             </div>

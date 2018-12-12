@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+﻿import React, { Component } from "react";
 import axios from "axios";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
@@ -7,6 +7,37 @@ import { HttpRequestPath } from "./Constants";
 import { getProfile, getToken } from "./AuthService";
 import { Button } from "semantic-ui-react";
 import Modal from "react-responsive-modal";
+
+import LocalizedStrings from 'react-localization';
+import { getLanguage } from "./LangService";
+
+let strings = new LocalizedStrings({
+    en: {
+        select: "Select a book to return",
+        author: "Author",
+        title: "Title",
+        code: "Code",
+        returnUntil: "Return until",
+        returnBook: "Return book",
+        really: "Do you really want to return this book?",
+        yes: "Yes",
+        no: "No",
+    },
+    lt: {
+        select: "Pasirinkite knygą, kurią norite grąžinti",
+        author: "Autorius",
+        title: "Pavadinimas",
+        code: "Kodas",
+        returnUntil: "Grąžinti iki",
+        returnBook: "Grąžinti knygą",
+        really: "Ar tikrai norite grąžinti šią knygą?",
+        yes: "Taip",
+        no: "Ne",  
+
+    },
+
+});
+
 
 export class ReturnBooks extends Component {
   constructor() {
@@ -55,9 +86,14 @@ export class ReturnBooks extends Component {
         window.location.reload();
       }
     });
-  };
+    };
 
-  render() {
+    _onSetLanguageTo(lang) {
+        strings.setLanguage(lang);
+    }
+
+    render() {
+        const lang = getLanguage();
     const selectRow = {
       mode: "radio",
       clickToSelect: true,
@@ -73,21 +109,22 @@ export class ReturnBooks extends Component {
       right: 0
     };
 
-    return (
+        return (
+            this._onSetLanguageTo(lang),
       <div>
         <div className="boxBooks">
-        <h3>Select a book to return</h3>
+                    <h3>{strings.select}</h3>
         <br/>
         <BootstrapTable responsive data={this.state.books} selectRow={selectRow} hover>
           <TableHeaderColumn dataField="Author" isKey>
-            Author
+                            {strings.author}
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="Title">Title</TableHeaderColumn>
+                        <TableHeaderColumn dataField="Title">{strings.title}</TableHeaderColumn>
           <TableHeaderColumn dataField="Code" hidden="true">
-            Code
+                            {strings.code}
           </TableHeaderColumn>
           <TableHeaderColumn dataField="HasToBeReturned">
-            Return until
+                            {strings.returnUntil}
           </TableHeaderColumn>
         </BootstrapTable>
         </div>
@@ -98,12 +135,12 @@ export class ReturnBooks extends Component {
             styles={{ overlay: modalStyle }}
           >
             <div className="font">
-            <h4 id="modal-label">Return book</h4>
+                        <h4 id="modal-label">{strings.returnBook}</h4>
             <br/>
-            <p>Do you really want to return this book?</p>
+                        <p>{strings.really}</p>
             <br/>
-            <Button size="large" onClick={this.returnBook}>Yes</Button>
-            <Button size="large" onClick={this.close}>No</Button>
+                        <Button size="large" onClick={this.returnBook}>{strings.yes}</Button>
+                        <Button size="large" onClick={this.close}>{strings.no}</Button>
             </div>
           </Modal>
         
