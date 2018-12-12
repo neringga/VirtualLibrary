@@ -3,7 +3,7 @@ namespace Database.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DbFaceImage : DbMigration
+    public partial class FaceImage : DbMigration
     {
         public override void Up()
         {
@@ -16,7 +16,6 @@ namespace Database.Migrations
                         Bytes = c.Binary(),
                     })
                 .PrimaryKey(t => t.RowId);
-            
         }
         
         public override void Down()

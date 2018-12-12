@@ -56,6 +56,12 @@ export class ReturnBooks extends Component {
       .post(HttpRequestPath + "api/TakenBook", user
       )
       .then(response => {
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        for (var i=0; i<response.data.length; i++) {
+          var date = response.data[i].HasToBeReturned;
+          var newDate = new Date(date);
+          response.data[i].HasToBeReturned = newDate.toLocaleDateString("en-US", options);
+        }
         this.setState({
           books: response.data
         });

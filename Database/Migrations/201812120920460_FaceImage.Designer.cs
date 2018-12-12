@@ -7,13 +7,13 @@ namespace Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class DbFaceImage : IMigrationMetadata
+    public sealed partial class FaceImage : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DbFaceImage));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FaceImage));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812081140296_DbFaceImage"; }
+            get { return "201812120920460_FaceImage"; }
         }
         
         string IMigrationMetadata.Source
