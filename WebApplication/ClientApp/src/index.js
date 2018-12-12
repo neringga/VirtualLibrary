@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
+// import 'react-flags-select/css/react-flags-select.css';
+
 // import 'semantic-ui/dist/semantic.min.css';
 
 import React, { Component } from 'react';

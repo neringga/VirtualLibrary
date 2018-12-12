@@ -142,13 +142,9 @@
     <Compile Include="Migrations\201812060912441_AddReview.Designer.cs">
       <DependentUpon>201812060912441_AddReview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812081140296_DbFaceImage.cs" />
-    <Compile Include="Migrations\201812081140296_DbFaceImage.Designer.cs">
-      <DependentUpon>201812081140296_DbFaceImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812081701450_Merge.cs" />
-    <Compile Include="Migrations\201812081701450_Merge.Designer.cs">
-      <DependentUpon>201812081701450_Merge.cs</DependentUpon>
+    <Compile Include="Migrations\201812120920460_FaceImage.cs" />
+    <Compile Include="Migrations\201812120920460_FaceImage.Designer.cs">
+      <DependentUpon>201812120920460_FaceImage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,11 +173,8 @@
     <EmbeddedResource Include="Migrations\201812060912441_AddReview.resx">
       <DependentUpon>201812060912441_AddReview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812081140296_DbFaceImage.resx">
-      <DependentUpon>201812081140296_DbFaceImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812081701450_Merge.resx">
-      <DependentUpon>201812081701450_Merge.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812120920460_FaceImage.resx">
+      <DependentUpon>201812120920460_FaceImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
