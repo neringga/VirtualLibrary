@@ -7,6 +7,7 @@ namespace VILIB.Repositories
     public interface IBookRepository : IRepository<IBook>
     {
         IList<IBook> GetTakenBooks();
+        IList<IBook> GetHistoryBooks();
         Task TakeBook(string isbnCode, string username);
         Task ReturnBook(string isbnCode, string username);
         IBook CheckForTakenBook(string code);

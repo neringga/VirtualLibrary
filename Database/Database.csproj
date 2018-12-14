@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db\DbBook.cs" />
+    <Compile Include="Db\DbBookTakingHistory.cs" />
     <Compile Include="Db\DbGenre.cs" />
     <Compile Include="Db\DbHastag.cs" />
     <Compile Include="Db\DbFaceImage.cs" />
@@ -146,6 +147,10 @@
     <Compile Include="Migrations\201812120920460_FaceImage.Designer.cs">
       <DependentUpon>201812120920460_FaceImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812141500400_BookTakingHistoryTable.cs" />
+    <Compile Include="Migrations\201812141500400_BookTakingHistoryTable.Designer.cs">
+      <DependentUpon>201812141500400_BookTakingHistoryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteDbDataSource.cs" />
@@ -175,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812120920460_FaceImage.resx">
       <DependentUpon>201812120920460_FaceImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812141500400_BookTakingHistoryTable.resx">
+      <DependentUpon>201812141500400_BookTakingHistoryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

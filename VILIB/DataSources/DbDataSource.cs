@@ -86,6 +86,12 @@ namespace VILIB.DataSources.Data
             return users.Select(user => ConvertToUser(user)).ToList();
         }
 
+        public IList<IBook> GetHistoryBookList()
+        {
+            var books = _dbContext.BookTakingHistory.ToList();
+            return books.Select(book => ConvertToBookHistory(book)).ToList();
+        }
+
         public List<FaceImage> GetFaceImageList()
         {
             var faceImages = _dbContext.FaceImages.ToList();
@@ -128,6 +134,8 @@ namespace VILIB.DataSources.Data
         {
             return _dbContext.Hashtags.Select(g => g.Hastag).ToList();
         }
+
+
 
         public IList<string> GetGenreList()
         {
@@ -176,6 +184,8 @@ namespace VILIB.DataSources.Data
             book.TakenByUser = username;
             book.HasToBeReturned = DateTime.UtcNow.AddDays(30);
 
+            _dbContext.BookTakingHistory.Add(ConvertToDbBookHistory(ConvertToBook(book)));
+
             return (await _dbContext.SaveChangesAsync() == 1);
         }
 
@@ -194,6 +204,15 @@ namespace VILIB.DataSources.Data
                 HasToBeReturned = book.HasToBeReturned,
                 Genre = new DbGenre() { Genre = book.Genre },
                 Hashtags = GetHashtags(book)
+            };
+        }
+
+        private DbBookTakingHistory ConvertToDbBookHistory(IBook book)
+        {
+            return new DbBookTakingHistory
+            {
+                BookCode = book.Code,
+                TakenByUser = book.TakenByUser
             };
         }
 
@@ -245,6 +264,23 @@ namespace VILIB.DataSources.Data
                 HasToBeReturned = book.HasToBeReturned,
                 Genre = book.Genre?.Genre,
                 Hashtags = book.Hashtags?.Select(h => h.Hastag).ToList()
+            };
+        }
+
+        private IBook ConvertToBookHistory(DbBookTakingHistory book)
+        {
+            return new Book
+            {
+                Code = book.BookCode,
+                TakenByUser = book.TakenByUser,
+                Title = null,
+                Author = null,
+                DaysForBorrowing = 30,
+                IsTaken = false,
+                TakenWhen = null,
+                HasToBeReturned = null,
+                Genre = null,
+                Hashtags = null
             };
         }
 

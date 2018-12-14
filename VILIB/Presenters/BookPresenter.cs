@@ -24,6 +24,21 @@ namespace VILIB.Presenters
             return _mBookRepository.GetList();
         }
 
+        public IEnumerable<IBook> GetUserHistoryBooks(string user)
+        {
+            var books = _mBookRepository.GetList();
+            var historyBooks = _mBookRepository.GetHistoryBooks();
+            var ba = historyBooks.Where(book => book.TakenByUser == user);
+            foreach (var historyBook in historyBooks)
+            {
+                var book = books.FirstOrDefault(b => b.Code == historyBook.Code);
+                historyBook.Author = book.Author;
+                historyBook.Title = book.Title;
+            }
+
+            return historyBooks;
+        }
+
         public IBook FindBookByCode(string code)
         {
             var books = _mBookRepository.GetList();

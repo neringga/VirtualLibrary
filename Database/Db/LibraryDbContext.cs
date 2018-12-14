@@ -9,6 +9,7 @@ namespace VirtualLibrary.DataSources.Db
         public DbSet<DbBook> Books { get; set; }
         public DbSet<DbReview> Reviews { get; set; }
         public DbSet<DbFaceImage> FaceImages { get; set; }
+        public DbSet<DbBookTakingHistory> BookTakingHistory { get; set; }
 
         public DbSet<DbGenre> Genres { get; set; }
         public DbSet<DbHashtag> Hashtags { get; set; }

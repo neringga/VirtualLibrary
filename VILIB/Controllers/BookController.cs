@@ -64,7 +64,26 @@ namespace VILIB.Controllers
         }
     }
 
+    [EnableCors("*", "*", "*")]
+    public class BookHistoryController : ApiController
+    {
+        private readonly BookPresenter _bookPresenter;
 
+        public BookHistoryController(BookPresenter bookPresenter)
+        {
+            _bookPresenter = bookPresenter;
+        }
+
+        public async Task<HttpResponseMessage> Put()
+        {
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
+
+            return JsonResponse.JsonHttpResponse<object>(_bookPresenter.GetUserHistoryBooks(jsonContent));
+        }
+
+
+    }
 
     [EnableCors("*", "*", "*")]
     public class BookController : ApiController
