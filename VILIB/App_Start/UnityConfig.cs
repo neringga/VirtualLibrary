@@ -98,6 +98,12 @@ namespace VILIB
                 return new BookController(bookPresenter);
             }));
 
+            container.RegisterType<BookHistoryController>(new InjectionFactory(o =>
+            {
+                var bookPresenter = container.Resolve<BookPresenter>();
+                return new BookHistoryController(bookPresenter);
+            }));
+
             container.RegisterType<HashtagController>(new InjectionFactory(o =>
             {
                 var dataSource = container.Resolve<IAsyncDataSource>();

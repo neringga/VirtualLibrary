@@ -5,7 +5,7 @@ export const userSignInApi = "api/UserSignIn/"
 
 export const bookActionsApi = "api/BarcodeScanner/"
 export const BookTakingApi = "api/TakenBook/"
-
+export const BookHistoryApi = "api/BookHistory"
 export const bookListApi = "api/Book"
 
 export const faceDetectionApi = "api/FaceDetection"

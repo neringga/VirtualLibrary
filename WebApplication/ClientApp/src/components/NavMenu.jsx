@@ -15,9 +15,10 @@ let strings = new LocalizedStrings({
     home: "Home",
     takeBook: "Take/Return book",
     books: "Books",
-    returnBook: "Your books",
+    returnBook: "Your taken books",
     searchBooks: "Search books",
-    logout: "Logout"
+    logout: "Logout",
+    history: "Your read books"
   },
   lt: {
     home: "Pagrindinis puslapis",
@@ -25,7 +26,8 @@ let strings = new LocalizedStrings({
     books: "Knygos",
     returnBook: "Mano knygos",
     searchBooks: "Ieškoti knygų",
-    logout:"Atsijungti"
+    logout:"Atsijungti",
+    history: "Mano knygų istorija"
   }
 });
 
@@ -74,6 +76,12 @@ export class NavMenu extends Component {
                 <NavItem>
                   <Glyphicon glyph="glyphicon glyphicon-search" />{" "}
                   {strings.searchBooks}
+                </NavItem>
+              </LinkContainer>
+              <LinkContainer to={"/history"} exact>
+                <NavItem>
+                  <Glyphicon glyph="glyphicon glyphicon-search" />{" "}
+                  {strings.history}
                 </NavItem>
               </LinkContainer>
               <br/>

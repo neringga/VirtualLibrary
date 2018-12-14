@@ -14,6 +14,7 @@ import { BookList } from "./components/BookList";
 import { BookSearch } from "./components/BookSearch";
 import { LogInCamera } from "./components/LogInCamera";
 import { loggedIn } from "./components/AuthService";
+import { History } from "./components/History";
 
 
 export default class App extends Component {
@@ -47,6 +48,7 @@ export default class App extends Component {
           <AuthRoute exact path="/returnBooks" component={ReturnBooks} />
           <AuthRoute exact path="/books" component={BookList} />
           <AuthRoute exact path='/bookSearch' component={BookSearch} />
+          <AuthRoute exact path='/history' component={History} />
         </Layout>
       </Switch>
     );

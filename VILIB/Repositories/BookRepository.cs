@@ -37,6 +37,11 @@ namespace VILIB.Repositories
             return _dataSource.GetBookList().Where(book => book.IsTaken).ToList();
         }
 
+        public IList<IBook> GetHistoryBooks()
+        {
+            return _dataSource.GetHistoryBookList();
+        }
+
 
         public IBook CheckForTakenBook(string code)
         {

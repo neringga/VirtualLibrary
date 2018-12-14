@@ -120,11 +120,6 @@ export class RegistrationCamera extends Component {
       });
   }
 
-  success() {
-    console.log("Success !!"); //temp
-    //display success
-  }
-
   lockButtons() {
     document.getElementById("captureButton").disabled = true;
     document.getElementById("saveAndContinueButton").disabled = true;
@@ -162,7 +157,6 @@ export class RegistrationCamera extends Component {
           this.unlockButtons();
           //Inform user about problem in server
         } else {
-          console.log("Saving success");
           window.location = "/";
           //Inform user about successful save
         }

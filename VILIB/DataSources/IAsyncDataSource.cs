@@ -13,6 +13,7 @@ namespace VILIB.DataSources
         IList<IUser> GetUserList();
         IList<Reviews> GetReviewList();
         IList<IBook> GetTakenBookList();
+        IList<IBook> GetHistoryBookList();
         List<FaceImage> GetFaceImageList();
         IList<string> GetHashtagList();
         IList<string> GetGenreList();
