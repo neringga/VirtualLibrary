@@ -13,17 +13,19 @@ import { getLanguage } from "./LangService";
 let strings = new LocalizedStrings({
   en: {
     home: "Home",
-    takeBook: "Take book",
+    takeBook: "Take/Return book",
     books: "Books",
-    returnBook: "Return book",
-    searchBooks: "Search books"
+    returnBook: "Your books",
+    searchBooks: "Search books",
+    logout: "Logout"
   },
   lt: {
     home: "Pagrindinis puslapis",
-    takeBook: "Paimti knygą",
+    takeBook: "Paimti/Grąžinti knygą",
     books: "Knygos",
-    returnBook: "Grąžinti knygą",
-    searchBooks: "Ieškoti knygų"
+    returnBook: "Mano knygos",
+    searchBooks: "Ieškoti knygų",
+    logout:"Atsijungti"
   }
 });
 
@@ -77,7 +79,7 @@ export class NavMenu extends Component {
               <br/>
               <LinkContainer to={"/"} exact>
                 <NavItem onClick={logout}>
-                  <Icon name="log out" /> Logout
+                  <Icon name="log out" /> {strings.logout}
                 </NavItem>
               </LinkContainer>
             </Nav>

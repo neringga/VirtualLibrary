@@ -1,10 +1,9 @@
-﻿using System;
-using System.Globalization;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using Newtonsoft.Json;
 using VILIB.Helpers;
 using VILIB.Presenters;
 
@@ -60,13 +59,12 @@ namespace VILIB.Controllers
                 {
                     return JsonResponse.JsonHttpResponse<object>(false);
                 }
-
-
             }
-
             return JsonResponse.JsonHttpResponse<object>(false);
         }
     }
+
+
 
     [EnableCors("*", "*", "*")]
     public class BookController : ApiController
@@ -80,8 +78,10 @@ namespace VILIB.Controllers
 
         public HttpResponseMessage Get()
         {
-            return JsonResponse.JsonHttpResponse(_bookPresenter.GetNotTakenBooks());
+            return JsonResponse.JsonHttpResponse(_bookPresenter.GetBooks());
         }
+
+
     }
 
     [EnableCors("*", "*", "*")]
@@ -94,6 +94,14 @@ namespace VILIB.Controllers
             _takenBookPresenter = takenBookPresenter;
         }
 
+        public async Task<HttpResponseMessage> Post()
+        {
+            var requestContent = Request.Content;
+            var jsonContent = await requestContent.ReadAsStringAsync();
+            
+            return JsonResponse.JsonHttpResponse<object>(_takenBookPresenter.IsTaken(jsonContent));
+        }
+
         public async Task<HttpResponseMessage> Put()
         {
             var requestContent = Request.Content;
@@ -101,8 +109,12 @@ namespace VILIB.Controllers
             var data = JsonConvert.DeserializeObject<Code>(jsonContent);
             try
             {
-                await _takenBookPresenter.ReturnBook(data.isbnCode, data.user);
-                return JsonResponse.JsonHttpResponse<object>(true);
+                if (_takenBookPresenter.IsTaken(data.isbnCode))
+                {
+                    await _takenBookPresenter.ReturnBook(data.isbnCode, data.user);
+                    return JsonResponse.JsonHttpResponse<object>(true);
+                }
+                return JsonResponse.JsonHttpResponse<object>(false);
             }
             catch (Exception)
             {

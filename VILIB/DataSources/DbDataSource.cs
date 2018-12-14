@@ -159,7 +159,8 @@ namespace VILIB.DataSources.Data
 
             var book = books.First();
             book.IsTaken = false;
-            book.TakenByUser = "";
+            book.TakenByUser = null;
+            book.HasToBeReturned = null;
 
             return (await _dbContext.SaveChangesAsync() == 1);
         }

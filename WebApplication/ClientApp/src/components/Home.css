@@ -55,6 +55,36 @@ img {
   padding-bottom: 10px;
 }
 
+.dotGreen {
+  height: 15px;
+  width: 15px;
+  background-color:green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotRed {
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.boxSearch {
+  text-align: center;
+  width: 80%;
+  /* height: 80%; */
+  margin: auto;
+  margin-top: 50px;
+  background: white;
+  padding: 30px;
+  padding-bottom: 50px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
 @media only screen and (min-width: 992px) {
   .ui.tiny.modal {
     position: fixed;
@@ -144,13 +174,13 @@ img {
 
 .boxQr {
   text-align: center;
-  width: 100%;
+  width: 80%;
   /* height: 80%; */
   margin: auto;
   margin-top: 100px;
   background: white;
   padding: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 50px;
   border: 1px #ccc solid;
   font-family: "Roboto Condensed", sans-serif;
   color: black;
@@ -184,6 +214,20 @@ img {
   color: black;
 }
 
+.boxActions {
+  text-align: center;
+  width: 90%;
+  /* height: 80%; */
+  margin: auto;
+  margin-top: 40px;
+  background: white;
+  padding: 10px;
+  padding-bottom: 10px;
+  border: 1px #ccc solid;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
 .boxRet {
   margin-top: 50px;
   padding-top: 50px;
@@ -200,7 +244,28 @@ img {
   padding-top: -30px;
 }
 
+.pMargin {
+  /* margin-right: 0px; */
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
 @media (min-width: 768px) {
+  .boxActions {
+    text-align: center;
+    width: 60%;
+    /* height: 80%; */
+    margin: auto;
+    margin-top: 100px;
+    background: white;
+    padding: 30px;
+    padding-bottom: 10px;
+    border: 1px #ccc solid;
+    font-family: "Roboto Condensed", sans-serif;
+    color: black;
+  }
+
   .regForm {
     margin-top: -30px;
     padding-top: -30px;
@@ -239,7 +304,7 @@ img {
     margin: auto;
     margin-top: 10px;
     background: white;
-    padding: 30px;
+    padding: 20px;
     padding-top: 10px;
     border: 1px #ccc solid;
     font-family: "Roboto Condensed", sans-serif;
@@ -288,7 +353,7 @@ img {
 }
 
 .languages {
-  margin-left: 350px;
+  margin-left: 370px;
 }
 
 .box logo {
@@ -321,6 +386,14 @@ img {
 .spacing {
   margin-top: 71px;
   margin-bottom: 0px;
+}
+
+.lettrSpacing {
+  letter-spacing: 0.2em;
+}
+
+.allignment {
+  text-align: left;
 }
 
 .signUpLink {

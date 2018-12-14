@@ -75,7 +75,7 @@ export class HomePage extends Component {
         </Header>
       </Grid.Column>
       </LinkContainer>
-      <LinkContainer to={'/ReturnBooks'} exact>
+      <LinkContainer to={'/BookTaking'} exact>
       <Grid.Column>
       <Header icon>
                                     <Icon name='minus' color='blue' />

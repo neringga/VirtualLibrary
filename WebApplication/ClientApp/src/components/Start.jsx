@@ -26,6 +26,9 @@ let strings = new LocalizedStrings({
 });
 
 export class Start extends Component {
+    componentDidMount() {
+        setLanguage("en");
+    }
   _onSetLanguageTo(lang) {
     strings.setLanguage(lang);
     this.setState({});

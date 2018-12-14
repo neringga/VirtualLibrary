@@ -7,36 +7,35 @@ import "./Home.css";
 import { HttpRequestPath } from "./Constants.jsx";
 import { getProfile } from "./AuthService";
 
-import LocalizedStrings from 'react-localization';
+import LocalizedStrings from "react-localization";
 import { getLanguage } from "./LangService";
 
 let strings = new LocalizedStrings({
-    en: {
-        chooseBook: "Choose book for more information",
-        title: "Title",
-        code: "Code",
-        bookInfo: "Book information",
-        description: "Description:",
-        genre: "Genre:",
-        review: "Reviews",
-        addReview: "Add review",
-        books: "Books",
-        author: "Author",
-    },
-    lt: {
-        chooseBook: "Pasirinkite knygą, jei norite gauti daugiau informacijos",
-        title: "Pavadinimas",
-        code: "Kodas",
-        bookInfo: "Informacija apie knygą",
-        description: "Aprašymas:",
-        genre: "Žanras:",
-        review: "Atsiliepimai",
-        addReview: "Pridėti atsiliepimą",
-        books: "Knygos",
-        author: "Autorius",
-    },
+  en: {
+    chooseBook: "Choose book for more information",
+    title: "Title",
+    code: "Code",
+    bookInfo: "Book information",
+    description: "Description:",
+    genre: "Genre:",
+    review: "Reviews",
+    addReview: "Add review",
+    books: "Books",
+    author: "Author"
+  },
+  lt: {
+    chooseBook: "Pasirinkite knygą, jei norite gauti daugiau informacijos",
+    title: "Pavadinimas",
+    code: "Kodas",
+    bookInfo: "Informacija apie knygą",
+    description: "Aprašymas:",
+    genre: "Žanras:",
+    review: "Atsiliepimai",
+    addReview: "Pridėti atsiliepimą",
+    books: "Knygos",
+    author: "Autorius"
+  }
 });
-
 
 export class BookList extends Component {
   constructor() {
@@ -64,7 +63,8 @@ export class BookList extends Component {
       showReview: true,
       showModal: true,
       Code: row.Code,
-      Author: row.Author
+      Author: row.Author,
+      taken: row.IsTaken
     });
     axios
       .get(
@@ -134,8 +134,12 @@ export class BookList extends Component {
             </div>
           ))}
           <form id="myForm">
-                  <div className="commentInput">
-                      <Input onChange={this.onInputChange} fluid placeholder={strings.review} />
+            <div className="commentInput">
+              <Input
+                onChange={this.onInputChange}
+                fluid
+                placeholder={strings.review}
+              />
             </div>
           </form>
           <Button
@@ -147,20 +151,20 @@ export class BookList extends Component {
             labelPosition="left"
           >
             <Icon name="add" />
-                  {strings.addReview}
+            {strings.addReview}
           </Button>
         </div>
       );
     } else {
       return null;
     }
-        }
+  };
 
-        _onSetLanguageTo(lang) {
-            strings.setLanguage(lang);
-        }
+  _onSetLanguageTo(lang) {
+    strings.setLanguage(lang);
+  }
 
-    render() {
+  render() {
     const lang = getLanguage();
     const selectRow = {
       mode: "radio",
@@ -177,12 +181,12 @@ export class BookList extends Component {
       right: 0
     };
 
-      return (
+    return (
       this._onSetLanguageTo(lang),
       this.state.books != null && (
         <div className="boxBooks">
-                  <h3>{strings.books}</h3>
-                  <p>{strings.chooseBook}</p>
+          <h3>{strings.books}</h3>
+          <p>{strings.chooseBook}</p>
           <br />
           <BootstrapTable
             search={true}
@@ -191,11 +195,13 @@ export class BookList extends Component {
             hover
           >
             <TableHeaderColumn dataField="Title" isKey={true}>
-                          {strings.title}
+              {strings.title}
             </TableHeaderColumn>
-                      <TableHeaderColumn dataField="Author">{strings.author}</TableHeaderColumn>
+            <TableHeaderColumn dataField="Author">
+              {strings.author}
+            </TableHeaderColumn>
             <TableHeaderColumn dataField="Code" hidden="true">
-                          {strings.code}
+              {strings.code}
             </TableHeaderColumn>
           </BootstrapTable>
 
@@ -206,18 +212,31 @@ export class BookList extends Component {
             styles={{ overlay: modalStyle }}
           >
             <div className="font">
-                          <h3>{strings.bookInfo}</h3>
-                          <p>
-                              <b>{strings.description}</b> {this.state.description}
+              <h3>{strings.bookInfo}</h3>
+              <br />
+
+              <p>
+                <b>{strings.description}</b> {this.state.description}
               </p>
               <br />
               <p>
-                              <b>{strings.gendre}</b> {this.state.ganre}, <b>Pages:</b>{" "}
+                <b>{strings.genre}</b> {this.state.ganre}, <b>Pages:</b>{" "}
                 {this.state.pages}
               </p>
+              <br />
+              {this.state.taken ? (
+                <div>
+                  <div className="dotRed" /> Taken
+                </div>
+              ) : (
+                <div>
+                  <div className="dotGreen" /> Not Taken
+                </div>
+              )}
+              <br />
             </div>
             <hr />
-                      <h3>{strings.review}</h3>
+            <h3>{strings.review}</h3>
             {this.handleReviewShowing(this.state.showReview)}
           </Modal>
         </div>
