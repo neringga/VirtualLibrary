@@ -4,9 +4,11 @@ import { Table } from "react-bootstrap";
 
 import { HttpRequestPath, bookListApi } from "./Constants";
 import Select from 'react-select';
+import { Button} from "semantic-ui-react";
 
 import LocalizedStrings from 'react-localization';
 import { getLanguage } from "./LangService";
+import './Home.css'
 
 let strings = new LocalizedStrings({
     en: {
@@ -18,6 +20,7 @@ let strings = new LocalizedStrings({
         enteredKeyword: "Enter search keyword",
         searchKeyword: "Search keyword", 
         search: "Search",
+        content:"Take this book"
     },
     lt: {
         Looking: "Ieškai konkretaus žanro?",
@@ -27,6 +30,7 @@ let strings = new LocalizedStrings({
         enteredKeyword: "Įveskite paieškos raktažodį",
         searchKeyword: "Paieškos raktažodis",
         search: "Ieškoti", 
+        content:"Paimti knygą",
     },
 
 });
@@ -76,14 +80,9 @@ export class BookSearch extends Component {
     };
 
     enteredKeyword = (event) => {
-        console.error('inout change', event);
-
     }
 
     search = () => {
-        console.error('search');
-        //this.setState({ books: [{ Author: 'aa', Title: 'bb' }] });
-        //this.setState({ showResults: true });
 
         this.setState({ loading: true });
         const data = {
@@ -91,11 +90,9 @@ export class BookSearch extends Component {
             Hashtags: this.state.selectedHashtags.map(h => h.value),
             Genre: this.state.selectedGenre.value
         };
-        console.error(data);
         axios
             .post(HttpRequestPath + "api/BookSearch", data)
             .then(response => {
-                console.error(response.data);
                 this.setState({
                     loading: false,
                     books: response.data,
@@ -124,6 +121,10 @@ export class BookSearch extends Component {
         strings.setLanguage(lang);
     }
 
+    takeBook () {
+        window.location = "./BookTaking";
+    }
+
     render() {
         const lang = getLanguage();
         let $loadingIcon = null;
@@ -139,22 +140,24 @@ export class BookSearch extends Component {
 
         if (this.state.showResults) {
             $table = (
+                <div className="allignment"> <br/>
                 <Table responsive>
                     <tbody>
                         {this.state.books.map((book, i) => (
                             <tr key={i} >
                                 {book.Title} {book.Author}
+                                <Button onClick={this.takeBook} basic floated='right' color='black' content={strings.content} />
                             </tr>
                         ))}
                     </tbody>
-                </Table>
+                </Table></div>
             );
         }
 
         if (this.state.genres.length !== 0) {
             $genreSelection = (
                 <div>
-                    <div className="ui horizontal divider">{strings.genreLooking}</div>
+                    <div className="ui horizontal divider">{strings.Looking}</div>
                     <Select
                         options={this.state.genres}
                         onChange={this.handleSelectedGenre}
@@ -185,7 +188,7 @@ export class BookSearch extends Component {
         return (
             this._onSetLanguageTo(lang),
             this.state.books != null && (
-                <div className="boxQr">
+                <div className="boxSearch">
                     <h3>{strings.bookSearch}</h3>
                     <br />
                     <div className="ui horizontal divider">{strings.enteredKeyword}</div>

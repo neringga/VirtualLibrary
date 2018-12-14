@@ -29,10 +29,3 @@ export const getProfile = () => {
   return decode(getToken()).unique_name;
 };
 
-//export const setLanguage = language => {
-//    localStorage.setItem("language", language);
-//};
-
-//export const getLanguage = () => {
-//    return localStorage.getItem("language");
-//}
