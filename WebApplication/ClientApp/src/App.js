@@ -44,7 +44,7 @@ export default class App extends Component {
         <Route exact path="/signIn/camera" component={LogInCamera} />
         <Layout>
           <AuthRoute exact path="/homePage" component={HomePage} />
-          <AuthRoute exact path="/bookTaking" component={BookTaking} />
+          <AuthRoute exact path="/bookActions" component={BookTaking} />
           <AuthRoute exact path="/returnBooks" component={ReturnBooks} />
           <AuthRoute exact path="/books" component={BookList} />
           <AuthRoute exact path='/bookSearch' component={BookSearch} />

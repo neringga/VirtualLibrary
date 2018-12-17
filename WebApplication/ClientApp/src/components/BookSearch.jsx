@@ -5,6 +5,7 @@ import { Table } from "react-bootstrap";
 import { HttpRequestPath, bookListApi } from "./Constants";
 import Select from 'react-select';
 import { Button} from "semantic-ui-react";
+import { LinkContainer } from "react-router-bootstrap";
 
 import LocalizedStrings from 'react-localization';
 import { getLanguage } from "./LangService";
@@ -15,6 +16,7 @@ let strings = new LocalizedStrings({
 
         Looking: "Looking for a particular genre?",
         selectGenre: "Select genre...",
+        selectHashtag: "Select hastag...",
         bookSearch: "Book Search",
         hashtags: "Specify hashtags to match your interests",
         enteredKeyword: "Enter search keyword",
@@ -25,6 +27,7 @@ let strings = new LocalizedStrings({
     lt: {
         Looking: "Ieškai konkretaus žanro?",
         selectGenre: "Pasirinkite žanrą...",
+        selectHashtag: "Pasirinkite žymę...",
         bookSearch: "Knygos paieška",
         hashtags: "Patikslinkite grotelėmis, norint, kad atitiktų Jūsų interesus ",
         enteredKeyword: "Įveskite paieškos raktažodį",
@@ -146,8 +149,9 @@ export class BookSearch extends Component {
                         {this.state.books.map((book, i) => (
                             <tr key={i} >
                                 {book.Title} {book.Author}
-                                <Button onClick={this.takeBook} basic floated='right' color='black' content={strings.content} />
-                            </tr>
+                                <LinkContainer to={"/BookActions"} exact>
+                                <Button basic floated='right' color='black' content={strings.content} />
+                            </LinkContainer></tr>
                         ))}
                     </tbody>
                 </Table></div>
@@ -175,7 +179,7 @@ export class BookSearch extends Component {
                         options={this.state.hashtags}
                         onChange={this.handleSelectedHashtag}
                         isMulti={true}
-                        placeholder={strings.selectGenre}
+                        placeholder={strings.selectHashtag}
                     />
                 </div>
             )

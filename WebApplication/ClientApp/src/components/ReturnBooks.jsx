@@ -37,14 +37,17 @@ let strings = new LocalizedStrings({
 });
 
 export class ReturnBooks extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       books: [],
       showModal: false,
       code: null
     };
+    
   }
+
+  
 
   componentDidMount() {
     const user = getProfile();
@@ -71,7 +74,7 @@ export class ReturnBooks extends Component {
   }
 
   onSelectBook = row => {
-    window.location = './BookTaking';
+    this.props.history.push('./BookActions');
   };
 
   _onSetLanguageTo(lang) {

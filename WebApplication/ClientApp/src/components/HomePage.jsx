@@ -85,6 +85,7 @@ export class HomePage extends Component {
       </LinkContainer>
     </Grid.Row>
     </Grid>
+    <br/><br/>
       </div>
     )
   }

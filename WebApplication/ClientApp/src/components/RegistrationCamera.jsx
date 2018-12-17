@@ -38,11 +38,12 @@ export class RegistrationCamera extends Component {
       photos: null,
       successes: 0,
       userError: 0,
-      serverError: 0
+      serverError: 0,
+      capture: true,
+      loading: false,
+      save: false,
     };
-    window.onload = function() {
-      document.getElementById("saveAndContinueButton").disabled = true;
-    };
+
   }
 
   setRef = webcam => {
@@ -50,7 +51,10 @@ export class RegistrationCamera extends Component {
   };
 
   capture = () => {
-    this.lockButtons();
+    this.setState({
+      loading: true,
+      capture: false,
+    })
 
     this.reset();
 
@@ -97,15 +101,16 @@ export class RegistrationCamera extends Component {
           this.savePhotos.bind(this);
           this.state.successes += 1;
           if (this.state.successes == imagesPerPerson) {
-            this.success();
-            this.unlockButtons();
+            this.setState({
+              save: true,
+              loading: false,
+            })
           }
         }
         if (response.data == false) {
           this.state.userError += 1;
           if (this.state.userError > maxUserError) {
             console.log("user fault"); //temp
-            this.unlockButtons();
             //Inform user about problem on his end, give suggestions
           }
         }
@@ -113,22 +118,12 @@ export class RegistrationCamera extends Component {
           this.state.serverError += 1;
           if (this.state.serverError > maxServerError) {
             console.log("server fault"); //temp
-            this.unlockButtons();
             //Inform user about problem in server
           }
         }
       });
   }
 
-  lockButtons() {
-    document.getElementById("captureButton").disabled = true;
-    document.getElementById("saveAndContinueButton").disabled = true;
-  }
-
-  unlockButtons() {
-    document.getElementById("captureButton").disabled = false;
-    document.getElementById("saveAndContinueButton").disabled = false;
-  }
 
   reset() {
     this.state.photos = [];
@@ -138,7 +133,6 @@ export class RegistrationCamera extends Component {
   }
 
   savePhoto() {
-    this.lockButtons();
 
     const data = {
       Bytes: this.state.photos[photosSent],
@@ -154,10 +148,9 @@ export class RegistrationCamera extends Component {
       if (saveRequestsMade == imagesPerPerson) {
         if (saveErrorHappened == true) {
           console.log("Server saving error");
-          this.unlockButtons();
           //Inform user about problem in server
         } else {
-          window.location = "/";
+          this.props.history.push("/");
           //Inform user about successful save
         }
       }
@@ -183,6 +176,41 @@ export class RegistrationCamera extends Component {
     strings.setLanguage(lang);
   }
 
+  showCapture = capture => {
+    if (capture) {
+      return (
+        <Button primary size="big" id="captureButton" onClick={this.capture}>
+          {strings.capture}
+        </Button>
+      );
+    } else return null;
+  };
+
+  showLoading = loading => {
+    if (loading) {
+      return (
+        <Button loading primary>
+          Loading
+        </Button>
+      );
+    } else return null;
+  };
+
+  showSave = save => {
+    if (save) {
+      return (
+        <Button
+              primary
+              size="big"
+              id="saveAndContinueButton"
+              onClick={this.savePhotos.bind(this)}
+            >
+              {strings.save}
+            </Button>
+      );
+    } else return null;
+  };
+
   render() {
     const lang = getLanguage();
 
@@ -196,6 +224,7 @@ export class RegistrationCamera extends Component {
       this._onSetLanguageTo(lang),
       (
         <div className="container">
+        <h3>Let us figure out who you are</h3>
           <center>
             <Webcam
               className="center"
@@ -206,10 +235,9 @@ export class RegistrationCamera extends Component {
             />
           </center>
           <center>
-          <Button primary size="big" id="captureButton" onClick={this.capture}>{strings.capture}</Button>
-          </center>
-          <center>
-          <Button primary size="big" id="saveAndContinueButton" onClick={this.savePhotos.bind(this)}>{strings.save}</Button>
+            {this.showCapture(this.state.capture)}
+            {this.showLoading(this.state.loading)}
+            {this.showSave(this.state.save)}
           </center>
         </div>
       )

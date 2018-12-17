@@ -168,7 +168,7 @@ export class BookTaking extends Component {
 
     axios.put(HttpRequestPath + "api/Review", data).then(res => {
       if (res) {
-        window.location = './books'
+        this.props.history.push('./books');
       }
     });
   };

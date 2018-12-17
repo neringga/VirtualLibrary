@@ -28,15 +28,15 @@ namespace VILIB.Presenters
         {
             var books = _mBookRepository.GetList();
             var historyBooks = _mBookRepository.GetHistoryBooks();
-            var ba = historyBooks.Where(book => book.TakenByUser == user);
-            foreach (var historyBook in historyBooks)
+            var userBooks = historyBooks.Where(book => book.TakenByUser == user);
+            foreach (var historyBook in userBooks)
             {
                 var book = books.FirstOrDefault(b => b.Code == historyBook.Code);
                 historyBook.Author = book.Author;
                 historyBook.Title = book.Title;
             }
 
-            return historyBooks;
+            return userBooks;
         }
 
         public IBook FindBookByCode(string code)

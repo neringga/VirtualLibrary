@@ -55,7 +55,7 @@ export class NavMenu extends Component {
                   <Glyphicon glyph="home" /> {strings.home}
                 </NavItem>
               </LinkContainer>
-              <LinkContainer to={"/BookTaking"} exact>
+              <LinkContainer to={"/BookActions"} exact>
                 <NavItem>
                   <Glyphicon glyph="	glyphicon glyphicon-download-alt" />{" "}
                   {strings.takeBook}
@@ -80,8 +80,8 @@ export class NavMenu extends Component {
               </LinkContainer>
               <LinkContainer to={"/history"} exact>
                 <NavItem>
-                  <Glyphicon glyph="glyphicon glyphicon-search" />{" "}
-                  {strings.history}
+                <Icon  name='history' />{" "}
+                   {strings.history}
                 </NavItem>
               </LinkContainer>
               <br/>

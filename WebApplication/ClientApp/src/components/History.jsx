@@ -30,9 +30,9 @@ export class History extends Component {
   }
 
   componentDidMount() {
-    axios.put(HttpRequestPath + BookHistoryApi, getProfile).then(response => {
+    axios.put(HttpRequestPath + BookHistoryApi, getProfile()).then(response => {
       if (response.data) {
-        console.log(Object.keys(response.data).length);
+        // console.log(Object.keys(response.data).length);
         this.setState({
           books: response.data
         });

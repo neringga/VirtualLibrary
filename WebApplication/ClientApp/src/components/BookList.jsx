@@ -9,6 +9,8 @@ import { getProfile } from "./AuthService";
 
 import LocalizedStrings from "react-localization";
 import { getLanguage } from "./LangService";
+import Highlight from "react-highlighter";
+import hashtag from "./Home.css"
 
 let strings = new LocalizedStrings({
   en: {
@@ -125,12 +127,13 @@ export class BookList extends Component {
 
   handleReviewShowing = showReview => {
     if (showReview || showReview === 1) {
+      var regex = /(^|\s)(#[a-z\d-]+)/;
       return (
         <div className="comments">
           {this.state.comments.map(comment => (
             <div className="singleComment">
               <Icon name="comment" />
-              <b>{comment.User}</b> {comment.Review}
+              <b>{comment.User}</b> <Highlight search={regex}>{comment.Review}</Highlight>
             </div>
           ))}
           <form id="myForm">
@@ -185,6 +188,7 @@ export class BookList extends Component {
       this._onSetLanguageTo(lang),
       this.state.books != null && (
         <div className="boxBooks">
+        
           <h3>{strings.books}</h3>
           <p>{strings.chooseBook}</p>
           <br />

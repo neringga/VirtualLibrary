@@ -46,10 +46,11 @@ export class LogInCamera extends Component {
       .then(response => {
         if (response.data) {
             setToken(response.data);
-            window.location = "/homePage";
+            this.props.history.push("/homePage");
           }
           else{
-            window.location = "/SignIn";
+            this.props.history.push("/SignIn");
+
           }
       })
   };

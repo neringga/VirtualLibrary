@@ -71,6 +71,31 @@ img {
   display: inline-block;
 }
 
+.custom-ui {
+  font-family: "Roboto Condensed", sans-serif;
+  text-align: center;
+  width: 500px;
+  padding: 40px;
+  background: #C0C0C0;
+  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
+  color: rgb(0, 0, 0);
+}
+
+.custom-ui > p {
+  margin-top: 0;
+}
+
+.custom-ui > button {
+  width: 160px;
+  padding: 10px;
+  border: 1px solid #fff;
+  margin: 10px;
+  cursor: pointer;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+}
+
 .boxSearch {
   text-align: center;
   width: 80%;
@@ -128,10 +153,14 @@ img {
   margin-top: -40px;
   background: white;
   padding: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   border: 1px #ccc solid;
   font-family: "Roboto Condensed", sans-serif;
   color: black;
+}
+
+.hashtag {
+  color: blue;
 }
 
 .boxRegistration {
@@ -147,6 +176,7 @@ img {
   font-family: "Roboto Condensed", sans-serif;
   color: black;
 }
+
 
 .webcam {
   margin-top:0px;
