@@ -1,7 +1,7 @@
 # VirtualLibrary
 
 ## Description
-Virtual Library is an application created in order to let users take or return books by themselves. 
+Virtual Library is an responsive web application created in order to let users take or return books by themselves. 
 
 ## Features
 * User can make himself an account in which he gives information such as "username", "surname", "name", "email", creates passwords and takes a portrait picture. 
@@ -12,6 +12,9 @@ Virtual Library is an application created in order to let users take or return b
 * User can choose the language of application- English or Lithuanian. 
 * User can write reviews about books.
 * User can search for books by hashtags, ganre or keywords.
+
+## Technologies 
+React js, .NET Web API, ES6, EF6, Bootstrap, Semantic UI, Emgu CV
 
 ## Installation
 You can download the application here - https://github.com/neringga/VirtualLibrary.git
