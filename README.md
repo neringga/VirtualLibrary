@@ -21,6 +21,12 @@ You can download the application here - https://github.com/neringga/VirtualLibra
 
 We recommend running application on MS Visual Studio.
 
+## UI
+
+![Alt text](UI/start.png?raw=true "Welcome page")
+![Alt text](UI/home.png?raw=true "Home page")
+![Alt text](UI/info.png?raw=true "Book info")
+
 ## Current maintainers
 * Neringa Geigalaitė
 * Austėja Kalpakovaitė
